@@ -276,7 +276,7 @@ public class Client implements Serializable {
         this.other_document = other_document;
     }
         
-    @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.REFRESH}, fetch = FetchType.EAGER)
+    @ManyToOne(cascade = {CascadeType.MERGE}, fetch = FetchType.EAGER)
     @JoinColumn(nullable = false, referencedColumnName = "companyId")
     private Company company;
 
@@ -288,7 +288,7 @@ public class Client implements Serializable {
         this.company = company;
     }
             
-    @OneToMany(mappedBy = "client")
+    @OneToMany(mappedBy = "client", fetch = FetchType.EAGER)
     private List<Recipe> recipe;
     
     

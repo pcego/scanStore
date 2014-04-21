@@ -26,19 +26,20 @@ public class DaoGeneric<T> implements IRepository<T> {
     
     protected EntityTransaction tran;
     
+    
     public DaoGeneric(Class type) {
+        
         this.type = type;
-                
-    }
-
-    protected EntityManager getManager() {
-       
+        
         factory = Persistence.createEntityManagerFactory("drugstorePU"); 
         
         manager = factory.createEntityManager();
         
         tran = manager.getTransaction();
-        
+    }
+
+    protected EntityManager getManager() {
+               
         return manager;
     }
 
@@ -69,7 +70,7 @@ public class DaoGeneric<T> implements IRepository<T> {
 
         try {
             tran.begin();
-            getManager().remove(getManager().getReference(type, obj));
+            getManager().remove(obj);
             tran.commit();
             return true;
         } catch (Exception e) {
@@ -84,7 +85,7 @@ public class DaoGeneric<T> implements IRepository<T> {
 
         try {
             tran.begin();
-            getManager().refresh(obj);
+            getManager().merge(obj);
             getManager().flush();
             tran.commit();
             return true;

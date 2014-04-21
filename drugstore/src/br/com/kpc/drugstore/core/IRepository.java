@@ -6,7 +6,7 @@ package br.com.kpc.drugstore.core;
 
 /**
  *
- * @author Dino
+ * @author Pcego
  */
 public interface IRepository <T> {
     

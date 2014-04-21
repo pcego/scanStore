@@ -10,6 +10,8 @@ package br.com.kpc.drugstore.core;
  */
 public interface IRepositoryCompany extends IRepository<Company> {
     
+    Company getCompany();       
+    
     boolean validateLicenceKey(String key);
     
 }

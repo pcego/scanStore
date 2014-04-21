@@ -66,7 +66,7 @@ public class Recipe implements Serializable {
         this.recipe_type = recipe_type;
     }
             
-    @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.REFRESH}, fetch = FetchType.EAGER)
+    @ManyToOne(cascade = {CascadeType.MERGE, CascadeType.PERSIST}, fetch = FetchType.EAGER)
     @JoinColumn(referencedColumnName = "clientId")
     private Client client;
 
@@ -78,7 +78,7 @@ public class Recipe implements Serializable {
         this.client = client;
     }
     
-    @OneToMany(mappedBy = "recipe")
+    @OneToMany(mappedBy = "recipe", fetch = FetchType.EAGER)
     private List<Ticket> ticket;
             
     @Override

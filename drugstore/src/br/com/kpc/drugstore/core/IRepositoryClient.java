@@ -6,7 +6,6 @@ package br.com.kpc.drugstore.core;
 
 import java.util.Date;
 import java.util.List;
-import static org.eclipse.persistence.jaxb.TypeMappingInfo.ElementScope.Local;
 
 /**
  *

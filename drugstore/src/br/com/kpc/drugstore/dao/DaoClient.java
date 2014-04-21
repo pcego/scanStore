@@ -32,7 +32,7 @@ public class DaoClient extends DaoGeneric<Client> implements IRepositoryClient {
     @Override
     public Ticket getLastShopByClient(Client obj) {
 
-        Query query = getManager().createQuery("SELECT ");
+        Query query = getManager().createQuery("");
         return (Ticket) query.getSingleResult();
     }
 

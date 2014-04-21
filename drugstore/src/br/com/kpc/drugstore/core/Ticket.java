@@ -83,7 +83,7 @@ public class Ticket implements Serializable {
         return hash;
     }
     
-    @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.REFRESH}, fetch = FetchType.EAGER, optional = false)
+    @ManyToOne(cascade = {CascadeType.MERGE, CascadeType.PERSIST}, fetch = FetchType.EAGER, optional = false)
     @JoinColumn(referencedColumnName = "recipeId")
     private Recipe recipe;
 
