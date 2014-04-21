@@ -19,11 +19,10 @@ public class testScan {
     
     
     public static void main(String[] args) throws JiaException {
+                  
         Scan sc = new Scan();
-        File[] img = sc.getGuiScan(); 
-        for(int i =0; i < img.length; i++){
-            
-        }
+        File[] img = sc.getGuiScan();
+        img[0].getAbsoluteFile().renameTo(new File("C:\\imagens", "testando.jpg"));
     }
     
 }

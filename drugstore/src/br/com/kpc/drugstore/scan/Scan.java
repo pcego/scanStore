@@ -6,7 +6,6 @@
 package br.com.kpc.drugstore.scan;
 
 import com.asprise.jia.JiaException;
-import com.asprise.jia.JiaManager;
 import com.asprise.jia.win.WiaJiaManager;
 import java.io.File;
 
@@ -16,9 +15,21 @@ import java.io.File;
  */
 public class Scan {
 
-    public File[] getGuiScan() throws JiaException {
-        File[] files = WiaJiaManager.getInstance().quickScanUsingUI(new File(new File("C:\\scanner"), "sc.jpg"), null);
-        System.out.println(files[0].getName());
+    private File img = new File("C:\\imagens");
+    private File[] files;
+
+    public File[] getGuiScan() {
+
+        try {
+
+            files = WiaJiaManager.getInstance().
+                    quickScanUsingUI(img, null);
+
+        } catch (JiaException jex) {
+            jex.printStackTrace();
+        }
         return files;
-   }
+    }
+    
+    
 }
