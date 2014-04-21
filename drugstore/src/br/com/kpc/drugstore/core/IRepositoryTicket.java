@@ -13,5 +13,6 @@ import java.util.List;
 public interface IRepositoryTicket extends IRepository<Ticket> {
 
     List<Ticket> listTicketByClient(Client obj);
+    Ticket getLastShopByClient(String cpf, boolean active);
     
 }

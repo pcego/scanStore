@@ -13,12 +13,11 @@ import java.util.List;
  */
 public interface IRepositoryClient extends IRepository<Client>{
     
-    List<Client> listAll();
-    Ticket getLastShopByClient(Client obj);
-    Client getClientByCpf(String cpf);
-    List<Client> listClientByBirthday(Date currentDate);
-    List<Client> listClientByName(String name);
-    List<Client> listClientByCity(String city);
-    List<Client> listClientWithNearShop(Date currentDate);   
+    List<Client> listAll(boolean active);    
+    Client getClientByCpf(String cpf, boolean active);
+    List<Client> listClientByBirthday();
+    List<Client> listClientByName(String name, boolean active);
+    List<Client> listClientByCity(String city, boolean active);
+    int clientRecipeValid(Date lastRecipe);    
     
 }

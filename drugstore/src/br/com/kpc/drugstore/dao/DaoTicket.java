@@ -23,7 +23,26 @@ public class DaoTicket extends DaoGeneric<Ticket> implements IRepositoryTicket {
     @Override
     public List<Ticket> listTicketByClient(Client obj) {
 
-        Query query = getManager().createQuery("");
+        Query query = getManager().createQuery("SELECT T FROM Ticket T "
+                + "JOIN Recipe R ON T.recipe.id = R.id "
+                + "JOIN Client C ON R.client.id = C.id WHERE C.cpf = :obj");
+        query.setParameter("obj", obj.getCpf());
         return query.getResultList();
+    }
+
+    @Override
+    public Ticket getLastShopByClient(String cpf, boolean active) {
+            
+        Query query = getManager().createQuery("SELECT T FROM Ticket T "
+                + "JOIN Recipe R ON T.recipe = R.id "
+                + "JOIN Client C ON R.client = C.id "
+                + "WHERE C.cpf = :cpf AND C.active = :active "
+                + "AND T.id = (SELECT MAX(T.id) FROM Ticket T WHERE  C.cpf = :cpf AND C.active = :active)"
+                + "GROUP BY C.cpf");
+        
+        query.setParameter("cpf", cpf);
+        query.setParameter("active", active);
+        
+        return (Ticket) query.getSingleResult();
     }
 }

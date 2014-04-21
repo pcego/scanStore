@@ -12,6 +12,6 @@ public interface IRepositoryCompany extends IRepository<Company> {
     
     Company getCompany();       
     
-    boolean validateLicenceKey(String key);
+    String getLicenceKey();
     
 }

@@ -58,21 +58,21 @@ public class testBd {
         
         //repo.salvar(cl);
         
-        List<Client> lc = repo.listAll();
+        //List<Client> lc = repo.listAll();
         
         //lc.get(0).setEmail("pcego@uol.com");
         
-        System.out.println(lc.get(0).getEmail());
+        //System.out.println(lc.get(0).getEmail());
         
-        boolean b = repo.apagar(lc.get(0));
-        System.out.println(b);        
+        //boolean b = repo.apagar(lc.get(0));
+        //System.out.println(b);        
         
         
-        List<Client> lc2 = repo.listAll();
+        //List<Client> lc2 = repo.listAll();
         
-        for(Client lcs : lc2){
-            System.out.println(lcs);            
-        }
+        //for(Client lcs : lc2){
+          //  System.out.println(lcs);            
+        //}
 
     }
 }

@@ -18,22 +18,17 @@ public class DaoCompany extends DaoGeneric<Company> implements IRepositoryCompan
         super(Company.class);
     }
 
-    
     @Override
-    public boolean validateLicenceKey(String key) {
+    public String getLicenceKey() {
 
-        Query query = getManager().createQuery("");
-
-        if (true) {
-            //implementar validação; ????????
-        }
-        return true;
+        Query query = getManager().createQuery("SELECT CM.System_key FROM Company CM");
+        return (String) query.getSingleResult();
     }
 
     @Override
     public Company getCompany() {
-        
-        Query query = getManager().createQuery("SELECT cm FROM Company cm");
+
+        Query query = getManager().createQuery("SELECT CM FROM Company CM");
         return (Company) query.getSingleResult();
     }
 }
