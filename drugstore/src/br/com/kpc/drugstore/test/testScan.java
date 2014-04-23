@@ -3,7 +3,6 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package br.com.kpc.drugstore.test;
 
 import br.com.kpc.drugstore.scan.Scan;
@@ -15,14 +14,20 @@ import java.io.File;
  * @author Dino
  */
 public class testScan {
-    
-    
-    
+
     public static void main(String[] args) throws JiaException {
-                  
+
         Scan sc = new Scan();
-        File[] img = sc.getGuiScan();
-        img[0].getAbsoluteFile().renameTo(new File("C:\\imagens", "testando.jpg"));
+        File[] img = sc.getGuiScan("C:\\imagens");
+       
+        boolean b = Scan.renameImg(img[0], "C:\\imagens", "novoNome");
+
+        if (b) {
+            System.out.println("sucesso");
+        }
+        else{
+            System.out.println("falha ao renomear");
+        }
     }
-    
+
 }

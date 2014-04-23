@@ -15,10 +15,12 @@ import java.io.File;
  */
 public class Scan {
 
-    private File img = new File("C:\\imagens");
+    private File img;
     private File[] files;
 
-    public File[] getGuiScan() {
+    public File[] getGuiScan(String path) {
+
+        img = new File(path);
 
         try {
 
@@ -27,9 +29,14 @@ public class Scan {
 
         } catch (JiaException jex) {
             jex.printStackTrace();
+
         }
         return files;
     }
-    
-    
+
+    public static boolean renameImg(File img, String path, String newName) {
+
+        return img.getAbsoluteFile().renameTo(new File(path, newName));
+        
+    }
 }
