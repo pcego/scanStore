@@ -4,7 +4,7 @@
  * and open the template in the editor.
  */
 
-package br.com.kpc.drugstore.gui.frame;
+package br.com.kpc.drugstore.gui;
 
 /**
  *
@@ -28,7 +28,7 @@ public class Company extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        companyPanel1 = new br.com.kpc.drugstore.gui.panel.CompanyPanel();
+        companyPanel1 = new br.com.kpc.drugstore.gui.CompanyPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -88,6 +88,6 @@ public class Company extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private br.com.kpc.drugstore.gui.panel.CompanyPanel companyPanel1;
+    private br.com.kpc.drugstore.gui.CompanyPanel companyPanel1;
     // End of variables declaration//GEN-END:variables
 }
