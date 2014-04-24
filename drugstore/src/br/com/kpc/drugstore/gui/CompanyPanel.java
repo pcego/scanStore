@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package br.com.kpc.drugstore.gui.panel;
+package br.com.kpc.drugstore.gui;
 
 import br.com.kpc.drugstore.core.Company;
 import br.com.kpc.drugstore.core.IRepositoryCompany;

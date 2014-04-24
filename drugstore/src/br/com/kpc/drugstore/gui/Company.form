@@ -41,7 +41,7 @@
     </DimensionLayout>
   </Layout>
   <SubComponents>
-    <Component class="br.com.kpc.drugstore.gui.panel.CompanyPanel" name="companyPanel1">
+    <Component class="br.com.kpc.drugstore.gui.CompanyPanel" name="companyPanel1">
     </Component>
   </SubComponents>
 </Form>
