@@ -80,7 +80,7 @@ public class TestImagen extends javax.swing.JFrame {
             BufferedImage bfi = ImageIO.read(img);
             imagen.setIcon(new ImageIcon(bfi));
         }catch(IOException iex){
-            iex.printStackTrace();
+            System.out.println(iex);
         }
         
         
