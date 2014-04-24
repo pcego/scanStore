@@ -12,7 +12,6 @@ import br.com.kpc.drugstore.core.IRepositoryCompany;
 import br.com.kpc.drugstore.dao.DaoClient;
 import br.com.kpc.drugstore.dao.DaoCompany;
 import java.util.Calendar;
-import java.util.List;
 import javax.naming.NamingException;
 
 /**
