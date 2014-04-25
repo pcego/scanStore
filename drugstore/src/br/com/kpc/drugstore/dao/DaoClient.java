@@ -33,8 +33,8 @@ public class DaoClient extends DaoGeneric<Client> implements IRepositoryClient {
     public Client getClientByCpf(String cpf, boolean active) {
 
         Query query = getManager().createQuery("SELECT C FROM Client C WHERE "
-                + "C.cpf LIKE :cpf AND C.active = :active ORDER BY C.name");
-        query.setParameter(cpf, "cpf");
+                + "C.cpf = :cpf AND C.active = :active ORDER BY C.name");
+        query.setParameter("cpf", cpf);
         query.setParameter("active", active);
         return (Client) query.getSingleResult();
     }
