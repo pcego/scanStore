@@ -3,15 +3,6 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/scanStore/drugstore/src/br/com/kpc/drugstore/test/Test.java</file>
-            <file>file:/C:/scanStore/drugstore/src/br/com/kpc/drugstore/scan/Scan.java</file>
-            <file>file:/C:/scanStore/drugstore/src/br/com/kpc/drugstore/util/Cryptography.java</file>
-            <file>file:/C:/scanStore/drugstore/src/br/com/kpc/drugstore/test/testBd.java</file>
-            <file>file:/C:/scanStore/drugstore/src/META-INF/persistence.xml</file>
-            <file>file:/C:/scanStore/drugstore/src/br/com/kpc/drugstore/test/testScan.java</file>
-            <file>file:/C:/scanStore/drugstore/src/br/com/kpc/drugstore/core/Company.java</file>
-            <file>file:/C:/scanStore/drugstore/src/br/com/kpc/drugstore/core/IRepositoryClient.java</file>
-            <file>file:/C:/scanStore/drugstore/src/br/com/kpc/drugstore/test/TestImagen.java</file>
             <file>file:/C:/scanStore/drugstore/src/br/com/kpc/drugstore/core/Client.java</file>
         </group>
     </open-files>

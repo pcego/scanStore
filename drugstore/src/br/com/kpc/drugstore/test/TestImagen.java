@@ -9,10 +9,7 @@ package br.com.kpc.drugstore.test;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.imageio.ImageIO;
-import javax.swing.Icon;
 import javax.swing.ImageIcon;
 
 /**
@@ -74,19 +71,15 @@ public class TestImagen extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void carregarImgActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_carregarImgActionPerformed
+        
         File img = new File("C:\\imagens\\testando.jpg");
-       
+        
         try {
             BufferedImage bfi = ImageIO.read(img);
             imagen.setIcon(new ImageIcon(bfi));
         }catch(IOException iex){
             System.out.println(iex);
-        }
-        
-        
-        
-        
-        
+        } 
     }//GEN-LAST:event_carregarImgActionPerformed
 
     /**
