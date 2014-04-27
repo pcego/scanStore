@@ -17,12 +17,7 @@ public class FormatDate {
     
    public static String dateCovertToShow(Date date){
        
-       return new SimpleDateFormat("DD//MM//YYYY").format(date);
+       return new SimpleDateFormat("dd/MM/yyyy").format(date);
    }
-   
-   public static String dateConvertToPersist(String date){
-       
-       return new SimpleDateFormat("YYYY//MM//DD").format(date);
-   }
-   
+      
 }
