@@ -775,7 +775,7 @@ public class ClienteFrame extends javax.swing.JFrame {
             try {
                 date = new SimpleDateFormat("dd/MM/yyyy").parse(tvBirthDay.getText());
             } catch (ParseException ex) {
-                Logger.getLogger(ClientPanel.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(ClienteFrame.class.getName()).log(Level.SEVERE, null, ex);
             }
             client.setDt_nasc(date);
             client.setCpf(tvCPF.getText());
@@ -857,7 +857,7 @@ public class ClienteFrame extends javax.swing.JFrame {
             try {
                 date = new SimpleDateFormat("dd/MM/yyyy").parse(tvBirthDay.getText());
             } catch (ParseException ex) {
-                Logger.getLogger(ClientPanel.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(ClienteFrame.class.getName()).log(Level.SEVERE, null, ex);
             }
             client.setDt_nasc(date);
             client.setCpf(tvCPF.getText());
@@ -925,12 +925,6 @@ public class ClienteFrame extends javax.swing.JFrame {
         tbGrid.setModel(new ClientesTableModel(listClisnt));
     }
 
-    public void passaCamposComEnter(ClientPanel painel) {
-        // Colocando enter para pular de campo  
-        HashSet conj = new HashSet(painel.getFocusTraversalKeys(KeyboardFocusManager.FORWARD_TRAVERSAL_KEYS));
-        conj.add(AWTKeyStroke.getAWTKeyStroke(KeyEvent.VK_ENTER, 0));
-        painel.setFocusTraversalKeys(KeyboardFocusManager.FORWARD_TRAVERSAL_KEYS, conj);
-    }
 
     private void limparCampos() {
 
