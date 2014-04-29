@@ -6,7 +6,7 @@ package br.com.kpc.drugstore.util;
 
 /**
  *
- * @author Dino
+ * @author Pcego
  */
 public class Config {
     
