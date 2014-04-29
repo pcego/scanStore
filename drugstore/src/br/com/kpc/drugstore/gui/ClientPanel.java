@@ -11,13 +11,20 @@ import br.com.kpc.drugstore.core.IRepositoryClient;
 import br.com.kpc.drugstore.core.IRepositoryCompany;
 import br.com.kpc.drugstore.dao.DaoClient;
 import br.com.kpc.drugstore.dao.DaoCompany;
+import br.com.kpc.drugstore.util.ClientesTableModel;
 import br.com.kpc.drugstore.util.FormatDate;
+import java.awt.AWTKeyStroke;
+import java.awt.KeyboardFocusManager;
+import java.awt.Point;
+import java.awt.event.KeyEvent;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashSet;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import sun.text.resources.FormatData;
 
 /**
  *
@@ -30,6 +37,7 @@ public class ClientPanel extends javax.swing.JPanel {
      */
     public ClientPanel() {
         initComponents();
+        loadingTable();
     }
 
     /**
@@ -44,9 +52,9 @@ public class ClientPanel extends javax.swing.JPanel {
         jLabel1 = new javax.swing.JLabel();
         jLabel11 = new javax.swing.JLabel();
         tvEmail = new javax.swing.JTextField();
-        jTabbedPane1 = new javax.swing.JTabbedPane();
+        btGrid = new javax.swing.JTabbedPane();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        tbGrid = new javax.swing.JTable();
         jPanel1 = new javax.swing.JPanel();
         jLabel12 = new javax.swing.JLabel();
         tvAdressPostalCode = new javax.swing.JFormattedTextField();
@@ -62,15 +70,6 @@ public class ClientPanel extends javax.swing.JPanel {
         jLabel18 = new javax.swing.JLabel();
         jLabel17 = new javax.swing.JLabel();
         tvAdressComplement = new javax.swing.JTextField();
-        btAdicionar = new javax.swing.JToggleButton();
-        jToggleButton2 = new javax.swing.JToggleButton();
-        jToggleButton3 = new javax.swing.JToggleButton();
-        jToggleButton4 = new javax.swing.JToggleButton();
-        jToggleButton5 = new javax.swing.JToggleButton();
-        jToggleButton6 = new javax.swing.JToggleButton();
-        jToggleButton7 = new javax.swing.JToggleButton();
-        jToggleButton8 = new javax.swing.JToggleButton();
-        jToggleButton9 = new javax.swing.JToggleButton();
         jPanel2 = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
         tvCodigo = new javax.swing.JTextField();
@@ -95,25 +94,36 @@ public class ClientPanel extends javax.swing.JPanel {
         rbAtivo = new javax.swing.JRadioButton();
         jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
+        btUltimo = new javax.swing.JButton();
+        btProximo = new javax.swing.JButton();
+        btAnterior = new javax.swing.JButton();
+        btInicio = new javax.swing.JButton();
+        btCancelar = new javax.swing.JButton();
+        btSalvar = new javax.swing.JButton();
+        btExcluir = new javax.swing.JButton();
+        btAlterar = new javax.swing.JButton();
+        btAdicionar = new javax.swing.JButton();
 
         jLabel1.setText("Cadastro de Cliente");
 
         jLabel11.setText("Email:");
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        tbGrid.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null}
+
             },
             new String [] {
                 "Cod", "Nome", "CPF"
             }
         ));
-        jScrollPane1.setViewportView(jTable1);
+        tbGrid.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tbGridMouseClicked(evt);
+            }
+        });
+        jScrollPane1.setViewportView(tbGrid);
 
-        jTabbedPane1.addTab("Clientes Cadastrados", jScrollPane1);
+        btGrid.addTab("Clientes Cadastrados", jScrollPane1);
 
         jPanel1.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
@@ -211,42 +221,16 @@ public class ClientPanel extends javax.swing.JPanel {
                 .addContainerGap())
         );
 
-        btAdicionar.setText("Adicionar");
-        btAdicionar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btAdicionarActionPerformed(evt);
-            }
-        });
-
-        jToggleButton2.setText("Alterar");
-        jToggleButton2.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jToggleButton2ActionPerformed(evt);
-            }
-        });
-
-        jToggleButton3.setText("Excluir");
-
-        jToggleButton4.setText("Salvar");
-        jToggleButton4.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jToggleButton4ActionPerformed(evt);
-            }
-        });
-
-        jToggleButton5.setText("Cancelar");
-
-        jToggleButton6.setText("Início");
-
-        jToggleButton7.setText("Anterior");
-
-        jToggleButton8.setText("Próximo");
-
-        jToggleButton9.setText("Último");
-
         jPanel2.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
         jLabel2.setText("Código:");
+
+        tvCodigo.setNextFocusableComponent(tvName);
+        tvCodigo.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                tvCodigoKeyPressed(evt);
+            }
+        });
 
         jLabel3.setText("*Nome:");
 
@@ -307,103 +291,121 @@ public class ClientPanel extends javax.swing.JPanel {
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGap(10, 10, 10)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addComponent(jLabel2)
-                        .addGap(4, 4, 4)
-                        .addComponent(tvCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(4, 4, 4)
-                        .addComponent(jLabel3)
-                        .addGap(18, 18, 18)
-                        .addComponent(tvName, javax.swing.GroupLayout.PREFERRED_SIZE, 300, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addComponent(jLabel9)
-                        .addGap(12, 12, 12)
-                        .addComponent(tvCPF, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(4, 4, 4)
-                        .addComponent(jLabel7)
-                        .addGap(27, 27, 27)
-                        .addComponent(cbSexo, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(5, 5, 5)
-                        .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(10, 10, 10)
-                        .addComponent(cbEstCivil, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addComponent(jLabel10)
-                        .addGap(27, 27, 27)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel2Layout.createSequentialGroup()
-                                .addGap(167, 167, 167)
-                                .addComponent(tvBirthDay, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(tvRG, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(jLabel2)
+                                .addGap(4, 4, 4)
+                                .addComponent(tvCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(jPanel2Layout.createSequentialGroup()
-                                .addGap(107, 107, 107)
-                                .addComponent(jLabel19)))
-                        .addGap(65, 65, 65)
-                        .addComponent(rbAtivo))
+                                .addComponent(jLabel9)
+                                .addGap(12, 12, 12)
+                                .addComponent(tvCPF, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(jPanel2Layout.createSequentialGroup()
+                                .addComponent(jLabel10)
+                                .addGap(27, 27, 27)
+                                .addComponent(tvRG, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE))))
                     .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addContainerGap()
                         .addComponent(jLabel4)
                         .addGap(4, 4, 4)
+                        .addComponent(tvPhone, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel5)
+                            .addGroup(jPanel2Layout.createSequentialGroup()
+                                .addGap(5, 5, 5)
+                                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel3)
+                                    .addComponent(jLabel7))))
+                        .addGap(20, 20, 20))
+                    .addComponent(jLabel19, javax.swing.GroupLayout.Alignment.TRAILING))
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGap(5, 5, 5)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(tvName, javax.swing.GroupLayout.PREFERRED_SIZE, 290, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(jPanel2Layout.createSequentialGroup()
+                                .addComponent(tvCellPhone1, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(jLabel6)
+                                .addGap(1, 1, 1)
+                                .addComponent(tvCellPhone2, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                    .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel2Layout.createSequentialGroup()
-                                .addGap(98, 98, 98)
-                                .addComponent(jLabel5))
-                            .addComponent(tvPhone, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(21, 21, 21)
-                        .addComponent(tvCellPhone1, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, 0)
-                        .addComponent(jLabel6)
-                        .addGap(1, 1, 1)
-                        .addComponent(tvCellPhone2, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                .addGap(5, 5, 5)
+                                .addComponent(cbSexo, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(jPanel2Layout.createSequentialGroup()
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(tvBirthDay, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(10, 10, 10)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(rbAtivo)
+                            .addComponent(cbEstCivil, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addGap(0, 0, 0))
         );
         jPanel2Layout.setVerticalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addGap(11, 11, 11)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGap(3, 3, 3)
-                        .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(tvCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(51, 51, 51)
+                        .addComponent(tvBirthDay, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGap(3, 3, 3)
-                        .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGap(7, 7, 7)
-                        .addComponent(tvName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGap(7, 7, 7)
-                        .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGap(4, 4, 4)
-                        .addComponent(tvCPF, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGap(4, 4, 4)
-                        .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(cbSexo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(cbEstCivil, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(3, 3, 3)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel10, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(tvBirthDay, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(tvRG, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel19, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(rbAtivo))
-                .addGap(15, 15, 15)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(tvPhone, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGap(2, 2, 2)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(jPanel2Layout.createSequentialGroup()
+                                .addComponent(tvName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(jPanel2Layout.createSequentialGroup()
+                                        .addGap(27, 27, 27)
+                                        .addComponent(rbAtivo))
+                                    .addGroup(jPanel2Layout.createSequentialGroup()
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                            .addComponent(cbSexo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addComponent(cbEstCivil, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                            .addGroup(jPanel2Layout.createSequentialGroup()
+                                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(jPanel2Layout.createSequentialGroup()
+                                        .addGap(3, 3, 3)
+                                        .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                        .addComponent(tvCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(jPanel2Layout.createSequentialGroup()
+                                        .addGap(11, 11, 11)
+                                        .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addGroup(jPanel2Layout.createSequentialGroup()
+                                        .addGap(8, 8, 8)
+                                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                            .addComponent(tvCPF, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                                .addGap(3, 3, 3)
+                                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel10, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                        .addComponent(tvRG, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(jLabel19, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                        .addGap(6, 6, 6)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                .addComponent(tvPhone, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addComponent(tvCellPhone1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(tvCellPhone2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                            .addComponent(tvCellPhone2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addGap(19, 19, 19))
         );
 
         jButton1.setText("Limpar");
@@ -417,6 +419,64 @@ public class ClientPanel extends javax.swing.JPanel {
         jButton2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton2ActionPerformed(evt);
+            }
+        });
+
+        btUltimo.setText("Último");
+
+        btProximo.setText("Próximo");
+        btProximo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btProximoActionPerformed(evt);
+            }
+        });
+
+        btAnterior.setText("Anterior");
+        btAnterior.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btAnteriorActionPerformed(evt);
+            }
+        });
+
+        btInicio.setText("Início");
+        btInicio.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btInicioActionPerformed(evt);
+            }
+        });
+
+        btCancelar.setText("Cancelar");
+        btCancelar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btCancelarActionPerformed(evt);
+            }
+        });
+
+        btSalvar.setText("Salvar");
+        btSalvar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btSalvarActionPerformed(evt);
+            }
+        });
+
+        btExcluir.setText("Excluir");
+        btExcluir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btExcluirActionPerformed(evt);
+            }
+        });
+
+        btAlterar.setText("Alterar");
+        btAlterar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btAlterarActionPerformed(evt);
+            }
+        });
+
+        btAdicionar.setText("Adicionar");
+        btAdicionar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btAdicionarActionPerformed(evt);
             }
         });
 
@@ -440,34 +500,34 @@ public class ClientPanel extends javax.swing.JPanel {
                         .addComponent(tvEmail, javax.swing.GroupLayout.PREFERRED_SIZE, 656, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(10, 10, 10)
-                        .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 650, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(btGrid, javax.swing.GroupLayout.PREFERRED_SIZE, 650, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(10, 10, 10)
-                        .addComponent(btAdicionar, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, 0)
-                        .addComponent(jToggleButton2)
-                        .addGap(5, 5, 5)
-                        .addComponent(jToggleButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, 0)
-                        .addComponent(jToggleButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, 0)
-                        .addComponent(jToggleButton5, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, 0)
-                        .addComponent(jToggleButton6, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, 0)
-                        .addComponent(jToggleButton7, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, 0)
-                        .addComponent(jToggleButton8, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, 0)
-                        .addComponent(jToggleButton9, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(11, 11, 11)
+                        .addComponent(btAdicionar)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(btAlterar)
+                        .addGap(1, 1, 1)
+                        .addComponent(btExcluir)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(btSalvar)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(btCancelar)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(btInicio)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(btAnterior)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(btProximo)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(btUltimo)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jButton1)
-                    .addComponent(jButton2))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jButton2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(22, 22, 22))
         );
         layout.setVerticalGroup(
@@ -481,7 +541,7 @@ public class ClientPanel extends javax.swing.JPanel {
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jButton2)))
+                        .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(10, 10, 10)
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -489,18 +549,18 @@ public class ClientPanel extends javax.swing.JPanel {
                 .addGap(0, 0, 0)
                 .addComponent(tvEmail, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(10, 10, 10)
-                .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(btGrid, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(30, 30, 30)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btInicio)
+                    .addComponent(btCancelar)
+                    .addComponent(btSalvar)
+                    .addComponent(btExcluir)
+                    .addComponent(btAlterar)
                     .addComponent(btAdicionar)
-                    .addComponent(jToggleButton2)
-                    .addComponent(jToggleButton3)
-                    .addComponent(jToggleButton4)
-                    .addComponent(jToggleButton5)
-                    .addComponent(jToggleButton6)
-                    .addComponent(jToggleButton7)
-                    .addComponent(jToggleButton8)
-                    .addComponent(jToggleButton9))
+                    .addComponent(btAnterior)
+                    .addComponent(btProximo)
+                    .addComponent(btUltimo))
                 .addContainerGap(169, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
@@ -511,8 +571,239 @@ public class ClientPanel extends javax.swing.JPanel {
     private IRepositoryClient iRepositoryClient = (IRepositoryClient) new DaoClient();
     private Client client = new Client();
     private String opMenu = null; // I insert, D Delete U update
+    //Linha da tabela selecionada
+    private int linhaSelecionada = 0;
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        limparCampos();
+    }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+
+        getCliente(tvCPF.getText().toString(), true);
+
+
+    }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void tbGridMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tbGridMouseClicked
+
+        Point point = evt.getPoint();
+        linhaSelecionada = tbGrid.rowAtPoint(point);
+        getCliente(tbGrid.getValueAt(linhaSelecionada, 2).toString(), true);
+
+    }//GEN-LAST:event_tbGridMouseClicked
+
+    private void btProximoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btProximoActionPerformed
+        if (linhaSelecionada <  tbGrid.getRowCount()-1 ) {
+            linhaSelecionada += 1;
+            getCliente(tbGrid.getValueAt(linhaSelecionada, 2).toString(), true);
+        }      
+    }//GEN-LAST:event_btProximoActionPerformed
+
+    private void btAnteriorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btAnteriorActionPerformed
+        if (linhaSelecionada > 0) {
+            linhaSelecionada -= 1;
+            getCliente(tbGrid.getValueAt(linhaSelecionada, 2).toString(), true);
+        }
+    }//GEN-LAST:event_btAnteriorActionPerformed
+
+    private void btInicioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btInicioActionPerformed
+        getCliente(tbGrid.getValueAt(0, 2).toString(), true);
+    }//GEN-LAST:event_btInicioActionPerformed
+
+    private void btCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btCancelarActionPerformed
+        btTypeDefault();
+        limparCampos();
+    }//GEN-LAST:event_btCancelarActionPerformed
+
+    private void btSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btSalvarActionPerformed
+
+        switch (opMenu) {
+            case "U":
+                update();
+                break;
+            case "I":
+                insert();
+                break;
+            case "D":
+                delete();
+                break;
+        }
+        opMenu = null;
+        btTypeDefault();
+    }//GEN-LAST:event_btSalvarActionPerformed
+
+    private void btExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btExcluirActionPerformed
+        opMenu = "D";
+        btTypeDefault();
+    }//GEN-LAST:event_btExcluirActionPerformed
+
+    private void btAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btAlterarActionPerformed
+        opMenu = "U";
+        btTypeUpdate();
+    }//GEN-LAST:event_btAlterarActionPerformed
 
     private void btAdicionarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btAdicionarActionPerformed
+        opMenu = "I";
+        btTypeInsert();
+    }//GEN-LAST:event_btAdicionarActionPerformed
+
+    private void tvCodigoKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tvCodigoKeyPressed
+     if (evt.getKeyCode() == 10){ //ENTER                   
+        evt.setKeyCode(KeyEvent.VK_TAB);                  
+     }
+    }//GEN-LAST:event_tvCodigoKeyPressed
+
+    private void limparCampos() {
+
+        tvCodigo.setText(null);
+        tvName.setText(null);
+        cbSexo.setSelectedIndex(0);
+        cbEstCivil.setSelectedIndex(0);
+        tvBirthDay.setText(null);
+        tvCPF.setText(null);
+        tvRG.setText(null);
+        tvPhone.setText(null);
+        tvCellPhone1.setText(null);
+        tvCellPhone2.setText(null);
+        tvAdressPostalCode.setText(null);
+        tvAdressStreet.setText(null);
+        tvAdressNumber.setText(null);
+        tvAdressComplement.setText(null);
+        tvAdressCity.setText(null);
+        tvAdressNeighborhood.setText(null);
+        cbAdressStat.setSelectedIndex(12);
+        tvEmail.setText(null);
+        rbAtivo.setSelected(false);
+
+    }
+
+    private void btTypeInsert() {
+        btAdicionar.setEnabled(false);
+        btAlterar.setEnabled(false);
+        btExcluir.setEnabled(false);
+        btSalvar.setEnabled(true);
+        btCancelar.setEnabled(true);
+        btInicio.setEnabled(false);
+        btAnterior.setEnabled(false);
+        btProximo.setEnabled(false);
+        btUltimo.setEnabled(false);
+    }
+
+    private void btTypeUpdate() {
+        btAdicionar.setEnabled(false);
+        btAlterar.setEnabled(false);
+        btExcluir.setEnabled(false);
+        btSalvar.setEnabled(true);
+        btCancelar.setEnabled(true);
+        btInicio.setEnabled(false);
+        btAnterior.setEnabled(false);
+        btProximo.setEnabled(false);
+        btUltimo.setEnabled(false);
+    }
+
+    private void btTypeSearch() {
+        btAdicionar.setEnabled(false);
+        btAlterar.setEnabled(false);
+        btExcluir.setEnabled(false);
+        btSalvar.setEnabled(false);
+        btCancelar.setEnabled(true);
+        if (tbGrid.getRowCount() > 1) {
+            btInicio.setEnabled(true);
+            btAnterior.setEnabled(true);
+            btProximo.setEnabled(true);
+            btUltimo.setEnabled(true);
+        } else {
+            btInicio.setEnabled(false);
+            btAnterior.setEnabled(false);
+            btProximo.setEnabled(false);
+            btUltimo.setEnabled(false);
+
+        }
+
+    }
+
+    private void btTypeDefault() {
+        btAdicionar.setEnabled(true);
+        btAlterar.setEnabled(true);
+        btExcluir.setEnabled(true);
+        btSalvar.setEnabled(false);
+        btCancelar.setEnabled(false);
+        if (tbGrid.getRowCount() > 1) {
+            btInicio.setEnabled(true);
+            btAnterior.setEnabled(true);
+            btProximo.setEnabled(true);
+            btUltimo.setEnabled(true);
+        } else {
+            btInicio.setEnabled(false);
+            btAnterior.setEnabled(false);
+            btProximo.setEnabled(false);
+            btUltimo.setEnabled(false);
+
+        }
+    }
+
+
+    // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btAdicionar;
+    private javax.swing.JButton btAlterar;
+    private javax.swing.JButton btAnterior;
+    private javax.swing.JButton btCancelar;
+    private javax.swing.JButton btExcluir;
+    private javax.swing.JTabbedPane btGrid;
+    private javax.swing.JButton btInicio;
+    private javax.swing.JButton btProximo;
+    private javax.swing.JButton btSalvar;
+    private javax.swing.JButton btUltimo;
+    private javax.swing.JComboBox cbAdressStat;
+    private javax.swing.JComboBox cbEstCivil;
+    private javax.swing.JComboBox cbSexo;
+    private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButton2;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel10;
+    private javax.swing.JLabel jLabel11;
+    private javax.swing.JLabel jLabel12;
+    private javax.swing.JLabel jLabel13;
+    private javax.swing.JLabel jLabel14;
+    private javax.swing.JLabel jLabel15;
+    private javax.swing.JLabel jLabel16;
+    private javax.swing.JLabel jLabel17;
+    private javax.swing.JLabel jLabel18;
+    private javax.swing.JLabel jLabel19;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel8;
+    private javax.swing.JLabel jLabel9;
+    private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel jPanel2;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JRadioButton rbAtivo;
+    private javax.swing.JTable tbGrid;
+    private javax.swing.JTextField tvAdressCity;
+    private javax.swing.JTextField tvAdressComplement;
+    private javax.swing.JTextField tvAdressNeighborhood;
+    private javax.swing.JTextField tvAdressNumber;
+    private javax.swing.JFormattedTextField tvAdressPostalCode;
+    private javax.swing.JTextField tvAdressStreet;
+    private javax.swing.JFormattedTextField tvBirthDay;
+    private javax.swing.JFormattedTextField tvCPF;
+    private javax.swing.JFormattedTextField tvCellPhone1;
+    private javax.swing.JFormattedTextField tvCellPhone2;
+    private javax.swing.JTextField tvCodigo;
+    private javax.swing.JTextField tvEmail;
+    private javax.swing.JTextField tvName;
+    private javax.swing.JFormattedTextField tvPhone;
+    private javax.swing.JTextField tvRG;
+    // End of variables declaration//GEN-END:variables
+
+    private void insert() {
+        //Limpando a variavel cliente.
+        client = null;
 
         client.setName(tvName.getText().trim());
 //      client.setSexo(cbSexo.getSelectedItem().toString())
@@ -547,24 +838,88 @@ public class ClientPanel extends javax.swing.JPanel {
 
         client.setCompany(cm);
 
-        IRepositoryClient iRepositoryClient = (IRepositoryClient) new DaoClient();
         iRepositoryClient.salvar(client);
 
+    }
 
-    }//GEN-LAST:event_btAdicionarActionPerformed
+    private void update() {
+        //Limpando a variavel cliente.        
+        client = null;
 
-    private void jToggleButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jToggleButton2ActionPerformed
-        opMenu = "U";
+        client.setName(tvName.getText().trim());
+//      client.setSexo(cbSexo.getSelectedItem().toString())
+//      client.setEstCivil(cbEstCivilgetSelectedItem().toString())           
+        //client.setDt_nasc(new Date(tvBirthDay.getText()));            
+        client.setCpf(tvCPF.getText());
+        client.setRg(tvRG.getText());
+        client.setPhone(tvPhone.getText());
+        client.setCellPhone_1(tvCellPhone1.getText());
+        client.setCellPhone_2(tvCellPhone2.getText());
+        client.setAdress_postalCode(tvAdressPostalCode.getText());
+        client.setAdress_street(tvAdressStreet.getText());
+        client.setAdress_number(Integer.valueOf(tvAdressNumber.getText()));
+        client.setAdress_complement(tvAdressComplement.getText());
+        client.setAdress_city(tvAdressCity.getText());
+        client.setAdress_neighborhood(tvAdressNeighborhood.getText());
+        client.setEnd_stat(cbAdressStat.getSelectedItem().toString());
+        client.setEmail(tvEmail.getText());
 
-    }//GEN-LAST:event_jToggleButton2ActionPerformed
+        client.setActive(rbAtivo.isSelected());
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        limparCampos();
-    }//GEN-LAST:event_jButton1ActionPerformed
+        Company cm = new br.com.kpc.drugstore.core.Company();
+        IRepositoryCompany iRepositoryCompany = (IRepositoryCompany) new DaoCompany();
+        cm = iRepositoryCompany.getCompany();
 
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        client.setCompany(cm);
 
-        client = iRepositoryClient.getClientByCpf(tvCPF.getText().toString(), true);
+        iRepositoryClient.atualizar(client);
+
+    }
+
+    private void delete() {
+        //Limpando a variavel cliente.
+        client = null;
+
+        client.setName(tvName.getText().trim());
+//      client.setSexo(cbSexo.getSelectedItem().toString())
+//      client.setEstCivil(cbEstCivilgetSelectedItem().toString())
+        Date date = null;
+        try {
+            date = new SimpleDateFormat("dd/MM/yyyy").parse(tvBirthDay.getText());
+        } catch (ParseException ex) {
+            Logger.getLogger(ClientPanel.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        client.setDt_nasc(date);
+        client.setCpf(tvCPF.getText());
+        client.setRg(tvRG.getText());
+        client.setPhone(tvPhone.getText());
+        client.setCellPhone_1(tvCellPhone1.getText());
+        client.setCellPhone_2(tvCellPhone2.getText());
+        client.setAdress_postalCode(tvAdressPostalCode.getText());
+        client.setAdress_street(tvAdressStreet.getText());
+        client.setAdress_number(Integer.valueOf(tvAdressNumber.getText()));
+        client.setAdress_complement(tvAdressComplement.getText());
+        client.setAdress_city(tvAdressCity.getText());
+        client.setAdress_neighborhood(tvAdressNeighborhood.getText());
+        client.setEnd_stat(cbAdressStat.getSelectedItem().toString());
+        client.setEmail(tvEmail.getText());
+
+        client.setDt_cad(new Date());
+        client.setActive(true);
+
+        Company cm = new br.com.kpc.drugstore.core.Company();
+        IRepositoryCompany iRepositoryCompany = (IRepositoryCompany) new DaoCompany();
+        cm = iRepositoryCompany.getCompany();
+
+        client.setCompany(cm);
+
+        iRepositoryClient.apagar(client);
+
+    }
+
+    private void getCliente(String cpf, boolean ativo) {
+        client = null;
+        client = iRepositoryClient.getClientByCpf(cpf, ativo);
 
         tvCodigo.setText(String.valueOf(client.getId()));
         tvName.setText(client.getName());
@@ -585,123 +940,18 @@ public class ClientPanel extends javax.swing.JPanel {
         cbAdressStat.setSelectedItem(client.getEnd_stat());
         tvEmail.setText(client.getEmail());
         rbAtivo.setSelected(client.isActive());
-
-
-    }//GEN-LAST:event_jButton2ActionPerformed
-
-    private void jToggleButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jToggleButton4ActionPerformed
-        if (opMenu.equals("U")) {
-            //client.set
-            client.setName(tvName.getText().trim());
-//      client.setSexo(cbSexo.getSelectedItem().toString())
-//      client.setEstCivil(cbEstCivilgetSelectedItem().toString())           
-            //client.setDt_nasc(new Date(tvBirthDay.getText()));            
-            client.setCpf(tvCPF.getText());
-            client.setRg(tvRG.getText());
-            client.setPhone(tvPhone.getText());
-            client.setCellPhone_1(tvCellPhone1.getText());
-            client.setCellPhone_2(tvCellPhone2.getText());
-            client.setAdress_postalCode(tvAdressPostalCode.getText());
-            client.setAdress_street(tvAdressStreet.getText());
-            client.setAdress_number(Integer.valueOf(tvAdressNumber.getText()));
-            client.setAdress_complement(tvAdressComplement.getText());
-            client.setAdress_city(tvAdressCity.getText());
-            client.setAdress_neighborhood(tvAdressNeighborhood.getText());
-            client.setEnd_stat(cbAdressStat.getSelectedItem().toString());
-            client.setEmail(tvEmail.getText());
-
-            client.setActive(rbAtivo.isSelected());
-
-            Company cm = new br.com.kpc.drugstore.core.Company();
-            IRepositoryCompany iRepositoryCompany = (IRepositoryCompany) new DaoCompany();
-            cm = iRepositoryCompany.getCompany();
-
-            client.setCompany(cm);
-
-            iRepositoryClient.atualizar(client);
-
-        }
-    }//GEN-LAST:event_jToggleButton4ActionPerformed
-
-    private void limparCampos() {
-
-        tvCodigo.setText(null);
-        tvName.setText(null);
-        cbSexo.setSelectedIndex(0);
-        cbEstCivil.setSelectedIndex(0);
-        tvBirthDay.setText(null);
-        tvCPF.setText(null);
-        tvRG.setText(null);
-        tvPhone.setText(null);
-        tvCellPhone1.setText(null);
-        tvCellPhone2.setText(null);
-        tvAdressPostalCode.setText(null);
-        tvAdressStreet.setText(null);
-        tvAdressNumber.setText(null);
-        tvAdressComplement.setText(null);
-        tvAdressCity.setText(null);
-        tvAdressNeighborhood.setText(null);
-        cbAdressStat.setSelectedIndex(12);
-        tvEmail.setText(null);
-        rbAtivo.setSelected(false);
-
     }
 
-    // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JToggleButton btAdicionar;
-    private javax.swing.JComboBox cbAdressStat;
-    private javax.swing.JComboBox cbEstCivil;
-    private javax.swing.JComboBox cbSexo;
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel10;
-    private javax.swing.JLabel jLabel11;
-    private javax.swing.JLabel jLabel12;
-    private javax.swing.JLabel jLabel13;
-    private javax.swing.JLabel jLabel14;
-    private javax.swing.JLabel jLabel15;
-    private javax.swing.JLabel jLabel16;
-    private javax.swing.JLabel jLabel17;
-    private javax.swing.JLabel jLabel18;
-    private javax.swing.JLabel jLabel19;
-    private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabel5;
-    private javax.swing.JLabel jLabel6;
-    private javax.swing.JLabel jLabel7;
-    private javax.swing.JLabel jLabel8;
-    private javax.swing.JLabel jLabel9;
-    private javax.swing.JPanel jPanel1;
-    private javax.swing.JPanel jPanel2;
-    private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTabbedPane jTabbedPane1;
-    private javax.swing.JTable jTable1;
-    private javax.swing.JToggleButton jToggleButton2;
-    private javax.swing.JToggleButton jToggleButton3;
-    private javax.swing.JToggleButton jToggleButton4;
-    private javax.swing.JToggleButton jToggleButton5;
-    private javax.swing.JToggleButton jToggleButton6;
-    private javax.swing.JToggleButton jToggleButton7;
-    private javax.swing.JToggleButton jToggleButton8;
-    private javax.swing.JToggleButton jToggleButton9;
-    private javax.swing.JRadioButton rbAtivo;
-    private javax.swing.JTextField tvAdressCity;
-    private javax.swing.JTextField tvAdressComplement;
-    private javax.swing.JTextField tvAdressNeighborhood;
-    private javax.swing.JTextField tvAdressNumber;
-    private javax.swing.JFormattedTextField tvAdressPostalCode;
-    private javax.swing.JTextField tvAdressStreet;
-    private javax.swing.JFormattedTextField tvBirthDay;
-    private javax.swing.JFormattedTextField tvCPF;
-    private javax.swing.JFormattedTextField tvCellPhone1;
-    private javax.swing.JFormattedTextField tvCellPhone2;
-    private javax.swing.JTextField tvCodigo;
-    private javax.swing.JTextField tvEmail;
-    private javax.swing.JTextField tvName;
-    private javax.swing.JFormattedTextField tvPhone;
-    private javax.swing.JTextField tvRG;
-    // End of variables declaration//GEN-END:variables
+    private void loadingTable() {
+        List<Client> listClisnt = new ArrayList<Client>();
+        listClisnt = iRepositoryClient.listAll(true);
 
+        tbGrid.setModel(new ClientesTableModel(listClisnt));
+    }
+   public void passaCamposComEnter(ClientPanel painel){  
+        // Colocando enter para pular de campo  
+        HashSet conj = new HashSet(painel.getFocusTraversalKeys(KeyboardFocusManager.FORWARD_TRAVERSAL_KEYS));  
+        conj.add(AWTKeyStroke.getAWTKeyStroke(KeyEvent.VK_ENTER, 0));  
+        painel.setFocusTraversalKeys(KeyboardFocusManager.FORWARD_TRAVERSAL_KEYS, conj);  
+    }      
 }
