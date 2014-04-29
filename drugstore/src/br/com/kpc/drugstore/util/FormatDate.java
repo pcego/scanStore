@@ -13,19 +13,10 @@ import java.util.Date;
  * @author Pcego
  */
 public class FormatDate {
-<<<<<<< HEAD
 
     public static String dateCovertToShow(Date date) {
 
         return new SimpleDateFormat("dd/MM/yyyy").format(date);
     }
 
-=======
-    
-   public static String dateCovertToShow(Date date){
-       
-       return new SimpleDateFormat("dd/MM/yyyy").format(date);
-   }
-      
->>>>>>> 230876c64cfcb1b8b36d922532d46f00000e8634
 }
