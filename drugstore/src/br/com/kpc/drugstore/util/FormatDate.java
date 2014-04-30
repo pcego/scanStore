@@ -13,10 +13,6 @@ import java.util.Date;
  * @author Pcego
  */
 public class FormatDate {
-<<<<<<< HEAD
-=======
-
->>>>>>> e861ad2b644cfaa4a357e19a7f0d63c8ec3f60cc
 
     public static String dateCovertToShow(Date date) {
 
