@@ -11,6 +11,7 @@ import br.com.kpc.drugstore.core.IRepositoryClient;
 import br.com.kpc.drugstore.core.IRepositoryCompany;
 import br.com.kpc.drugstore.dao.DaoClient;
 import br.com.kpc.drugstore.dao.DaoCompany;
+import br.com.kpc.drugstore.tableModel.TableModelClient;
 import br.com.kpc.drugstore.util.ClientesTableModel;
 import br.com.kpc.drugstore.util.FormatDate;
 import java.awt.AWTKeyStroke;
@@ -100,7 +101,7 @@ public class ClienteFrame extends javax.swing.JFrame {
         btGrid = new javax.swing.JTabbedPane();
         jScrollPane1 = new javax.swing.JScrollPane();
         tbGrid = new javax.swing.JTable();
-        jButton2 = new javax.swing.JButton();
+        btPesquisar = new javax.swing.JButton();
         jButton1 = new javax.swing.JButton();
         jLabel29 = new javax.swing.JLabel();
         tvEmail = new javax.swing.JTextField();
@@ -446,13 +447,18 @@ public class ClienteFrame extends javax.swing.JFrame {
         });
 
         btUltimo.setText("Último");
+        btUltimo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btUltimoActionPerformed(evt);
+            }
+        });
 
         tbGrid.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
             new String [] {
-                "Cod", "Nome", "CPF"
+                "CPF", "Nome", "Endereço"
             }
         ));
         tbGrid.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -464,10 +470,10 @@ public class ClienteFrame extends javax.swing.JFrame {
 
         btGrid.addTab("Clientes Cadastrados", jScrollPane1);
 
-        jButton2.setText("Pesq");
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
+        btPesquisar.setText("Pesq");
+        btPesquisar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
+                btPesquisarActionPerformed(evt);
             }
         });
 
@@ -529,7 +535,7 @@ public class ClienteFrame extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jButton2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(btPesquisar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(22, 22, 22))
         );
         layout.setVerticalGroup(
@@ -543,7 +549,7 @@ public class ClienteFrame extends javax.swing.JFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(btPesquisar, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(10, 10, 10)
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -576,12 +582,14 @@ public class ClienteFrame extends javax.swing.JFrame {
     private String opMenu = null; // I insert, D Delete U update
     //Linha da tabela selecionada
     private int linhaSelecionada = 0;
-    Client client;
+    Client clientVG;
+    TableModelClient modelGrid;
 
     private void btAdicionarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btAdicionarActionPerformed
         opMenu = "I";
         btTypeInsert();
         limparCampos();
+        habilitarCampos(true);
     }//GEN-LAST:event_btAdicionarActionPerformed
 
     private void btExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btExcluirActionPerformed
@@ -592,6 +600,7 @@ public class ClienteFrame extends javax.swing.JFrame {
     private void btAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btAlterarActionPerformed
         opMenu = "U";
         btTypeUpdate();
+        habilitarCampos(true);
     }//GEN-LAST:event_btAlterarActionPerformed
 
     private void btCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btCancelarActionPerformed
@@ -607,23 +616,25 @@ public class ClienteFrame extends javax.swing.JFrame {
                 if (retorno) {
                     JOptionPane.showMessageDialog(this, "Atualizado");
                     btTypeDefault();
-                }                
+                    loadingTable();
+                }
                 break;
             case "I":
                 retorno = insert();
                 if (retorno) {
-                    JOptionPane.showMessageDialog(this, "Gravado");
-                    getCliente(tvCPF.getText(), true);
-                    btTypeDefault();                    
+                    JOptionPane.showMessageDialog(this, "Cliente gravado com sucesso");
+                    btTypeDefault();
+                    limparCampos();
+                    loadingTable();
                 }
                 break;
             case "D":
                 retorno = delete();
                 if (retorno) {
-                    JOptionPane.showMessageDialog(this, "Excluido");
+                    JOptionPane.showMessageDialog(this, "Excluido");                    
+                    btTypeDefault();
                     loadingTable();
-                    btTypeDefault();                    
-                }                
+                }
                 break;
         }
         opMenu = null;
@@ -637,20 +648,23 @@ public class ClienteFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_tvIDKeyPressed
 
     private void btInicioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btInicioActionPerformed
-        getCliente(tbGrid.getValueAt(0, 2).toString(), true);
+            clientVG = modelGrid.getClient(0); 
+            getCliente(clientVG);
     }//GEN-LAST:event_btInicioActionPerformed
 
     private void btAnteriorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btAnteriorActionPerformed
         if (linhaSelecionada > 0) {
             linhaSelecionada -= 1;
-            getCliente(tbGrid.getValueAt(linhaSelecionada, 2).toString(), true);
+            clientVG = modelGrid.getClient(linhaSelecionada); 
+            getCliente(clientVG);
         }
     }//GEN-LAST:event_btAnteriorActionPerformed
 
     private void btProximoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btProximoActionPerformed
         if (linhaSelecionada < tbGrid.getRowCount() - 1) {
             linhaSelecionada += 1;
-            getCliente(tbGrid.getValueAt(linhaSelecionada, 2).toString(), true);
+            clientVG = modelGrid.getClient(linhaSelecionada); 
+            getCliente(clientVG);
         }
     }//GEN-LAST:event_btProximoActionPerformed
 
@@ -658,18 +672,23 @@ public class ClienteFrame extends javax.swing.JFrame {
 
         Point point = evt.getPoint();
         linhaSelecionada = tbGrid.rowAtPoint(point);
-        getCliente(tbGrid.getValueAt(linhaSelecionada, 2).toString(), true);
+        clientVG =  modelGrid.getClient(linhaSelecionada);
+        getCliente(clientVG);
+    //    getCliente(tbGrid.getValueAt(linhaSelecionada, 2).toString(), true);
     }//GEN-LAST:event_tbGridMouseClicked
-
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-
-        getCliente(tvCPF.getText().toString(), true);
-
-    }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         limparCampos();
     }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void btUltimoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btUltimoActionPerformed
+            clientVG = modelGrid.getClient(tbGrid.getRowCount()-1); 
+            getCliente(clientVG);
+    }//GEN-LAST:event_btUltimoActionPerformed
+
+    private void btPesquisarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btPesquisarActionPerformed
+//  Chamar outra tela
+    }//GEN-LAST:event_btPesquisarActionPerformed
 
     /**
      * @param args the command line arguments
@@ -716,13 +735,13 @@ public class ClienteFrame extends javax.swing.JFrame {
     private javax.swing.JButton btExcluir;
     private javax.swing.JTabbedPane btGrid;
     private javax.swing.JButton btInicio;
+    private javax.swing.JButton btPesquisar;
     private javax.swing.JButton btProximo;
     private javax.swing.JButton btUltimo;
     private javax.swing.JComboBox cbAdressStat;
     private javax.swing.JComboBox cbEstCivil;
     private javax.swing.JComboBox cbSexo;
     private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
@@ -766,42 +785,42 @@ public class ClienteFrame extends javax.swing.JFrame {
   private boolean insert() {
         try {
 
-            client = new Client();
+            clientVG = new Client();
 
-            client.setName(tvName.getText().trim());
-//      client.setSexo(cbSexo.getSelectedItem().toString())
-//      client.setEstCivil(cbEstCivilgetSelectedItem().toString())
+            clientVG.setName(tvName.getText().trim());
+//      clientVG.setSexo(cbSexo.getSelectedItem().toString())
+//      clientVG.setEstCivil(cbEstCivilgetSelectedItem().toString())
             Date date = null;
             try {
                 date = new SimpleDateFormat("dd/MM/yyyy").parse(tvBirthDay.getText());
             } catch (ParseException ex) {
                 Logger.getLogger(ClienteFrame.class.getName()).log(Level.SEVERE, null, ex);
             }
-            client.setDt_nasc(date);
-            client.setCpf(tvCPF.getText());
-            client.setRg(tvRG.getText());
-            client.setPhone(tvPhone.getText());
-            client.setCellPhone_1(tvCellPhone1.getText());
-            client.setCellPhone_2(tvCellPhone2.getText());
-            client.setAdress_postalCode(tvAdressPostalCode.getText());
-            client.setAdress_street(tvAdressStreet.getText());
-            client.setAdress_number(Integer.valueOf(tvAdressNumber.getText()));
-            client.setAdress_complement(tvAdressComplement.getText());
-            client.setAdress_city(tvAdressCity.getText());
-            client.setAdress_neighborhood(tvAdressNeighborhood.getText());
-            client.setEnd_stat(cbAdressStat.getSelectedItem().toString());
-            client.setEmail(tvEmail.getText());
+            clientVG.setDt_nasc(date);
+            clientVG.setCpf(tvCPF.getText());
+            clientVG.setRg(tvRG.getText());
+            clientVG.setPhone(tvPhone.getText());
+            clientVG.setCellPhone_1(tvCellPhone1.getText());
+            clientVG.setCellPhone_2(tvCellPhone2.getText());
+            clientVG.setAdress_postalCode(tvAdressPostalCode.getText());
+            clientVG.setAdress_street(tvAdressStreet.getText());
+            clientVG.setAdress_number(Integer.valueOf(tvAdressNumber.getText()));
+            clientVG.setAdress_complement(tvAdressComplement.getText());
+            clientVG.setAdress_city(tvAdressCity.getText());
+            clientVG.setAdress_neighborhood(tvAdressNeighborhood.getText());
+            clientVG.setEnd_stat(cbAdressStat.getSelectedItem().toString());
+            clientVG.setEmail(tvEmail.getText());
 
-            client.setDt_cad(new Date());
-            client.setActive(true);
+            clientVG.setDt_cad(new Date());
+            clientVG.setActive(true);
 
             Company cm = new br.com.kpc.drugstore.core.Company();
             IRepositoryCompany iRepositoryCompany = (IRepositoryCompany) new DaoCompany();
             cm = iRepositoryCompany.getCompany();
 
-            client.setCompany(cm);
+            clientVG.setCompany(cm);
 
-            iRepositoryClient.salvar(client);
+            iRepositoryClient.salvar(clientVG);
             return true;
         } catch (Exception e) {
             JOptionPane.showMessageDialog(this, "Deu erro: " + e);
@@ -811,34 +830,34 @@ public class ClienteFrame extends javax.swing.JFrame {
 
     private boolean update() {
         try {
-            client.setId(Long.valueOf(tvID.getText()));
-            client.setName(tvName.getText().trim());
-//      client.setSexo(cbSexo.getSelectedItem().toString())
-//      client.setEstCivil(cbEstCivilgetSelectedItem().toString())           
-            client.setDt_nasc(new Date(tvBirthDay.getText()));
-            client.setCpf(tvCPF.getText());
-            client.setRg(tvRG.getText());
-            client.setPhone(tvPhone.getText());
-            client.setCellPhone_1(tvCellPhone1.getText());
-            client.setCellPhone_2(tvCellPhone2.getText());
-            client.setAdress_postalCode(tvAdressPostalCode.getText());
-            client.setAdress_street(tvAdressStreet.getText());
-            client.setAdress_number(Integer.valueOf(tvAdressNumber.getText()));
-            client.setAdress_complement(tvAdressComplement.getText());
-            client.setAdress_city(tvAdressCity.getText());
-            client.setAdress_neighborhood(tvAdressNeighborhood.getText());
-            client.setEnd_stat(cbAdressStat.getSelectedItem().toString());
-            client.setEmail(tvEmail.getText());
+            clientVG.setId(Long.valueOf(tvID.getText()));
+            clientVG.setName(tvName.getText().trim());
+//      clientVG.setSexo(cbSexo.getSelectedItem().toString())
+//      clientVG.setEstCivil(cbEstCivilgetSelectedItem().toString())           
+            clientVG.setDt_nasc(new Date(tvBirthDay.getText()));
+            clientVG.setCpf(tvCPF.getText());
+            clientVG.setRg(tvRG.getText());
+            clientVG.setPhone(tvPhone.getText());
+            clientVG.setCellPhone_1(tvCellPhone1.getText());
+            clientVG.setCellPhone_2(tvCellPhone2.getText());
+            clientVG.setAdress_postalCode(tvAdressPostalCode.getText());
+            clientVG.setAdress_street(tvAdressStreet.getText());
+            clientVG.setAdress_number(Integer.valueOf(tvAdressNumber.getText()));
+            clientVG.setAdress_complement(tvAdressComplement.getText());
+            clientVG.setAdress_city(tvAdressCity.getText());
+            clientVG.setAdress_neighborhood(tvAdressNeighborhood.getText());
+            clientVG.setEnd_stat(cbAdressStat.getSelectedItem().toString());
+            clientVG.setEmail(tvEmail.getText());
 
-            client.setActive(rbAtivo.isSelected());
+            clientVG.setActive(rbAtivo.isSelected());
 
             Company cm = new br.com.kpc.drugstore.core.Company();
             IRepositoryCompany iRepositoryCompany = (IRepositoryCompany) new DaoCompany();
             cm = iRepositoryCompany.getCompany();
 
-            client.setCompany(cm);
+            clientVG.setCompany(cm);
 
-            iRepositoryClient.atualizar(client);
+            iRepositoryClient.atualizar(clientVG);
             return true;
         } catch (Exception e) {
             JOptionPane.showMessageDialog(this, "Deu erro: " + e);
@@ -850,40 +869,40 @@ public class ClienteFrame extends javax.swing.JFrame {
     private boolean delete() {
         try {
 
-            client.setName(tvName.getText().trim());
-//      client.setSexo(cbSexo.getSelectedItem().toString())
-//      client.setEstCivil(cbEstCivilgetSelectedItem().toString())
+            clientVG.setName(tvName.getText().trim());
+//      clientVG.setSexo(cbSexo.getSelectedItem().toString())
+//      clientVG.setEstCivil(cbEstCivilgetSelectedItem().toString())
             Date date = null;
             try {
                 date = new SimpleDateFormat("dd/MM/yyyy").parse(tvBirthDay.getText());
             } catch (ParseException ex) {
                 Logger.getLogger(ClienteFrame.class.getName()).log(Level.SEVERE, null, ex);
             }
-            client.setDt_nasc(date);
-            client.setCpf(tvCPF.getText());
-            client.setRg(tvRG.getText());
-            client.setPhone(tvPhone.getText());
-            client.setCellPhone_1(tvCellPhone1.getText());
-            client.setCellPhone_2(tvCellPhone2.getText());
-            client.setAdress_postalCode(tvAdressPostalCode.getText());
-            client.setAdress_street(tvAdressStreet.getText());
-            client.setAdress_number(Integer.valueOf(tvAdressNumber.getText()));
-            client.setAdress_complement(tvAdressComplement.getText());
-            client.setAdress_city(tvAdressCity.getText());
-            client.setAdress_neighborhood(tvAdressNeighborhood.getText());
-            client.setEnd_stat(cbAdressStat.getSelectedItem().toString());
-            client.setEmail(tvEmail.getText());
+            clientVG.setDt_nasc(date);
+            clientVG.setCpf(tvCPF.getText());
+            clientVG.setRg(tvRG.getText());
+            clientVG.setPhone(tvPhone.getText());
+            clientVG.setCellPhone_1(tvCellPhone1.getText());
+            clientVG.setCellPhone_2(tvCellPhone2.getText());
+            clientVG.setAdress_postalCode(tvAdressPostalCode.getText());
+            clientVG.setAdress_street(tvAdressStreet.getText());
+            clientVG.setAdress_number(Integer.valueOf(tvAdressNumber.getText()));
+            clientVG.setAdress_complement(tvAdressComplement.getText());
+            clientVG.setAdress_city(tvAdressCity.getText());
+            clientVG.setAdress_neighborhood(tvAdressNeighborhood.getText());
+            clientVG.setEnd_stat(cbAdressStat.getSelectedItem().toString());
+            clientVG.setEmail(tvEmail.getText());
 
-            client.setDt_cad(new Date());
-            client.setActive(true);
+            clientVG.setDt_cad(new Date());
+            clientVG.setActive(true);
 
             Company cm = new br.com.kpc.drugstore.core.Company();
             IRepositoryCompany iRepositoryCompany = (IRepositoryCompany) new DaoCompany();
             cm = iRepositoryCompany.getCompany();
 
-            client.setCompany(cm);
+            clientVG.setCompany(cm);
 
-            iRepositoryClient.apagar(client);
+            iRepositoryClient.apagar(clientVG);
             return true;
 
         } catch (Exception e) {
@@ -893,38 +912,37 @@ public class ClienteFrame extends javax.swing.JFrame {
         }
     }
 
-    private void getCliente(String cpf, boolean ativo) {
-        client = new Client();
-        client = iRepositoryClient.getClientByCpf(cpf, ativo);
+    private void getCliente(Client cli) {
 
-        tvID.setText(String.valueOf(client.getId()));
-        tvName.setText(client.getName());
-//        cbSexo.setSelectedIndex(client.getSexoxxxxx);
-//        cbEstCivil.setSelectedIndex(client.getestadoXXXXX);
-        tvBirthDay.setText(FormatDate.dateCovertToShow(client.getDt_nasc()));
-        tvCPF.setText(client.getCpf());
-        tvRG.setText(client.getRg());
-        tvPhone.setText(client.getPhone());
-        tvCellPhone1.setText(client.getCellPhone_1());
-        tvCellPhone2.setText(client.getCellPhone_2());
-        tvAdressPostalCode.setText(client.getAdress_postalCode());
-        tvAdressStreet.setText(client.getAdress_street());
-        tvAdressNumber.setText(String.valueOf(client.getAdress_number()));
-        tvAdressComplement.setText(client.getAdress_complement());
-        tvAdressCity.setText(client.getAdress_city());
-        tvAdressNeighborhood.setText(client.getAdress_neighborhood());
-        cbAdressStat.setSelectedItem(client.getEnd_stat());
-        tvEmail.setText(client.getEmail());
-        rbAtivo.setSelected(client.isActive());
+
+        tvID.setText(String.valueOf(cli.getId()));
+        tvName.setText(clientVG.getName());
+//        cbSexo.setSelectedIndex(clientVG.getSexoxxxxx);
+//        cbEstCivil.setSelectedIndex(clientVG.getestadoXXXXX);
+        tvBirthDay.setText(FormatDate.dateCovertToShow(cli.getDt_nasc()));
+        tvCPF.setText(cli.getCpf());
+        tvRG.setText(cli.getRg());
+        tvPhone.setText(cli.getPhone());
+        tvCellPhone1.setText(cli.getCellPhone_1());
+        tvCellPhone2.setText(cli.getCellPhone_2());
+        tvAdressPostalCode.setText(cli.getAdress_postalCode());
+        tvAdressStreet.setText(cli.getAdress_street());
+        tvAdressNumber.setText(String.valueOf(cli.getAdress_number()));
+        tvAdressComplement.setText(cli.getAdress_complement());
+        tvAdressCity.setText(cli.getAdress_city());
+        tvAdressNeighborhood.setText(cli.getAdress_neighborhood());
+        cbAdressStat.setSelectedItem(cli.getEnd_stat());
+        tvEmail.setText(cli.getEmail());
+        rbAtivo.setSelected(cli.isActive());
     }
-
+       
     private void loadingTable() {
-        List<Client> listClisnt = new ArrayList<Client>();
-        listClisnt = iRepositoryClient.listAll(true);
+        List<Client> listCliente = new ArrayList<Client>();
+        listCliente = iRepositoryClient.listAll(true);
 
-        tbGrid.setModel(new ClientesTableModel(listClisnt));
+        modelGrid = new TableModelClient(listCliente);
+        tbGrid.setModel(modelGrid);
     }
-
 
     private void limparCampos() {
 
@@ -961,6 +979,7 @@ public class ClienteFrame extends javax.swing.JFrame {
         btProximo.setEnabled(false);
         btUltimo.setEnabled(false);
     }
+
     private void btTypeDelete() {
         btAdicionar.setEnabled(false);
         btAlterar.setEnabled(false);
@@ -972,6 +991,7 @@ public class ClienteFrame extends javax.swing.JFrame {
         btProximo.setEnabled(false);
         btUltimo.setEnabled(false);
     }
+
     private void btTypeUpdate() {
         btAdicionar.setEnabled(false);
         btAlterar.setEnabled(false);
@@ -1006,6 +1026,7 @@ public class ClienteFrame extends javax.swing.JFrame {
     }
 
     private void btTypeDefault() {
+        habilitarCampos(false);
         btAdicionar.setEnabled(true);
         btAlterar.setEnabled(true);
         btExcluir.setEnabled(true);
@@ -1025,4 +1046,24 @@ public class ClienteFrame extends javax.swing.JFrame {
         }
     }
 
+    private void habilitarCampos(boolean acao) {
+        tvName.setEnabled(acao);
+        tvCPF.setEnabled(acao);
+        tvRG.setEnabled(acao);
+        cbSexo.setEnabled(acao);
+        cbEstCivil.setEnabled(acao);
+        tvBirthDay.setEnabled(acao);
+        rbAtivo.setEnabled(acao);
+        tvPhone.setEnabled(acao);
+        tvCellPhone1.setEnabled(acao);
+        tvCellPhone2.setEnabled(acao);
+        tvAdressPostalCode.setEnabled(acao);
+        tvAdressStreet.setEnabled(acao);
+        tvAdressNumber.setEnabled(acao);
+        tvAdressComplement.setEnabled(acao);
+        tvAdressNeighborhood.setEnabled(acao);
+        tvAdressCity.setEnabled(acao);
+        cbAdressStat.setEnabled(acao);
+        tvEmail.setEnabled(acao);
+    }
 }
