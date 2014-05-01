@@ -29,7 +29,7 @@ public class TableModelClient extends AbstractTableModel {
     }
 
     public TableModelClient(List<Client> client) {
-        client = new ArrayList<Client>(client);
+        this.client = new ArrayList<>(client);
     }
 
     @Override
