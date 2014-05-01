@@ -9,6 +9,7 @@ import br.com.kpc.drugstore.core.IRepositoryRecipe;
 import br.com.kpc.drugstore.core.Recipe;
 import java.util.List;
 import javax.persistence.Query;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -23,29 +24,49 @@ public class DaoRecipe extends DaoGeneric<Recipe> implements IRepositoryRecipe {
     @Override
     public List<Recipe> listRecipeByClient(Client obj) {
 
-        Query query = getManager().createQuery("SELECT R FROM Recipe R "
-                + "JOIN Client C ON R.client = C.id WHERE C.cpf = :obj");
-        query.setParameter("obj", obj.getCpf());
-        return query.getResultList();
+        try {
+            Query query = getManager().createQuery("SELECT R FROM Recipe R "
+                    + "JOIN Client C ON R.client = C.id WHERE C.cpf = :obj");
+            query.setParameter("obj", obj.getCpf());
+            return query.getResultList();
+        } catch (Exception ex) {
+
+            JOptionPane.showMessageDialog(null, "Falha ao Listar Receitas",
+                    "Ihh Falhou...!!", JOptionPane.ERROR_MESSAGE, null);
+            return null;
+        }
     }
 
     @Override
     public Recipe getLastRecipeByClient(Client obj) {
 
-        Query query = getManager().createQuery("SELECT R FROM Recipe R "
-                + "WHERE R.client.cpf = :obj "
-                + "AND R.dt_recipe = (SELECT MAX(R.dt_recipe) "
-                + "FROM Recipe R WHERE R.client.cpf = :obj) ORDER BY R.dt_recipe");
-        query.setParameter("obj", obj.getCpf());
-        return (Recipe) query.getSingleResult();
+        try {
+            Query query = getManager().createQuery("SELECT R FROM Recipe R "
+                    + "WHERE R.client.cpf = :obj "
+                    + "AND R.dt_recipe = (SELECT MAX(R.dt_recipe) "
+                    + "FROM Recipe R WHERE R.client.cpf = :obj) ORDER BY R.dt_recipe");
+            query.setParameter("obj", obj.getCpf());
+            return (Recipe) query.getSingleResult();
+        } catch (Exception ex) {
 
+            JOptionPane.showMessageDialog(null, "Falha ao Carregar Receita",
+                    "Ihh Falhou...!!", JOptionPane.ERROR_MESSAGE, null);
+            return null;
+        }
     }
 
     @Override
     public List<Recipe> listAll() {
 
-        Query query = getManager().createQuery("SELECT R FROM Recipe R "
-                + "ORDER BY R.dt_recipe");
-        return query.getResultList();
+        try {
+            Query query = getManager().createQuery("SELECT R FROM Recipe R "
+                    + "ORDER BY R.dt_recipe");
+            return query.getResultList();
+        } catch (Exception ex) {
+
+            JOptionPane.showMessageDialog(null, "Falha ao Listar Receitas",
+                    "Ihh Falhou...!!", JOptionPane.ERROR_MESSAGE, null);
+            return null;
+        }
     }
 }
