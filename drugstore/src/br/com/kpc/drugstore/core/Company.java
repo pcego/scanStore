@@ -24,11 +24,17 @@ import javax.persistence.Table;
 public class Company implements Serializable {
 
     private static final long serialVersionUID = 1L;
-    
-    public Company(){
-        
+
+    public Company() {
+
     }
-    
+
+    public Company(Long id, String company_name, String cnpj) {
+        this.id = id;
+        this.company_name = company_name;
+        this.cnpj = cnpj;
+    }
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "companyId", nullable = false)
@@ -41,7 +47,7 @@ public class Company implements Serializable {
     public void setId(Long id) {
         this.id = id;
     }
-        
+
     @Column(length = 200, nullable = false)
     private String company_name;
 
@@ -52,7 +58,7 @@ public class Company implements Serializable {
     public void setCompany_name(String company_name) {
         this.company_name = company_name;
     }
-            
+
     @Column(length = 200, nullable = false)
     private String fantasy;
 
@@ -63,7 +69,7 @@ public class Company implements Serializable {
     public void setFantasy(String fantasy) {
         this.fantasy = fantasy;
     }
-            
+
     @Column(length = 20, nullable = false, unique = true)
     private String cnpj;
 
@@ -74,7 +80,7 @@ public class Company implements Serializable {
     public void setCnpj(String cnpj) {
         this.cnpj = cnpj;
     }
-            
+
     @Column(length = 20, nullable = false)
     private String insc_stat;
 
@@ -85,7 +91,7 @@ public class Company implements Serializable {
     public void setInsc_stat(String insc_stat) {
         this.insc_stat = insc_stat;
     }
-            
+
     @Column(length = 25)
     private String phone;
 
@@ -96,7 +102,7 @@ public class Company implements Serializable {
     public void setPhone(String phone) {
         this.phone = phone;
     }
-       
+
     @Column(length = 25, nullable = false)
     private String cell_phone1;
 
@@ -107,7 +113,7 @@ public class Company implements Serializable {
     public void setCell_phone1(String cell_phone1) {
         this.cell_phone1 = cell_phone1;
     }
-        
+
     @Column(length = 25)
     private String cell_phone2;
 
@@ -118,7 +124,7 @@ public class Company implements Serializable {
     public void setCell_phone2(String cell_phone2) {
         this.cell_phone2 = cell_phone2;
     }
-        
+
     @Column(length = 100)
     private String email;
 
@@ -129,7 +135,7 @@ public class Company implements Serializable {
     public void setEmail(String email) {
         this.email = email;
     }
-            
+
     @Column(nullable = false, length = 128)
     private String System_key;
 
@@ -140,10 +146,10 @@ public class Company implements Serializable {
     public void setSystem_key(String System_key) {
         this.System_key = System_key;
     }
-                    
+
     @Column(length = 150)
     private String adress_street;
-    
+
     public String getAdress_street() {
         return adress_street;
     }
@@ -151,7 +157,7 @@ public class Company implements Serializable {
     public void setAdress_street(String adress_street) {
         this.adress_street = adress_street;
     }
-    
+
     @Column(length = 150)
     private String adress_neighborhood;
 
@@ -162,7 +168,7 @@ public class Company implements Serializable {
     public void setAdress_neighborhood(String adress_neighborhood) {
         this.adress_neighborhood = adress_neighborhood;
     }
-    
+
     @Column(length = 150, nullable = false)
     private String adress_city;
 
@@ -173,7 +179,7 @@ public class Company implements Serializable {
     public void setAdress_city(String adress_city) {
         this.adress_city = adress_city;
     }
-    
+
     @Column(length = 3, nullable = false)
     private String end_stat;
 
@@ -184,7 +190,7 @@ public class Company implements Serializable {
     public void setEnd_stat(String end_stat) {
         this.end_stat = end_stat;
     }
-    
+
     @Column()
     private int adress_number;
 
@@ -195,7 +201,7 @@ public class Company implements Serializable {
     public void setAdress_number(int adress_number) {
         this.adress_number = adress_number;
     }
-    
+
     @Column(length = 100)
     private String adress_complement;
 
@@ -206,7 +212,7 @@ public class Company implements Serializable {
     public void setAdress_complement(String adress_complement) {
         this.adress_complement = adress_complement;
     }
-    
+
     @Column(nullable = false, length = 10)
     private String adress_postalCode;
 
@@ -217,11 +223,10 @@ public class Company implements Serializable {
     public void setAdress_postalCode(String adress_postalCode) {
         this.adress_postalCode = adress_postalCode;
     }
-        
+
     @OneToMany(mappedBy = "company", fetch = FetchType.EAGER)
     private List<Client> client;
-    
-    
+
     @Override
     public int hashCode() {
         int hash = 0;
