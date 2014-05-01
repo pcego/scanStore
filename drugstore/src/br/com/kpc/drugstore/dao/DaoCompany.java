@@ -7,6 +7,7 @@ package br.com.kpc.drugstore.dao;
 import br.com.kpc.drugstore.core.Company;
 import br.com.kpc.drugstore.core.IRepositoryCompany;
 import javax.persistence.Query;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -21,14 +22,29 @@ public class DaoCompany extends DaoGeneric<Company> implements IRepositoryCompan
     @Override
     public String getLicenceKey() {
 
-        Query query = getManager().createQuery("SELECT CM.System_key FROM Company CM");
-        return (String) query.getSingleResult();
+        try {
+            Query query = getManager().createQuery("SELECT CM.System_key FROM Company CM");
+            return (String) query.getSingleResult();
+        } catch (Exception ex) {
+
+            JOptionPane.showMessageDialog(null, "Falha ao Carregar Chave Licença",
+                    "Ihh Falhou...!!", JOptionPane.ERROR_MESSAGE, null);
+            return null;
+        }
     }
 
     @Override
     public Company getCompany() {
 
-        Query query = getManager().createQuery("SELECT CM FROM Company CM");
-        return (Company) query.getSingleResult();
+        try {
+            Query query = getManager().createQuery("SELECT CM FROM Company CM");
+            return (Company) query.getSingleResult();
+        } catch (Exception ex) {
+
+            JOptionPane.showMessageDialog(null, "Falha ao Carregar Dados da Empresa",
+                    "Ihh Falhou...!!", JOptionPane.ERROR_MESSAGE, null);
+            return null;
+
+        }
     }
 }
