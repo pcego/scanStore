@@ -921,7 +921,7 @@ public class ClienteFrame extends javax.swing.JFrame {
 
         tbGrid.setModel(new ClientesTableModel(listClisnt));
     }
-
+    
 
     private void limparCampos() {
 
