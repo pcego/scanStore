@@ -302,6 +302,7 @@ public class Client implements Serializable {
     @OneToMany(mappedBy = "client", fetch = FetchType.EAGER)
     private List<Recipe> recipe;
 
+    @Column()
     private String marital_status;
 
     public String getMarital_status() {
@@ -312,6 +313,7 @@ public class Client implements Serializable {
         this.marital_status = marital_status;
     }
 
+    @Column()
     private String sex;
 
     public String getSex() {
