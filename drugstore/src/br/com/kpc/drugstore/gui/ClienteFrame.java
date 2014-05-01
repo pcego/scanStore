@@ -13,15 +13,12 @@ import br.com.kpc.drugstore.dao.DaoClient;
 import br.com.kpc.drugstore.dao.DaoCompany;
 import br.com.kpc.drugstore.util.ClientesTableModel;
 import br.com.kpc.drugstore.util.FormatDate;
-import java.awt.AWTKeyStroke;
-import java.awt.KeyboardFocusManager;
 import java.awt.Point;
 import java.awt.event.KeyEvent;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.HashSet;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -886,7 +883,7 @@ public class ClienteFrame extends javax.swing.JFrame {
             iRepositoryClient.apagar(client);
             return true;
 
-        } catch (Exception e) {
+        } catch (NumberFormatException e) {
             JOptionPane.showMessageDialog(this, "Deu erro: " + e);
             return false;
 
