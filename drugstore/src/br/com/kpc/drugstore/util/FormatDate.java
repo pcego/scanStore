@@ -14,7 +14,6 @@ import java.util.Date;
  */
 public class FormatDate {
 
-
     public static String dateCovertToShow(Date date) {
 
         return new SimpleDateFormat("dd/MM/yyyy").format(date);

@@ -28,13 +28,19 @@ import javax.persistence.TemporalType;
 @Entity()
 @Table(name = "clients")
 public class Client implements Serializable {
-       
+
     private static final long serialVersionUID = 1L;
-   
-    public Client(){
-        
+
+    public Client() {
+
     }
-    
+
+    public Client(Long id, String name, String cpf) {
+        this.id = id;
+        this.cpf = cpf;
+        this.name = name;
+    }
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(nullable = false, name = "clientId")
@@ -47,10 +53,10 @@ public class Client implements Serializable {
     public void setId(Long id) {
         this.id = id;
     }
-       
+
     @Column(nullable = false, length = 200)
     private String name;
-    
+
     public String getName() {
         return name;
     }
@@ -58,7 +64,7 @@ public class Client implements Serializable {
     public void setName(String name) {
         this.name = name;
     }
-    
+
     @Column(length = 25)
     private String phone;
 
@@ -69,8 +75,7 @@ public class Client implements Serializable {
     public void setPhone(String phone) {
         this.phone = phone;
     }
-    
-    
+
     @Column(length = 25, nullable = false)
     private String cellPhone_1;
 
@@ -81,8 +86,7 @@ public class Client implements Serializable {
     public void setCellPhone_1(String cellPhone_1) {
         this.cellPhone_1 = cellPhone_1;
     }
-    
-        
+
     @Column()
     private String cellPhone_2;
 
@@ -93,9 +97,8 @@ public class Client implements Serializable {
     public void setCellPhone_2(String cellPhone_2) {
         this.cellPhone_2 = cellPhone_2;
     }
-    
-    
-    @Column(nullable = false)   
+
+    @Column(nullable = false)
     @Temporal(TemporalType.DATE)
     private Date dt_nasc;
 
@@ -106,7 +109,7 @@ public class Client implements Serializable {
     public void setDt_nasc(Date dt_nasc) {
         this.dt_nasc = dt_nasc;
     }
-    
+
     @Column(unique = true, length = 15)
     private String cpf;
 
@@ -117,7 +120,7 @@ public class Client implements Serializable {
     public void setCpf(String cpf) {
         this.cpf = cpf;
     }
-    
+
     @Column()
     private String rg;
 
@@ -128,7 +131,7 @@ public class Client implements Serializable {
     public void setRg(String rg) {
         this.rg = rg;
     }
-    
+
     @Column(length = 200)
     private String email;
 
@@ -139,7 +142,7 @@ public class Client implements Serializable {
     public void setEmail(String email) {
         this.email = email;
     }
-    
+
     @Column(nullable = false)
     @Temporal(TemporalType.DATE)
     private Date dt_cad;
@@ -151,10 +154,10 @@ public class Client implements Serializable {
     public void setDt_cad(Date dt_cad) {
         this.dt_cad = dt_cad;
     }
-    
+
     @Column(length = 150)
     private String adress_street;
-    
+
     public String getAdress_street() {
         return adress_street;
     }
@@ -162,7 +165,7 @@ public class Client implements Serializable {
     public void setAdress_street(String adress_street) {
         this.adress_street = adress_street;
     }
-    
+
     @Column(length = 150)
     private String adress_neighborhood;
 
@@ -173,8 +176,8 @@ public class Client implements Serializable {
     public void setAdress_neighborhood(String adress_neighborhood) {
         this.adress_neighborhood = adress_neighborhood;
     }
-    
-    @Column(length = 150, nullable = false)    
+
+    @Column(length = 150, nullable = false)
     private String adress_city;
 
     public String getAdress_city() {
@@ -184,7 +187,7 @@ public class Client implements Serializable {
     public void setAdress_city(String adress_city) {
         this.adress_city = adress_city;
     }
-    
+
     @Column(length = 3, nullable = false)
     private String end_stat;
 
@@ -195,7 +198,7 @@ public class Client implements Serializable {
     public void setEnd_stat(String end_stat) {
         this.end_stat = end_stat;
     }
-    
+
     @Column()
     private int adress_number;
 
@@ -206,8 +209,8 @@ public class Client implements Serializable {
     public void setAdress_number(int adress_number) {
         this.adress_number = adress_number;
     }
-    
-    @Column(length = 100)    
+
+    @Column(length = 100)
     private String adress_complement;
 
     public String getAdress_complement() {
@@ -217,7 +220,7 @@ public class Client implements Serializable {
     public void setAdress_complement(String adress_complement) {
         this.adress_complement = adress_complement;
     }
-    
+
     @Column(nullable = false, length = 10)
     private String adress_postalCode;
 
@@ -228,7 +231,7 @@ public class Client implements Serializable {
     public void setAdress_postalCode(String adress_postalCode) {
         this.adress_postalCode = adress_postalCode;
     }
-    
+
     @Column(nullable = false)
     private boolean active;
 
@@ -239,7 +242,7 @@ public class Client implements Serializable {
     public void setActive(boolean active) {
         this.active = active;
     }
-            
+
     @Column()
     private String rg_image;
 
@@ -250,8 +253,8 @@ public class Client implements Serializable {
     public void setRg_image(String rg_image) {
         this.rg_image = rg_image;
     }
-    
-    @Column()    
+
+    @Column()
     private String cpf_image;
 
     public String getCpf_image() {
@@ -261,7 +264,7 @@ public class Client implements Serializable {
     public void setCpf_image(String cpf_image) {
         this.cpf_image = cpf_image;
     }
-    
+
     @Column()
     private String nasc_certificate;
 
@@ -272,9 +275,9 @@ public class Client implements Serializable {
     public void setNasc_certificate(String nasc_certificate) {
         this.nasc_certificate = nasc_certificate;
     }
-    
+
     @Column()
-    private String other_document;    
+    private String other_document;
 
     public String getOther_document() {
         return other_document;
@@ -283,7 +286,7 @@ public class Client implements Serializable {
     public void setOther_document(String other_document) {
         this.other_document = other_document;
     }
-        
+
     @ManyToOne(cascade = {CascadeType.MERGE}, fetch = FetchType.EAGER)
     @JoinColumn(nullable = false, referencedColumnName = "companyId")
     private Company company;
@@ -295,11 +298,32 @@ public class Client implements Serializable {
     public void setCompany(Company company) {
         this.company = company;
     }
-            
+
     @OneToMany(mappedBy = "client", fetch = FetchType.EAGER)
     private List<Recipe> recipe;
-    
-    
+
+    @Column()
+    private String marital_status;
+
+    public String getMarital_status() {
+        return marital_status;
+    }
+
+    public void setMarital_status(String marital_status) {
+        this.marital_status = marital_status;
+    }
+
+    @Column()
+    private String sex;
+
+    public String getSex() {
+        return sex;
+    }
+
+    public void setSex(String sex) {
+        this.sex = sex;
+    }
+
     @Override
     public int hashCode() {
         int hash = 0;
@@ -324,5 +348,5 @@ public class Client implements Serializable {
     public String toString() {
         return "br.com.kpc.drugstore.core.Client[ id=" + id + " ]";
     }
-    
+
 }
