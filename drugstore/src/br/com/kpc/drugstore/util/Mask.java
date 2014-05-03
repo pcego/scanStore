@@ -3,8 +3,8 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package br.com.kpc.drugstore.util;
+
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -19,64 +19,72 @@ public class Mask {
 
     /**
      * Método que configurar a mascara no JFormattedTextField
+     *
      * @param field Recebe o campo para configurar a mascara do tipo CPF
      * @throws ParseException
      */
-    public static void maskCPF(JFormattedTextField field) throws ParseException{
-            MaskFormatter cpf = new MaskFormatter();
-            cpf.setMask("###.###.###-##");
-            cpf.install(field);
+    public static void maskCPF(JFormattedTextField field) throws ParseException {
+        MaskFormatter cpf = new MaskFormatter();
+        cpf.setMask("###.###.###-##");
+        cpf.install(field);
     }
 
     /**
      * Método que configurar a mascara no JFormattedTextField
+     *
      * @param field Recebe o campo para configurar a mascara do tipo CPF
      * @throws ParseException
      */
-    public static void maskCNPJ(JFormattedTextField field) throws ParseException{
-            MaskFormatter cnpj = new MaskFormatter();
-            cnpj.setMask("##.###.###/####-##");
-            cnpj.install(field);
+    public static void maskCNPJ(JFormattedTextField field) throws ParseException {
+        MaskFormatter cnpj = new MaskFormatter();
+        cnpj.setMask("##.###.###/####-##");
+        cnpj.install(field);
     }
 
     /**
      * Método que configurar a mascara no JFormattedTextField
+     *
      * @param field Recebe o campo para configurar a mascara do tipo CPF
      * @throws ParseException
      */
-    public static void maskDate(JFormattedTextField field) throws ParseException{
-          MaskFormatter data = new MaskFormatter();
-          data.setMask("##/##/####");
-          data.install(field);
-          field.setText("");
+    public static void maskDate(JFormattedTextField field) throws ParseException {
+        MaskFormatter data = new MaskFormatter();
+        data.setMask("##/##/####");
+        data.install(field);
+        field.setText("");
     }
 
     /**
      * Método que configurar a mascara no JFormattedTextField
+     *
      * @param field Recebe o campo para configurar a mascara do tipo RG
      * @throws ParseException
      */
-    public static void maskRG(JFormattedTextField field) throws ParseException{
-          MaskFormatter rg = new MaskFormatter();
-          rg.setMask("#######-#");
-          rg.install(field);
+    public static void maskRG(JFormattedTextField field) throws ParseException {
+        MaskFormatter rg = new MaskFormatter();
+        rg.setMask("#######-#");
+        rg.install(field);
     }
 
-    public static void maskIncricaoEstadual(JFormattedTextField field) throws ParseException{
-          MaskFormatter inscricao = new MaskFormatter();
-          inscricao.setMask("##.###.###-#");
-          inscricao.install(field);
+    public static void maskIncricaoEstadual(JFormattedTextField field) throws ParseException {
+        MaskFormatter inscricao = new MaskFormatter();
+        inscricao.setMask("##.###.###-#");
+        inscricao.install(field);
     }
+
     /**
      * Método que configurar a mascara no JFormattedTextField
-     * @param field Recebe o campo para configurar a mascara do tipo numero com a <br>
-     * quantidade de colunas determinado no field setColumn determina o tamanho do JTextFiel digito
+     *
+     * @param field Recebe o campo para configurar a mascara do tipo numero com
+     * a <br>
+     * quantidade de colunas determinado no field setColumn determina o tamanho
+     * do JTextFiel digito
      * @throws ParseException
      */
-    public static void maskNumber(JFormattedTextField field) throws ParseException{
+    public static void maskNumber(JFormattedTextField field) throws ParseException {
         MaskFormatter digite = new MaskFormatter();
         String mask = "#####";
-        for(int i = 0; i < field.getColumns(); i++){
+        for (int i = 0; i < field.getColumns(); i++) {
             mask += "#";
         }
         digite.setMask(mask);
@@ -86,10 +94,11 @@ public class Mask {
 
     /**
      * Método que configurar a mascara no JFormattedTextField
+     *
      * @param field Recebe o campo para configurar a mascara do tipo telefone
      * @throws ParseException
      */
-    public static void maskFone(JFormattedTextField field) throws ParseException{
+    public static void maskFone(JFormattedTextField field) throws ParseException {
         MaskFormatter fone = new MaskFormatter();
         fone.setMask("(##)####-####");
         fone.install(field);
@@ -98,21 +107,23 @@ public class Mask {
 
     /**
      * Método que configurar a mascara no JFormattedTextField
+     *
      * @param field Recebe o campo para configurar a mascara do tipo Cep
      * @throws ParseException
      */
-    public static void maskCep(JFormattedTextField field) throws ParseException{
+    public static void maskCep(JFormattedTextField field) throws ParseException {
         MaskFormatter cep = new MaskFormatter();
         cep.setMask("#####-###");
         cep.install(field);
     }
 
-     /**
+    /**
      * Método que configurar a mascara no JFormattedTextField
+     *
      * @param field Recebe o campo para configurar a mascara do tipo Renavam
      * @throws ParseException
      */
-    public static void maskRenavam(JFormattedTextField field) throws ParseException{
+    public static void maskRenavam(JFormattedTextField field) throws ParseException {
         MaskFormatter renavam = new MaskFormatter();
         renavam.setMask("##.######-#");
         renavam.install(field);
@@ -120,34 +131,46 @@ public class Mask {
 
     /**
      * Método que configurar a mascara no JFormattedTextField
+     *
      * @param field Recebe o campo para configurar a mascara do tipo placa
      * @throws ParseException
      */
-    public static void maskPlaca(JFormattedTextField field) throws ParseException{
+    public static void maskPlaca(JFormattedTextField field) throws ParseException {
         MaskFormatter placa = new MaskFormatter();
         placa.setMask("UUU-####");
         placa.install(field);
     }
 
-     /**
+    /**
      * Método que configurar a mascara no JFormattedTextField
-     * @param field Recebe o campo para configurar a mascara do tipo 10 caracter em maiusculo
+     *
+     * @param field Recebe o campo para configurar a mascara do tipo 10 caracter
+     * em maiusculo
      * @throws ParseException
      */
-    public static void maskCaracterMa10(JFormattedTextField field) throws ParseException{
+    public static void maskCaracterMa50(JFormattedTextField field) throws ParseException {
         MaskFormatter placa = new MaskFormatter();
-        placa.setMask("UUUUUUUUUU");
+        placa.setMask("UUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUU");
         placa.install(field);
     }
 
     /**
      * Metodo estatico para validar CPF e/ou CNPJ
+     *
      * @param s_aux String com CPF ou CNPJ para ser validado
      * @return true para CPF ou CNPJ valido e false para invalido
      */
     public static boolean validaCpfCnpj(String s_aux) {
-
+        s_aux = s_aux.replace(".", "").replace("-", "").replace("/", "");
         if (s_aux.length() == 11) {
+            if (s_aux.equals("00000000000") || s_aux.equals("11111111111")
+                    || s_aux.equals("22222222222") || s_aux.equals("33333333333")
+                    || s_aux.equals("44444444444") || s_aux.equals("55555555555")
+                    || s_aux.equals("66666666666") || s_aux.equals("77777777777")
+                    || s_aux.equals("88888888888") || s_aux.equals("99999999999")) {
+                return (false);
+            }
+
             int d1, d2;
             int digito1, digito2, resto;
             int digitoCPF;
@@ -184,8 +207,7 @@ public class Mask {
             nDigResult = String.valueOf(digito1) + String.valueOf(digito2);
 
             return nDigVerific.equals(nDigResult);
-        }
-        else if (s_aux.length() == 14) {
+        } else if (s_aux.length() == 14) {
             int soma = 0, aux, dig;
             String cnpj_calc = s_aux.substring(0, 12);
             char[] chr_cnpj = s_aux.toCharArray();
@@ -223,15 +245,17 @@ public class Mask {
             return false;
         }
     }
-      public static String maskMostradata (JFormattedTextField field) throws ParseException{
-       //pega data do computador
-       Date data = new Date();
-       //cria o formatador
-       SimpleDateFormat dformatador = new SimpleDateFormat("dd/MM/yyyy");
-       // cria a string para armazenar data
-       String sData = dformatador.format(data);
 
-       //retorna o pedido
+    public static String maskMostradata(JFormattedTextField field) throws ParseException {
+        //pega data do computador
+        Date data = new Date();
+        //cria o formatador
+        SimpleDateFormat dformatador = new SimpleDateFormat("dd/MM/yyyy");
+        // cria a string para armazenar data
+        String sData = dformatador.format(data);
+
+        //retorna o pedido
         return sData;
     }
-  }
+
+}
