@@ -64,8 +64,14 @@ public class RecipeFrame extends javax.swing.JFrame {
         tvDtVenda = new javax.swing.JFormattedTextField();
         btAdicionar = new javax.swing.JButton();
         btCancelar = new javax.swing.JButton();
+        jButton1 = new javax.swing.JButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowClosed(java.awt.event.WindowEvent evt) {
+                formWindowClosed(evt);
+            }
+        });
 
         jLabel1.setText("CPF:");
 
@@ -108,6 +114,13 @@ public class RecipeFrame extends javax.swing.JFrame {
             }
         });
 
+        jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/kpc/drugstore/img/pesquisa.png"))); // NOI18N
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -115,13 +128,13 @@ public class RecipeFrame extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(0, 149, Short.MAX_VALUE)
+                        .addGap(0, 151, Short.MAX_VALUE)
                         .addComponent(displayReceita)
                         .addGap(62, 62, 62)
                         .addComponent(displayCupom, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(59, 59, 59)
                         .addComponent(displayOutros, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                    .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
                                 .addGap(19, 19, 19)
@@ -135,28 +148,34 @@ public class RecipeFrame extends javax.swing.JFrame {
                         .addGap(12, 12, 12)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(btAdicionar)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(btCancelar))
-                            .addComponent(rbAnticoncepcional)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(opDigitalizar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, 18)
-                                .addComponent(btDigitalizar))
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(rbAnticoncepcional)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(opDigitalizar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGap(18, 18, 18)
+                                        .addComponent(btDigitalizar)))
+                                .addGap(253, 282, Short.MAX_VALUE))
                             .addGroup(layout.createSequentialGroup()
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                                     .addComponent(tvCupomFiscal, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 150, Short.MAX_VALUE)
                                     .addComponent(tvNumAutorizacao, javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(tvCPF))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jLabel4)
                                     .addComponent(jLabel5))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                     .addComponent(tvDtReceita)
-                                    .addComponent(tvDtVenda, javax.swing.GroupLayout.DEFAULT_SIZE, 159, Short.MAX_VALUE))))))
-                .addContainerGap(43, Short.MAX_VALUE))
+                                    .addComponent(tvDtVenda, javax.swing.GroupLayout.PREFERRED_SIZE, 159, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(btAdicionar)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(btCancelar)
+                                .addGap(0, 0, Short.MAX_VALUE)))))
+                .addContainerGap(41, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -164,10 +183,12 @@ public class RecipeFrame extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addGap(14, 14, 14)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel5)
-                            .addComponent(tvCPF, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(tvDtVenda, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                .addComponent(jLabel5)
+                                .addComponent(tvCPF, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(tvDtVenda, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(tvNumAutorizacao, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -192,25 +213,25 @@ public class RecipeFrame extends javax.swing.JFrame {
                     .addComponent(displayOutros, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(displayCupom, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(displayReceita, javax.swing.GroupLayout.PREFERRED_SIZE, 113, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 18, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 81, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btCancelar)
                     .addComponent(btAdicionar))
-                .addGap(21, 21, 21))
+                .addGap(31, 31, 31))
         );
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 /**
      * Declarações de variaveis Globais
      */
     private IRepositoryClient repoCliente = (IRepositoryClient) new DaoClient();
-    private Client client;
     private IRepositoryRecipe repoRecipe = (IRepositoryRecipe) new DaoRecipe();
     private Recipe recipe;
-
+    private static Client client;
     private void definindoMask() {
-
+        
         try {
             Mask.maskCPF(tvCPF);
             Mask.maskDate(tvDtReceita);
@@ -224,10 +245,10 @@ public class RecipeFrame extends javax.swing.JFrame {
         boolean retorno = false;
         Scan sc = new Scan();
         File[] img = sc.getGuiScan("C:\\imagens\\" + limpaCPF(tvCPF.getText()));
-
+        
         retorno = Scan.renameImg(img[0], "C:\\imagens\\" + limpaCPF(tvCPF.getText()), opDigitalizar.getSelectedItem().toString() + ".jpg");
         carregarImg(displayReceita, img[0]);
-
+        
         if (retorno) {
             System.out.println("sucesso");
         } else {
@@ -236,9 +257,9 @@ public class RecipeFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_btDigitalizarActionPerformed
 
     private void btAdicionarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btAdicionarActionPerformed
-
+        
         recipe.setRecipe_type(rbAnticoncepcional.isSelected());
-
+        
         repoRecipe.salvar(recipe);
 
     }//GEN-LAST:event_btAdicionarActionPerformed
@@ -246,6 +267,14 @@ public class RecipeFrame extends javax.swing.JFrame {
     private void btCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btCancelarActionPerformed
 
     }//GEN-LAST:event_btCancelarActionPerformed
+
+    private void formWindowClosed(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosed
+        getJanelaNULL();
+    }//GEN-LAST:event_formWindowClosed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        ConsultarCliente.getJanelaConsultarCliente("CADRECEITA").setVisible(true);
+    }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -289,6 +318,7 @@ public class RecipeFrame extends javax.swing.JFrame {
     private javax.swing.JLabel displayCupom;
     private javax.swing.JLabel displayOutros;
     private javax.swing.JLabel displayReceita;
+    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -296,7 +326,7 @@ public class RecipeFrame extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel5;
     private javax.swing.JComboBox opDigitalizar;
     private javax.swing.JRadioButton rbAnticoncepcional;
-    private javax.swing.JFormattedTextField tvCPF;
+    private static javax.swing.JFormattedTextField tvCPF;
     private javax.swing.JTextField tvCupomFiscal;
     private javax.swing.JFormattedTextField tvDtReceita;
     private javax.swing.JFormattedTextField tvDtVenda;
@@ -309,14 +339,34 @@ public class RecipeFrame extends javax.swing.JFrame {
         //File img = new File(caminho);
         try {
             BufferedImage bfi = ImageIO.read(img);
-
+            
             componente.setIcon(new ImageIcon(bfi));
         } catch (IOException iex) {
             System.out.println(iex);
         }
     }
-
-    private String limpaCPF(String cpf) {
+    
+    protected String limpaCPF(String cpf) {
         return cpf.replace(".", "").replace("-", "");
     }
+    public static RecipeFrame recipeFrame;
+    
+    protected static RecipeFrame getJanelaNULL() {
+        recipeFrame = null;
+        return recipeFrame;
+    }
+    
+    protected static RecipeFrame getJanelaReceita() {
+        if (recipeFrame == null) {
+            recipeFrame = new RecipeFrame();
+        }
+        return recipeFrame;
+    }
+    
+        protected static void getClienteRetorno(Client cli) {       
+            client = new Client();
+            client = cli;
+            tvCPF.setText(client.getCpf());
+
+        }
 }
