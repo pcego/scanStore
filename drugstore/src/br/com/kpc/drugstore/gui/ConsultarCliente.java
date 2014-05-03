@@ -9,8 +9,11 @@ import br.com.kpc.drugstore.core.Client;
 import br.com.kpc.drugstore.core.IRepositoryClient;
 import br.com.kpc.drugstore.dao.DaoClient;
 import br.com.kpc.drugstore.tableModel.TableModelClient;
+import br.com.kpc.drugstore.util.ClientesTableModel;
+import br.com.kpc.drugstore.util.Mask;
 import java.util.ArrayList;
 import java.util.List;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -37,10 +40,11 @@ public class ConsultarCliente extends javax.swing.JFrame {
         jScrollPane2 = new javax.swing.JScrollPane();
         tbGrid = new javax.swing.JTable();
         btPesquisa = new javax.swing.JButton();
-        tvCriterio = new javax.swing.JTextField();
         cbOpcao = new javax.swing.JComboBox();
+        tvCriterio = new javax.swing.JFormattedTextField();
+        lTotalRegistros = new javax.swing.JLabel();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         tbGrid.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -58,6 +62,11 @@ public class ConsultarCliente extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
+        tbGrid.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                tbGridKeyPressed(evt);
+            }
+        });
         jScrollPane2.setViewportView(tbGrid);
         if (tbGrid.getColumnModel().getColumnCount() > 0) {
             tbGrid.getColumnModel().getColumn(0).setPreferredWidth(150);
@@ -73,6 +82,13 @@ public class ConsultarCliente extends javax.swing.JFrame {
         });
 
         cbOpcao.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "CIDADE", "NOME", "CPF", "TODOS" }));
+        cbOpcao.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cbOpcaoActionPerformed(evt);
+            }
+        });
+
+        lTotalRegistros.setText("Total Registros: 00");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -84,10 +100,11 @@ public class ConsultarCliente extends javax.swing.JFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(cbOpcao, javax.swing.GroupLayout.PREFERRED_SIZE, 99, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(tvCriterio, javax.swing.GroupLayout.PREFERRED_SIZE, 422, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(tvCriterio, javax.swing.GroupLayout.PREFERRED_SIZE, 418, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(btPesquisa))
-                    .addComponent(jScrollPane2))
+                    .addComponent(jScrollPane2)
+                    .addComponent(lTotalRegistros))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -96,42 +113,100 @@ public class ConsultarCliente extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btPesquisa)
-                    .addComponent(tvCriterio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(cbOpcao, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(cbOpcao, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(tvCriterio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 253, Short.MAX_VALUE)
-                .addContainerGap())
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 251, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 8, Short.MAX_VALUE)
+                .addComponent(lTotalRegistros))
         );
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
+    Client client;
+    TableModelClient model;
+    private static String janelaDeRetorno;
+
     private void btPesquisaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btPesquisaActionPerformed
-        Client client = new Client();
-        List<Client> listCliente = new ArrayList<Client>();
-        //Limpando list
-        listCliente.clear();
-
-        IRepositoryClient repoCLiente = (IRepositoryClient) new DaoClient();
-
-        switch (cbOpcao.getSelectedItem().toString()) {
-            case "CIDADE":
-                listCliente = repoCLiente.listClientByCity(tvCriterio.getText().trim(), true);
-                break;
-            case "NOME":
-                listCliente = repoCLiente.listClientByName(tvCriterio.getText().trim(), true);
-                break;
-            case "CPF":
-                client = repoCLiente.getClientByCpf(tvCriterio.getText().trim(), true);
-                listCliente.add(client);
-                break;
-            case "TODOS":
-                listCliente = repoCLiente.listAll(true);
-                break;
+        loadingTable();
+        if (tbGrid.getRowCount() > 0) {
+            lTotalRegistros.setText("Total Registros: " + tbGrid.getRowCount());
+        } else {
+            int resposta;
+            String[] opcoes = {"Sim", "Nao"};
+            
+            resposta = JOptionPane.showOptionDialog(this, "Cliente não encontrado deseja cadastra?",
+                    "Cliente não encotnrado", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, opcoes, opcoes[0]);
+            if (resposta == 0) {
+                ClienteFrame.getJanelaCliente().setVisible(true);
+                this.dispose();
+            }
         }
 
-        tbGrid.setModel(new TableModelClient(listCliente));
+//        Client client = new Client();
+//        List<Client> listCliente = new ArrayList<Client>();
+//        //Limpando list
+//        listCliente.clear();
+//
+//        IRepositoryClient repoCLiente = (IRepositoryClient) new DaoClient();
+//
+//        switch (cbOpcao.getSelectedItem().toString()) {
+//            case "CIDADE":
+//                listCliente = repoCLiente.listClientByCity(tvCriterio.getText().trim(), true);
+//                break;
+//            case "NOME":
+//                listCliente = repoCLiente.listClientByName(tvCriterio.getText().trim(), true);
+//                break;
+//            case "CPF":
+//                client = repoCLiente.getClientByCpf(tvCriterio.getText().trim(), true);
+//                listCliente.add(client);
+//                break;
+//            case "TODOS":
+//                listCliente = repoCLiente.listAll(true);
+//                break;
+//        }
+//
+//        tbGrid.setModel(new TableModelClient(listCliente));
     }//GEN-LAST:event_btPesquisaActionPerformed
+
+    private void cbOpcaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbOpcaoActionPerformed
+//        try {
+//
+//            switch (cbOpcao.getSelectedItem().toString()) {
+//                case "CIDADE":
+//
+//                    break;
+//                case "NOME":
+//
+//                    break;
+//                case "CPF":
+//
+//                    break;
+//                case "TODOS":
+//                    break;
+//            }
+//
+//        } catch (Exception e) {
+//        }
+    }//GEN-LAST:event_cbOpcaoActionPerformed
+
+    private void tbGridKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tbGridKeyPressed
+        Client cli = new Client();
+        cli = model.getClient(tbGrid.getSelectedRow());
+        
+        switch (janelaDeRetorno) {
+            case "CADCLIENTE":
+                ClienteFrame.getCliente(cli);
+                break;
+            case "CADRECEITA":
+                RecipeFrame.getClienteRetorno(cli);
+            
+        }
+        
+        this.dispose();
+    }//GEN-LAST:event_tbGridKeyPressed
 
     /**
      * @param args the command line arguments
@@ -172,7 +247,48 @@ public class ConsultarCliente extends javax.swing.JFrame {
     private javax.swing.JButton btPesquisa;
     private javax.swing.JComboBox cbOpcao;
     private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JLabel lTotalRegistros;
     private javax.swing.JTable tbGrid;
-    private javax.swing.JTextField tvCriterio;
+    private javax.swing.JFormattedTextField tvCriterio;
     // End of variables declaration//GEN-END:variables
+
+    private void loadingTable() {
+        IRepositoryClient iRepositoryClient = (IRepositoryClient) new DaoClient();
+        List<Client> listClisnt = new ArrayList<Client>();
+        listClisnt.clear();
+        
+        switch (cbOpcao.getSelectedItem().toString()) {
+            case "CIDADE":
+                listClisnt = iRepositoryClient.listClientByCity(tvCriterio.getText().trim(), true);
+                break;
+            case "NOME":
+                listClisnt = iRepositoryClient.listClientByName(tvCriterio.getText().trim(), true);
+                break;
+            case "CPF":
+                client = new Client();
+                client = iRepositoryClient.getClientByCpf(tvCriterio.getText().trim(), true);
+                listClisnt.add(client);
+                break;
+            case "TODOS":
+                listClisnt = iRepositoryClient.listAll(true);
+                break;
+        }
+        model = new TableModelClient(listClisnt);
+        tbGrid.setModel(model);
+    }
+    
+    protected static ConsultarCliente consultarCliente;
+    
+    protected static ConsultarCliente getJanelaNULL() {
+        consultarCliente = null;
+        return consultarCliente;
+    }
+    
+    protected static ConsultarCliente getJanelaConsultarCliente(String janela) {
+        if (consultarCliente == null) {
+            consultarCliente = new ConsultarCliente();
+        }
+        janelaDeRetorno = janela;
+        return consultarCliente;
+    }
 }
