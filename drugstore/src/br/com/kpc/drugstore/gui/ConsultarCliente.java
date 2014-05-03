@@ -9,11 +9,15 @@ import br.com.kpc.drugstore.core.Client;
 import br.com.kpc.drugstore.core.IRepositoryClient;
 import br.com.kpc.drugstore.dao.DaoClient;
 import br.com.kpc.drugstore.tableModel.TableModelClient;
-import br.com.kpc.drugstore.util.ClientesTableModel;
 import br.com.kpc.drugstore.util.Mask;
+import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
+import javax.swing.text.DefaultFormatterFactory;
+import javax.swing.text.MaskFormatter;
 
 /**
  *
@@ -26,6 +30,7 @@ public class ConsultarCliente extends javax.swing.JFrame {
      */
     public ConsultarCliente() {
         initComponents();
+
     }
 
     /**
@@ -82,9 +87,17 @@ public class ConsultarCliente extends javax.swing.JFrame {
         });
 
         cbOpcao.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "CIDADE", "NOME", "CPF", "TODOS" }));
+        cbOpcao.setSelectedIndex(1);
         cbOpcao.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 cbOpcaoActionPerformed(evt);
+            }
+        });
+
+        tvCriterio.setMaximumSize(new java.awt.Dimension(50, 50));
+        tvCriterio.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                tvCriterioFocusLost(evt);
             }
         });
 
@@ -129,84 +142,72 @@ public class ConsultarCliente extends javax.swing.JFrame {
     TableModelClient model;
     private static String janelaDeRetorno;
 
+
     private void btPesquisaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btPesquisaActionPerformed
         loadingTable();
-        if (tbGrid.getRowCount() > 0) {
-            lTotalRegistros.setText("Total Registros: " + tbGrid.getRowCount());
-        } else {
-            int resposta;
-            String[] opcoes = {"Sim", "Nao"};
-            
-            resposta = JOptionPane.showOptionDialog(this, "Cliente não encontrado deseja cadastra?",
-                    "Cliente não encotnrado", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, opcoes, opcoes[0]);
-            if (resposta == 0) {
-                ClienteFrame.getJanelaCliente().setVisible(true);
-                this.dispose();
-            }
-        }
 
-//        Client client = new Client();
-//        List<Client> listCliente = new ArrayList<Client>();
-//        //Limpando list
-//        listCliente.clear();
-//
-//        IRepositoryClient repoCLiente = (IRepositoryClient) new DaoClient();
-//
-//        switch (cbOpcao.getSelectedItem().toString()) {
-//            case "CIDADE":
-//                listCliente = repoCLiente.listClientByCity(tvCriterio.getText().trim(), true);
-//                break;
-//            case "NOME":
-//                listCliente = repoCLiente.listClientByName(tvCriterio.getText().trim(), true);
-//                break;
-//            case "CPF":
-//                client = repoCLiente.getClientByCpf(tvCriterio.getText().trim(), true);
-//                listCliente.add(client);
-//                break;
-//            case "TODOS":
-//                listCliente = repoCLiente.listAll(true);
-//                break;
-//        }
-//
-//        tbGrid.setModel(new TableModelClient(listCliente));
+
     }//GEN-LAST:event_btPesquisaActionPerformed
 
     private void cbOpcaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbOpcaoActionPerformed
-//        try {
-//
-//            switch (cbOpcao.getSelectedItem().toString()) {
-//                case "CIDADE":
-//
-//                    break;
-//                case "NOME":
-//
-//                    break;
-//                case "CPF":
-//
-//                    break;
-//                case "TODOS":
-//                    break;
-//            }
-//
-//        } catch (Exception e) {
-//        }
+        try {
+
+            switch (cbOpcao.getSelectedItem().toString()) {
+                case "CPF":
+                    tvCriterio.setEnabled(true);
+                    tvCriterio.setSize(200, 28);
+                    try {
+                        tvCriterio.setValue(null);
+                        MaskFormatter cpf = new MaskFormatter("###.###.###-##");
+                        tvCriterio.setFormatterFactory(
+                                new DefaultFormatterFactory(cpf));
+                        tvCriterio.updateUI();
+                    } catch (ParseException ex) {
+                        Logger.getLogger(RecipeFrame.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                    break;
+                case "TODOS":
+                    tvCriterio.setSize(400, 28);
+                    tvCriterio.setEnabled(false);
+                    tvCriterio.setText("");
+                    break;
+                default:
+                    tvCriterio.setEnabled(true);
+                    tvCriterio.setSize(400, 28);
+                    try {
+                        tvCriterio.setValue(null);
+                        MaskFormatter cpf = new MaskFormatter("**************************************************");
+                        tvCriterio.setFormatterFactory(
+                                new DefaultFormatterFactory(cpf));
+                        tvCriterio.updateUI();
+                    } catch (ParseException ex) {
+                        Logger.getLogger(RecipeFrame.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+            }
+
+        } catch (Exception e) {
+        }
     }//GEN-LAST:event_cbOpcaoActionPerformed
 
     private void tbGridKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tbGridKeyPressed
         Client cli = new Client();
         cli = model.getClient(tbGrid.getSelectedRow());
-        
+
         switch (janelaDeRetorno) {
             case "CADCLIENTE":
                 ClienteFrame.getCliente(cli);
                 break;
             case "CADRECEITA":
                 RecipeFrame.getClienteRetorno(cli);
-            
+
         }
-        
+
         this.dispose();
     }//GEN-LAST:event_tbGridKeyPressed
+
+    private void tvCriterioFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_tvCriterioFocusLost
+        tvCriterio.setText(tvCriterio.getText().toUpperCase());
+    }//GEN-LAST:event_tvCriterioFocusLost
 
     /**
      * @param args the command line arguments
@@ -256,34 +257,47 @@ public class ConsultarCliente extends javax.swing.JFrame {
         IRepositoryClient iRepositoryClient = (IRepositoryClient) new DaoClient();
         List<Client> listClisnt = new ArrayList<Client>();
         listClisnt.clear();
-        
+
         switch (cbOpcao.getSelectedItem().toString()) {
             case "CIDADE":
-                listClisnt = iRepositoryClient.listClientByCity(tvCriterio.getText().trim(), true);
+                if (validarTamanhoDoCampos()) {
+                    listClisnt = iRepositoryClient.listClientByCity(tvCriterio.getText().trim(), true);
+                    verificarRegistros(listClisnt.size());
+                }
                 break;
             case "NOME":
-                listClisnt = iRepositoryClient.listClientByName(tvCriterio.getText().trim(), true);
+                if (validarTamanhoDoCampos()) {
+                    listClisnt = iRepositoryClient.listClientByName(tvCriterio.getText().trim(), true);
+                    verificarRegistros(listClisnt.size());
+                }
                 break;
             case "CPF":
-                client = new Client();
-                client = iRepositoryClient.getClientByCpf(tvCriterio.getText().trim(), true);
-                listClisnt.add(client);
+                if (Mask.validaCpfCnpj(tvCriterio.getText())) {
+                    client = new Client();
+                    client = iRepositoryClient.getClientByCpf(tvCriterio.getText().trim(), true);
+                    listClisnt.add(client);
+                    verificarRegistros(listClisnt.size());
+                } else {
+                    JOptionPane.showMessageDialog(this, "CPF digitado é inválido");
+                }
+
                 break;
             case "TODOS":
                 listClisnt = iRepositoryClient.listAll(true);
+                verificarRegistros(listClisnt.size());
                 break;
         }
         model = new TableModelClient(listClisnt);
         tbGrid.setModel(model);
     }
-    
+
     protected static ConsultarCliente consultarCliente;
-    
+
     protected static ConsultarCliente getJanelaNULL() {
         consultarCliente = null;
         return consultarCliente;
     }
-    
+
     protected static ConsultarCliente getJanelaConsultarCliente(String janela) {
         if (consultarCliente == null) {
             consultarCliente = new ConsultarCliente();
@@ -291,4 +305,30 @@ public class ConsultarCliente extends javax.swing.JFrame {
         janelaDeRetorno = janela;
         return consultarCliente;
     }
+
+    private boolean validarTamanhoDoCampos() {
+
+        if (tvCriterio.getText().length() < 3) {
+            JOptionPane.showMessageDialog(this, "Por favor, digite no minimo 3 character");
+            return false;
+        }
+        return true;
+
+    }
+
+    private void verificarRegistros(int qtdRegistros) {
+        if (qtdRegistros > 0) {
+            lTotalRegistros.setText("Total Registros: " + qtdRegistros);
+        } else {
+            int resposta;
+            String[] opcoes = {"Sim", "Nao"};
+            resposta = JOptionPane.showOptionDialog(this, "Cliente não encontrado deseja cadastra?",
+                    "Cliente não encotnrado", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, opcoes, opcoes[0]);
+            if (resposta == 0) {
+                ClienteFrame.getJanelaCliente().setVisible(true);
+                this.dispose();
+            }
+        }
+    }
+
 }
