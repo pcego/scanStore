@@ -50,6 +50,11 @@ public class ConsultarCliente extends javax.swing.JFrame {
         lTotalRegistros = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowClosed(java.awt.event.WindowEvent evt) {
+                formWindowClosed(evt);
+            }
+        });
 
         tbGrid.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -208,6 +213,10 @@ public class ConsultarCliente extends javax.swing.JFrame {
     private void tvCriterioFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_tvCriterioFocusLost
         tvCriterio.setText(tvCriterio.getText().toUpperCase());
     }//GEN-LAST:event_tvCriterioFocusLost
+
+    private void formWindowClosed(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosed
+       getJanelaNULL();
+    }//GEN-LAST:event_formWindowClosed
 
     /**
      * @param args the command line arguments
