@@ -11,16 +11,12 @@ import br.com.kpc.drugstore.core.IRepositoryClient;
 import br.com.kpc.drugstore.core.IRepositoryCompany;
 import br.com.kpc.drugstore.dao.DaoClient;
 import br.com.kpc.drugstore.dao.DaoCompany;
-import br.com.kpc.drugstore.tableModel.TableModelClient;
-import br.com.kpc.drugstore.util.ClientesTableModel;
 import br.com.kpc.drugstore.util.FormatDate;
-import java.awt.Point;
+import br.com.kpc.drugstore.util.Mask;
 import java.awt.event.KeyEvent;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
@@ -37,6 +33,7 @@ public class ClienteFrame extends javax.swing.JFrame {
     public ClienteFrame() {
         initComponents();
         btTypeDefault();
+        definindoMask();
     }
 
     /**
@@ -83,13 +80,13 @@ public class ClienteFrame extends javax.swing.JFrame {
         jLabel24 = new javax.swing.JLabel();
         tvAdressNeighborhood = new javax.swing.JTextField();
         tvAdressCity = new javax.swing.JTextField();
-        tvAdressNumber = new javax.swing.JTextField();
         jLabel25 = new javax.swing.JLabel();
         jLabel26 = new javax.swing.JLabel();
         cbAdressStat = new javax.swing.JComboBox();
         jLabel27 = new javax.swing.JLabel();
         jLabel28 = new javax.swing.JLabel();
         tvAdressComplement = new javax.swing.JTextField();
+        tvAdressNumber = new javax.swing.JFormattedTextField();
         btInicio = new javax.swing.JButton();
         btAnterior = new javax.swing.JButton();
         btProximo = new javax.swing.JButton();
@@ -156,6 +153,12 @@ public class ClienteFrame extends javax.swing.JFrame {
 
         jLabel12.setText("*Nome:");
 
+        tvName.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                tvNameFocusLost(evt);
+            }
+        });
+
         jLabel13.setText("Telefone:");
 
         try {
@@ -189,6 +192,11 @@ public class ClienteFrame extends javax.swing.JFrame {
         } catch (java.text.ParseException ex) {
             ex.printStackTrace();
         }
+        tvCPF.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                tvCPFFocusLost(evt);
+            }
+        });
 
         jLabel18.setText("RG");
 
@@ -280,16 +288,11 @@ public class ClienteFrame extends javax.swing.JFrame {
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel3Layout.createSequentialGroup()
                         .addComponent(tvName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel3Layout.createSequentialGroup()
-                                .addGap(27, 27, 27)
-                                .addComponent(rbAtivo))
-                            .addGroup(jPanel3Layout.createSequentialGroup()
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                    .addComponent(cbSexo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jLabel21, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(cbEstCivil, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(cbSexo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel21, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(cbEstCivil, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(jPanel3Layout.createSequentialGroup()
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel3Layout.createSequentialGroup()
@@ -307,14 +310,15 @@ public class ClienteFrame extends javax.swing.JFrame {
                                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                     .addComponent(tvCPF, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(jLabel16, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                        .addGap(3, 3, 3)
+                        .addGap(2, 2, 2)
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel18, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                 .addComponent(tvRG, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addComponent(jLabel20, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(tvBirthDay, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))))
-                .addGap(6, 6, 6)
+                                .addComponent(tvBirthDay, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(rbAtivo)))))
+                .addGap(4, 4, 4)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel13, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -338,7 +342,25 @@ public class ClienteFrame extends javax.swing.JFrame {
 
         jLabel23.setText("Endereço:");
 
+        tvAdressStreet.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                tvAdressStreetFocusLost(evt);
+            }
+        });
+
         jLabel24.setText("Bairro:");
+
+        tvAdressNeighborhood.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                tvAdressNeighborhoodFocusLost(evt);
+            }
+        });
+
+        tvAdressCity.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                tvAdressCityFocusLost(evt);
+            }
+        });
 
         jLabel25.setText("Nº");
 
@@ -350,6 +372,14 @@ public class ClienteFrame extends javax.swing.JFrame {
         jLabel27.setText("Estado:");
 
         jLabel28.setText("Cidade:");
+
+        tvAdressComplement.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                tvAdressComplementFocusLost(evt);
+            }
+        });
+
+        tvAdressNumber.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter()));
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -374,8 +404,8 @@ public class ClienteFrame extends javax.swing.JFrame {
                                 .addComponent(tvAdressStreet, javax.swing.GroupLayout.PREFERRED_SIZE, 310, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(10, 10, 10)
                                 .addComponent(jLabel25)
-                                .addGap(5, 5, 5)
-                                .addComponent(tvAdressNumber, javax.swing.GroupLayout.PREFERRED_SIZE, 99, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(tvAdressNumber, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addGap(14, 14, 14)
@@ -405,10 +435,10 @@ public class ClienteFrame extends javax.swing.JFrame {
                     .addComponent(jLabel23, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(tvAdressStreet, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel25, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(tvAdressNumber, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(jLabel26, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(tvAdressComplement, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(tvAdressComplement, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(tvAdressNumber, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(10, 10, 10)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -453,6 +483,12 @@ public class ClienteFrame extends javax.swing.JFrame {
         });
 
         jLabel29.setText("Email:");
+
+        tvEmail.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                tvEmailFocusLost(evt);
+            }
+        });
 
         jLabel1.setText("Cadastro de Cliente");
 
@@ -547,6 +583,14 @@ public class ClienteFrame extends javax.swing.JFrame {
     private int linhaSelecionada = 0;
     private static Client clientVG;
 
+    private void definindoMask() {
+
+        try {
+            Mask.maskNumber(tvAdressNumber);
+        } catch (ParseException ex) {
+            Logger.getLogger(RecipeFrame.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
     private void btAdicionarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btAdicionarActionPerformed
         opMenu = "I";
         btTypeInsert();
@@ -571,6 +615,9 @@ public class ClienteFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_btCancelarActionPerformed
 
     private void btConfirmarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btConfirmarActionPerformed
+        if (!validarCPF()){
+            return;
+        }
         boolean retorno;
         switch (opMenu) {
             case "U":
@@ -583,7 +630,7 @@ public class ClienteFrame extends javax.swing.JFrame {
             case "I":
                 retorno = insert();
                 if (retorno) {
-                    JOptionPane.showMessageDialog(this, "Gravado");                    
+                    JOptionPane.showMessageDialog(this, "Gravado");
                     btTypeDefault();
                 }
                 break;
@@ -626,6 +673,34 @@ public class ClienteFrame extends javax.swing.JFrame {
     private void btInicioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btInicioActionPerformed
 
     }//GEN-LAST:event_btInicioActionPerformed
+
+    private void tvNameFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_tvNameFocusLost
+        tvName.setText(tvName.getText().toUpperCase());
+    }//GEN-LAST:event_tvNameFocusLost
+
+    private void tvAdressStreetFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_tvAdressStreetFocusLost
+        tvAdressStreet.setText(tvAdressStreet.getText().toUpperCase());
+    }//GEN-LAST:event_tvAdressStreetFocusLost
+
+    private void tvAdressComplementFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_tvAdressComplementFocusLost
+        tvAdressComplement.setText(tvAdressComplement.getText().toUpperCase());
+    }//GEN-LAST:event_tvAdressComplementFocusLost
+
+    private void tvAdressNeighborhoodFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_tvAdressNeighborhoodFocusLost
+        tvAdressNeighborhood.setText(tvAdressNeighborhood.getText().toUpperCase());
+    }//GEN-LAST:event_tvAdressNeighborhoodFocusLost
+
+    private void tvAdressCityFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_tvAdressCityFocusLost
+        tvAdressCity.setText(tvAdressCity.getText().toUpperCase());
+    }//GEN-LAST:event_tvAdressCityFocusLost
+
+    private void tvEmailFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_tvEmailFocusLost
+        tvEmail.setText(tvEmail.getText().toLowerCase());
+    }//GEN-LAST:event_tvEmailFocusLost
+
+    private void tvCPFFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_tvCPFFocusLost
+        validarCPF();
+    }//GEN-LAST:event_tvCPFFocusLost
 
     /**
      * @param args the command line arguments
@@ -702,7 +777,7 @@ public class ClienteFrame extends javax.swing.JFrame {
     private static javax.swing.JTextField tvAdressCity;
     private static javax.swing.JTextField tvAdressComplement;
     private static javax.swing.JTextField tvAdressNeighborhood;
-    private static javax.swing.JTextField tvAdressNumber;
+    private static javax.swing.JFormattedTextField tvAdressNumber;
     private static javax.swing.JFormattedTextField tvAdressPostalCode;
     private static javax.swing.JTextField tvAdressStreet;
     private static javax.swing.JFormattedTextField tvBirthDay;
@@ -959,9 +1034,7 @@ public class ClienteFrame extends javax.swing.JFrame {
         return clienteFrame;
     }
 
-
-
-    protected static void getCliente(Client cli) {        
+    protected static void getCliente(Client cli) {
         clientVG = cli;
         tvID.setText(String.valueOf(clientVG.getId()));
         tvName.setText(clientVG.getName());
@@ -982,5 +1055,13 @@ public class ClienteFrame extends javax.swing.JFrame {
         cbAdressStat.setSelectedItem(clientVG.getEnd_stat());
         tvEmail.setText(clientVG.getEmail());
         rbAtivo.setSelected(clientVG.isActive());
+    }
+
+    private boolean validarCPF() {
+        if (!Mask.validaCpfCnpj(tvCPF.getText())) {
+            JOptionPane.showMessageDialog(this, "CPF digitado é inválido");
+            return false;
+        }
+        return true;
     }
 }
