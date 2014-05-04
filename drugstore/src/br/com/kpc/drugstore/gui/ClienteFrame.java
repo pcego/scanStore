@@ -214,6 +214,7 @@ public class ClienteFrame extends javax.swing.JFrame {
 
         cbEstCivil.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "SOLTEIRO(A)", "CASADO(A)", "DIVORCIADO(A)", "VIÚDO(A)" }));
 
+        rbAtivo.setSelected(true);
         rbAtivo.setText("Ativo");
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
@@ -588,7 +589,7 @@ public class ClienteFrame extends javax.swing.JFrame {
         try {
             Mask.maskNumber(tvAdressNumber);
         } catch (ParseException ex) {
-            Logger.getLogger(RecipeFrame.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(ClienteFrame.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
     private void btAdicionarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btAdicionarActionPerformed
@@ -625,6 +626,7 @@ public class ClienteFrame extends javax.swing.JFrame {
                 if (retorno) {
                     JOptionPane.showMessageDialog(this, "Atualizado");
                     btTypeDefault();
+                    
                 }
                 break;
             case "I":
@@ -632,6 +634,7 @@ public class ClienteFrame extends javax.swing.JFrame {
                 if (retorno) {
                     JOptionPane.showMessageDialog(this, "Gravado");
                     btTypeDefault();
+                    limparCampos();
                 }
                 break;
             case "D":
