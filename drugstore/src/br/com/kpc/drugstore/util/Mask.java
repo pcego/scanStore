@@ -83,7 +83,7 @@ public class Mask {
      */
     public static void maskNumber(JFormattedTextField field) throws ParseException {
         MaskFormatter digite = new MaskFormatter();
-        String mask = "#####";
+        String mask = "########";
         for (int i = 0; i < field.getColumns(); i++) {
             mask += "#";
         }
@@ -161,7 +161,11 @@ public class Mask {
      * @return true para CPF ou CNPJ valido e false para invalido
      */
     public static boolean validaCpfCnpj(String s_aux) {
-        s_aux = s_aux.replace(".", "").replace("-", "").replace("/", "");
+        s_aux = s_aux.replace(".", "").replace("-", "").replace("/", "").trim();
+        if (s_aux.length() != 11 && s_aux.length() != 14) {
+            return false;
+        }
+
         if (s_aux.length() == 11) {
             if (s_aux.equals("00000000000") || s_aux.equals("11111111111")
                     || s_aux.equals("22222222222") || s_aux.equals("33333333333")
