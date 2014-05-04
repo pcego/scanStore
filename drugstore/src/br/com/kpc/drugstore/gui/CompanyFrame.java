@@ -3,8 +3,18 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package br.com.kpc.drugstore.gui;
+
+import br.com.kpc.drugstore.core.Company;
+import br.com.kpc.drugstore.core.IRepositoryCompany;
+import br.com.kpc.drugstore.dao.DaoCompany;
+import br.com.kpc.drugstore.tableModel.TableModelCompany;
+import br.com.kpc.drugstore.util.Mask;
+import java.text.ParseException;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -17,6 +27,8 @@ public class CompanyFrame extends javax.swing.JFrame {
      */
     public CompanyFrame() {
         initComponents();
+        loadingTable();
+        definindoMask();
     }
 
     /**
@@ -28,29 +40,516 @@ public class CompanyFrame extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        companyPanel1 = new br.com.kpc.drugstore.gui.CompanyPanel();
+        tvAdressComplement = new javax.swing.JTextField();
+        jLabel14 = new javax.swing.JLabel();
+        tvCompanyName = new javax.swing.JTextField();
+        jLabel13 = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
+        tvCompanyId = new javax.swing.JTextField();
+        jLabel2 = new javax.swing.JLabel();
+        jLabel1 = new javax.swing.JLabel();
+        tvAdressCity = new javax.swing.JTextField();
+        tvInscStat = new javax.swing.JTextField();
+        jLabel16 = new javax.swing.JLabel();
+        jLabel7 = new javax.swing.JLabel();
+        tvAdressNeighborhood = new javax.swing.JTextField();
+        jLabel5 = new javax.swing.JLabel();
+        jLabel15 = new javax.swing.JLabel();
+        jLabel6 = new javax.swing.JLabel();
+        tvAdressPostalCode = new javax.swing.JTextField();
+        jLabel4 = new javax.swing.JLabel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        tbGrid = new javax.swing.JTable();
+        tvFantasy = new javax.swing.JTextField();
+        cbAdressStat = new javax.swing.JComboBox();
+        jLabel17 = new javax.swing.JLabel();
+        tvCNPJ = new javax.swing.JFormattedTextField();
+        jLabel8 = new javax.swing.JLabel();
+        tvSystemKey = new javax.swing.JTextField();
+        tvPhone = new javax.swing.JTextField();
+        jLabel19 = new javax.swing.JLabel();
+        jLabel9 = new javax.swing.JLabel();
+        btCancel = new javax.swing.JToggleButton();
+        tvCellPhone1 = new javax.swing.JTextField();
+        btConfirm = new javax.swing.JToggleButton();
+        btUpdate = new javax.swing.JToggleButton();
+        btDelete = new javax.swing.JToggleButton();
+        btInsert = new javax.swing.JToggleButton();
+        jLabel18 = new javax.swing.JLabel();
+        tvCellPhone2 = new javax.swing.JTextField();
+        jLabel10 = new javax.swing.JLabel();
+        tvEmail = new javax.swing.JTextField();
+        jLabel11 = new javax.swing.JLabel();
+        tvAdressStreet = new javax.swing.JTextField();
+        jLabel12 = new javax.swing.JLabel();
+        jSeparator1 = new javax.swing.JSeparator();
+        tvAdressNumber = new javax.swing.JFormattedTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+
+        tvAdressComplement.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                tvAdressComplementFocusLost(evt);
+            }
+        });
+
+        jLabel14.setText("Complemento:");
+
+        tvCompanyName.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                tvCompanyNameFocusLost(evt);
+            }
+        });
+
+        jLabel13.setText("Bairro:");
+
+        jLabel3.setText("*Nome:");
+
+        jLabel2.setText("Código:");
+
+        jLabel1.setText("Cadastro de Empresas");
+
+        tvAdressCity.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                tvAdressCityFocusLost(evt);
+            }
+        });
+
+        jLabel16.setText("UF:");
+
+        jLabel7.setText("Telefone:");
+
+        tvAdressNeighborhood.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                tvAdressNeighborhoodFocusLost(evt);
+            }
+        });
+
+        jLabel5.setText("*CNPJ:");
+
+        jLabel15.setText("Cidade:");
+
+        jLabel6.setText("Inscrição Estadual:");
+
+        tvAdressPostalCode.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                tvAdressPostalCodeFocusLost(evt);
+            }
+        });
+
+        jLabel4.setText("*Nome Fantasia:");
+
+        tbGrid.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "CNPJ:", "Nome:", "ENDEREÇO:"
+            }
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        tbGrid.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tbGridMouseClicked(evt);
+            }
+        });
+        jScrollPane1.setViewportView(tbGrid);
+        if (tbGrid.getColumnModel().getColumnCount() > 0) {
+            tbGrid.getColumnModel().getColumn(0).setPreferredWidth(10);
+            tbGrid.getColumnModel().getColumn(1).setPreferredWidth(100);
+            tbGrid.getColumnModel().getColumn(2).setPreferredWidth(100);
+        }
+
+        tvFantasy.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                tvFantasyFocusLost(evt);
+            }
+        });
+
+        cbAdressStat.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "AC", "AL", "AP", "AM", "BA", "CE", "DF", "GO", "ES", "MA", "MT", "MS", "MG", "PA", "PB", "PR", "PE", "PI", "RJ", "RN", "RS", "RO", "RR", "SP", "SC", "SE", "TO" }));
+
+        jLabel17.setText("CEP:");
+
+        try {
+            tvCNPJ.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("##.###.###/####-##")));
+        } catch (java.text.ParseException ex) {
+            ex.printStackTrace();
+        }
+
+        jLabel8.setText("*Celular:");
+
+        jLabel19.setText("Key:");
+
+        jLabel9.setText("Celular Op.:");
+
+        btCancel.setText("Cancelar");
+
+        btConfirm.setText("Confirmar");
+
+        btUpdate.setText("Alterar");
+        btUpdate.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btUpdateActionPerformed(evt);
+            }
+        });
+
+        btDelete.setText("Remover");
+        btDelete.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btDeleteActionPerformed(evt);
+            }
+        });
+
+        btInsert.setText("Inserir");
+        btInsert.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btInsertActionPerformed(evt);
+            }
+        });
+
+        jLabel18.setText("Empresas Cadastradas");
+
+        jLabel10.setText("Email:");
+
+        tvEmail.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                tvEmailFocusLost(evt);
+            }
+        });
+
+        jLabel11.setText("Rua:");
+
+        tvAdressStreet.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                tvAdressStreetFocusLost(evt);
+            }
+        });
+
+        jLabel12.setText("Numero:");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(companyPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addGroup(layout.createSequentialGroup()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(182, 182, 182)
+                                .addComponent(jLabel1))
+                            .addGroup(layout.createSequentialGroup()
+                                .addContainerGap()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addGroup(layout.createSequentialGroup()
+                                                .addComponent(jLabel10)
+                                                .addGap(0, 0, Short.MAX_VALUE))
+                                            .addComponent(tvEmail))
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addGroup(layout.createSequentialGroup()
+                                                .addComponent(jLabel7)
+                                                .addGap(53, 53, 53)
+                                                .addComponent(jLabel8))
+                                            .addGroup(layout.createSequentialGroup()
+                                                .addComponent(tvPhone, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                                .addComponent(tvCellPhone1, javax.swing.GroupLayout.PREFERRED_SIZE, 106, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(jLabel9)
+                                            .addComponent(tvCellPhone2, javax.swing.GroupLayout.PREFERRED_SIZE, 106, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addGroup(layout.createSequentialGroup()
+                                                .addComponent(jLabel2)
+                                                .addGap(44, 44, 44)
+                                                .addComponent(jLabel3))
+                                            .addGroup(layout.createSequentialGroup()
+                                                .addComponent(tvCompanyId, javax.swing.GroupLayout.PREFERRED_SIZE, 74, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                                .addComponent(tvCompanyName, javax.swing.GroupLayout.PREFERRED_SIZE, 287, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                            .addComponent(jLabel5)
+                                            .addComponent(jLabel6)
+                                            .addComponent(tvInscStat)
+                                            .addComponent(tvCNPJ, javax.swing.GroupLayout.DEFAULT_SIZE, 185, Short.MAX_VALUE))))))
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                .addComponent(jLabel18)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 24, Short.MAX_VALUE)
+                                .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 442, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(26, 26, 26))
+                            .addComponent(jScrollPane1)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel4)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(btInsert)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(btDelete)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(btUpdate)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(btConfirm)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(btCancel))
+                                    .addComponent(tvFantasy, javax.swing.GroupLayout.PREFERRED_SIZE, 367, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                                .addComponent(jLabel11)
+                                                .addComponent(tvAdressStreet, javax.swing.GroupLayout.PREFERRED_SIZE, 249, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                            .addGap(10, 10, 10)
+                                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                                .addComponent(jLabel12)
+                                                .addComponent(tvAdressNumber, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                            .addGap(18, 18, 18)
+                                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                                .addComponent(jLabel14)
+                                                .addComponent(tvAdressComplement, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                            .addGap(74, 74, 74))
+                                        .addGroup(layout.createSequentialGroup()
+                                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                                .addComponent(jLabel19, javax.swing.GroupLayout.Alignment.LEADING)
+                                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                                    .addComponent(tvAdressNeighborhood, javax.swing.GroupLayout.PREFERRED_SIZE, 153, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                    .addComponent(jLabel13)))
+                                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                                .addComponent(jLabel15)
+                                                .addComponent(tvAdressCity, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                                .addGroup(layout.createSequentialGroup()
+                                                    .addGap(1, 1, 1)
+                                                    .addComponent(jLabel17))
+                                                .addComponent(tvAdressPostalCode, javax.swing.GroupLayout.PREFERRED_SIZE, 139, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                                .addComponent(jLabel16)
+                                                .addComponent(cbAdressStat, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                                .addGap(0, 0, Short.MAX_VALUE)))))
                 .addContainerGap())
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(tvSystemKey)
+                .addGap(34, 34, 34))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(companyPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addGap(10, 10, 10)
+                .addComponent(jLabel1)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(jLabel2)
+                                    .addComponent(jLabel3))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(tvCompanyId, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(tvCompanyName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(tvCNPJ, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jLabel5)
+                                .addGap(26, 26, 26)))
+                        .addComponent(jLabel4)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(tvFantasy, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jLabel6)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(tvInscStat, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel7)
+                            .addComponent(jLabel8)
+                            .addComponent(jLabel9))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(tvPhone, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(tvCellPhone1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(tvCellPhone2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jLabel10)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(tvEmail, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(jLabel11)
+                                    .addComponent(jLabel12))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(tvAdressStreet, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(tvAdressComplement, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(tvAdressNumber, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(jLabel14))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel13)
+                            .addComponent(jLabel15))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(tvAdressNeighborhood, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(tvAdressCity, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jLabel16)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(cbAdressStat, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jLabel17)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(tvAdressPostalCode, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabel19)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(tvSystemKey, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btInsert)
+                    .addComponent(btDelete)
+                    .addComponent(btUpdate)
+                    .addComponent(btConfirm)
+                    .addComponent(btCancel))
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel18))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    Company company;
+    TableModelCompany model;
+            
+
+    private void definindoMask() {
+
+        try {
+            Mask.maskNumber(tvAdressNumber);
+        } catch (ParseException ex) {
+            Logger.getLogger(CompanyFrame.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    private void btUpdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btUpdateActionPerformed
+        Company cm = new Company();
+        cm.setSystem_key(tvSystemKey.getText());
+        cm.setId(Long.valueOf(tvCompanyId.getText()));
+        cm.setCompany_name(tvCompanyName.getText());
+        cm.setFantasy(tvFantasy.getText());
+        cm.setCnpj(tvCNPJ.getText());
+        cm.setEmail(tvEmail.getText());
+        cm.setPhone(tvPhone.getText());
+        cm.setCell_phone1(tvCellPhone1.getText());
+        cm.setCell_phone2(tvCellPhone2.getText());
+        cm.setAdress_postalCode(tvAdressPostalCode.getText());
+        cm.setEnd_stat(cbAdressStat.getSelectedItem().toString());
+        cm.setInsc_stat(tvInscStat.getText());
+        cm.setAdress_street(tvAdressStreet.getText());
+        cm.setAdress_number(Integer.valueOf(tvAdressNumber.getText()));
+        cm.setAdress_complement(tvAdressComplement.getText());
+        cm.setAdress_neighborhood(tvAdressNeighborhood.getText());
+        cm.setAdress_city(tvAdressCity.getText());
+
+        IRepositoryCompany iRepositoryCompany = (IRepositoryCompany) new DaoCompany();
+        iRepositoryCompany.atualizar(cm);
+    }//GEN-LAST:event_btUpdateActionPerformed
+
+    private void btDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btDeleteActionPerformed
+        Company cm = new Company();
+
+        IRepositoryCompany iRepositoryCompany = (IRepositoryCompany) new DaoCompany();
+        cm = iRepositoryCompany.getCompany();
+        System.out.println("Teste" + cm.getCompany_name());
+    }//GEN-LAST:event_btDeleteActionPerformed
+
+    private void btInsertActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btInsertActionPerformed
+
+        Company cm = new Company();
+        cm.setSystem_key(tvSystemKey.getText());
+        // cm.setId(2L);
+        cm.setCompany_name(tvCompanyName.getText());
+        cm.setFantasy(tvFantasy.getText());
+        cm.setCnpj(tvCNPJ.getText());
+        cm.setEmail(tvEmail.getText());
+        cm.setPhone(tvPhone.getText());
+        cm.setCell_phone1(tvCellPhone1.getText());
+        cm.setCell_phone2(tvCellPhone2.getText());
+        cm.setAdress_postalCode(tvAdressPostalCode.getText());
+        cm.setEnd_stat(cbAdressStat.getSelectedItem().toString());
+        cm.setInsc_stat(tvInscStat.getText());
+        cm.setAdress_street(tvAdressStreet.getText());
+        cm.setAdress_number(Integer.valueOf(tvAdressNumber.getText()));
+        cm.setAdress_complement(tvAdressComplement.getText());
+        cm.setAdress_neighborhood(tvAdressNeighborhood.getText());
+        cm.setAdress_city(tvAdressCity.getText());
+
+        IRepositoryCompany iRepositoryCompany = (IRepositoryCompany) new DaoCompany();
+        iRepositoryCompany.salvar(cm);
+    }//GEN-LAST:event_btInsertActionPerformed
+
+    private void tvCompanyNameFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_tvCompanyNameFocusLost
+        tvCompanyName.setText(tvCompanyName.getText().toUpperCase());
+    }//GEN-LAST:event_tvCompanyNameFocusLost
+
+    private void tvFantasyFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_tvFantasyFocusLost
+        tvFantasy.setText(tvFantasy.getText().toUpperCase());
+    }//GEN-LAST:event_tvFantasyFocusLost
+
+    private void tvEmailFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_tvEmailFocusLost
+        tvEmail.setText(tvEmail.getText().toUpperCase());
+    }//GEN-LAST:event_tvEmailFocusLost
+
+    private void tvAdressStreetFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_tvAdressStreetFocusLost
+        tvAdressStreet.setText(tvAdressStreet.getText().toUpperCase());
+    }//GEN-LAST:event_tvAdressStreetFocusLost
+
+    private void tvAdressComplementFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_tvAdressComplementFocusLost
+        tvAdressComplement.setText(tvAdressComplement.getText().toUpperCase());
+    }//GEN-LAST:event_tvAdressComplementFocusLost
+
+    private void tvAdressNeighborhoodFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_tvAdressNeighborhoodFocusLost
+        tvAdressNeighborhood.setText(tvAdressNeighborhood.getText().toUpperCase());
+    }//GEN-LAST:event_tvAdressNeighborhoodFocusLost
+
+    private void tvAdressCityFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_tvAdressCityFocusLost
+        tvAdressCity.setText(tvAdressCity.getText().toUpperCase());
+    }//GEN-LAST:event_tvAdressCityFocusLost
+
+    private void tvAdressPostalCodeFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_tvAdressPostalCodeFocusLost
+       tvAdressPostalCode.setText(tvAdressPostalCode.getText().toUpperCase());
+    }//GEN-LAST:event_tvAdressPostalCodeFocusLost
+
+    private void tbGridMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tbGridMouseClicked
+carregarGrid();
+    }//GEN-LAST:event_tbGridMouseClicked
 
     /**
      * @param args the command line arguments
@@ -87,7 +586,95 @@ public class CompanyFrame extends javax.swing.JFrame {
         });
     }
 
+    private void loadingTable() {
+        company = new Company();
+        IRepositoryCompany iRepositoryCompany = (IRepositoryCompany) new DaoCompany();
+        List<Company> listClisnt = new ArrayList<Company>();
+        listClisnt.clear();
+        company = iRepositoryCompany.getCompany();
+        listClisnt.add(company);
+        model = new TableModelCompany(listClisnt);
+        tbGrid.setModel(model);
+    }
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private br.com.kpc.drugstore.gui.CompanyPanel companyPanel1;
+    private javax.swing.JToggleButton btCancel;
+    private javax.swing.JToggleButton btConfirm;
+    private javax.swing.JToggleButton btDelete;
+    private javax.swing.JToggleButton btInsert;
+    private javax.swing.JToggleButton btUpdate;
+    private javax.swing.JComboBox cbAdressStat;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel10;
+    private javax.swing.JLabel jLabel11;
+    private javax.swing.JLabel jLabel12;
+    private javax.swing.JLabel jLabel13;
+    private javax.swing.JLabel jLabel14;
+    private javax.swing.JLabel jLabel15;
+    private javax.swing.JLabel jLabel16;
+    private javax.swing.JLabel jLabel17;
+    private javax.swing.JLabel jLabel18;
+    private javax.swing.JLabel jLabel19;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel8;
+    private javax.swing.JLabel jLabel9;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JSeparator jSeparator1;
+    private javax.swing.JTable tbGrid;
+    private javax.swing.JTextField tvAdressCity;
+    private javax.swing.JTextField tvAdressComplement;
+    private javax.swing.JTextField tvAdressNeighborhood;
+    private javax.swing.JFormattedTextField tvAdressNumber;
+    private javax.swing.JTextField tvAdressPostalCode;
+    private javax.swing.JTextField tvAdressStreet;
+    private javax.swing.JFormattedTextField tvCNPJ;
+    private javax.swing.JTextField tvCellPhone1;
+    private javax.swing.JTextField tvCellPhone2;
+    private javax.swing.JTextField tvCompanyId;
+    private javax.swing.JTextField tvCompanyName;
+    private javax.swing.JTextField tvEmail;
+    private javax.swing.JTextField tvFantasy;
+    private javax.swing.JTextField tvInscStat;
+    private javax.swing.JTextField tvPhone;
+    private javax.swing.JTextField tvSystemKey;
     // End of variables declaration//GEN-END:variables
+
+    private void carregarGrid(){
+        
+        tvCompanyId.setText(company.getId().toString());
+        tvCompanyName.setText(company.getCompany_name());
+        tvCNPJ.setText(company.getCnpj());
+        tvFantasy.setText(company.getFantasy());
+        tvInscStat.setText(company.getInsc_stat());
+        tvEmail.setText(company.getEmail());
+        tvPhone.setText(company.getPhone());
+        tvCellPhone1.setText(company.getCell_phone1());
+        tvCellPhone2.setText(company.getCell_phone2());
+        tvAdressNeighborhood.setText(company.getAdress_neighborhood());
+        tvAdressCity.setText(company.getAdress_city());
+        tvAdressPostalCode.setText(company.getAdress_postalCode());
+        cbAdressStat.setSelectedItem(company.getEnd_stat());
+        tvSystemKey.setText(company.getSystem_key());
+        
+    }
+    
+    
+       public static CompanyFrame companyFrame;
+    
+    protected static CompanyFrame getJanelaNULL() {
+        companyFrame = null;
+        return companyFrame;
+    }
+    
+    protected static CompanyFrame getJanelaEmpresa() {
+        if (companyFrame == null) {
+            companyFrame = new CompanyFrame();
+        }
+        return companyFrame;
+    }
 }
