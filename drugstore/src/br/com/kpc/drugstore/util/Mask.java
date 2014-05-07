@@ -261,5 +261,7 @@ public class Mask {
         //retorna o pedido
         return sData;
     }
-
+    public static String limparMaskCPF(String cpf) {
+        return cpf.replace(".", "").replace("-", "");
+    }
 }
