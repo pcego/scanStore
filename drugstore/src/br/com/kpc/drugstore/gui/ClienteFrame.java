@@ -11,9 +11,11 @@ import br.com.kpc.drugstore.core.IRepositoryClient;
 import br.com.kpc.drugstore.core.IRepositoryCompany;
 import br.com.kpc.drugstore.dao.DaoClient;
 import br.com.kpc.drugstore.dao.DaoCompany;
+import br.com.kpc.drugstore.scan.Scan;
 import br.com.kpc.drugstore.util.FormatDate;
 import br.com.kpc.drugstore.util.Mask;
 import java.awt.event.KeyEvent;
+import java.io.File;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -74,8 +76,8 @@ public class ClienteFrame extends javax.swing.JFrame {
         rbAtivo = new javax.swing.JRadioButton();
         jLabel29 = new javax.swing.JLabel();
         tvEmail = new javax.swing.JTextField();
-        jButton3 = new javax.swing.JButton();
-        jButton4 = new javax.swing.JButton();
+        btCPFScan = new javax.swing.JButton();
+        btRGScan = new javax.swing.JButton();
         jPanel1 = new javax.swing.JPanel();
         jLabel22 = new javax.swing.JLabel();
         tvAdressPostalCode = new javax.swing.JFormattedTextField();
@@ -91,7 +93,7 @@ public class ClienteFrame extends javax.swing.JFrame {
         jLabel28 = new javax.swing.JLabel();
         tvAdressComplement = new javax.swing.JTextField();
         tvAdressNumber = new javax.swing.JFormattedTextField();
-        jButton2 = new javax.swing.JButton();
+        btPesquisar = new javax.swing.JButton();
         jLabel2 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
@@ -125,6 +127,7 @@ public class ClienteFrame extends javax.swing.JFrame {
             }
         });
 
+        btCancelar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/kpc/drugstore/img/cancelar.png"))); // NOI18N
         btCancelar.setText("Cancelar");
         btCancelar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -132,7 +135,7 @@ public class ClienteFrame extends javax.swing.JFrame {
             }
         });
 
-        btConfirmar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/kpc/drugstore/img/save.png"))); // NOI18N
+        btConfirmar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/kpc/drugstore/img/salvar.png"))); // NOI18N
         btConfirmar.setText("Confirmar");
         btConfirmar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -227,9 +230,19 @@ public class ClienteFrame extends javax.swing.JFrame {
             }
         });
 
-        jButton3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/kpc/drugstore/img/scanner.png"))); // NOI18N
+        btCPFScan.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/kpc/drugstore/img/scanner.png"))); // NOI18N
+        btCPFScan.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btCPFScanActionPerformed(evt);
+            }
+        });
 
-        jButton4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/kpc/drugstore/img/scanner.png"))); // NOI18N
+        btRGScan.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/kpc/drugstore/img/scanner.png"))); // NOI18N
+        btRGScan.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btRGScanActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
@@ -260,8 +273,8 @@ public class ClienteFrame extends javax.swing.JFrame {
                                 .addComponent(tvRG)))
                         .addGap(1, 1, 1)
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(btRGScan, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(btCPFScan, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(jLabel20)
@@ -345,9 +358,9 @@ public class ClienteFrame extends javax.swing.JFrame {
                                         .addComponent(rbAtivo))))
                             .addGroup(jPanel3Layout.createSequentialGroup()
                                 .addGap(8, 8, 8)
-                                .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(btCPFScan, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                                .addComponent(btRGScan, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE))))
                     .addGroup(jPanel3Layout.createSequentialGroup()
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel13, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -489,10 +502,10 @@ public class ClienteFrame extends javax.swing.JFrame {
                 .addContainerGap())
         );
 
-        jButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/kpc/drugstore/img/ConsultaClientes.png"))); // NOI18N
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
+        btPesquisar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/kpc/drugstore/img/ConsultaClientes.png"))); // NOI18N
+        btPesquisar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
+                btPesquisarActionPerformed(evt);
             }
         });
 
@@ -514,9 +527,9 @@ public class ClienteFrame extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(btConfirmar)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(btCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(btCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 131, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 122, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(btPesquisar, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel2)
                     .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -539,7 +552,7 @@ public class ClienteFrame extends javax.swing.JFrame {
                         .addComponent(btExcluir)
                         .addComponent(btAlterar)
                         .addComponent(btAdicionar))
-                    .addComponent(jButton2))
+                    .addComponent(btPesquisar))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -572,6 +585,10 @@ public class ClienteFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_btAdicionarActionPerformed
 
     private void btExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btExcluirActionPerformed
+        if (tvID.getText().equals("")){
+            JOptionPane.showMessageDialog(this, "Selecione um Cliente");
+            return;
+        }
         opMenu = "D";
         btTypeDelete();
     }//GEN-LAST:event_btExcluirActionPerformed
@@ -610,6 +627,14 @@ public class ClienteFrame extends javax.swing.JFrame {
                 }
                 break;
             case "D":
+                String[] opcoes = {"Sim", "Nao"};
+                int opcao = JOptionPane.showOptionDialog(this, "Deseja excluir cliente?",
+                    "Confirmar Exclusão", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, opcoes, opcoes[1]);
+                //Verificando a Resposta do usuario, se resposta = NÂO, sai da função.
+                if (opcao==1){
+                    return;
+                }
+                
                 retorno = delete();
                 if (retorno) {
                     JOptionPane.showMessageDialog(this, "Excluido");
@@ -627,11 +652,11 @@ public class ClienteFrame extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_tvIDKeyPressed
 
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+    private void btPesquisarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btPesquisarActionPerformed
         limparCampos();
         ConsultarCliente.getJanelaConsultarCliente("CADCLIENTE").setVisible(true);
 
-    }//GEN-LAST:event_jButton2ActionPerformed
+    }//GEN-LAST:event_btPesquisarActionPerformed
 
     private void formWindowClosed(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosed
         getJanelaNULL();
@@ -664,6 +689,38 @@ public class ClienteFrame extends javax.swing.JFrame {
     private void tvCPFFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_tvCPFFocusLost
         validarCPF();
     }//GEN-LAST:event_tvCPFFocusLost
+
+    private void btCPFScanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btCPFScanActionPerformed
+        boolean retorno = false;
+        Scan sc = new Scan();
+        File[] img = sc.getGuiScan("C:\\imagens\\" + Mask.limparMaskCPF(tvCPF.getText()));
+
+        retorno = Scan.renameImg(img[0], "C:\\imagens\\" + Mask.limparMaskCPF(tvCPF.getText()), "cpf.jpg");
+        //carregarImg(displayReceita, img[0]);
+
+        if (retorno) {
+            System.out.println("sucesso");
+            clientVG.setCpf_image("C:\\imagens\\" + Mask.limparMaskCPF(tvCPF.getText().trim()) + "\\cpf.jpg");
+        } else {
+            System.out.println("falha ao renomear");
+        }
+    }//GEN-LAST:event_btCPFScanActionPerformed
+
+    private void btRGScanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btRGScanActionPerformed
+        boolean retorno = false;
+        Scan sc = new Scan();
+        File[] img = sc.getGuiScan("C:\\imagens\\" + Mask.limparMaskCPF(tvCPF.getText()));
+
+        retorno = Scan.renameImg(img[0], "C:\\imagens\\" + Mask.limparMaskCPF(tvCPF.getText()), "rg.jpg");
+        //carregarImg(displayReceita, img[0]);
+
+        if (retorno) {
+            System.out.println("sucesso");
+            clientVG.setCpf_image("C:\\imagens\\" + Mask.limparMaskCPF(tvCPF.getText().trim()) + "\\rg.jpg");
+        } else {
+            System.out.println("falha ao renomear");
+        }
+    }//GEN-LAST:event_btRGScanActionPerformed
 
     /**
      * @param args the command line arguments
@@ -704,15 +761,15 @@ public class ClienteFrame extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btAdicionar;
     private javax.swing.JButton btAlterar;
+    private javax.swing.JButton btCPFScan;
     private javax.swing.JButton btCancelar;
     private javax.swing.JButton btConfirmar;
     private javax.swing.JButton btExcluir;
+    private javax.swing.JButton btPesquisar;
+    private javax.swing.JButton btRGScan;
     private static javax.swing.JComboBox cbAdressStat;
     private static javax.swing.JComboBox cbEstCivil;
     private static javax.swing.JComboBox cbSexo;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
-    private javax.swing.JButton jButton4;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel13;
@@ -911,6 +968,9 @@ public class ClienteFrame extends javax.swing.JFrame {
         btExcluir.setEnabled(false);
         btConfirmar.setEnabled(true);
         btCancelar.setEnabled(true);
+        btPesquisar.setEnabled(false);
+        btCPFScan.setEnabled(true);
+        btRGScan.setEnabled(true);
 
     }
 
@@ -920,6 +980,7 @@ public class ClienteFrame extends javax.swing.JFrame {
         btExcluir.setEnabled(false);
         btConfirmar.setEnabled(true);
         btCancelar.setEnabled(true);
+        btPesquisar.setEnabled(false);
 
     }
 
@@ -929,15 +990,9 @@ public class ClienteFrame extends javax.swing.JFrame {
         btExcluir.setEnabled(false);
         btConfirmar.setEnabled(true);
         btCancelar.setEnabled(true);
-
-    }
-
-    private void btTypeSearch() {
-        btAdicionar.setEnabled(false);
-        btAlterar.setEnabled(false);
-        btExcluir.setEnabled(false);
-        btConfirmar.setEnabled(false);
-        btCancelar.setEnabled(true);
+        btPesquisar.setEnabled(false);
+        btCPFScan.setEnabled(true);
+        btRGScan.setEnabled(true);
 
     }
 
@@ -945,9 +1000,12 @@ public class ClienteFrame extends javax.swing.JFrame {
         habilitarCampos(false);
         btAdicionar.setEnabled(true);
         btAlterar.setEnabled(true);
-        btExcluir.setEnabled(true);
         btConfirmar.setEnabled(false);
         btCancelar.setEnabled(false);
+        btPesquisar.setEnabled(true);
+        btCPFScan.setEnabled(false);
+        btRGScan.setEnabled(false);
+        btExcluir.setEnabled(true);
 
     }
 
@@ -1007,6 +1065,7 @@ public class ClienteFrame extends javax.swing.JFrame {
         cbAdressStat.setSelectedItem(clientVG.getEnd_stat());
         tvEmail.setText(clientVG.getEmail());
         rbAtivo.setSelected(clientVG.isActive());
+
     }
 
     private boolean validarCPF() {
