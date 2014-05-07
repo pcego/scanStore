@@ -20,9 +20,6 @@ import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
-import br.com.kpc.drugstore.scan.Scan;
-import com.asprise.jia.JiaException;
-import java.io.File;
 
 /**
  *
@@ -231,18 +228,8 @@ public class ClienteFrame extends javax.swing.JFrame {
         });
 
         jButton3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/kpc/drugstore/img/scanner.png"))); // NOI18N
-        jButton3.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton3ActionPerformed(evt);
-            }
-        });
 
         jButton4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/kpc/drugstore/img/scanner.png"))); // NOI18N
-        jButton4.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton4ActionPerformed(evt);
-            }
-        });
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
@@ -677,40 +664,6 @@ public class ClienteFrame extends javax.swing.JFrame {
     private void tvCPFFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_tvCPFFocusLost
         validarCPF();
     }//GEN-LAST:event_tvCPFFocusLost
-
-    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
-
-        boolean retorno = false;
-        Scan sc = new Scan();
-        File[] img = sc.getGuiScan("C:\\imagens\\" + Mask.limparMaskCPF(tvCPF.getText()));
-
-        retorno = Scan.renameImg(img[0], "C:\\imagens\\" + Mask.limparMaskCPF(tvCPF.getText()), "cpf.jpg");
-        //carregarImg(displayReceita, img[0]);
-
-        if (retorno) {
-            clientVG.setCpf_image("C:\\imagens\\" + Mask.limparMaskCPF(tvCPF.getText()).trim() +"cpf.jpg");
-            System.out.println("sucesso, caminho para gravar no banco: C:\\imagens\\" + Mask.limparMaskCPF(tvCPF.getText()).trim() +"cpf.jpg");
-        } else {
-            System.out.println("falha ao renomear");
-        }
-
-    }//GEN-LAST:event_jButton3ActionPerformed
-
-    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
-        boolean retorno = false;
-        Scan sc = new Scan();
-        File[] img = sc.getGuiScan("C:\\imagens\\" + Mask.limparMaskCPF(tvCPF.getText()));
-
-        retorno = Scan.renameImg(img[0], "C:\\imagens\\" + Mask.limparMaskCPF(tvCPF.getText()), "rg.jpg");
-        //carregarImg(displayReceita, img[0]);
-
-        if (retorno) {
-            clientVG.setRg_image("C:\\imagens\\" + Mask.limparMaskCPF(tvCPF.getText()).trim() +"cpf.jpg");
-            System.out.println("sucesso, caminho para gravar no banco: C:\\imagens\\" + Mask.limparMaskCPF(tvCPF.getText()).trim() +"cpf.jpg");
-        } else {
-            System.out.println("falha ao renomear");
-        }
-    }//GEN-LAST:event_jButton4ActionPerformed
 
     /**
      * @param args the command line arguments
