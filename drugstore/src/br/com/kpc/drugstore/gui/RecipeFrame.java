@@ -100,6 +100,7 @@ public class RecipeFrame extends javax.swing.JFrame {
 
         displayOutros.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/kpc/drugstore/img/receita.png"))); // NOI18N
 
+        btAdicionar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/kpc/drugstore/img/salvar.png"))); // NOI18N
         btAdicionar.setText("Adicionar");
         btAdicionar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -107,6 +108,7 @@ public class RecipeFrame extends javax.swing.JFrame {
             }
         });
 
+        btCancelar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/kpc/drugstore/img/cancelar.png"))); // NOI18N
         btCancelar.setText("Cancelar");
         btCancelar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -213,7 +215,7 @@ public class RecipeFrame extends javax.swing.JFrame {
                     .addComponent(displayOutros, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(displayCupom, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(displayReceita, javax.swing.GroupLayout.PREFERRED_SIZE, 113, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 81, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btCancelar)
                     .addComponent(btAdicionar))
@@ -244,9 +246,9 @@ public class RecipeFrame extends javax.swing.JFrame {
     private void btDigitalizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btDigitalizarActionPerformed
         boolean retorno = false;
         Scan sc = new Scan();
-        File[] img = sc.getGuiScan("C:\\imagens\\" + limpaCPF(tvCPF.getText()));
+        File[] img = sc.getGuiScan("C:\\imagens\\" +  Mask.limparMaskCPF(tvCPF.getText()));
         
-        retorno = Scan.renameImg(img[0], "C:\\imagens\\" + limpaCPF(tvCPF.getText()), opDigitalizar.getSelectedItem().toString() + ".jpg");
+        retorno = Scan.renameImg(img[0], "C:\\imagens\\" + Mask.limparMaskCPF(tvCPF.getText()), opDigitalizar.getSelectedItem().toString() + ".jpg");
         carregarImg(displayReceita, img[0]);
         
         if (retorno) {
@@ -346,9 +348,7 @@ public class RecipeFrame extends javax.swing.JFrame {
         }
     }
     
-    protected String limpaCPF(String cpf) {
-        return cpf.replace(".", "").replace("-", "");
-    }
+
     public static RecipeFrame recipeFrame;
     
     protected static RecipeFrame getJanelaNULL() {
