@@ -9,5 +9,6 @@ package br.com.kpc.drugstore.util;
  * @author Pcego
  */
 public class Config {
+    public static final String DIRETORIOIMAGEM = System.getProperty("user.dir") + "\\documentos\\";
     
 }
