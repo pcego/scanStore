@@ -18,35 +18,38 @@ import javax.persistence.PersistenceContext;
 public class DaoGeneric<T> implements IRepository<T> {
 
     private Class type;
-   
+
     @PersistenceContext(unitName = "drugstorePU")
     protected EntityManager manager;
 
     protected EntityManagerFactory factory;
-    
+
     protected EntityTransaction tran;
-    
-    
+
     public DaoGeneric(Class type) {
-        
+
         this.type = type;
-        
-        factory = Persistence.createEntityManagerFactory("drugstorePU"); 
-        
+
+        factory = Persistence.createEntityManagerFactory("drugstorePU");
+
         manager = factory.createEntityManager();
-        
+
         tran = manager.getTransaction();
     }
 
     protected EntityManager getManager() {
-               
+
         return manager;
     }
 
     @Override
     public T abrir(T obj) throws Exception {
-
-        return (T) getManager().find(type, obj);
+        try {
+            return (T) getManager().find(type, obj);
+        } catch (Exception ex) {
+            ex.printStackTrace();
+            return null;
+        }
     }
 
     @Override
