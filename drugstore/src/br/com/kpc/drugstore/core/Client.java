@@ -303,6 +303,14 @@ public class Client implements Serializable {
     @OneToMany(mappedBy = "client", fetch = FetchType.EAGER)
     private List<Recipe> recipe;
 
+    public void addRecipe(Recipe rec){
+        recipe.add(rec);
+    }
+
+    public List<Recipe> getRecipe() {
+        return recipe;
+    }
+        
     @Column()
     private String marital_status;
 
