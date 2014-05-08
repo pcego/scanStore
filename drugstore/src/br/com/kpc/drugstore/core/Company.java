@@ -227,6 +227,14 @@ public class Company implements Serializable {
     @OneToMany(mappedBy = "company", fetch = FetchType.EAGER)
     private List<Client> client;
 
+    public void addClient(Client cli) {
+        client.add(cli);
+    }
+
+    public List<Client> getClient() {
+        return client;
+    }
+
     @Override
     public int hashCode() {
         int hash = 0;
