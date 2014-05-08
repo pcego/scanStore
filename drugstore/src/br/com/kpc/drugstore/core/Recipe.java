@@ -53,8 +53,16 @@ public class Recipe implements Serializable {
     }
     
     @Column
-    private String recipe_image;    
-       
+    private String recipe_image;  
+
+    public String getRecipe_image() {
+        return recipe_image;
+    }
+
+    public void setRecipe_image(String recipe_image) {
+        this.recipe_image = recipe_image;
+    }
+               
     @Column(nullable = false)
     private boolean recipe_type;
 
@@ -80,7 +88,15 @@ public class Recipe implements Serializable {
     
     @OneToMany(mappedBy = "recipe", fetch = FetchType.EAGER)
     private List<Ticket> ticket;
-            
+    
+    public void addTicket(Ticket tk){
+        ticket.add(tk);
+    }
+
+    public List<Ticket> getTicket() {
+        return ticket;
+    }
+                
     @Override
     public int hashCode() {
         int hash = 0;
