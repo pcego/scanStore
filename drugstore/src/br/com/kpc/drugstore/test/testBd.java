@@ -11,6 +11,7 @@ import br.com.kpc.drugstore.core.IRepositoryClient;
 import br.com.kpc.drugstore.core.IRepositoryCompany;
 import br.com.kpc.drugstore.dao.DaoClient;
 import br.com.kpc.drugstore.dao.DaoCompany;
+import br.com.kpc.drugstore.service.Service;
 import java.util.Calendar;
 import javax.naming.NamingException;
 
@@ -50,8 +51,7 @@ public class testBd {
         cl.setAdress_city("moc");
         
         IRepositoryCompany rp = (IRepositoryCompany) new DaoCompany();
-        IRepositoryClient repo = (IRepositoryClient) new DaoClient();
-               
+        IRepositoryClient repo = null; // = (IRepositoryClient) new DaoClient();        
         Company cp = rp.getCompany();
         cl.setCompany(cp);
         
