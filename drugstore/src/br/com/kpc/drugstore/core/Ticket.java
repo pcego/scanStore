@@ -26,13 +26,13 @@ import javax.persistence.TemporalType;
 @Entity()
 @Table(name = "tickets")
 public class Ticket implements Serializable {
-    
+
     private static final long serialVersionUID = 1L;
-    
-    public Ticket(){
-        
+
+    public Ticket() {
+
     }
-    
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "ticketId", nullable = false)
@@ -49,7 +49,7 @@ public class Ticket implements Serializable {
     public void setDt_shop(Date dt_shop) {
         this.dt_shop = dt_shop;
     }
-        
+
     @Column(nullable = false)
     private String auth_number;
 
@@ -60,7 +60,7 @@ public class Ticket implements Serializable {
     public void setAuth_number(String auth_number) {
         this.auth_number = auth_number;
     }
-            
+
     @Column(nullable = false)
     private String ticket_number;
 
@@ -71,23 +71,21 @@ public class Ticket implements Serializable {
     public void setTicket_number(String ticket_number) {
         this.ticket_number = ticket_number;
     }
-            
+
     @Column(nullable = false)
     private String ticket_image;
-    
-    
+
+    @ManyToOne(cascade = {CascadeType.MERGE, CascadeType.PERSIST}, fetch = FetchType.EAGER, optional = false)
+    @JoinColumn(referencedColumnName = "recipeId")
+    private Recipe recipe;
+
     @Override
     public int hashCode() {
         int hash = 0;
         hash += (id != null ? id.hashCode() : 0);
         return hash;
     }
-    
-    @ManyToOne(cascade = {CascadeType.MERGE, CascadeType.PERSIST}, fetch = FetchType.EAGER, optional = false)
-    @JoinColumn(referencedColumnName = "recipeId")
-    private Recipe recipe;
 
-    
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
@@ -105,5 +103,5 @@ public class Ticket implements Serializable {
     public String toString() {
         return "br.com.kpc.drugstore.core.Ticket[ id=" + id + " ]";
     }
-    
+
 }
