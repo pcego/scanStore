@@ -12,6 +12,8 @@ import br.com.kpc.drugstore.core.IRepositoryCompany;
 import br.com.kpc.drugstore.dao.DaoClient;
 import br.com.kpc.drugstore.dao.DaoCompany;
 import br.com.kpc.drugstore.scan.Scan;
+import br.com.kpc.drugstore.service.Service;
+import br.com.kpc.drugstore.util.Config;
 import br.com.kpc.drugstore.util.FormatDate;
 import br.com.kpc.drugstore.util.Mask;
 import java.awt.event.KeyEvent;
@@ -517,23 +519,23 @@ public class ClienteFrame extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(btAdicionar)
                         .addGap(1, 1, 1)
                         .addComponent(btAlterar)
-                        .addGap(2, 2, 2)
-                        .addComponent(btExcluir)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(btConfirmar)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(btCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 131, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(2, 2, 2)
+                        .addComponent(btExcluir)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(btPesquisar, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(btPesquisar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel2)
                     .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(21, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -544,14 +546,14 @@ public class ClienteFrame extends javax.swing.JFrame {
                 .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(32, 32, 32)
+                .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(btCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(btConfirmar, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(btExcluir)
                         .addComponent(btAlterar)
-                        .addComponent(btAdicionar))
+                        .addComponent(btAdicionar)
+                        .addComponent(btExcluir))
                     .addComponent(btPesquisar))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
@@ -567,7 +569,8 @@ public class ClienteFrame extends javax.swing.JFrame {
     private String opMenu = null; // I insert, D Delete U update
     //Linha da tabela selecionada
     private int linhaSelecionada = 0;
-    private static Client clientVG;
+    private static Client clientVG = new Client();
+    //Pegado o caminho do arquivo com o nome da pasta 
 
     private void definindoMask() {
 
@@ -585,7 +588,7 @@ public class ClienteFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_btAdicionarActionPerformed
 
     private void btExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btExcluirActionPerformed
-        if (tvID.getText().equals("")){
+        if (tvID.getText().equals("")) {
             JOptionPane.showMessageDialog(this, "Selecione um Cliente");
             return;
         }
@@ -629,12 +632,12 @@ public class ClienteFrame extends javax.swing.JFrame {
             case "D":
                 String[] opcoes = {"Sim", "Nao"};
                 int opcao = JOptionPane.showOptionDialog(this, "Deseja excluir cliente?",
-                    "Confirmar Exclusão", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, opcoes, opcoes[1]);
+                        "Confirmar Exclusão", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, opcoes, opcoes[1]);
                 //Verificando a Resposta do usuario, se resposta = NÂO, sai da função.
-                if (opcao==1){
+                if (opcao == 1) {
                     return;
                 }
-                
+
                 retorno = delete();
                 if (retorno) {
                     JOptionPane.showMessageDialog(this, "Excluido");
@@ -693,30 +696,31 @@ public class ClienteFrame extends javax.swing.JFrame {
     private void btCPFScanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btCPFScanActionPerformed
         boolean retorno = false;
         Scan sc = new Scan();
-        File[] img = sc.getGuiScan("C:\\imagens\\" + Mask.limparMaskCPF(tvCPF.getText()));
+        File[] img = sc.getGuiScan(Config.DIRETORIOIMAGEM + Mask.limparMaskCPF(tvCPF.getText()));
 
-        retorno = Scan.renameImg(img[0], "C:\\imagens\\" + Mask.limparMaskCPF(tvCPF.getText()), "cpf.jpg");
+        retorno = Scan.renameImg(img[0], Config.DIRETORIOIMAGEM + Mask.limparMaskCPF(tvCPF.getText()), "cpf.jpg");
         //carregarImg(displayReceita, img[0]);
 
         if (retorno) {
             System.out.println("sucesso");
-            clientVG.setCpf_image("C:\\imagens\\" + Mask.limparMaskCPF(tvCPF.getText().trim()) + "\\cpf.jpg");
+            clientVG.setCpf_image(Mask.limparMaskCPF(tvCPF.getText().trim()) + "\\cpf.jpg");
         } else {
             System.out.println("falha ao renomear");
         }
     }//GEN-LAST:event_btCPFScanActionPerformed
 
     private void btRGScanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btRGScanActionPerformed
+
         boolean retorno = false;
         Scan sc = new Scan();
-        File[] img = sc.getGuiScan("C:\\imagens\\" + Mask.limparMaskCPF(tvCPF.getText()));
+        File[] img = sc.getGuiScan(Config.DIRETORIOIMAGEM + Mask.limparMaskCPF(tvRG.getText()));
 
-        retorno = Scan.renameImg(img[0], "C:\\imagens\\" + Mask.limparMaskCPF(tvCPF.getText()), "rg.jpg");
+        retorno = Scan.renameImg(img[0], Config.DIRETORIOIMAGEM + Mask.limparMaskCPF(tvRG.getText()), "rg.jpg");
         //carregarImg(displayReceita, img[0]);
 
         if (retorno) {
             System.out.println("sucesso");
-            clientVG.setCpf_image("C:\\imagens\\" + Mask.limparMaskCPF(tvCPF.getText().trim()) + "\\rg.jpg");
+            clientVG.setRg_image(Mask.limparMaskCPF(tvRG.getText().trim()) + "\\rg.jpg");
         } else {
             System.out.println("falha ao renomear");
         }
@@ -830,7 +834,7 @@ public class ClienteFrame extends javax.swing.JFrame {
             clientVG.setCellPhone_2(tvCellPhone2.getText());
             clientVG.setAdress_postalCode(tvAdressPostalCode.getText());
             clientVG.setAdress_street(tvAdressStreet.getText());
-            clientVG.setAdress_number(Integer.valueOf(tvAdressNumber.getText()));
+            clientVG.setAdress_number(Integer.valueOf(tvAdressNumber.getText().trim()));
             clientVG.setAdress_complement(tvAdressComplement.getText());
             clientVG.setAdress_city(tvAdressCity.getText());
             clientVG.setAdress_neighborhood(tvAdressNeighborhood.getText());
@@ -841,8 +845,9 @@ public class ClienteFrame extends javax.swing.JFrame {
             clientVG.setActive(true);
 
             Company cm = new br.com.kpc.drugstore.core.Company();
-            IRepositoryCompany iRepositoryCompany = (IRepositoryCompany) new DaoCompany();
-            cm = iRepositoryCompany.getCompany();
+            Service.irepositoryFactory(Service.COMPANY);
+//            IRepositoryCompany iRepositoryCompany = (IRepositoryCompany) new DaoCompany();
+//            cm = iRepositoryCompany.getCompany();
 
             clientVG.setCompany(cm);
 
@@ -868,7 +873,7 @@ public class ClienteFrame extends javax.swing.JFrame {
             clientVG.setCellPhone_2(tvCellPhone2.getText());
             clientVG.setAdress_postalCode(tvAdressPostalCode.getText());
             clientVG.setAdress_street(tvAdressStreet.getText());
-            clientVG.setAdress_number(Integer.valueOf(tvAdressNumber.getText()));
+            clientVG.setAdress_number(Integer.valueOf(tvAdressNumber.getText().trim()));
             clientVG.setAdress_complement(tvAdressComplement.getText());
             clientVG.setAdress_city(tvAdressCity.getText());
             clientVG.setAdress_neighborhood(tvAdressNeighborhood.getText());
