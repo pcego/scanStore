@@ -21,10 +21,10 @@ import br.com.kpc.drugstore.dao.DaoTicket;
  */
 public class Service {
 
-    private static final int CLIENT = 1;
-    private static final int RECIPE = 2;
-    private static final int TICKET = 3;
-    private static final int COMPANY = 4;
+    public static final int CLIENT = 1;
+    public static final int RECIPE = 2;
+    public static final int TICKET = 3;
+    public static final int COMPANY = 4;
 
     private static IRepositoryClient repClient;
     private static IRepositoryCompany repCompany;
