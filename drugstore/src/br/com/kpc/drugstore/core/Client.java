@@ -35,10 +35,11 @@ public class Client implements Serializable {
 
     }
 
-    public Client(Long id, String name, String cpf) {
-        this.id = id;
+    public Client(String cpf, String name, String street) {
+
         this.cpf = cpf;
         this.name = name;
+        this.adress_street = street;
     }
 
     @Id
