@@ -845,7 +845,7 @@ public class ClienteFrame extends javax.swing.JFrame {
             clientVG.setActive(true);
 
             Company cm = new br.com.kpc.drugstore.core.Company();
-            Service.irepositoryFactory(Service.COMPANY);
+ //           Service.irepositoryFactory(Service.COMPANY);
 //            IRepositoryCompany iRepositoryCompany = (IRepositoryCompany) new DaoCompany();
 //            cm = iRepositoryCompany.getCompany();
 
