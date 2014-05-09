@@ -12,7 +12,6 @@ import br.com.kpc.drugstore.util.Mask;
 import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.logging.Level;
 
 import javax.swing.JOptionPane;
 import org.apache.log4j.Logger;
