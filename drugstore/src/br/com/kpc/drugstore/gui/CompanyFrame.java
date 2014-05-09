@@ -517,7 +517,9 @@ public class CompanyFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_btUpdateActionPerformed
 
     private void btConfirmActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btConfirmActionPerformed
-
+        if (!validarCNPJ()) {
+            return;
+        }
         boolean retorno;
         switch (opMenu) {
             case "U":
@@ -846,5 +848,13 @@ public class CompanyFrame extends javax.swing.JFrame {
         tvAdressPostalCode.setEditable(acao);
         cbAdressStat.setEditable(acao);
         tvSystemKey.setEditable(acao);
+    }
+
+    private boolean validarCNPJ() {
+        if (!Mask.validaCpfCnpj(tvCNPJ.getText())) {
+            JOptionPane.showMessageDialog(this, "CNPJ digitado é inválido");
+            return false;
+        }
+        return true;
     }
 }
