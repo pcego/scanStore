@@ -99,6 +99,7 @@ public class ClienteFrame extends javax.swing.JFrame {
         jLabel2 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("Cadastro de Cliente");
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowClosed(java.awt.event.WindowEvent evt) {
                 formWindowClosed(evt);
@@ -642,6 +643,7 @@ public class ClienteFrame extends javax.swing.JFrame {
                 if (retorno) {
                     JOptionPane.showMessageDialog(this, "Excluido");
                     btTypeDefault();
+                    limparCampos();
                 }
                 break;
         }
