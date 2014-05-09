@@ -75,7 +75,7 @@ public class Ticket implements Serializable {
     @Column(nullable = false)
     private String ticket_image;
 
-    @ManyToOne(cascade = {CascadeType.MERGE, CascadeType.PERSIST}, fetch = FetchType.EAGER, optional = false)
+    @ManyToOne(cascade = {CascadeType.MERGE}, fetch = FetchType.EAGER, optional = false)
     @JoinColumn(referencedColumnName = "recipeId")
     private Recipe recipe;
 
