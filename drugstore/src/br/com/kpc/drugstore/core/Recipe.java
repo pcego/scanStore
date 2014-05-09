@@ -74,7 +74,7 @@ public class Recipe implements Serializable {
         this.recipe_type = recipe_type;
     }
             
-    @ManyToOne(cascade = {CascadeType.MERGE, CascadeType.PERSIST}, fetch = FetchType.EAGER)
+    @ManyToOne(cascade = {CascadeType.MERGE}, fetch = FetchType.EAGER)
     @JoinColumn(referencedColumnName = "clientId")
     private Client client;
 
