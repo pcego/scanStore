@@ -9,19 +9,24 @@ import br.com.kpc.drugstore.core.Client;
 import br.com.kpc.drugstore.core.IRepositoryClient;
 import br.com.kpc.drugstore.core.IRepositoryRecipe;
 import br.com.kpc.drugstore.core.Recipe;
+import br.com.kpc.drugstore.core.Ticket;
 import br.com.kpc.drugstore.dao.DaoClient;
 import br.com.kpc.drugstore.dao.DaoRecipe;
 import br.com.kpc.drugstore.scan.Scan;
+import br.com.kpc.drugstore.service.Service;
+import br.com.kpc.drugstore.util.Config;
 import br.com.kpc.drugstore.util.Mask;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.text.ParseException;
+import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
+import org.omg.CORBA.TCKind;
 
 /**
  *
@@ -261,10 +266,13 @@ public class RecipeFrame extends javax.swing.JFrame {
      */
     private IRepositoryClient repoCliente = (IRepositoryClient) new DaoClient();
     private IRepositoryRecipe repoRecipe = (IRepositoryRecipe) new DaoRecipe();
-    private Recipe recipe = new Recipe();
-    private static Client client;
+    private Recipe recipeVG = new Recipe();
+    private Ticket ticketVG = new Ticket();
+    private static Client clientVG = new Client();
+
+    ;
     private void definindoMask() {
-        
+
         try {
             Mask.maskCPF(tvCPF);
             Mask.maskDate(tvDtReceita);
@@ -277,23 +285,34 @@ public class RecipeFrame extends javax.swing.JFrame {
     private void btDigitalizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btDigitalizarActionPerformed
         boolean retorno = false;
         Scan sc = new Scan();
-        File[] img = sc.getGuiScan("C:\\imagens\\" +  Mask.limparMaskCPF(tvCPF.getText()));
-        
-        retorno = Scan.renameImg(img[0], "C:\\imagens\\" + Mask.limparMaskCPF(tvCPF.getText()), opDigitalizar.getSelectedItem().toString() + ".jpg");
+        File[] img = sc.getGuiScan(Config.DIRETORIOIMAGEM + Mask.limparMaskCPF(tvCPF.getText()));
+
+        retorno = Scan.renameImg(img[0], Config.DIRETORIOIMAGEM + Mask.limparMaskCPF(tvCPF.getText()), opDigitalizar.getSelectedItem().toString() + ".jpg");
         carregarImg(displayReceita, img[0]);
-        
+
         if (retorno) {
-            System.out.println("sucesso");           
+            System.out.println("sucesso");
         } else {
             System.out.println("falha ao renomear");
         }
     }//GEN-LAST:event_btDigitalizarActionPerformed
 
     private void btAdicionarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btAdicionarActionPerformed
-        
-        recipe.setRecipe_type(rbAnticoncepcional.isSelected());
-        
-        repoRecipe.salvar(recipe);
+        recipeVG.setClient(clientVG);
+        recipeVG.setDt_recipe(new Date(tvDtReceita.getText()));
+
+        recipeVG.setRecipe_image(null);
+
+        recipeVG.setRecipe_type(rbAnticoncepcional.isSelected());
+
+        ticketVG.setAuth_number(tvNumAutorizacao.getText());
+        ticketVG.setDt_shop(new Date(tvDtVenda.getText()));
+        ticketVG.setTicket_number(null);
+
+        recipeVG.setRecipe_type(rbAnticoncepcional.isSelected());
+
+        Service.getIRepositoryRecipe().salvar(recipeVG);
+
 
     }//GEN-LAST:event_btAdicionarActionPerformed
 
@@ -374,32 +393,30 @@ public class RecipeFrame extends javax.swing.JFrame {
         //File img = new File(caminho);
         try {
             BufferedImage bfi = ImageIO.read(img);
-            
+
             componente.setIcon(new ImageIcon(bfi));
         } catch (IOException iex) {
             System.out.println(iex);
         }
     }
-    
 
     public static RecipeFrame recipeFrame;
-    
+
     protected static RecipeFrame getJanelaNULL() {
         recipeFrame = null;
         return recipeFrame;
     }
-    
+
     protected static RecipeFrame getJanelaReceita() {
         if (recipeFrame == null) {
             recipeFrame = new RecipeFrame();
         }
         return recipeFrame;
     }
-    
-        protected static void getClienteRetorno(Client cli) {       
-            client = new Client();
-            client = cli;
-            tvCPF.setText(client.getCpf());
 
-        }
+    protected static void getClienteRetorno(Client cli) {
+        clientVG = cli;
+        tvCPF.setText(clientVG.getCpf());
+
+    }
 }
