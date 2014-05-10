@@ -8,6 +8,7 @@ import br.com.kpc.drugstore.core.Client;
 import br.com.kpc.drugstore.core.IRepositoryClient;
 import java.util.Date;
 import java.util.List;
+import javax.persistence.NoResultException;
 import javax.persistence.Query;
 import javax.swing.JOptionPane;
 
@@ -32,8 +33,7 @@ public class DaoClient extends DaoGeneric<Client> implements IRepositoryClient {
             return query.getResultList();
         } catch (Exception ex) {
 
-            JOptionPane.showMessageDialog(null, "Falha ao Listar Clientes",
-                    "Ihh Falhou...!!", JOptionPane.ERROR_MESSAGE, null);
+            
             return null;
         }
 
@@ -43,16 +43,19 @@ public class DaoClient extends DaoGeneric<Client> implements IRepositoryClient {
     public Client getClientByCpf(String cpf, boolean active) {
 
         try {
+
             Query query = getManager().createQuery("SELECT C FROM Client C WHERE "
                     + "C.cpf = :cpf AND C.active = :active ORDER BY C.name");
             query.setParameter("cpf", cpf);
             query.setParameter("active", active);
             return (Client) query.getSingleResult();
-        } catch (Exception ex) {
 
-            JOptionPane.showMessageDialog(null, "Falha ao Carregar Cliente",
-                    "Ihh Falhou...!!", JOptionPane.ERROR_MESSAGE, null);
-            return null;
+        } catch (NoResultException nrex) {
+
+            JOptionPane.showMessageDialog(null, "Nenhum Cliente Encontrado Para Este CPF.",
+                    "Ihh Falhou...!!", JOptionPane.INFORMATION_MESSAGE, null);
+        } finally {
+            return new Client();
         }
     }
 
@@ -64,7 +67,8 @@ public class DaoClient extends DaoGeneric<Client> implements IRepositoryClient {
                 + "AND DAY(C.DT_NASC) = DAY(CURDATE()) ORDER BY C.NAME;";
 
         try {
-            Query query = getManager().createNativeQuery(stQuery, Client.class);
+            Query query = getManager().createNativeQuery(stQuery, Client.class
+            );
             return query.getResultList();
         } catch (Exception ex) {
 
