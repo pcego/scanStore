@@ -312,6 +312,7 @@ public class RecipeFrame extends javax.swing.JFrame {
         recipeVG.setRecipe_type(rbAnticoncepcional.isSelected());
 
         Service.getIRepositoryRecipe().salvar(recipeVG);
+        Service.getIRepositoryTicket().salvar(ticketVG);
 
 
     }//GEN-LAST:event_btAdicionarActionPerformed
