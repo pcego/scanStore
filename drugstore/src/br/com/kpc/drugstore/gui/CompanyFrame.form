@@ -294,6 +294,9 @@
   </Layout>
   <SubComponents>
     <Component class="javax.swing.JTextField" name="tvAdressComplement">
+      <Properties>
+        <Property name="enabled" type="boolean" value="false"/>
+      </Properties>
       <Events>
         <EventHandler event="focusLost" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="tvAdressComplementFocusLost"/>
       </Events>
@@ -304,6 +307,9 @@
       </Properties>
     </Component>
     <Component class="javax.swing.JTextField" name="tvCompanyName">
+      <Properties>
+        <Property name="enabled" type="boolean" value="false"/>
+      </Properties>
       <Events>
         <EventHandler event="focusLost" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="tvCompanyNameFocusLost"/>
       </Events>
@@ -319,6 +325,9 @@
       </Properties>
     </Component>
     <Component class="javax.swing.JTextField" name="tvCompanyId">
+      <Properties>
+        <Property name="enabled" type="boolean" value="false"/>
+      </Properties>
     </Component>
     <Component class="javax.swing.JLabel" name="jLabel2">
       <Properties>
@@ -326,11 +335,17 @@
       </Properties>
     </Component>
     <Component class="javax.swing.JTextField" name="tvAdressCity">
+      <Properties>
+        <Property name="enabled" type="boolean" value="false"/>
+      </Properties>
       <Events>
         <EventHandler event="focusLost" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="tvAdressCityFocusLost"/>
       </Events>
     </Component>
     <Component class="javax.swing.JTextField" name="tvInscStat">
+      <Properties>
+        <Property name="enabled" type="boolean" value="false"/>
+      </Properties>
     </Component>
     <Component class="javax.swing.JLabel" name="jLabel16">
       <Properties>
@@ -343,6 +358,9 @@
       </Properties>
     </Component>
     <Component class="javax.swing.JTextField" name="tvAdressNeighborhood">
+      <Properties>
+        <Property name="enabled" type="boolean" value="false"/>
+      </Properties>
       <Events>
         <EventHandler event="focusLost" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="tvAdressNeighborhoodFocusLost"/>
       </Events>
@@ -363,6 +381,9 @@
       </Properties>
     </Component>
     <Component class="javax.swing.JTextField" name="tvAdressPostalCode">
+      <Properties>
+        <Property name="enabled" type="boolean" value="false"/>
+      </Properties>
       <Events>
         <EventHandler event="focusLost" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="tvAdressPostalCodeFocusLost"/>
       </Events>
@@ -418,6 +439,9 @@
       </SubComponents>
     </Container>
     <Component class="javax.swing.JTextField" name="tvFantasy">
+      <Properties>
+        <Property name="enabled" type="boolean" value="false"/>
+      </Properties>
       <Events>
         <EventHandler event="focusLost" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="tvFantasyFocusLost"/>
       </Events>
@@ -455,6 +479,7 @@
             <StringItem index="26" value="TO"/>
           </StringArray>
         </Property>
+        <Property name="enabled" type="boolean" value="false"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JLabel" name="jLabel17">
@@ -467,6 +492,7 @@
         <Property name="formatterFactory" type="javax.swing.JFormattedTextField$AbstractFormatterFactory" editor="org.netbeans.modules.form.editors.AbstractFormatterFactoryEditor" preCode="try {" postCode="} catch (java.text.ParseException ex) {&#xa;ex.printStackTrace();&#xa;}">
           <Format format="##.###.###/####-##" subtype="-1" type="5"/>
         </Property>
+        <Property name="enabled" type="boolean" value="false"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JLabel" name="jLabel8">
@@ -475,8 +501,14 @@
       </Properties>
     </Component>
     <Component class="javax.swing.JTextField" name="tvSystemKey">
+      <Properties>
+        <Property name="enabled" type="boolean" value="false"/>
+      </Properties>
     </Component>
     <Component class="javax.swing.JTextField" name="tvPhone">
+      <Properties>
+        <Property name="enabled" type="boolean" value="false"/>
+      </Properties>
     </Component>
     <Component class="javax.swing.JLabel" name="jLabel19">
       <Properties>
@@ -489,8 +521,14 @@
       </Properties>
     </Component>
     <Component class="javax.swing.JTextField" name="tvCellPhone1">
+      <Properties>
+        <Property name="enabled" type="boolean" value="false"/>
+      </Properties>
     </Component>
     <Component class="javax.swing.JTextField" name="tvCellPhone2">
+      <Properties>
+        <Property name="enabled" type="boolean" value="false"/>
+      </Properties>
     </Component>
     <Component class="javax.swing.JLabel" name="jLabel10">
       <Properties>
@@ -498,6 +536,9 @@
       </Properties>
     </Component>
     <Component class="javax.swing.JTextField" name="tvEmail">
+      <Properties>
+        <Property name="enabled" type="boolean" value="false"/>
+      </Properties>
       <Events>
         <EventHandler event="focusLost" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="tvEmailFocusLost"/>
       </Events>
@@ -508,6 +549,9 @@
       </Properties>
     </Component>
     <Component class="javax.swing.JTextField" name="tvAdressStreet">
+      <Properties>
+        <Property name="enabled" type="boolean" value="false"/>
+      </Properties>
       <Events>
         <EventHandler event="focusLost" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="tvAdressStreetFocusLost"/>
       </Events>
@@ -518,6 +562,9 @@
       </Properties>
     </Component>
     <Component class="javax.swing.JFormattedTextField" name="tvAdressNumber">
+      <Properties>
+        <Property name="enabled" type="boolean" value="false"/>
+      </Properties>
     </Component>
     <Component class="javax.swing.JLabel" name="jLabel20">
       <Properties>

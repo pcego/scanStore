@@ -91,6 +91,7 @@ public class CompanyFrame extends javax.swing.JFrame {
             }
         });
 
+        tvAdressComplement.setEnabled(false);
         tvAdressComplement.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusLost(java.awt.event.FocusEvent evt) {
                 tvAdressComplementFocusLost(evt);
@@ -99,6 +100,7 @@ public class CompanyFrame extends javax.swing.JFrame {
 
         jLabel14.setText("Complemento:");
 
+        tvCompanyName.setEnabled(false);
         tvCompanyName.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusLost(java.awt.event.FocusEvent evt) {
                 tvCompanyNameFocusLost(evt);
@@ -109,18 +111,24 @@ public class CompanyFrame extends javax.swing.JFrame {
 
         jLabel3.setText("*Nome:");
 
+        tvCompanyId.setEnabled(false);
+
         jLabel2.setText("Código:");
 
+        tvAdressCity.setEnabled(false);
         tvAdressCity.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusLost(java.awt.event.FocusEvent evt) {
                 tvAdressCityFocusLost(evt);
             }
         });
 
+        tvInscStat.setEnabled(false);
+
         jLabel16.setText("UF:");
 
         jLabel7.setText("Telefone:");
 
+        tvAdressNeighborhood.setEnabled(false);
         tvAdressNeighborhood.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusLost(java.awt.event.FocusEvent evt) {
                 tvAdressNeighborhoodFocusLost(evt);
@@ -133,6 +141,7 @@ public class CompanyFrame extends javax.swing.JFrame {
 
         jLabel6.setText("Inscrição Estadual:");
 
+        tvAdressPostalCode.setEnabled(false);
         tvAdressPostalCode.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusLost(java.awt.event.FocusEvent evt) {
                 tvAdressPostalCodeFocusLost(evt);
@@ -169,6 +178,7 @@ public class CompanyFrame extends javax.swing.JFrame {
             tbGrid.getColumnModel().getColumn(2).setPreferredWidth(100);
         }
 
+        tvFantasy.setEnabled(false);
         tvFantasy.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusLost(java.awt.event.FocusEvent evt) {
                 tvFantasyFocusLost(evt);
@@ -176,6 +186,7 @@ public class CompanyFrame extends javax.swing.JFrame {
         });
 
         cbAdressStat.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "AC", "AL", "AP", "AM", "BA", "CE", "DF", "GO", "ES", "MA", "MT", "MS", "MG", "PA", "PB", "PR", "PE", "PI", "RJ", "RN", "RS", "RO", "RR", "SP", "SC", "SE", "TO" }));
+        cbAdressStat.setEnabled(false);
 
         jLabel17.setText("CEP:");
 
@@ -184,15 +195,25 @@ public class CompanyFrame extends javax.swing.JFrame {
         } catch (java.text.ParseException ex) {
             ex.printStackTrace();
         }
+        tvCNPJ.setEnabled(false);
 
         jLabel8.setText("*Celular:");
+
+        tvSystemKey.setEnabled(false);
+
+        tvPhone.setEnabled(false);
 
         jLabel19.setText("Key:");
 
         jLabel9.setText("Celular Op.:");
 
+        tvCellPhone1.setEnabled(false);
+
+        tvCellPhone2.setEnabled(false);
+
         jLabel10.setText("Email:");
 
+        tvEmail.setEnabled(false);
         tvEmail.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusLost(java.awt.event.FocusEvent evt) {
                 tvEmailFocusLost(evt);
@@ -201,6 +222,7 @@ public class CompanyFrame extends javax.swing.JFrame {
 
         jLabel11.setText("Rua:");
 
+        tvAdressStreet.setEnabled(false);
         tvAdressStreet.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusLost(java.awt.event.FocusEvent evt) {
                 tvAdressStreetFocusLost(evt);
@@ -208,6 +230,8 @@ public class CompanyFrame extends javax.swing.JFrame {
         });
 
         jLabel12.setText("Numero:");
+
+        tvAdressNumber.setEnabled(false);
 
         jLabel20.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/kpc/drugstore/img/logoKPCMini2.png"))); // NOI18N
 
@@ -482,7 +506,7 @@ public class CompanyFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_tvFantasyFocusLost
 
     private void tvEmailFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_tvEmailFocusLost
-        tvEmail.setText(tvEmail.getText().toUpperCase());
+        tvEmail.setText(tvEmail.getText().toLowerCase());
     }//GEN-LAST:event_tvEmailFocusLost
 
     private void tvAdressStreetFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_tvAdressStreetFocusLost
@@ -567,6 +591,7 @@ public class CompanyFrame extends javax.swing.JFrame {
 
     private void btDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btDeleteActionPerformed
         opMenu = "D";
+        btTypeDelete();
     }//GEN-LAST:event_btDeleteActionPerformed
 
     private void formWindowClosed(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosed
@@ -620,9 +645,10 @@ public class CompanyFrame extends javax.swing.JFrame {
 
         //Adicionando empresa a lista
         listCompany.add(Service.getIRepositoryCompany().getCompany());
-
-        model = new TableModelCompany(listCompany);
-        tbGrid.setModel(model);
+        if (!listCompany.isEmpty()) {
+            model = new TableModelCompany(listCompany);
+            tbGrid.setModel(model);
+        }
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -723,6 +749,15 @@ public class CompanyFrame extends javax.swing.JFrame {
         btCancel.setEnabled(true);
         btDelete.setEnabled(false);
     }
+    
+        private void btTypeDelete() {
+        habilitarCampos(false);
+        btInsert.setEnabled(false);
+        btUpdate.setEnabled(false);
+        btConfirm.setEnabled(true);
+        btCancel.setEnabled(true);
+        btDelete.setEnabled(false);
+    }
 
     private void btTypeDefault() {
         habilitarCampos(false);
@@ -779,7 +814,7 @@ public class CompanyFrame extends javax.swing.JFrame {
             companyVG.setEnd_stat(cbAdressStat.getSelectedItem().toString());
             companyVG.setInsc_stat(tvInscStat.getText());
             companyVG.setAdress_street(tvAdressStreet.getText());
-            companyVG.setAdress_number(Integer.valueOf(tvAdressNumber.getText()));
+            companyVG.setAdress_number(Integer.valueOf(tvAdressNumber.getText().trim()));
             companyVG.setAdress_complement(tvAdressComplement.getText());
             companyVG.setAdress_neighborhood(tvAdressNeighborhood.getText());
             companyVG.setAdress_city(tvAdressCity.getText());
@@ -829,23 +864,23 @@ public class CompanyFrame extends javax.swing.JFrame {
 
     private void habilitarCampos(boolean acao) {
 
-        tvCompanyId.setEditable(acao);
-        tvCompanyName.setEditable(acao);
-        tvCNPJ.setEditable(acao);
-        tvFantasy.setEditable(acao);
-        tvInscStat.setEditable(acao);;
-        tvEmail.setEditable(acao);
-        tvPhone.setEditable(acao);;
-        tvCellPhone1.setEditable(acao);
-        tvCellPhone2.setEditable(acao);
-        tvAdressStreet.setEditable(acao);
-        tvAdressNumber.setEditable(acao);
-        tvAdressComplement.setEditable(acao);
-        tvAdressNeighborhood.setEditable(acao);
-        tvAdressCity.setEditable(acao);
-        tvAdressPostalCode.setEditable(acao);
-        cbAdressStat.setEditable(acao);
-        tvSystemKey.setEditable(acao);
+
+        tvCompanyName.setEnabled(acao);
+        tvCNPJ.setEnabled(acao);
+        tvFantasy.setEnabled(acao);
+        tvInscStat.setEnabled(acao);;
+        tvEmail.setEnabled(acao);
+        tvPhone.setEnabled(acao);;
+        tvCellPhone1.setEnabled(acao);
+        tvCellPhone2.setEnabled(acao);
+        tvAdressStreet.setEnabled(acao);
+        tvAdressNumber.setEnabled(acao);
+        tvAdressComplement.setEnabled(acao);
+        tvAdressNeighborhood.setEnabled(acao);
+        tvAdressCity.setEnabled(acao);
+        tvAdressPostalCode.setEnabled(acao);
+        cbAdressStat.setEnabled(acao);
+        tvSystemKey.setEnabled(acao);
     }
 
     private boolean validarCNPJ() {
