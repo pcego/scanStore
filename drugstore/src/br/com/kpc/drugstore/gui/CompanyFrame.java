@@ -9,6 +9,7 @@ import br.com.kpc.drugstore.core.Company;
 import br.com.kpc.drugstore.service.Service;
 import br.com.kpc.drugstore.tableModel.TableModelCompany;
 import br.com.kpc.drugstore.util.Mask;
+import br.com.kpc.drugstore.util.SystemMessage;
 import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.List;
@@ -559,6 +560,7 @@ public class CompanyFrame extends javax.swing.JFrame {
                     JOptionPane.showMessageDialog(this, "Gravado");
                     btTypeDefault();
                     limparCampos();
+                    loadingTable();
                 }
                 break;
             case "D":
@@ -575,6 +577,7 @@ public class CompanyFrame extends javax.swing.JFrame {
                     JOptionPane.showMessageDialog(this, "Excluido");
                     btTypeDefault();
                     limparCampos();
+                    loadingTable();
                 }
                 break;
         }
@@ -643,9 +646,10 @@ public class CompanyFrame extends javax.swing.JFrame {
         List<Company> listCompany = new ArrayList<Company>();
         listCompany.clear();
 
-        //Adicionando empresa a lista
-        listCompany.add(Service.getIRepositoryCompany().getCompany());
-        if (!listCompany.isEmpty()) {
+        if (Service.getIRepositoryCompany().getCompany() != null) {
+            //Adicionando empresa a lista
+            listCompany.add(Service.getIRepositoryCompany().getCompany());
+
             model = new TableModelCompany(listCompany);
             tbGrid.setModel(model);
         }
@@ -749,8 +753,8 @@ public class CompanyFrame extends javax.swing.JFrame {
         btCancel.setEnabled(true);
         btDelete.setEnabled(false);
     }
-    
-        private void btTypeDelete() {
+
+    private void btTypeDelete() {
         habilitarCampos(false);
         btInsert.setEnabled(false);
         btUpdate.setEnabled(false);
@@ -824,7 +828,8 @@ public class CompanyFrame extends javax.swing.JFrame {
             return true;
         } catch (Exception e) {
             logger.error("ERRO ao gravar");
-            JOptionPane.showMessageDialog(this, "Deu erro: " + e);
+            SystemMessage.showMessage(e, SystemMessage.ERROR, "Gravar Cliente");
+           
             return false;
         }
     }
@@ -863,7 +868,6 @@ public class CompanyFrame extends javax.swing.JFrame {
     }
 
     private void habilitarCampos(boolean acao) {
-
 
         tvCompanyName.setEnabled(acao);
         tvCNPJ.setEnabled(acao);
