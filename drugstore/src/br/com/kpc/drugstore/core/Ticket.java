@@ -72,7 +72,7 @@ public class Ticket implements Serializable {
         this.ticket_number = ticket_number;
     }
 
-    @Column(nullable = false)
+    @Column()
     private String ticket_image;
 
     @ManyToOne(cascade = {CascadeType.MERGE}, fetch = FetchType.EAGER, optional = false)
