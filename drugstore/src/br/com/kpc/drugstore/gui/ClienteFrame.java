@@ -846,12 +846,7 @@ public class ClienteFrame extends javax.swing.JFrame {
             clientVG.setDt_cad(new Date());
             clientVG.setActive(true);
 
-            Company cm = new br.com.kpc.drugstore.core.Company();
- //           Service.irepositoryFactory(Service.COMPANY);
-//            IRepositoryCompany iRepositoryCompany = (IRepositoryCompany) new DaoCompany();
-//            cm = iRepositoryCompany.getCompany();
-
-            clientVG.setCompany(cm);
+            clientVG.setCompany(Service.getIRepositoryCompany().getCompany());
 
             iRepositoryClient.salvar(clientVG);
             return true;
@@ -965,7 +960,7 @@ public class ClienteFrame extends javax.swing.JFrame {
         tvAdressNeighborhood.setText(null);
         cbAdressStat.setSelectedIndex(12);
         tvEmail.setText(null);
-        rbAtivo.setSelected(false);
+        rbAtivo.setSelected(true);
 
     }
 
