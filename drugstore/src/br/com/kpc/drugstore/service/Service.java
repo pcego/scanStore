@@ -13,6 +13,12 @@ import br.com.kpc.drugstore.dao.DaoClient;
 import br.com.kpc.drugstore.dao.DaoCompany;
 import br.com.kpc.drugstore.dao.DaoRecipe;
 import br.com.kpc.drugstore.dao.DaoTicket;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
+import javax.imageio.ImageIO;
+import javax.swing.Icon;
+import javax.swing.ImageIcon;
 
 /**
  *
@@ -54,6 +60,19 @@ public class Service {
         }
         return repCompany;
     }
-    
-    
+
+    public static Icon drawIcon(String url) {
+
+        File img = new File(url);
+
+        try {
+            BufferedImage bfi = ImageIO.read(img);
+            Icon icon = new ImageIcon(bfi);
+            return icon;
+        } catch (IOException iex) {
+            System.out.println(iex);
+            return null;
+        }
+    }
+
 }
