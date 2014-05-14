@@ -75,6 +75,14 @@ public class Ticket implements Serializable {
     @Column()
     private String ticket_image;
 
+    public String getTicket_image() {
+        return ticket_image;
+    }
+
+    public void setTicket_image(String ticket_image) {
+        this.ticket_image = ticket_image;
+    }
+    
     @ManyToOne(cascade = {CascadeType.MERGE}, fetch = FetchType.EAGER, optional = false)
     @JoinColumn(referencedColumnName = "recipeId")
     private Recipe recipe;
