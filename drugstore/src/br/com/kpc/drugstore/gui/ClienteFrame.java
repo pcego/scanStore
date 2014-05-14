@@ -817,8 +817,8 @@ public class ClienteFrame extends javax.swing.JFrame {
             clientVG = new Client();
 
             clientVG.setName(tvName.getText().trim());
-//      clientVG.setSexo(cbSexo.getSelectedItem().toString())
-//      clientVG.setEstCivil(cbEstCivilgetSelectedItem().toString())
+            clientVG.setSex(cbSexo.getSelectedItem().toString());
+            clientVG.setMarital_status(cbEstCivil.getSelectedItem().toString());
             Date date = null;
             try {
                 date = new SimpleDateFormat("dd/MM/yyyy").parse(tvBirthDay.getText());
@@ -856,9 +856,9 @@ public class ClienteFrame extends javax.swing.JFrame {
     private boolean update() {
         try {
             clientVG.setId(Long.valueOf(tvID.getText()));
-            clientVG.setName(tvName.getText().trim());
-//      clientVG.setSexo(cbSexo.getSelectedItem().toString())
-//      clientVG.setEstCivil(cbEstCivilgetSelectedItem().toString())           
+            clientVG.setName(tvName.getText().trim());          
+            clientVG.setSex(cbSexo.getSelectedItem().toString());
+            clientVG.setMarital_status(cbEstCivil.getSelectedItem().toString());          
             clientVG.setDt_nasc(new Date(tvBirthDay.getText()));
             clientVG.setCpf(tvCPF.getText());
             clientVG.setRg(tvRG.getText());
@@ -1029,17 +1029,12 @@ public class ClienteFrame extends javax.swing.JFrame {
         tvEmail.setEnabled(acao);
     }
 
-
-
-
-
-
     protected static void getCliente(Client cli) {
         clientVG = cli;
         tvID.setText(String.valueOf(clientVG.getId()));
         tvName.setText(clientVG.getName());
-//        cbSexo.setSelectedIndex(clientVG.getSexoxxxxx);
-//        cbEstCivil.setSelectedIndex(clientVG.getestadoXXXXX);
+        cbSexo.setSelectedItem(clientVG.getSex());
+        cbEstCivil.setSelectedItem(clientVG.getMarital_status());
         tvBirthDay.setText(FormatDate.dateCovertToShow(clientVG.getDt_nasc()));
         tvCPF.setText(clientVG.getCpf());
         tvRG.setText(clientVG.getRg());
