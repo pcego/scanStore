@@ -40,7 +40,7 @@ public class Sobre extends javax.swing.JFrame {
         label2 = new java.awt.Label();
         jLabel2 = new javax.swing.JLabel();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Sobre o Sistema.");
         setBackground(new java.awt.Color(0, 153, 255));
         setResizable(false);
