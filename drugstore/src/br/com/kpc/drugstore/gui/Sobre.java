@@ -186,7 +186,7 @@ public class Sobre extends javax.swing.JFrame {
     private void jLabel4MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel4MouseClicked
         Desktop desk = java.awt.Desktop.getDesktop();
         try {
-            desk.browse(new java.net.URI("http://www.google.com.br"));
+            desk.browse(new java.net.URI("https://www.facebook.com"));
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -195,7 +195,7 @@ public class Sobre extends javax.swing.JFrame {
     private void jLabel3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel3MouseClicked
         Desktop desk = java.awt.Desktop.getDesktop();
         try {
-            desk.browse(new java.net.URI("http://www.google.com.br"));
+            desk.browse(new java.net.URI("https://plus.google.com"));
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -204,7 +204,7 @@ public class Sobre extends javax.swing.JFrame {
     private void jLabel5MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel5MouseClicked
         Desktop desk = java.awt.Desktop.getDesktop();
         try {
-            desk.browse(new java.net.URI("http://www.google.com.br"));
+            desk.browse(new java.net.URI("https://twitter.com/"));
         } catch (Exception e) {
             e.printStackTrace();
         }
