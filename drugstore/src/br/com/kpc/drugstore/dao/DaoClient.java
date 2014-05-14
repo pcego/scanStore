@@ -32,8 +32,6 @@ public class DaoClient extends DaoGeneric<Client> implements IRepositoryClient {
             query.setParameter("active", active);
             return query.getResultList();
         } catch (Exception ex) {
-
-            
             return null;
         }
 
@@ -54,8 +52,7 @@ public class DaoClient extends DaoGeneric<Client> implements IRepositoryClient {
 
             JOptionPane.showMessageDialog(null, "Nenhum Cliente Encontrado Para Este CPF.",
                     "Ihh Falhou...!!", JOptionPane.INFORMATION_MESSAGE, null);
-        } finally {
-            return new Client();
+            return new Client("", "", "");
         }
     }
 
