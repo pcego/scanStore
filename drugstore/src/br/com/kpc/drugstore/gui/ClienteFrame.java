@@ -71,7 +71,6 @@ public class ClienteFrame extends javax.swing.JFrame {
         jLabel18 = new javax.swing.JLabel();
         tvRG = new javax.swing.JTextField();
         jLabel20 = new javax.swing.JLabel();
-        tvBirthDay = new javax.swing.JFormattedTextField();
         cbSexo = new javax.swing.JComboBox();
         jLabel21 = new javax.swing.JLabel();
         cbEstCivil = new javax.swing.JComboBox();
@@ -80,6 +79,7 @@ public class ClienteFrame extends javax.swing.JFrame {
         tvEmail = new javax.swing.JTextField();
         btCPFScan = new javax.swing.JButton();
         btRGScan = new javax.swing.JButton();
+        tvBirthDay = new datechooser.beans.DateChooserCombo();
         jPanel1 = new javax.swing.JPanel();
         jLabel22 = new javax.swing.JLabel();
         tvAdressPostalCode = new javax.swing.JFormattedTextField();
@@ -210,12 +210,6 @@ public class ClienteFrame extends javax.swing.JFrame {
 
         jLabel20.setText(" Nascimento:");
 
-        try {
-            tvBirthDay.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("##/##/####")));
-        } catch (java.text.ParseException ex) {
-            ex.printStackTrace();
-        }
-
         cbSexo.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "MASCULINO", "FEMININO" }));
 
         jLabel21.setText("Est. Civil:");
@@ -246,6 +240,8 @@ public class ClienteFrame extends javax.swing.JFrame {
                 btRGScanActionPerformed(evt);
             }
         });
+
+        tvBirthDay.setCalendarPreferredSize(new java.awt.Dimension(350, 210));
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
@@ -291,15 +287,14 @@ public class ClienteFrame extends javax.swing.JFrame {
                                 .addGap(5, 5, 5)
                                 .addComponent(tvName, javax.swing.GroupLayout.PREFERRED_SIZE, 290, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(jPanel3Layout.createSequentialGroup()
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addGroup(jPanel3Layout.createSequentialGroup()
-                                        .addGap(5, 5, 5)
-                                        .addComponent(cbSexo, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addGap(18, 18, 18)
-                                        .addComponent(jLabel21, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addGroup(jPanel3Layout.createSequentialGroup()
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(tvBirthDay, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                        .addGap(0, 0, Short.MAX_VALUE)
+                                        .addComponent(cbSexo, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addComponent(tvBirthDay, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
+                                .addGap(18, 18, 18)
+                                .addComponent(jLabel21, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(10, 10, 10)
                                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(cbEstCivil, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -354,11 +349,12 @@ public class ClienteFrame extends javax.swing.JFrame {
                                 .addGap(2, 2, 2)
                                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jLabel18, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                        .addComponent(tvRG, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addComponent(jLabel20, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                                         .addComponent(tvBirthDay, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addComponent(rbAtivo))))
+                                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                            .addComponent(tvRG, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addComponent(jLabel20, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addComponent(rbAtivo)))))
                             .addGroup(jPanel3Layout.createSequentialGroup()
                                 .addGap(8, 8, 8)
                                 .addComponent(btCPFScan, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -805,7 +801,7 @@ public class ClienteFrame extends javax.swing.JFrame {
     private static javax.swing.JFormattedTextField tvAdressNumber;
     private static javax.swing.JFormattedTextField tvAdressPostalCode;
     private static javax.swing.JTextField tvAdressStreet;
-    private static javax.swing.JFormattedTextField tvBirthDay;
+    private static datechooser.beans.DateChooserCombo tvBirthDay;
     private static javax.swing.JFormattedTextField tvCPF;
     private static javax.swing.JFormattedTextField tvCellPhone1;
     private static javax.swing.JFormattedTextField tvCellPhone2;
