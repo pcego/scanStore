@@ -28,13 +28,13 @@ import javax.persistence.TemporalType;
 @Entity()
 @Table(name = "recipes")
 public class Recipe implements Serializable {
-    
+
     private static final long serialVersionUID = 1L;
-    
-    public Recipe(){
-        
+
+    public Recipe() {
+
     }
-    
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "recipeId")
@@ -43,7 +43,7 @@ public class Recipe implements Serializable {
     @Temporal(TemporalType.DATE)
     @Column(nullable = false)
     private Date dt_recipe;
-    
+
     public Date getDt_recipe() {
         return dt_recipe;
     }
@@ -51,9 +51,9 @@ public class Recipe implements Serializable {
     public void setDt_recipe(Date dt_recipe) {
         this.dt_recipe = dt_recipe;
     }
-    
+
     @Column
-    private String recipe_image;  
+    private String recipe_image;
 
     public String getRecipe_image() {
         return recipe_image;
@@ -62,7 +62,7 @@ public class Recipe implements Serializable {
     public void setRecipe_image(String recipe_image) {
         this.recipe_image = recipe_image;
     }
-               
+
     @Column(nullable = false)
     private boolean recipe_type;
 
@@ -73,7 +73,7 @@ public class Recipe implements Serializable {
     public void setRecipe_type(boolean recipe_type) {
         this.recipe_type = recipe_type;
     }
-            
+
     @ManyToOne(cascade = {CascadeType.MERGE}, fetch = FetchType.EAGER)
     @JoinColumn(referencedColumnName = "clientId")
     private Client client;
@@ -85,18 +85,29 @@ public class Recipe implements Serializable {
     public void setClient(Client client) {
         this.client = client;
     }
-    
+
     @OneToMany(mappedBy = "recipe", fetch = FetchType.EAGER)
     private List<Ticket> ticket;
-    
-    public void addTicket(Ticket tk){
+
+    public void addTicket(Ticket tk) {
         ticket.add(tk);
     }
 
     public List<Ticket> getTicket() {
         return ticket;
     }
-                
+
+    @Column()
+    private String other_document;
+
+    public String getOther_document() {
+        return other_document;
+    }
+
+    public void setOther_document(String other_document) {
+        this.other_document = other_document;
+    }
+
     @Override
     public int hashCode() {
         int hash = 0;
@@ -121,5 +132,5 @@ public class Recipe implements Serializable {
     public String toString() {
         return "br.com.kpc.drugstore.core.Recipe[ id=" + id + " ]";
     }
-    
+
 }
