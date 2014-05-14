@@ -8,6 +8,7 @@ package br.com.kpc.drugstore.gui;
 import br.com.kpc.drugstore.core.Client;
 import br.com.kpc.drugstore.core.IRepositoryClient;
 import br.com.kpc.drugstore.dao.DaoClient;
+import br.com.kpc.drugstore.service.WindowInstance;
 import br.com.kpc.drugstore.tableModel.TableModelClient;
 import br.com.kpc.drugstore.util.Mask;
 import java.text.ParseException;
@@ -334,8 +335,8 @@ public class ConsultarCliente extends javax.swing.JFrame {
             resposta = JOptionPane.showOptionDialog(this, "Cliente não encontrado deseja cadastra?",
                     "Cliente não encotnrado", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, opcoes, opcoes[0]);
             if (resposta == 0) {
-                ClienteFrame.getJanelaCliente().setVisible(true);
-                this.dispose();
+                  WindowInstance.getInstance( WindowInstance.CLIENTWINDOW).setVisible(true);
+               
             }
         }
     }
