@@ -663,10 +663,6 @@ public class ClienteFrame extends javax.swing.JFrame {
 
     }//GEN-LAST:event_btPesquisarActionPerformed
 
-    private void formWindowClosed(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosed
-        getJanelaNULL();
-    }//GEN-LAST:event_formWindowClosed
-
     private void tvNameFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_tvNameFocusLost
         tvName.setText(tvName.getText().toUpperCase());
     }//GEN-LAST:event_tvNameFocusLost
@@ -727,6 +723,11 @@ public class ClienteFrame extends javax.swing.JFrame {
             System.out.println("falha ao renomear");
         }
     }//GEN-LAST:event_btRGScanActionPerformed
+
+    private void formWindowClosed(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosed
+        limparCampos();
+        btTypeDefault();
+    }//GEN-LAST:event_formWindowClosed
 
     /**
      * @param args the command line arguments
@@ -1032,19 +1033,10 @@ public class ClienteFrame extends javax.swing.JFrame {
         tvEmail.setEnabled(acao);
     }
 
-    protected static ClienteFrame clienteFrame;
 
-    protected static ClienteFrame getJanelaNULL() {
-        clienteFrame = null;
-        return clienteFrame;
-    }
 
-    protected static ClienteFrame getJanelaCliente() {
-        if (clienteFrame == null) {
-            clienteFrame = new ClienteFrame();
-        }
-        return clienteFrame;
-    }
+
+
 
     protected static void getCliente(Client cli) {
         clientVG = cli;
