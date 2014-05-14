@@ -241,7 +241,7 @@ public class ClienteFrame extends javax.swing.JFrame {
             }
         });
 
-        tvBirthDay.setCalendarPreferredSize(new java.awt.Dimension(350, 210));
+        tvBirthDay.setCalendarPreferredSize(new java.awt.Dimension(320, 210));
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
