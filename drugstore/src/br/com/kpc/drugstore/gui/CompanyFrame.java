@@ -597,14 +597,15 @@ public class CompanyFrame extends javax.swing.JFrame {
         btTypeDelete();
     }//GEN-LAST:event_btDeleteActionPerformed
 
-    private void formWindowClosed(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosed
-        getJanelaNULL();
-    }//GEN-LAST:event_formWindowClosed
-
     private void btCancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btCancelActionPerformed
         btTypeDefault();
         limparCampos();
     }//GEN-LAST:event_btCancelActionPerformed
+
+    private void formWindowClosed(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosed
+        limparCampos();
+        btTypeDefault();
+    }//GEN-LAST:event_formWindowClosed
 
     /**
      * @param args the command line arguments
@@ -720,20 +721,6 @@ public class CompanyFrame extends javax.swing.JFrame {
         cbAdressStat.setSelectedItem(companyVG.getEnd_stat());
         tvSystemKey.setText(companyVG.getSystem_key());
 
-    }
-
-    public static CompanyFrame companyFrame;
-
-    protected static CompanyFrame getJanelaNULL() {
-        companyFrame = null;
-        return companyFrame;
-    }
-
-    protected static CompanyFrame getJanelaEmpresa() {
-        if (companyFrame == null) {
-            companyFrame = new CompanyFrame();
-        }
-        return companyFrame;
     }
 
     private void btTypeInsert() {
