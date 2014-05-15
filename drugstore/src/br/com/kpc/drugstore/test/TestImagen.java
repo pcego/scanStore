@@ -102,32 +102,7 @@ public class TestImagen extends javax.swing.JFrame {
     }//GEN-LAST:event_carregarImgActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-               
-        String fileName = "\\scanStore\\drugstore\\src\\br\\com\\kpc\\drugstore\\relatorios\\ListClients.jrxml";
-        String outFileName = "\\devel\\examples\\teste.pdf";
-        HashMap hm = new HashMap();
-        hm.put("active_opt", true);
-        try {
-            JasperPrint print = JasperFillManager.fillReport(
-                    fileName,
-                    hm,
-                    new JREmptyDataSource());
-            JRExporter exporter
-                    = new net.sf.jasperreports.engine.export.JRPdfExporter();
-            exporter.setParameter(
-                    JRExporterParameter.OUTPUT_FILE_NAME,
-                    outFileName);
-            exporter.setParameter(
-                    JRExporterParameter.JASPER_PRINT, print);
-            exporter.exportReport();
-            System.out.println("Created file: " + outFileName);
-        } catch (JRException e) {
-            e.printStackTrace();
-            System.exit(1);
-        } catch (Exception e) {
-            e.printStackTrace();
-            System.exit(1);
-        }
+
 
     }//GEN-LAST:event_jButton1ActionPerformed
 
