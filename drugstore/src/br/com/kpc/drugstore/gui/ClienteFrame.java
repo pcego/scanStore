@@ -161,6 +161,7 @@ public class ClienteFrame extends javax.swing.JFrame {
 
         jLabel12.setText("*Nome:");
 
+        tvName.setNextFocusableComponent(tvCPF);
         tvName.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusLost(java.awt.event.FocusEvent evt) {
                 tvNameFocusLost(evt);
@@ -242,6 +243,7 @@ public class ClienteFrame extends javax.swing.JFrame {
         });
 
         tvBirthDay.setCalendarPreferredSize(new java.awt.Dimension(320, 210));
+        tvBirthDay.setFormat(2);
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
@@ -291,10 +293,12 @@ public class ClienteFrame extends javax.swing.JFrame {
                                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addGroup(jPanel3Layout.createSequentialGroup()
                                         .addGap(0, 0, Short.MAX_VALUE)
-                                        .addComponent(cbSexo, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addComponent(tvBirthDay, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
-                                .addGap(18, 18, 18)
-                                .addComponent(jLabel21, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(cbSexo, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGap(18, 18, 18)
+                                        .addComponent(jLabel21, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addGroup(jPanel3Layout.createSequentialGroup()
+                                        .addComponent(tvBirthDay, javax.swing.GroupLayout.PREFERRED_SIZE, 122, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGap(0, 0, Short.MAX_VALUE)))
                                 .addGap(10, 10, 10)
                                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(cbEstCivil, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -1069,6 +1073,9 @@ public class ClienteFrame extends javax.swing.JFrame {
     }
 
     private boolean validarCPF() {
+        if(tvCPF.getText().trim().length() < 14){
+          JOptionPane.showMessageDialog(this, "Digite seu CPF");  
+        }else
         if (!Mask.validaCpfCnpj(tvCPF.getText())) {
             JOptionPane.showMessageDialog(this, "CPF digitado é inválido");
             return false;
