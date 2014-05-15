@@ -52,6 +52,7 @@ public class Main extends javax.swing.JFrame {
         jMenu5 = new javax.swing.JMenu();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("KPC Software Delopmet");
         setExtendedState(6);
         setMinimumSize(new java.awt.Dimension(800, 600));
 
