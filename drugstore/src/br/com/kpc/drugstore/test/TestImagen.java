@@ -3,14 +3,20 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package br.com.kpc.drugstore.test;
 
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.util.HashMap;
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
+import net.sf.jasperreports.engine.JREmptyDataSource;
+import net.sf.jasperreports.engine.JRException;
+import net.sf.jasperreports.engine.JRExporter;
+import net.sf.jasperreports.engine.JRExporterParameter;
+import net.sf.jasperreports.engine.JasperFillManager;
+import net.sf.jasperreports.engine.JasperPrint;
 
 /**
  *
@@ -36,6 +42,7 @@ public class TestImagen extends javax.swing.JFrame {
 
         imagen = new javax.swing.JLabel();
         carregarImg = new javax.swing.JButton();
+        jButton1 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -46,6 +53,13 @@ public class TestImagen extends javax.swing.JFrame {
             }
         });
 
+        jButton1.setText("Relatório");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -53,7 +67,10 @@ public class TestImagen extends javax.swing.JFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap(40, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(carregarImg)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(carregarImg)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jButton1))
                     .addComponent(imagen, javax.swing.GroupLayout.PREFERRED_SIZE, 327, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(33, 33, 33))
         );
@@ -63,7 +80,9 @@ public class TestImagen extends javax.swing.JFrame {
                 .addGap(22, 22, 22)
                 .addComponent(imagen, javax.swing.GroupLayout.PREFERRED_SIZE, 202, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 32, Short.MAX_VALUE)
-                .addComponent(carregarImg)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(carregarImg)
+                    .addComponent(jButton1))
                 .addGap(21, 21, 21))
         );
 
@@ -71,16 +90,46 @@ public class TestImagen extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void carregarImgActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_carregarImgActionPerformed
-        
+
         File img = new File("C:\\imagens\\testando.jpg");
-        
+
         try {
             BufferedImage bfi = ImageIO.read(img);
             imagen.setIcon(new ImageIcon(bfi));
-        }catch(IOException iex){
+        } catch (IOException iex) {
             System.out.println(iex);
-        } 
+        }
     }//GEN-LAST:event_carregarImgActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+               
+        String fileName = "\\scanStore\\drugstore\\src\\br\\com\\kpc\\drugstore\\relatorios\\ListClients.jrxml";
+        String outFileName = "\\devel\\examples\\teste.pdf";
+        HashMap hm = new HashMap();
+        hm.put("active_opt", true);
+        try {
+            JasperPrint print = JasperFillManager.fillReport(
+                    fileName,
+                    hm,
+                    new JREmptyDataSource());
+            JRExporter exporter
+                    = new net.sf.jasperreports.engine.export.JRPdfExporter();
+            exporter.setParameter(
+                    JRExporterParameter.OUTPUT_FILE_NAME,
+                    outFileName);
+            exporter.setParameter(
+                    JRExporterParameter.JASPER_PRINT, print);
+            exporter.exportReport();
+            System.out.println("Created file: " + outFileName);
+        } catch (JRException e) {
+            e.printStackTrace();
+            System.exit(1);
+        } catch (Exception e) {
+            e.printStackTrace();
+            System.exit(1);
+        }
+
+    }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -120,5 +169,6 @@ public class TestImagen extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton carregarImg;
     private javax.swing.JLabel imagen;
+    private javax.swing.JButton jButton1;
     // End of variables declaration//GEN-END:variables
 }
