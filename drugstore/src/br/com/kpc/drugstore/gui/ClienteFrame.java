@@ -428,7 +428,11 @@ public class ClienteFrame extends javax.swing.JFrame {
             }
         });
 
-        tvAdressNumber.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter()));
+        try {
+            tvAdressNumber.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("#########")));
+        } catch (java.text.ParseException ex) {
+            ex.printStackTrace();
+        }
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -454,7 +458,8 @@ public class ClienteFrame extends javax.swing.JFrame {
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(jLabel25)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(tvAdressNumber, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addComponent(tvAdressNumber, javax.swing.GroupLayout.PREFERRED_SIZE, 66, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(2, 2, 2)))
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addGap(14, 14, 14)
@@ -483,11 +488,12 @@ public class ClienteFrame extends javax.swing.JFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel23, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(tvAdressStreet, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel25, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jLabel25, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(tvAdressNumber, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(jLabel26, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(tvAdressComplement, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(tvAdressNumber, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(tvAdressComplement, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(10, 10, 10)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -571,11 +577,11 @@ public class ClienteFrame extends javax.swing.JFrame {
 
     private void definindoMask() {
 
-        try {
-            Mask.maskNumber(tvAdressNumber);
-        } catch (ParseException ex) {
-            Logger.getLogger(ClienteFrame.class.getName()).log(Level.SEVERE, null, ex);
-        }
+//        try {
+//            Mask.maskNumber(tvAdressNumber);
+//        } catch (ParseException ex) {
+//            Logger.getLogger(ClienteFrame.class.getName()).log(Level.SEVERE, null, ex);
+//        }
     }
     private void btAdicionarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btAdicionarActionPerformed
         opMenu = "I";
@@ -739,16 +745,21 @@ public class ClienteFrame extends javax.swing.JFrame {
                 if ("Nimbus".equals(info.getName())) {
                     javax.swing.UIManager.setLookAndFeel(info.getClassName());
                     break;
+
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(ClienteFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ClienteFrame.class
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(ClienteFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ClienteFrame.class
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(ClienteFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ClienteFrame.class
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(ClienteFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ClienteFrame.class
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
 
@@ -822,15 +833,17 @@ public class ClienteFrame extends javax.swing.JFrame {
             Date date = null;
             try {
                 date = new SimpleDateFormat("dd/MM/yyyy").parse(tvBirthDay.getText());
+
             } catch (ParseException ex) {
-                Logger.getLogger(ClienteFrame.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(ClienteFrame.class
+                        .getName()).log(Level.SEVERE, null, ex);
             }
             clientVG.setDt_nasc(date);
-            clientVG.setCpf(tvCPF.getText());
+            clientVG.setCpf(Mask.limparMaskCPF(tvCPF.getText()));
             clientVG.setRg(tvRG.getText());
-            clientVG.setPhone(tvPhone.getText());
-            clientVG.setCellPhone_1(tvCellPhone1.getText());
-            clientVG.setCellPhone_2(tvCellPhone2.getText());
+            clientVG.setPhone(Mask.limparMasTelefone(tvPhone.getText()));
+            clientVG.setCellPhone_1(Mask.limparMasTelefone(tvCellPhone1.getText()));
+            clientVG.setCellPhone_2(Mask.limparMasTelefone(tvCellPhone2.getText()));
             clientVG.setAdress_postalCode(tvAdressPostalCode.getText());
             clientVG.setAdress_street(tvAdressStreet.getText());
             clientVG.setAdress_number(Integer.valueOf(tvAdressNumber.getText().trim()));
@@ -856,15 +869,15 @@ public class ClienteFrame extends javax.swing.JFrame {
     private boolean update() {
         try {
             clientVG.setId(Long.valueOf(tvID.getText()));
-            clientVG.setName(tvName.getText().trim());          
+            clientVG.setName(tvName.getText().trim());
             clientVG.setSex(cbSexo.getSelectedItem().toString());
-            clientVG.setMarital_status(cbEstCivil.getSelectedItem().toString());          
+            clientVG.setMarital_status(cbEstCivil.getSelectedItem().toString());
             clientVG.setDt_nasc(new Date(tvBirthDay.getText()));
-            clientVG.setCpf(tvCPF.getText());
+            clientVG.setCpf(Mask.limparMaskCPF(tvCPF.getText()));
             clientVG.setRg(tvRG.getText());
-            clientVG.setPhone(tvPhone.getText());
-            clientVG.setCellPhone_1(tvCellPhone1.getText());
-            clientVG.setCellPhone_2(tvCellPhone2.getText());
+            clientVG.setPhone(Mask.limparMasTelefone(tvPhone.getText()));
+            clientVG.setCellPhone_1(Mask.limparMasTelefone(tvCellPhone1.getText()));
+            clientVG.setCellPhone_2(Mask.limparMasTelefone(tvCellPhone2.getText()));
             clientVG.setAdress_postalCode(tvAdressPostalCode.getText());
             clientVG.setAdress_street(tvAdressStreet.getText());
             clientVG.setAdress_number(Integer.valueOf(tvAdressNumber.getText().trim()));
@@ -900,8 +913,10 @@ public class ClienteFrame extends javax.swing.JFrame {
             Date date = null;
             try {
                 date = new SimpleDateFormat("dd/MM/yyyy").parse(tvBirthDay.getText());
+
             } catch (ParseException ex) {
-                Logger.getLogger(ClienteFrame.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(ClienteFrame.class
+                        .getName()).log(Level.SEVERE, null, ex);
             }
             clientVG.setDt_nasc(date);
             clientVG.setCpf(tvCPF.getText());
