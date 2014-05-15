@@ -264,4 +264,10 @@ public class Mask {
     public static String limparMaskCPF(String cpf) {
         return cpf.replace(".", "").replace("-", "");
     }
+    public static String limparMaskCNPJ(String cpf) {
+        return cpf.replace(".", "").replace("-", "").replace("/", "");
+    }    
+    public static String limparMasTelefone(String cpf) {
+        return cpf.replace("(", "").replace(")", "").replace("-)", "");
+    }
 }
