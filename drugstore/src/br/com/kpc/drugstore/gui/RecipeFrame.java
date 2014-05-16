@@ -136,6 +136,7 @@ public class RecipeFrame extends javax.swing.JFrame {
         tvNomeCliente.setEnabled(false);
 
         tvDtReceita.setCalendarPreferredSize(new java.awt.Dimension(320, 210));
+        tvDtReceita.setFormat(2);
 
         tvDtVenda.setCurrentView(new datechooser.view.appearance.AppearancesList("Swing",
             new datechooser.view.appearance.ViewAppearance("custom",
