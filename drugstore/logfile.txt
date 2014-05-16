@@ -1,0 +1,8 @@
+2014-05-09 20:15:33,290 (CompanyFrame.java:757) INFO AWT-EventQueue-0 br.com.kpc.drugstore.gui.CompanyFrame - Alterado com sucesso
+2014-05-12 20:57:02,421 (CompanyFrame.java:757) INFO AWT-EventQueue-0 br.com.kpc.drugstore.gui.CompanyFrame - Alterado com sucesso
+2014-05-12 21:07:15,317 (CompanyFrame.java:838) ERROR AWT-EventQueue-0 br.com.kpc.drugstore.gui.CompanyFrame - ERRO ao Excluir
+2014-05-12 21:12:27,446 (CompanyFrame.java:838) ERROR AWT-EventQueue-0 br.com.kpc.drugstore.gui.CompanyFrame - ERRO ao Excluir
+2014-05-12 21:23:32,048 (CompanyFrame.java:792) INFO AWT-EventQueue-0 br.com.kpc.drugstore.gui.CompanyFrame - Alterado com sucesso
+2014-05-12 21:23:43,074 (CompanyFrame.java:838) ERROR AWT-EventQueue-0 br.com.kpc.drugstore.gui.CompanyFrame - ERRO ao Excluir
+2014-05-13 22:36:27,288 (CompanyFrame.java:827) INFO AWT-EventQueue-0 br.com.kpc.drugstore.gui.CompanyFrame - Gravado com sucesso
+2014-05-13 22:51:46,696 (CompanyFrame.java:827) INFO AWT-EventQueue-0 br.com.kpc.drugstore.gui.CompanyFrame - Gravado com sucesso

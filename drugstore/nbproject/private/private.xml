@@ -7,8 +7,7 @@
             <file>file:/C:/scanStore/drugstore/src/br/com/kpc/drugstore/gui/ClienteFrame.java</file>
         </group>
         <group>
-            <file>file:/C:/scanStore/drugstore/src/br/com/kpc/drugstore/gui/RecipeFrame.java</file>
-            <file>file:/C:/scanStore/drugstore/src/br/com/kpc/drugstore/test/TestImagen.java</file>
+            <file>file:/C:/scanStore/drugstore/src/br/com/kpc/drugstore/dao/DaoClient.java</file>
         </group>
     </open-files>
 </project-private>
