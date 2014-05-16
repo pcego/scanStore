@@ -5,18 +5,26 @@
  */
 package br.com.kpc.drugstore.test;
 
+import br.com.kpc.drugstore.dao.ConnectionDb;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.util.HashMap;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 import net.sf.jasperreports.engine.JREmptyDataSource;
 import net.sf.jasperreports.engine.JRException;
 import net.sf.jasperreports.engine.JRExporter;
 import net.sf.jasperreports.engine.JRExporterParameter;
+import net.sf.jasperreports.engine.JasperCompileManager;
 import net.sf.jasperreports.engine.JasperFillManager;
 import net.sf.jasperreports.engine.JasperPrint;
+import net.sf.jasperreports.engine.JasperReport;
+import net.sf.jasperreports.engine.design.JasperDesign;
+import net.sf.jasperreports.engine.xml.JRXmlLoader;
+import net.sf.jasperreports.view.JasperViewer;
 
 /**
  *
@@ -90,9 +98,9 @@ public class TestImagen extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void carregarImgActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_carregarImgActionPerformed
-
+        
         File img = new File("C:\\imagens\\testando.jpg");
-
+        
         try {
             BufferedImage bfi = ImageIO.read(img);
             imagen.setIcon(new ImageIcon(bfi));
@@ -102,8 +110,21 @@ public class TestImagen extends javax.swing.JFrame {
     }//GEN-LAST:event_carregarImgActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-
-
+        
+        HashMap hm = new HashMap();
+        hm.put("active_opt", true);
+        File rel = new File("C:\\scanStore\\drugstore\\src\\br\\com\\kpc\\drugstore\\relatorios\\ListClients.jrxml");
+        try {
+            //gerando o jasper design
+            JasperDesign desenho = JRXmlLoader.load(rel);
+            //compila o relatório
+            JasperReport relatorio = JasperCompileManager.compileReport(desenho);
+            JasperPrint print = JasperFillManager.fillReport(relatorio, hm, ConnectionDb.getConnectionDs());
+            JasperViewer visao = new JasperViewer(print, true);
+            visao.setVisible(true);
+        } catch (JRException jrex) {
+            System.out.println("deu erro: " + jrex);
+        }
     }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
