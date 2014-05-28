@@ -2,7 +2,7 @@
 <!-- Created with Jaspersoft Studio version last-->
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="ListClients" language="groovy" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="603baba7-73a8-4807-94f9-779c161dd09b">
 	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="drugstore"/>
-	<property name="ireport.callouts" value="callouts.1.fg=0,0,0\n callouts.1.bg=255,255,0\n "/>        
+	<property name="ireport.callouts" value="callouts.1.fg=0,0,0\n callouts.1.bg=255,255,0\n "/>
 	<parameter name="active_opt" class="java.lang.Boolean" isForPrompting="false">
 		<defaultValueExpression><![CDATA[true]]></defaultValueExpression>
 	</parameter>
@@ -88,23 +88,23 @@
 		<band splitType="Stretch"/>
 	</background>
 	<title>
-		<band height="107" splitType="Stretch">
+		<band height="117" splitType="Stretch">
 			<staticText>
-				<reportElement x="0" y="0" width="555" height="100" uuid="acd2a251-2c1f-4ca3-b402-0917cb78253c"/>
+				<reportElement x="47" y="0" width="470" height="30" uuid="acd2a251-2c1f-4ca3-b402-0917cb78253c"/>
 				<textElement textAlignment="Center" verticalAlignment="Top">
 					<font fontName="Arial" size="20" isBold="true"/>
 				</textElement>
 				<text><![CDATA[KPC Software Development]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="150" y="24" width="170" height="26" uuid="0f7b8182-6659-4234-8417-f189e1649f45"/>
+				<reportElement x="150" y="30" width="170" height="26" uuid="0f7b8182-6659-4234-8417-f189e1649f45"/>
 				<textElement>
 					<font fontName="Arial" size="14"/>
 				</textElement>
 				<text><![CDATA[Creating de Future]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="150" y="55" width="264" height="20" uuid="8dff3dea-2d54-4031-aee1-a963e2081abf"/>
+				<reportElement x="140" y="70" width="264" height="20" uuid="8dff3dea-2d54-4031-aee1-a963e2081abf"/>
 				<textElement textAlignment="Center">
 					<font fontName="Arial" size="14" isBold="true"/>
 				</textElement>
@@ -113,16 +113,23 @@
 			<textField evaluationTime="Report">
 				<reportElement x="485" y="60" width="70" height="30" uuid="fde2a11f-a0e6-4820-9f81-f74677320fee"/>
 				<textElement textAlignment="Left">
-					<font fontName="Arial"/>
+					<font fontName="Arial" isBold="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA[" de " + $V{PAGE_NUMBER}]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement x="415" y="60" width="70" height="30" uuid="a58ddd73-0409-4d0a-bb80-c51fecb94289"/>
 				<textElement textAlignment="Right">
-					<font fontName="Arial"/>
+					<font fontName="Arial" isBold="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA["Página " + $V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+			<textField pattern="MMMMM dd, yyyy">
+				<reportElement x="10" y="70" width="90" height="30" uuid="324c31c2-c63f-4869-9445-9d8d14754e39"/>
+				<textElement>
+					<font fontName="Arial" size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
 			</textField>
 		</band>
 	</title>
@@ -159,21 +166,21 @@
 			<textField>
 				<reportElement x="0" y="2" width="110" height="48" uuid="861dec23-883d-48e5-a985-bc3ab0435189"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font fontName="Arial"/>
+					<font fontName="Arial" size="12"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{CPF}]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement x="110" y="2" width="370" height="48" uuid="5e6cdcf2-f265-489c-bb9f-be5997159d6e"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font fontName="Arial"/>
+					<font fontName="Arial" size="12"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{NAME}]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement x="482" y="2" width="75" height="48" uuid="9ee06677-8e51-4ac7-af0d-087932e7e558"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font fontName="Arial"/>
+					<font fontName="Arial" size="12"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{CELLPHONE_1}]]></textFieldExpression>
 			</textField>
