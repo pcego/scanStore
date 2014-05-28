@@ -20,6 +20,7 @@ import java.awt.event.KeyEvent;
 import java.io.File;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -836,13 +837,17 @@ public class ClienteFrame extends javax.swing.JFrame {
             clientVG.setMarital_status(cbEstCivil.getSelectedItem().toString());
             Date date = null;
             try {
-                date = new SimpleDateFormat("dd/MM/yyyy").parse(tvBirthDay.getText());
-
-            } catch (ParseException ex) {
+                Calendar c;
+                c = tvBirthDay.getSelectedDate();
+                //date = c.getTime();
+                date = new SimpleDateFormat("yyyy/MM/dd").parse(c.getTime().toString());
+                System.out.println(date);
+            } catch (Exception ex) {
                 Logger.getLogger(ClienteFrame.class
                         .getName()).log(Level.SEVERE, null, ex);
             }
             clientVG.setDt_nasc(date);
+            System.out.println();
             clientVG.setCpf(Mask.limparMaskCPF(tvCPF.getText()));
             clientVG.setRg(tvRG.getText());
             clientVG.setPhone(Mask.limparMasTelefone(tvPhone.getText()));
@@ -1073,10 +1078,9 @@ public class ClienteFrame extends javax.swing.JFrame {
     }
 
     private boolean validarCPF() {
-        if(tvCPF.getText().trim().length() < 14){
-          JOptionPane.showMessageDialog(this, "Digite seu CPF");  
-        }else
-        if (!Mask.validaCpfCnpj(tvCPF.getText())) {
+        if (tvCPF.getText().trim().length() < 14) {
+            JOptionPane.showMessageDialog(this, "Digite seu CPF");
+        } else if (!Mask.validaCpfCnpj(tvCPF.getText())) {
             JOptionPane.showMessageDialog(this, "CPF digitado é inválido");
             return false;
         }
