@@ -16,6 +16,7 @@ import br.com.kpc.drugstore.service.Service;
 import br.com.kpc.drugstore.util.Config;
 import br.com.kpc.drugstore.util.FormatDate;
 import br.com.kpc.drugstore.util.Mask;
+import groovy.swing.SwingBuilder;
 import java.awt.event.KeyEvent;
 import java.io.File;
 import java.text.ParseException;
@@ -595,18 +596,27 @@ public class ClienteFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_btAdicionarActionPerformed
 
     private void btExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btExcluirActionPerformed
-        if (tvID.getText().equals("")) {
-            JOptionPane.showMessageDialog(this, "Selecione um Cliente");
+        opMenu = "D";
+        
+        if (tvID.getText().trim().equals("")) {
+            btPesquisarActionPerformed(evt);
             return;
         }
-        opMenu = "D";
+        
         btTypeDelete();
     }//GEN-LAST:event_btExcluirActionPerformed
 
     private void btAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btAlterarActionPerformed
         opMenu = "U";
+        
+        if (tvID.getText().trim().equals("")) {
+            btPesquisarActionPerformed(evt);
+            return;
+        }
+        
         btTypeUpdate();
         habilitarCampos(true);
+        
     }//GEN-LAST:event_btAlterarActionPerformed
 
     private void btCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btCancelarActionPerformed
@@ -1049,20 +1059,19 @@ public class ClienteFrame extends javax.swing.JFrame {
     }
 
     protected static void getCliente(Client cli) {
+        
         clientVG = cli;
         tvID.setText(String.valueOf(clientVG.getId()));
         tvName.setText(clientVG.getName());
         cbSexo.setSelectedItem(clientVG.getSex());
         cbEstCivil.setSelectedItem(clientVG.getMarital_status());
-        
+
         //tvBirthDay.setDateFormat(new SimpleDateFormat("dd/MM/yyyy"));
         //Calendar c = Calendar.getInstance();
         //c.setTime(new Date(FormatDate.dateCovertToShow(clientVG.getDt_nasc())));
-       // tvBirthDay.setSelectedDate(c);
- 
+        // tvBirthDay.setSelectedDate(c);
         tvBirthDay.setText(FormatDate.dateCovertToShow(clientVG.getDt_nasc()));
-        
-        
+
         tvCPF.setText(clientVG.getCpf());
         tvRG.setText(clientVG.getRg());
         tvPhone.setText(clientVG.getPhone());
@@ -1081,10 +1090,9 @@ public class ClienteFrame extends javax.swing.JFrame {
     }
 
     private boolean validarCPF() {
-        if(tvCPF.getText().trim().length() < 14){
-          JOptionPane.showMessageDialog(this, "Digite seu CPF");  
-        }else
-        if (!Mask.validaCpfCnpj(tvCPF.getText())) {
+        if (tvCPF.getText().trim().length() < 14) {
+            JOptionPane.showMessageDialog(this, "Digite seu CPF");
+        } else if (!Mask.validaCpfCnpj(tvCPF.getText())) {
             JOptionPane.showMessageDialog(this, "CPF digitado é inválido");
             return false;
         }
