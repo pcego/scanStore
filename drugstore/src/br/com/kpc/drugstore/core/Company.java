@@ -5,6 +5,7 @@
 package br.com.kpc.drugstore.core;
 
 import java.io.Serializable;
+import java.util.Date;
 import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -235,7 +236,40 @@ public class Company implements Serializable {
     public List<Client> getClient() {
         return client;
     }
+    
+    @Column(nullable = false)
+    public String user;
+    
+    public String getUser() {
+        return user;
+    }
 
+    public void setUser(String user) {
+        this.user = user;
+    }
+    
+    @Column(nullable = false, length = 32)
+    public String passwd;
+
+    public String getPasswd() {
+        return passwd;
+    }
+
+    public void setPasswd(String passwd) {
+        this.passwd = passwd;
+    }
+    
+    @Column(nullable = false)
+    public Date dateExpire;
+
+    public Date getDateExpire() {
+        return dateExpire;
+    }
+
+    public void setDateExpire(Date dateExpire) {
+        this.dateExpire = dateExpire;
+    }
+    
     @Override
     public int hashCode() {
         int hash = 0;
