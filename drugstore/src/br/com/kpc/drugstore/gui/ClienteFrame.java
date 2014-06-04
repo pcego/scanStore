@@ -245,7 +245,6 @@ public class ClienteFrame extends javax.swing.JFrame {
         });
 
         tvBirthDay.setCalendarPreferredSize(new java.awt.Dimension(320, 210));
-        tvBirthDay.setFormat(2);
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
@@ -433,11 +432,17 @@ public class ClienteFrame extends javax.swing.JFrame {
             }
         });
 
-        try {
-            tvAdressNumber.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("#########")));
-        } catch (java.text.ParseException ex) {
-            ex.printStackTrace();
-        }
+        tvAdressNumber.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter()));
+        tvAdressNumber.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                tvAdressNumberFocusLost(evt);
+            }
+        });
+        tvAdressNumber.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                tvAdressNumberKeyPressed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -744,6 +749,14 @@ public class ClienteFrame extends javax.swing.JFrame {
         limparCampos();
         btTypeDefault();
     }//GEN-LAST:event_formWindowClosed
+
+    private void tvAdressNumberKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tvAdressNumberKeyPressed
+        Mask.validaSomenteNumero(tvAdressNumber);
+    }//GEN-LAST:event_tvAdressNumberKeyPressed
+
+    private void tvAdressNumberFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_tvAdressNumberFocusLost
+        Mask.validaSomenteNumero(tvAdressNumber);
+    }//GEN-LAST:event_tvAdressNumberFocusLost
 
     /**
      * @param args the command line arguments
