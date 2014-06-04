@@ -9,6 +9,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import javax.swing.JFormattedTextField;
+import javax.swing.JTextField;
 import javax.swing.text.MaskFormatter;
 
 /**
@@ -261,13 +262,30 @@ public class Mask {
         //retorna o pedido
         return sData;
     }
+
     public static String limparMaskCPF(String cpf) {
         return cpf.replace(".", "").replace("-", "");
     }
+
     public static String limparMaskCNPJ(String cpf) {
         return cpf.replace(".", "").replace("-", "").replace("/", "");
-    }    
+    }
+
     public static String limparMasTelefone(String cpf) {
         return cpf.replace("(", "").replace(")", "").replace("-)", "");
+    }
+
+    public static void validaSomenteNumero(JTextField Numero) {
+        long valor;
+        if (Numero.getText().trim().length() != 0) {
+            try {
+                valor = Long.parseLong(Numero.getText().trim());
+            } catch (NumberFormatException ex) {
+                SystemMessage.showMessage(ex, SystemMessage.INFORMATION, "Esse Campo só aceita números");
+
+                Numero.grabFocus();// foca o campo 
+                Numero.setText(""); //limpa o campo 
+            }
+        }
     }
 }

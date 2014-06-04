@@ -16,6 +16,7 @@ import br.com.kpc.drugstore.service.Service;
 import br.com.kpc.drugstore.util.Config;
 import br.com.kpc.drugstore.util.FormatDate;
 import br.com.kpc.drugstore.util.Mask;
+import groovy.swing.SwingBuilder;
 import java.awt.event.KeyEvent;
 import java.io.File;
 import java.text.ParseException;
@@ -210,7 +211,7 @@ public class ClienteFrame extends javax.swing.JFrame {
 
         jLabel18.setText("RG");
 
-        jLabel20.setText(" Nascimento:");
+        jLabel20.setText("* Nascimento:");
 
         cbSexo.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "MASCULINO", "FEMININO" }));
 
@@ -352,14 +353,13 @@ public class ClienteFrame extends javax.swing.JFrame {
                                             .addComponent(tvCPF, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                             .addComponent(jLabel16, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))))
                                 .addGap(2, 2, 2)
-                                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel18, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                        .addComponent(tvBirthDay, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                            .addComponent(tvRG, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addComponent(jLabel20, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addComponent(rbAtivo)))))
+                                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(tvBirthDay, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                        .addComponent(tvRG, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(jLabel20, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(rbAtivo)
+                                        .addComponent(jLabel18, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))))
                             .addGroup(jPanel3Layout.createSequentialGroup()
                                 .addGap(8, 8, 8)
                                 .addComponent(btCPFScan, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -386,7 +386,7 @@ public class ClienteFrame extends javax.swing.JFrame {
 
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Endereço", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.TOP, new java.awt.Font("Arial", 1, 12))); // NOI18N
 
-        jLabel22.setText("Cep:");
+        jLabel22.setText("*Cep:");
 
         try {
             tvAdressPostalCode.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("#####-###")));
@@ -394,7 +394,7 @@ public class ClienteFrame extends javax.swing.JFrame {
             ex.printStackTrace();
         }
 
-        jLabel23.setText("Endereço:");
+        jLabel23.setText("*Endereço:");
 
         tvAdressStreet.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusLost(java.awt.event.FocusEvent evt) {
@@ -402,7 +402,7 @@ public class ClienteFrame extends javax.swing.JFrame {
             }
         });
 
-        jLabel24.setText("Bairro:");
+        jLabel24.setText("*Bairro:");
 
         tvAdressNeighborhood.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusLost(java.awt.event.FocusEvent evt) {
@@ -416,16 +416,16 @@ public class ClienteFrame extends javax.swing.JFrame {
             }
         });
 
-        jLabel25.setText("Nº");
+        jLabel25.setText("*Nº");
 
         jLabel26.setText("Compl:");
 
         cbAdressStat.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "AC", "AL", "AP", "AM", "BA", "CE", "DF", "GO", "ES", "MA", "MT", "MS", "MG", "PA", "PB", "PR", "PE", "PI", "RJ", "RN", "RS", "RO", "RR", "SP", "SC", "SE", "TO" }));
         cbAdressStat.setSelectedIndex(12);
 
-        jLabel27.setText("Estado:");
+        jLabel27.setText("*Estado:");
 
-        jLabel28.setText("Cidade:");
+        jLabel28.setText("*Cidade:");
 
         tvAdressComplement.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusLost(java.awt.event.FocusEvent evt) {
@@ -543,7 +543,7 @@ public class ClienteFrame extends javax.swing.JFrame {
                     .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel2)
                     .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(21, Short.MAX_VALUE))
+                .addContainerGap(20, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -552,7 +552,7 @@ public class ClienteFrame extends javax.swing.JFrame {
                 .addComponent(jLabel2)
                 .addGap(18, 18, 18)
                 .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -596,18 +596,27 @@ public class ClienteFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_btAdicionarActionPerformed
 
     private void btExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btExcluirActionPerformed
-        if (tvID.getText().equals("")) {
-            JOptionPane.showMessageDialog(this, "Selecione um Cliente");
+        opMenu = "D";
+        
+        if (tvID.getText().trim().equals("")) {
+            btPesquisarActionPerformed(evt);
             return;
         }
-        opMenu = "D";
+        
         btTypeDelete();
     }//GEN-LAST:event_btExcluirActionPerformed
 
     private void btAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btAlterarActionPerformed
         opMenu = "U";
+        
+        if (tvID.getText().trim().equals("")) {
+            btPesquisarActionPerformed(evt);
+            return;
+        }
+        
         btTypeUpdate();
         habilitarCampos(true);
+        
     }//GEN-LAST:event_btAlterarActionPerformed
 
     private void btCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btCancelarActionPerformed
@@ -1054,12 +1063,19 @@ public class ClienteFrame extends javax.swing.JFrame {
     }
 
     protected static void getCliente(Client cli) {
+        
         clientVG = cli;
         tvID.setText(String.valueOf(clientVG.getId()));
         tvName.setText(clientVG.getName());
         cbSexo.setSelectedItem(clientVG.getSex());
         cbEstCivil.setSelectedItem(clientVG.getMarital_status());
+
+        //tvBirthDay.setDateFormat(new SimpleDateFormat("dd/MM/yyyy"));
+        //Calendar c = Calendar.getInstance();
+        //c.setTime(new Date(FormatDate.dateCovertToShow(clientVG.getDt_nasc())));
+        // tvBirthDay.setSelectedDate(c);
         tvBirthDay.setText(FormatDate.dateCovertToShow(clientVG.getDt_nasc()));
+
         tvCPF.setText(clientVG.getCpf());
         tvRG.setText(clientVG.getRg());
         tvPhone.setText(clientVG.getPhone());

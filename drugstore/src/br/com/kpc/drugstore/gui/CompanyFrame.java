@@ -79,10 +79,10 @@ public class CompanyFrame extends javax.swing.JFrame {
         btCancel = new javax.swing.JButton();
         btDelete = new javax.swing.JButton();
         tvAdressPostalCode = new javax.swing.JFormattedTextField();
-        tvAdressNumber = new javax.swing.JFormattedTextField();
         tvPhone = new javax.swing.JFormattedTextField();
         tvCellPhone1 = new javax.swing.JFormattedTextField();
         tvCellPhone2 = new javax.swing.JFormattedTextField();
+        tvAdressNumber = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Cadastro de Empresa - KPC Software Delopmet");
@@ -269,13 +269,6 @@ public class CompanyFrame extends javax.swing.JFrame {
         tvAdressPostalCode.setEnabled(false);
 
         try {
-            tvAdressNumber.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("#########")));
-        } catch (java.text.ParseException ex) {
-            ex.printStackTrace();
-        }
-        tvAdressNumber.setEnabled(false);
-
-        try {
             tvPhone.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("(##)####-####")));
         } catch (java.text.ParseException ex) {
             ex.printStackTrace();
@@ -296,6 +289,19 @@ public class CompanyFrame extends javax.swing.JFrame {
         }
         tvCellPhone2.setEnabled(false);
 
+        tvAdressNumber.setEnabled(false);
+        tvAdressNumber.setMaximumSize(new java.awt.Dimension(10, 10));
+        tvAdressNumber.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                tvAdressNumberFocusLost(evt);
+            }
+        });
+        tvAdressNumber.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                tvAdressNumberKeyPressed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -313,8 +319,8 @@ public class CompanyFrame extends javax.swing.JFrame {
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jLabel12)
-                                    .addComponent(tvAdressNumber, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGap(40, 40, 40)
+                                    .addComponent(tvAdressNumber, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(18, 18, 18)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jLabel14)
                                     .addComponent(tvAdressComplement, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE))))
@@ -498,6 +504,8 @@ public class CompanyFrame extends javax.swing.JFrame {
                 .addContainerGap())
         );
 
+        getAccessibleContext().setAccessibleDescription("");
+
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
@@ -508,11 +516,11 @@ public class CompanyFrame extends javax.swing.JFrame {
 
     private void definindoMask() {
 
-        try {
-            Mask.maskNumber(tvAdressNumber);
-        } catch (ParseException ex) {
-            logger.error("Erro ao definir mascara para numero");
-        }
+        //   try {
+        //    Mask.maskNumber(tvAdressNumber);
+        //  } catch (ParseException ex) {
+        //       logger.error("Erro ao definir mascara para numero");
+        //   }
     }
     private void tvCompanyNameFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_tvCompanyNameFocusLost
         tvCompanyName.setText(tvCompanyName.getText().toUpperCase());
@@ -548,6 +556,13 @@ public class CompanyFrame extends javax.swing.JFrame {
 
     private void btUpdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btUpdateActionPerformed
         opMenu = "U";
+
+        //Se não tiver nenhuma empresa selecionada.
+        if (tvCompanyId.getText().trim().equals("")) {
+            JOptionPane.showMessageDialog(this, "Favor selecionar uma empresa");
+            return;
+        }
+
         btTypeUpdate();
     }//GEN-LAST:event_btUpdateActionPerformed
 
@@ -610,6 +625,11 @@ public class CompanyFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_btDeleteActionPerformed
 
     private void btCancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btCancelActionPerformed
+        //Se não tiver nenhuma empresa selecionada.
+        if (tvCompanyId.getText().trim().equals("")) {
+            JOptionPane.showMessageDialog(this, "Favor selecionar uma empresa");
+            return;
+        }
         btTypeDefault();
         limparCampos();
     }//GEN-LAST:event_btCancelActionPerformed
@@ -618,6 +638,14 @@ public class CompanyFrame extends javax.swing.JFrame {
         limparCampos();
         btTypeDefault();
     }//GEN-LAST:event_formWindowClosed
+
+    private void tvAdressNumberKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tvAdressNumberKeyPressed
+        Mask.validaSomenteNumero(tvAdressNumber);
+    }//GEN-LAST:event_tvAdressNumberKeyPressed
+
+    private void tvAdressNumberFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_tvAdressNumberFocusLost
+        Mask.validaSomenteNumero(tvAdressNumber);
+    }//GEN-LAST:event_tvAdressNumberFocusLost
 
     /**
      * @param args the command line arguments
@@ -698,7 +726,7 @@ public class CompanyFrame extends javax.swing.JFrame {
     private javax.swing.JTextField tvAdressCity;
     private javax.swing.JTextField tvAdressComplement;
     private javax.swing.JTextField tvAdressNeighborhood;
-    private static javax.swing.JFormattedTextField tvAdressNumber;
+    private static javax.swing.JTextField tvAdressNumber;
     private javax.swing.JFormattedTextField tvAdressPostalCode;
     private javax.swing.JTextField tvAdressStreet;
     private javax.swing.JFormattedTextField tvCNPJ;
@@ -828,7 +856,7 @@ public class CompanyFrame extends javax.swing.JFrame {
         } catch (Exception e) {
             logger.error("ERRO ao gravar");
             SystemMessage.showMessage(e, SystemMessage.ERROR, "Gravar Cliente");
-           
+
             return false;
         }
     }
