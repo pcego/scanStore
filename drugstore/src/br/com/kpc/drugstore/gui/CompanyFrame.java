@@ -86,6 +86,7 @@ public class CompanyFrame extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Cadastro de Empresa - KPC Software Delopmet");
+        setResizable(false);
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowClosed(java.awt.event.WindowEvent evt) {
                 formWindowClosed(evt);
@@ -149,7 +150,7 @@ public class CompanyFrame extends javax.swing.JFrame {
 
             },
             new String [] {
-                "CNPJ:", "Nome:", "ENDEREÇO:"
+                "CNPJ:", "Nome:", "Endereço:"
             }
         ) {
             boolean[] canEdit = new boolean [] {
