@@ -9,6 +9,10 @@ import br.com.kpc.drugstore.dao.ConnectionDb;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.GregorianCalendar;
 import java.util.HashMap;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -73,13 +77,15 @@ public class TestImagen extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(40, Short.MAX_VALUE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(carregarImg)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jButton1))
-                    .addComponent(imagen, javax.swing.GroupLayout.PREFERRED_SIZE, 327, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(127, 127, 127)
+                        .addComponent(imagen, javax.swing.GroupLayout.PREFERRED_SIZE, 327, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(33, 33, 33))
         );
         layout.setVerticalGroup(
@@ -98,9 +104,9 @@ public class TestImagen extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void carregarImgActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_carregarImgActionPerformed
-        
+
         File img = new File("C:\\imagens\\testando.jpg");
-        
+
         try {
             BufferedImage bfi = ImageIO.read(img);
             imagen.setIcon(new ImageIcon(bfi));
@@ -110,10 +116,16 @@ public class TestImagen extends javax.swing.JFrame {
     }//GEN-LAST:event_carregarImgActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        
+
         HashMap hm = new HashMap();
         hm.put("active_opt", true);
-        File rel = new File("C:\\scanStore\\drugstore\\src\\br\\com\\kpc\\drugstore\\relatorios\\ListClients.jrxml");
+        File rel = new File("C:\\scanStore\\drugstore\\src\\br\\com\\kpc\\drugstore\\relatorios\\RelClientsByStatus.jrxml");
+              
+        String data = null;
+        
+        new SimpleDateFormat("yyyy/MM/dd").format(data);
+        System.out.println(new SimpleDateFormat("yyyy/MM/dd").format(data));
+        
         try {
             //gerando o jasper design
             JasperDesign desenho = JRXmlLoader.load(rel);
