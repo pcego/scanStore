@@ -68,8 +68,8 @@ public class RecipeFrame extends javax.swing.JFrame {
         jLabel3 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
         tvNomeCliente = new javax.swing.JTextField();
-        tvDtReceita = new datechooser.beans.DateChooserCombo();
-        tvDtVenda = new datechooser.beans.DateChooserCombo();
+        tvDtVenda = new javax.swing.JFormattedTextField();
+        tvDtReceita = new javax.swing.JFormattedTextField();
         jLabel6 = new javax.swing.JLabel();
         btNovo = new javax.swing.JButton();
         jPanel2 = new javax.swing.JPanel();
@@ -82,6 +82,7 @@ public class RecipeFrame extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Cadastro de Receita - KPC Software Delopmet");
+        setResizable(false);
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowClosed(java.awt.event.WindowEvent evt) {
                 formWindowClosed(evt);
@@ -135,240 +136,216 @@ public class RecipeFrame extends javax.swing.JFrame {
 
         tvNomeCliente.setEnabled(false);
 
-        tvDtReceita.setCalendarPreferredSize(new java.awt.Dimension(320, 210));
-        tvDtReceita.setFormat(2);
-
-        tvDtVenda.setCurrentView(new datechooser.view.appearance.AppearancesList("Swing",
-            new datechooser.view.appearance.ViewAppearance("custom",
-                new datechooser.view.appearance.swing.SwingCellAppearance(new java.awt.Font("Tahoma", java.awt.Font.PLAIN, 11),
-                    new java.awt.Color(0, 0, 0),
-                    new java.awt.Color(0, 0, 255),
-                    false,
-                    true,
-                    new datechooser.view.appearance.swing.ButtonPainter()),
-                new datechooser.view.appearance.swing.SwingCellAppearance(new java.awt.Font("Tahoma", java.awt.Font.PLAIN, 11),
-                    new java.awt.Color(0, 0, 0),
-                    new java.awt.Color(0, 0, 255),
-                    true,
-                    true,
-                    new datechooser.view.appearance.swing.ButtonPainter()),
-                new datechooser.view.appearance.swing.SwingCellAppearance(new java.awt.Font("Tahoma", java.awt.Font.PLAIN, 11),
-                    new java.awt.Color(0, 0, 255),
-                    new java.awt.Color(0, 0, 255),
-                    false,
-                    true,
-                    new datechooser.view.appearance.swing.ButtonPainter()),
-                new datechooser.view.appearance.swing.SwingCellAppearance(new java.awt.Font("Tahoma", java.awt.Font.PLAIN, 11),
-                    new java.awt.Color(128, 128, 128),
-                    new java.awt.Color(0, 0, 255),
-                    false,
-                    true,
-                    new datechooser.view.appearance.swing.LabelPainter()),
-                new datechooser.view.appearance.swing.SwingCellAppearance(new java.awt.Font("Tahoma", java.awt.Font.PLAIN, 11),
-                    new java.awt.Color(0, 0, 0),
-                    new java.awt.Color(0, 0, 255),
-                    false,
-                    true,
-                    new datechooser.view.appearance.swing.LabelPainter()),
-                new datechooser.view.appearance.swing.SwingCellAppearance(new java.awt.Font("Tahoma", java.awt.Font.PLAIN, 11),
-                    new java.awt.Color(0, 0, 0),
-                    new java.awt.Color(255, 0, 0),
-                    false,
-                    false,
-                    new datechooser.view.appearance.swing.ButtonPainter()),
-                (datechooser.view.BackRenderer)null,
-                false,
-                true)));
-    tvDtVenda.setCalendarPreferredSize(new java.awt.Dimension(320, 210));
-
-    javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-    jPanel1.setLayout(jPanel1Layout);
-    jPanel1Layout.setHorizontalGroup(
-        jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-        .addGroup(jPanel1Layout.createSequentialGroup()
-            .addContainerGap()
-            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addComponent(jLabel3)
-                .addComponent(jLabel1)
-                .addComponent(jLabel2))
-            .addGap(12, 12, 12)
-            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(jPanel1Layout.createSequentialGroup()
-                    .addComponent(rbAnticoncepcional)
-                    .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addGroup(jPanel1Layout.createSequentialGroup()
-                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                        .addComponent(tvCupomFiscal, javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(tvNumAutorizacao, javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(tvCPF, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                    .addComponent(btPesquisaCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(jLabel4)
-                        .addComponent(jLabel7)
-                        .addComponent(jLabel5))
-                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(tvDtReceita, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(tvNomeCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 159, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(tvDtVenda, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addContainerGap(99, Short.MAX_VALUE))))
-    );
-    jPanel1Layout.setVerticalGroup(
-        jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-        .addGroup(jPanel1Layout.createSequentialGroup()
-            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(jPanel1Layout.createSequentialGroup()
-                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel3)
+                    .addComponent(jLabel1)
+                    .addComponent(jLabel2))
+                .addGap(12, 12, 12)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(rbAnticoncepcional)
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addComponent(tvCupomFiscal, javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(tvNumAutorizacao, javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(tvCPF, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(btPesquisaCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel4)
+                            .addComponent(jLabel7)
+                            .addComponent(jLabel5))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(tvNomeCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 159, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                .addComponent(tvDtReceita, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 155, Short.MAX_VALUE)
+                                .addComponent(tvDtVenda, javax.swing.GroupLayout.Alignment.LEADING)))
+                        .addContainerGap(99, Short.MAX_VALUE))))
+        );
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                .addComponent(tvCPF, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(jLabel1))
+                            .addComponent(btPesquisaCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel7))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 10, Short.MAX_VALUE)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(tvCPF, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel1))
-                        .addComponent(btPesquisaCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jLabel7))
-                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(tvNumAutorizacao, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jLabel2)
-                        .addComponent(jLabel5)))
-                .addGroup(jPanel1Layout.createSequentialGroup()
-                    .addGap(3, 3, 3)
-                    .addComponent(tvNomeCliente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                    .addComponent(tvDtVenda, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(tvNumAutorizacao, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel2)
+                            .addComponent(jLabel5)
+                            .addComponent(tvDtVenda, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(3, 3, 3)
+                        .addComponent(tvNomeCliente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE)))
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(tvCupomFiscal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel4)
-                    .addComponent(jLabel3))
-                .addComponent(tvDtReceita, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 9, Short.MAX_VALUE)
-            .addComponent(rbAnticoncepcional)
-            .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-    );
+                    .addComponent(jLabel3)
+                    .addComponent(tvDtReceita, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 9, Short.MAX_VALUE)
+                .addComponent(rbAnticoncepcional)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
 
-    jLabel6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/kpc/drugstore/img/logoKPCMini2.png"))); // NOI18N
+        jLabel6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/kpc/drugstore/img/logoKPCMini2.png"))); // NOI18N
 
-    btNovo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/kpc/drugstore/img/CadReceita2.png"))); // NOI18N
-    btNovo.setText("Novo");
-    btNovo.addActionListener(new java.awt.event.ActionListener() {
-        public void actionPerformed(java.awt.event.ActionEvent evt) {
-            btNovoActionPerformed(evt);
-        }
-    });
+        btNovo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/kpc/drugstore/img/CadReceita2.png"))); // NOI18N
+        btNovo.setText("Novo");
+        btNovo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btNovoActionPerformed(evt);
+            }
+        });
 
-    jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Digitalização", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.TOP, new java.awt.Font("Arial", 1, 12))); // NOI18N
+        jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Digitalização", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.TOP, new java.awt.Font("Arial", 1, 12))); // NOI18N
 
-    displayOutros.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/kpc/drugstore/img/receita.png"))); // NOI18N
+        displayOutros.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/kpc/drugstore/img/receita.png"))); // NOI18N
+        displayOutros.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                displayOutrosMouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                displayOutrosMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                displayOutrosMouseExited(evt);
+            }
+        });
 
-    displayCupom.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/kpc/drugstore/img/receita.png"))); // NOI18N
-    displayCupom.addMouseListener(new java.awt.event.MouseAdapter() {
-        public void mouseClicked(java.awt.event.MouseEvent evt) {
-            displayCupomMouseClicked(evt);
-        }
-    });
+        displayCupom.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/kpc/drugstore/img/receita.png"))); // NOI18N
+        displayCupom.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                displayCupomMouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                displayCupomMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                displayCupomMouseExited(evt);
+            }
+        });
 
-    displayReceita.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/kpc/drugstore/img/receita.png"))); // NOI18N
-    displayReceita.addMouseListener(new java.awt.event.MouseAdapter() {
-        public void mouseClicked(java.awt.event.MouseEvent evt) {
-            displayReceitaMouseClicked(evt);
-        }
-    });
+        displayReceita.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/kpc/drugstore/img/receita.png"))); // NOI18N
+        displayReceita.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                displayReceitaMouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                displayReceitaMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                displayReceitaMouseExited(evt);
+            }
+        });
 
-    jLabel8.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-    jLabel8.setText("Receita");
+        jLabel8.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        jLabel8.setText("Receita");
 
-    jLabel9.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-    jLabel9.setText("Outro");
+        jLabel9.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        jLabel9.setText("Outro");
 
-    jLabel10.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-    jLabel10.setText("Cupom");
+        jLabel10.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        jLabel10.setText("Cupom");
 
-    javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
-    jPanel2.setLayout(jPanel2Layout);
-    jPanel2Layout.setHorizontalGroup(
-        jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-        .addGroup(jPanel2Layout.createSequentialGroup()
-            .addGap(33, 33, 33)
-            .addComponent(displayReceita)
-            .addGap(117, 117, 117)
-            .addComponent(displayCupom)
-            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(displayOutros)
-            .addGap(85, 85, 85))
-        .addGroup(jPanel2Layout.createSequentialGroup()
-            .addGap(54, 54, 54)
-            .addComponent(jLabel8)
-            .addGap(163, 163, 163)
-            .addComponent(jLabel10)
-            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(jLabel9)
-            .addGap(111, 111, 111))
-    );
-    jPanel2Layout.setVerticalGroup(
-        jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-        .addGroup(jPanel2Layout.createSequentialGroup()
-            .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addComponent(displayReceita, javax.swing.GroupLayout.PREFERRED_SIZE, 113, javax.swing.GroupLayout.PREFERRED_SIZE)
+        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
+        jPanel2.setLayout(jPanel2Layout);
+        jPanel2Layout.setHorizontalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addGap(33, 33, 33)
+                .addComponent(displayReceita)
+                .addGap(117, 117, 117)
                 .addComponent(displayCupom)
-                .addComponent(displayOutros, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE))
-            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-            .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel8)
-                    .addComponent(jLabel10))
-                .addComponent(jLabel9)))
-    );
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(displayOutros)
+                .addGap(85, 85, 85))
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addGap(54, 54, 54)
+                .addComponent(jLabel8)
+                .addGap(163, 163, 163)
+                .addComponent(jLabel10)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jLabel9)
+                .addGap(111, 111, 111))
+        );
+        jPanel2Layout.setVerticalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(displayReceita, javax.swing.GroupLayout.PREFERRED_SIZE, 113, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(displayCupom)
+                    .addComponent(displayOutros, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jLabel8)
+                        .addComponent(jLabel10))
+                    .addComponent(jLabel9)))
+        );
 
-    javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-    getContentPane().setLayout(layout);
-    layout.setHorizontalGroup(
-        layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-        .addGroup(layout.createSequentialGroup()
-            .addContainerGap()
-            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                .addComponent(jPanel2, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(layout.createSequentialGroup()
-                    .addGap(0, 0, Short.MAX_VALUE)
-                    .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-            .addGap(21, 21, 21))
-        .addGroup(layout.createSequentialGroup()
-            .addGap(30, 30, 30)
-            .addComponent(jLabel6)
-            .addGap(0, 0, Short.MAX_VALUE))
-        .addGroup(layout.createSequentialGroup()
-            .addContainerGap()
-            .addComponent(btNovo, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE)
-            .addGap(18, 18, 18)
-            .addComponent(btConfirmar, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE)
-            .addGap(18, 18, 18)
-            .addComponent(btCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE)
-            .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-    );
+        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
+        getContentPane().setLayout(layout);
+        layout.setHorizontalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jPanel2, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(21, 21, 21))
+            .addGroup(layout.createSequentialGroup()
+                .addGap(30, 30, 30)
+                .addComponent(jLabel6)
+                .addGap(0, 0, Short.MAX_VALUE))
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(btNovo, javax.swing.GroupLayout.PREFERRED_SIZE, 142, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(btConfirmar, javax.swing.GroupLayout.PREFERRED_SIZE, 146, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 149, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
 
-    layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {btCancelar, btConfirmar, btNovo});
+        layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {btCancelar, btConfirmar, btNovo});
 
-    layout.setVerticalGroup(
-        layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-        .addGroup(layout.createSequentialGroup()
-            .addGap(16, 16, 16)
-            .addComponent(jLabel6)
-            .addGap(18, 18, 18)
-            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-            .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                .addComponent(btCancelar)
-                .addComponent(btConfirmar)
-                .addComponent(btNovo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addContainerGap())
-    );
+        layout.setVerticalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(16, 16, 16)
+                .addComponent(jLabel6)
+                .addGap(18, 18, 18)
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btCancelar)
+                    .addComponent(btConfirmar)
+                    .addComponent(btNovo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap())
+        );
 
-    pack();
-    setLocationRelativeTo(null);
+        pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 /**
      * Declarações de variaveis Globais
@@ -384,6 +361,8 @@ public class RecipeFrame extends javax.swing.JFrame {
 
         try {
             Mask.maskCPF(tvCPF);
+            Mask.maskDate(tvDtReceita);
+            Mask.maskDate(tvDtVenda);
         } catch (ParseException ex) {
             Logger.getLogger(RecipeFrame.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -441,11 +420,13 @@ public class RecipeFrame extends javax.swing.JFrame {
         File[] img = sc.getGuiScan(Config.DIRETORIOIMAGEM + Mask.limparMaskCPF(tvCPF.getText()));
 
         retorno = Scan.renameImg(img[0], Config.DIRETORIOIMAGEM + Mask.limparMaskCPF(tvCPF.getText()), "receita.jpg");
-        carregarImg(displayReceita, img[0]);
+        //carregarImg(displayReceita, img[0]);
 
         if (retorno) {
             recipeVG.setRecipe_image(Mask.limparMaskCPF(tvCPF.getText()) + "receita.jpg");
             System.out.println("sucesso");
+            displayReceita.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/kpc/drugstore/img/receitaScannerOK.png")));
+
         } else {
             System.out.println("falha ao renomear");
         }
@@ -458,15 +439,61 @@ public class RecipeFrame extends javax.swing.JFrame {
         File[] img = sc.getGuiScan(Config.DIRETORIOIMAGEM + Mask.limparMaskCPF(tvCPF.getText()));
 
         retorno = Scan.renameImg(img[0], Config.DIRETORIOIMAGEM + Mask.limparMaskCPF(tvCPF.getText()), "cupom.jpg");
-        carregarImg(displayReceita, img[0]);
+        //carregarImg(displayReceita, img[0]);
 
         if (retorno) {
             ticketVG.setTicket_image(Mask.limparMaskCPF(tvCPF.getText()) + "cupom.jpg");
             System.out.println("sucesso");
+            displayCupom.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/kpc/drugstore/img/receitaScannerOK.png")));
+
         } else {
             System.out.println("falha ao renomear");
         }
     }//GEN-LAST:event_displayCupomMouseClicked
+
+    private void displayReceitaMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_displayReceitaMouseEntered
+        
+     displayReceita.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/kpc/drugstore/img/receitaScanner.png")));
+        
+    }//GEN-LAST:event_displayReceitaMouseEntered
+
+    private void displayReceitaMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_displayReceitaMouseExited
+       displayReceita.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/kpc/drugstore/img/receita.png")));
+    }//GEN-LAST:event_displayReceitaMouseExited
+
+    private void displayCupomMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_displayCupomMouseEntered
+  displayCupom.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/kpc/drugstore/img/receitaScanner.png")));
+    }//GEN-LAST:event_displayCupomMouseEntered
+
+    private void displayOutrosMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_displayOutrosMouseEntered
+  displayOutros.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/kpc/drugstore/img/receitaScanner.png")));
+    }//GEN-LAST:event_displayOutrosMouseEntered
+
+    private void displayCupomMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_displayCupomMouseExited
+       displayCupom.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/kpc/drugstore/img/receita.png")));
+    }//GEN-LAST:event_displayCupomMouseExited
+
+    private void displayOutrosMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_displayOutrosMouseExited
+       displayOutros.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/kpc/drugstore/img/receita.png")));
+    }//GEN-LAST:event_displayOutrosMouseExited
+
+    private void displayOutrosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_displayOutrosMouseClicked
+        boolean retorno = false;
+        Scan sc = new Scan();
+        File[] img = sc.getGuiScan(Config.DIRETORIOIMAGEM + Mask.limparMaskCPF(tvCPF.getText()));
+
+        retorno = Scan.renameImg(img[0], Config.DIRETORIOIMAGEM + Mask.limparMaskCPF(tvCPF.getText()), "outroDocumento.jpg");
+      //  carregarImg(displayReceita, img[0]);
+
+        if (retorno) {
+            ticketVG.setTicket_image(Mask.limparMaskCPF(tvCPF.getText()) + "outroDocumento.jpg");
+            System.out.println("sucesso");
+            displayOutros.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/kpc/drugstore/img/receitaScannerOK.png")));
+
+        } else {
+            System.out.println("falha ao renomear");
+        }
+    }//GEN-LAST:event_displayOutrosMouseClicked
 
     /**
      * @param args the command line arguments
@@ -526,8 +553,8 @@ public class RecipeFrame extends javax.swing.JFrame {
     private javax.swing.JRadioButton rbAnticoncepcional;
     private static javax.swing.JFormattedTextField tvCPF;
     private javax.swing.JTextField tvCupomFiscal;
-    private datechooser.beans.DateChooserCombo tvDtReceita;
-    private datechooser.beans.DateChooserCombo tvDtVenda;
+    private javax.swing.JFormattedTextField tvDtReceita;
+    private javax.swing.JFormattedTextField tvDtVenda;
     private javax.swing.JTextField tvNomeCliente;
     private javax.swing.JTextField tvNumAutorizacao;
     // End of variables declaration//GEN-END:variables
