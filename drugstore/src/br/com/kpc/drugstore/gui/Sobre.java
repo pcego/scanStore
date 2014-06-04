@@ -178,7 +178,7 @@ public class Sobre extends javax.swing.JFrame {
     private void jLabel1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel1MouseClicked
         Desktop desk = java.awt.Desktop.getDesktop();
         try {
-            desk.browse(new java.net.URI("http://www.google.com.br"));
+            desk.browse(new java.net.URI("http://www.kpcmobile.com.br"));
         } catch (Exception e) {
             e.printStackTrace();
         }
