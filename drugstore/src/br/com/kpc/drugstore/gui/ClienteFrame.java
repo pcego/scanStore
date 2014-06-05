@@ -855,11 +855,7 @@ public class ClienteFrame extends javax.swing.JFrame {
             clientVG.setMarital_status(cbEstCivil.getSelectedItem().toString());
             Date date = null;
             try {
-                Calendar c;
-                c = tvBirthDay.getSelectedDate();
-                //date = c.getTime();
-                date = new SimpleDateFormat("yyyy/MM/dd").parse(c.getTime().toString());
-                System.out.println(date);
+                date = new SimpleDateFormat("dd/MM/yyyy").parse(tvBirthDay.getText());
             } catch (Exception ex) {
                 Logger.getLogger(ClienteFrame.class
                         .getName()).log(Level.SEVERE, null, ex);
