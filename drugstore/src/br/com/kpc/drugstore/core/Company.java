@@ -7,7 +7,6 @@ package br.com.kpc.drugstore.core;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -16,6 +15,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 /**
  *
@@ -236,18 +237,18 @@ public class Company implements Serializable {
     public List<Client> getClient() {
         return client;
     }
-    
+
     @Column(nullable = false)
-    public String user;
-    
+    public String userLogin;
+
     public String getUser() {
-        return user;
+        return userLogin;
     }
 
-    public void setUser(String user) {
-        this.user = user;
+    public void setUser(String userLogin) {
+        this.userLogin = userLogin;
     }
-    
+
     @Column(nullable = false, length = 32)
     public String passwd;
 
@@ -258,10 +259,11 @@ public class Company implements Serializable {
     public void setPasswd(String passwd) {
         this.passwd = passwd;
     }
-    
-    @Column(nullable = false)
-    public Date dateExpire;
 
+    @Column(nullable = false)
+    @Temporal(TemporalType.DATE)
+    public Date dateExpire;
+    
     public Date getDateExpire() {
         return dateExpire;
     }
@@ -269,7 +271,7 @@ public class Company implements Serializable {
     public void setDateExpire(Date dateExpire) {
         this.dateExpire = dateExpire;
     }
-    
+
     @Override
     public int hashCode() {
         int hash = 0;
