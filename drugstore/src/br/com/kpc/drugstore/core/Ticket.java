@@ -87,6 +87,14 @@ public class Ticket implements Serializable {
     @JoinColumn(referencedColumnName = "recipeId", nullable = false)
     private Recipe recipe;
 
+    public Recipe getRecipe() {
+        return recipe;
+    }
+
+    public void setRecipe(Recipe recipe) {
+        this.recipe = recipe;
+    }
+        
     @Override
     public int hashCode() {
         int hash = 0;
