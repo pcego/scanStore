@@ -84,7 +84,7 @@ public class Ticket implements Serializable {
     }
     
     @ManyToOne(cascade = {CascadeType.MERGE}, fetch = FetchType.EAGER, optional = false)
-    @JoinColumn(referencedColumnName = "recipeId")
+    @JoinColumn(referencedColumnName = "recipeId", nullable = false)
     private Recipe recipe;
 
     @Override
