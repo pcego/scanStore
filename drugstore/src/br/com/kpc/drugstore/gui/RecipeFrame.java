@@ -372,13 +372,15 @@ public class RecipeFrame extends javax.swing.JFrame {
         recipeVG.setClient(clientVG);
         recipeVG.setDt_recipe(new Date(tvDtReceita.getText()));
 
-        recipeVG.setRecipe_type(rbAnticoncepcional.isSelected());
+        if (rbAnticoncepcional.isSelected()) {
+            recipeVG.setRecipe_type("anticoncepcional");
+        } else {
+            recipeVG.setRecipe_type("normal");
+        }
 
         ticketVG.setAuth_number(tvNumAutorizacao.getText());
         ticketVG.setDt_shop(new Date(tvDtVenda.getText()));
         ticketVG.setTicket_number(tvCupomFiscal.getText());
-
-        recipeVG.setRecipe_type(rbAnticoncepcional.isSelected());
 
         Service.getIRepositoryRecipe().salvar(recipeVG);
         Service.getIRepositoryTicket().salvar(ticketVG);
@@ -408,10 +410,10 @@ public class RecipeFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_btNovoActionPerformed
 
     private void tvCPFFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_tvCPFFocusLost
-      if(tvCPF.getText().trim().length() == 14){
-        clientVG = Service.getIRepositoryClient().getClientByCpf(tvCPF.getText().trim(), true);
-      tvNomeCliente.setText(clientVG.getName());
-      }
+        if (tvCPF.getText().trim().length() == 14) {
+            clientVG = Service.getIRepositoryClient().getClientByCpf(tvCPF.getText().trim(), true);
+            tvNomeCliente.setText(clientVG.getName());
+        }
     }//GEN-LAST:event_tvCPFFocusLost
 
     private void displayReceitaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_displayReceitaMouseClicked
@@ -452,29 +454,29 @@ public class RecipeFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_displayCupomMouseClicked
 
     private void displayReceitaMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_displayReceitaMouseEntered
-        
-     displayReceita.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/kpc/drugstore/img/receitaScanner.png")));
-        
+
+        displayReceita.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/kpc/drugstore/img/receitaScanner.png")));
+
     }//GEN-LAST:event_displayReceitaMouseEntered
 
     private void displayReceitaMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_displayReceitaMouseExited
-       displayReceita.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/kpc/drugstore/img/receita.png")));
+        displayReceita.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/kpc/drugstore/img/receita.png")));
     }//GEN-LAST:event_displayReceitaMouseExited
 
     private void displayCupomMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_displayCupomMouseEntered
-  displayCupom.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/kpc/drugstore/img/receitaScanner.png")));
+        displayCupom.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/kpc/drugstore/img/receitaScanner.png")));
     }//GEN-LAST:event_displayCupomMouseEntered
 
     private void displayOutrosMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_displayOutrosMouseEntered
-  displayOutros.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/kpc/drugstore/img/receitaScanner.png")));
+        displayOutros.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/kpc/drugstore/img/receitaScanner.png")));
     }//GEN-LAST:event_displayOutrosMouseEntered
 
     private void displayCupomMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_displayCupomMouseExited
-       displayCupom.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/kpc/drugstore/img/receita.png")));
+        displayCupom.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/kpc/drugstore/img/receita.png")));
     }//GEN-LAST:event_displayCupomMouseExited
 
     private void displayOutrosMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_displayOutrosMouseExited
-       displayOutros.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/kpc/drugstore/img/receita.png")));
+        displayOutros.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/kpc/drugstore/img/receita.png")));
     }//GEN-LAST:event_displayOutrosMouseExited
 
     private void displayOutrosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_displayOutrosMouseClicked
@@ -483,7 +485,7 @@ public class RecipeFrame extends javax.swing.JFrame {
         File[] img = sc.getGuiScan(Config.DIRETORIOIMAGEM + Mask.limparMaskCPF(tvCPF.getText()));
 
         retorno = Scan.renameImg(img[0], Config.DIRETORIOIMAGEM + Mask.limparMaskCPF(tvCPF.getText()), "outroDocumento.jpg");
-      //  carregarImg(displayReceita, img[0]);
+        //  carregarImg(displayReceita, img[0]);
 
         if (retorno) {
             ticketVG.setTicket_image(Mask.limparMaskCPF(tvCPF.getText()) + "outroDocumento.jpg");
