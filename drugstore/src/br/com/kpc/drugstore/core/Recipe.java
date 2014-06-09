@@ -63,17 +63,9 @@ public class Recipe implements Serializable {
         this.recipe_image = recipe_image;
     }
 
-    @Column(nullable = false)
+    @Column(length = 20, nullable = false)
     private String recipe_type;
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
+   
     public String getRecipe_type() {
         return recipe_type;
     }
