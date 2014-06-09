@@ -64,13 +64,21 @@ public class Recipe implements Serializable {
     }
 
     @Column(nullable = false)
-    private boolean recipe_type;
+    private String recipe_type;
 
-    public boolean isRecipe_type() {
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public String getRecipe_type() {
         return recipe_type;
     }
 
-    public void setRecipe_type(boolean recipe_type) {
+    public void setRecipe_type(String recipe_type) {
         this.recipe_type = recipe_type;
     }
 
