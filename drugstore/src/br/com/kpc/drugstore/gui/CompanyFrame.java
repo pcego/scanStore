@@ -670,7 +670,7 @@ public class CompanyFrame extends javax.swing.JFrame {
         opMenu = "I";
         btTypeInsert();
         limparCampos();
-        
+
     }//GEN-LAST:event_btInsertActionPerformed
 
     private void btDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btDeleteActionPerformed
@@ -747,10 +747,12 @@ public class CompanyFrame extends javax.swing.JFrame {
 
             model = new TableModelCompany(listCompany);
             tbGrid.setModel(model);
-        }else{
-            model.clearTable();
+        } else {
+            if (model != null) {
+                model.clearTable();
+            }
         }
-            
+
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -825,7 +827,7 @@ public class CompanyFrame extends javax.swing.JFrame {
         tvSystemKey.setText(companyVG.getSystem_key());
         tvDataExpire.setText(FormatDate.dateCovertToShow(companyVG.getDateExpire()));
         tvLogin.setText(companyVG.getUser());
-        tvSenha.setText(companyVG.getPasswd());      
+        tvSenha.setText(companyVG.getPasswd());
 
     }
 
@@ -885,7 +887,7 @@ public class CompanyFrame extends javax.swing.JFrame {
             companyVG.setAdress_neighborhood(tvAdressNeighborhood.getText());
             companyVG.setAdress_city(tvAdressCity.getText());
             companyVG.setDateExpire(new Date(tvDataExpire.getText()));
-            companyVG.setPasswd( new String(tvSenha.getPassword()));
+            companyVG.setPasswd(new String(tvSenha.getPassword()));
             companyVG.setUser(tvLogin.getText().trim());
             Service.getIRepositoryCompany().atualizar(companyVG);
             logger.info("Alterado com sucesso");
@@ -918,9 +920,9 @@ public class CompanyFrame extends javax.swing.JFrame {
             companyVG.setAdress_neighborhood(tvAdressNeighborhood.getText());
             companyVG.setAdress_city(tvAdressCity.getText());
             companyVG.setDateExpire(new Date(tvDataExpire.getText()));
-            companyVG.setPasswd( new String(tvSenha.getPassword()));
+            companyVG.setPasswd(new String(tvSenha.getPassword()));
             companyVG.setUser(tvLogin.getText().trim());
-            
+
             Service.getIRepositoryCompany().salvar(companyVG);
             logger.info("Gravado com sucesso");
             return true;
