@@ -96,7 +96,7 @@ public class ClienteFrame extends javax.swing.JFrame {
         jLabel27 = new javax.swing.JLabel();
         jLabel28 = new javax.swing.JLabel();
         tvAdressComplement = new javax.swing.JTextField();
-        tvAdressNumber = new javax.swing.JFormattedTextField();
+        tvAdressNumber = new javax.swing.JTextField();
         btPesquisar = new javax.swing.JButton();
         jLabel2 = new javax.swing.JLabel();
 
@@ -428,18 +428,6 @@ public class ClienteFrame extends javax.swing.JFrame {
             }
         });
 
-        tvAdressNumber.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter()));
-        tvAdressNumber.addFocusListener(new java.awt.event.FocusAdapter() {
-            public void focusLost(java.awt.event.FocusEvent evt) {
-                tvAdressNumberFocusLost(evt);
-            }
-        });
-        tvAdressNumber.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyPressed(java.awt.event.KeyEvent evt) {
-                tvAdressNumberKeyPressed(evt);
-            }
-        });
-
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -464,8 +452,7 @@ public class ClienteFrame extends javax.swing.JFrame {
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(jLabel25)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(tvAdressNumber, javax.swing.GroupLayout.PREFERRED_SIZE, 66, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(2, 2, 2)))
+                                .addComponent(tvAdressNumber, javax.swing.GroupLayout.DEFAULT_SIZE, 76, Short.MAX_VALUE)))
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addGap(14, 14, 14)
@@ -544,7 +531,7 @@ public class ClienteFrame extends javax.swing.JFrame {
                     .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel2)
                     .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(20, Short.MAX_VALUE))
+                .addContainerGap(12, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -728,14 +715,14 @@ public class ClienteFrame extends javax.swing.JFrame {
 
         boolean retorno = false;
         Scan sc = new Scan();
-        File[] img = sc.getGuiScan(Config.DIRETORIOIMAGEM + Mask.limparMaskCPF(tvRG.getText()));
+        File[] img = sc.getGuiScan(Config.DIRETORIOIMAGEM + Mask.limparMaskCPF(tvCPF.getText()));
 
-        retorno = Scan.renameImg(img[0], Config.DIRETORIOIMAGEM + Mask.limparMaskCPF(tvRG.getText()), "rg.jpg");
+        retorno = Scan.renameImg(img[0], Config.DIRETORIOIMAGEM + Mask.limparMaskCPF(tvCPF.getText()), "rg.jpg");
         //carregarImg(displayReceita, img[0]);
 
         if (retorno) {
             System.out.println("sucesso");
-            clientVG.setRg_image(Mask.limparMaskCPF(tvRG.getText().trim()) + "\\rg.jpg");
+            clientVG.setRg_image(Mask.limparMaskCPF(tvCPF.getText().trim()) + "\\rg.jpg");
         } else {
             System.out.println("falha ao renomear");
         }
@@ -745,14 +732,6 @@ public class ClienteFrame extends javax.swing.JFrame {
         limparCampos();
         btTypeDefault();
     }//GEN-LAST:event_formWindowClosed
-
-    private void tvAdressNumberKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tvAdressNumberKeyPressed
-        Mask.validaSomenteNumero(tvAdressNumber);
-    }//GEN-LAST:event_tvAdressNumberKeyPressed
-
-    private void tvAdressNumberFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_tvAdressNumberFocusLost
-        Mask.validaSomenteNumero(tvAdressNumber);
-    }//GEN-LAST:event_tvAdressNumberFocusLost
 
     /**
      * @param args the command line arguments
@@ -832,7 +811,7 @@ public class ClienteFrame extends javax.swing.JFrame {
     private static javax.swing.JTextField tvAdressCity;
     private static javax.swing.JTextField tvAdressComplement;
     private static javax.swing.JTextField tvAdressNeighborhood;
-    private static javax.swing.JFormattedTextField tvAdressNumber;
+    private static javax.swing.JTextField tvAdressNumber;
     private static javax.swing.JFormattedTextField tvAdressPostalCode;
     private static javax.swing.JTextField tvAdressStreet;
     private static javax.swing.JFormattedTextField tvBirthDay;
