@@ -411,7 +411,7 @@ public class RecipeFrame extends javax.swing.JFrame {
 
     private void tvCPFFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_tvCPFFocusLost
         if (tvCPF.getText().trim().length() == 14) {
-            clientVG = Service.getIRepositoryClient().getClientByCpf(tvCPF.getText().trim(), true);
+            clientVG = Service.getIRepositoryClient().getClientByCpf(Mask.limparMaskCPF(tvCPF.getText()).trim(), true);
             tvNomeCliente.setText(clientVG.getName());
         }
     }//GEN-LAST:event_tvCPFFocusLost
