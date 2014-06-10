@@ -40,11 +40,7 @@ public class DaoCompany extends DaoGeneric<Company> implements IRepositoryCompan
             Query query = getManager().createQuery("SELECT CM FROM Company CM");
             return (Company) query.getSingleResult();
         } catch (Exception ex) {
-
-            JOptionPane.showMessageDialog(null, "Falha ao Carregar Dados da Empresa",
-                    "Ihh Falhou...!!", JOptionPane.ERROR_MESSAGE, null);
             return null;
-
         }
     }
 }
