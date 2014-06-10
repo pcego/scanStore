@@ -747,7 +747,10 @@ public class CompanyFrame extends javax.swing.JFrame {
 
             model = new TableModelCompany(listCompany);
             tbGrid.setModel(model);
+        }else{
+            model.clearTable();
         }
+            
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
