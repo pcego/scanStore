@@ -286,7 +286,7 @@ public class ConsultarCliente extends javax.swing.JFrame {
             case "CPF":
                 if (Mask.validaCpfCnpj(tvCriterio.getText())) {
                     client = new Client();
-                    client = iRepositoryClient.getClientByCpf(tvCriterio.getText().trim(), true);
+                    client = iRepositoryClient.getClientByCpf(Mask.limparMaskCPF(tvCriterio.getText()).trim(), true);
                     listClisnt.add(client);
                     verificarRegistros(listClisnt.size());
                 } else {
