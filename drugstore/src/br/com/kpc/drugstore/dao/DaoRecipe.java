@@ -30,9 +30,6 @@ public class DaoRecipe extends DaoGeneric<Recipe> implements IRepositoryRecipe {
             query.setParameter("obj", obj.getCpf());
             return query.getResultList();
         } catch (Exception ex) {
-
-            JOptionPane.showMessageDialog(null, "Falha ao Listar Receitas",
-                    "Ihh Falhou...!!", JOptionPane.ERROR_MESSAGE, null);
             return null;
         }
     }
@@ -48,9 +45,6 @@ public class DaoRecipe extends DaoGeneric<Recipe> implements IRepositoryRecipe {
             query.setParameter("obj", obj.getCpf());
             return (Recipe) query.getSingleResult();
         } catch (Exception ex) {
-
-            JOptionPane.showMessageDialog(null, "Falha ao Carregar Receita",
-                    "Ihh Falhou...!!", JOptionPane.ERROR_MESSAGE, null);
             return null;
         }
     }
@@ -63,9 +57,6 @@ public class DaoRecipe extends DaoGeneric<Recipe> implements IRepositoryRecipe {
                     + "ORDER BY R.dt_recipe");
             return query.getResultList();
         } catch (Exception ex) {
-
-            JOptionPane.showMessageDialog(null, "Falha ao Listar Receitas",
-                    "Ihh Falhou...!!", JOptionPane.ERROR_MESSAGE, null);
             return null;
         }
     }
