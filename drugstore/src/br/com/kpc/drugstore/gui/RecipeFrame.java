@@ -397,11 +397,15 @@ public class RecipeFrame extends javax.swing.JFrame {
             recipeVG.setRecipe_type("normal");
         }
 
+        Service.getIRepositoryRecipe().salvar(recipeVG);
+        
+        
         ticketVG.setAuth_number(tvNumAutorizacao.getText());
         ticketVG.setDt_shop(new Date(tvDtVenda.getText()));
         ticketVG.setTicket_number(tvCupomFiscal.getText());
+        ticketVG.setRecipe(recipeVG);
 
-        Service.getIRepositoryRecipe().salvar(recipeVG);
+
         Service.getIRepositoryTicket().salvar(ticketVG);
 
 
