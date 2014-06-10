@@ -49,9 +49,6 @@ public class DaoClient extends DaoGeneric<Client> implements IRepositoryClient {
             return (Client) query.getSingleResult();
 
         } catch (NoResultException nrex) {
-
-            JOptionPane.showMessageDialog(null, "Nenhum Cliente Encontrado Para Este CPF.",
-                    "Ihh Falhou...!!", JOptionPane.INFORMATION_MESSAGE, null);
             return new Client("", "", "");
         }
     }
@@ -68,9 +65,6 @@ public class DaoClient extends DaoGeneric<Client> implements IRepositoryClient {
             );
             return query.getResultList();
         } catch (Exception ex) {
-
-            JOptionPane.showMessageDialog(null, "Falha ao Listar Clientes",
-                    "Ihh Falhou...!!", JOptionPane.ERROR_MESSAGE, null);
             return null;
         }
     }
@@ -85,9 +79,6 @@ public class DaoClient extends DaoGeneric<Client> implements IRepositoryClient {
             query.setParameter("active", active);
             return query.getResultList();
         } catch (Exception ex) {
-
-            JOptionPane.showMessageDialog(null, "Falha ao Listar Clientes",
-                    "Ihh Falhou...!!", JOptionPane.ERROR_MESSAGE, null);
             return null;
         }
     }
@@ -102,11 +93,7 @@ public class DaoClient extends DaoGeneric<Client> implements IRepositoryClient {
             query.setParameter("active", active);
             return query.getResultList();
         } catch (Exception ex) {
-
-            JOptionPane.showMessageDialog(null, "Falha ao Listar Clientes",
-                    "Ihh Falhou...!!", JOptionPane.ERROR_MESSAGE, null);
             return null;
-
         }
     }
 
@@ -119,7 +106,6 @@ public class DaoClient extends DaoGeneric<Client> implements IRepositoryClient {
             Query query = getManager().createNativeQuery(strQuery);
             return query.getFirstResult();
         } catch (Exception ex) {
-
             return -1;
         }
     }
