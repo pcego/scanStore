@@ -125,6 +125,11 @@ public class RecipeFrame extends javax.swing.JFrame {
                 tvCPFFocusLost(evt);
             }
         });
+        tvCPF.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                tvCPFKeyPressed(evt);
+            }
+        });
 
         jLabel1.setText("CPF:");
 
@@ -413,11 +418,15 @@ public class RecipeFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_btNovoActionPerformed
 
     private void tvCPFFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_tvCPFFocusLost
+        carregarNomeCLiente();
+    }//GEN-LAST:event_tvCPFFocusLost
+
+    private static  void carregarNomeCLiente() {
         if (tvCPF.getText().trim().length() == 14) {
             clientVG = Service.getIRepositoryClient().getClientByCpf(Mask.limparMaskCPF(tvCPF.getText()).trim(), true);
             tvNomeCliente.setText(clientVG.getName());
         }
-    }//GEN-LAST:event_tvCPFFocusLost
+    }
 
     private void displayReceitaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_displayReceitaMouseClicked
         //verifica se esta ativo, se não ele sai da função
@@ -515,6 +524,10 @@ public class RecipeFrame extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_displayOutrosMouseClicked
 
+    private void tvCPFKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tvCPFKeyPressed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_tvCPFKeyPressed
+
     /**
      * @param args the command line arguments
      */
@@ -575,7 +588,7 @@ public class RecipeFrame extends javax.swing.JFrame {
     private javax.swing.JTextField tvCupomFiscal;
     private javax.swing.JFormattedTextField tvDtReceita;
     private javax.swing.JFormattedTextField tvDtVenda;
-    private javax.swing.JTextField tvNomeCliente;
+    private static javax.swing.JTextField tvNomeCliente;
     private javax.swing.JTextField tvNumAutorizacao;
     // End of variables declaration//GEN-END:variables
 
@@ -595,6 +608,7 @@ public class RecipeFrame extends javax.swing.JFrame {
     protected static void getClienteRetorno(Client cli) {
         clientVG = cli;
         tvCPF.setText(clientVG.getCpf());
+       carregarNomeCLiente();
     }
 
     private void limparCampos() {
@@ -604,6 +618,7 @@ public class RecipeFrame extends javax.swing.JFrame {
         tvDtVenda.setText("");
         tvDtReceita.setText("");
         rbAnticoncepcional.setSelected(false);
+        tvNomeCliente.setText("");
 
     }
 
