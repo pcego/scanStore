@@ -27,6 +27,7 @@ import java.util.logging.Logger;
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import org.omg.CORBA.TCKind;
 
 /**
@@ -377,6 +378,16 @@ public class RecipeFrame extends javax.swing.JFrame {
     }
 
     private void btConfirmarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btConfirmarActionPerformed
+
+        if (recipeVG.getRecipe_image()== null){  
+            JOptionPane.showMessageDialog(this, "Favor digitalizar a Receita.");
+            return;
+        }
+        if (recipeVG.getTicket()== null){   
+            JOptionPane.showMessageDialog(this, "Favor digitalizar o Cupom.");
+            return;
+        }
+        
         recipeVG.setClient(clientVG);
         recipeVG.setDt_recipe(new Date(tvDtReceita.getText()));
 
