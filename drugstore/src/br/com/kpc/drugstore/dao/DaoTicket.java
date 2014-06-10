@@ -31,9 +31,6 @@ public class DaoTicket extends DaoGeneric<Ticket> implements IRepositoryTicket {
             query.setParameter("obj", obj.getCpf());
             return query.getResultList();
         } catch (Exception ex) {
-
-            JOptionPane.showMessageDialog(null, "Falha ao Listar Cupons",
-                    "Ihh Falhou...!!", JOptionPane.ERROR_MESSAGE, null);
             return null;
         }
     }
@@ -54,9 +51,6 @@ public class DaoTicket extends DaoGeneric<Ticket> implements IRepositoryTicket {
 
             return (Ticket) query.getSingleResult();
         } catch (Exception ex) {
-
-            JOptionPane.showMessageDialog(null, "Falha ao Carregar Última Compra",
-                    "Ihh Falhou...!!", JOptionPane.ERROR_MESSAGE, null);
             return null;
         }
     }
