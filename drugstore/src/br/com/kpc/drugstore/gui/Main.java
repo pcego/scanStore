@@ -5,8 +5,10 @@
  */
 package br.com.kpc.drugstore.gui;
 
+import br.com.kpc.drugstore.service.Service;
 import br.com.kpc.drugstore.service.WindowInstance;
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -196,7 +198,17 @@ public class Main extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        WindowInstance.getInstance(WindowInstance.CLIENTWINDOW).setVisible(true);
+        if (Service.getIRepositoryCompany().getCompany() == null) {
+            int resposta;
+            String[] opcoes = {"Sim", "Nao"};
+            resposta = JOptionPane.showOptionDialog(this, "Empresa não cadastrada, deseja cadastra?",
+                    "Empresa não encotnrada", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, opcoes, opcoes[0]);
+            if (resposta == 0) {
+                WindowInstance.getInstance(WindowInstance.COMPANYWINDOW).setVisible(true);
+            }
+        } else {
+            WindowInstance.getInstance(WindowInstance.CLIENTWINDOW).setVisible(true);
+        }
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
