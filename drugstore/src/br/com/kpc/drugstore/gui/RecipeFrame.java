@@ -215,6 +215,7 @@ public class RecipeFrame extends javax.swing.JFrame {
         jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Digitalização", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.TOP, new java.awt.Font("Arial", 1, 12))); // NOI18N
 
         displayOutros.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/kpc/drugstore/img/receita.png"))); // NOI18N
+        displayOutros.setEnabled(false);
         displayOutros.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 displayOutrosMouseClicked(evt);
@@ -228,6 +229,7 @@ public class RecipeFrame extends javax.swing.JFrame {
         });
 
         displayCupom.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/kpc/drugstore/img/receita.png"))); // NOI18N
+        displayCupom.setEnabled(false);
         displayCupom.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 displayCupomMouseClicked(evt);
@@ -241,6 +243,7 @@ public class RecipeFrame extends javax.swing.JFrame {
         });
 
         displayReceita.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/kpc/drugstore/img/receita.png"))); // NOI18N
+        displayReceita.setEnabled(false);
         displayReceita.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 displayReceitaMouseClicked(evt);
@@ -417,6 +420,11 @@ public class RecipeFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_tvCPFFocusLost
 
     private void displayReceitaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_displayReceitaMouseClicked
+        //verifica se esta ativo, se não ele sai da função
+        if (!displayReceita.isEnabled()) {
+            return;
+        }
+
         boolean retorno = false;
         Scan sc = new Scan();
         File[] img = sc.getGuiScan(Config.DIRETORIOIMAGEM + Mask.limparMaskCPF(tvCPF.getText()));
@@ -436,6 +444,11 @@ public class RecipeFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_displayReceitaMouseClicked
 
     private void displayCupomMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_displayCupomMouseClicked
+        //verifica se esta ativo, se não ele sai da função
+        if (!displayCupom.isEnabled()) {
+            return;
+        }
+
         boolean retorno = false;
         Scan sc = new Scan();
         File[] img = sc.getGuiScan(Config.DIRETORIOIMAGEM + Mask.limparMaskCPF(tvCPF.getText()));
@@ -480,6 +493,11 @@ public class RecipeFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_displayOutrosMouseExited
 
     private void displayOutrosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_displayOutrosMouseClicked
+        //verifica se esta ativo, se não ele sai da função
+        if (!displayOutros.isEnabled()) {
+            return;
+        }
+
         boolean retorno = false;
         Scan sc = new Scan();
         File[] img = sc.getGuiScan(Config.DIRETORIOIMAGEM + Mask.limparMaskCPF(tvCPF.getText()));
@@ -596,6 +614,9 @@ public class RecipeFrame extends javax.swing.JFrame {
         tvDtVenda.setEnabled(acao);
         tvDtReceita.setEnabled(acao);
         rbAnticoncepcional.setEnabled(acao);
+        displayReceita.setEnabled(acao);
+        displayCupom.setEnabled(acao);
+        displayOutros.setEnabled(acao);
     }
 
     private void btTypeDefault() {
