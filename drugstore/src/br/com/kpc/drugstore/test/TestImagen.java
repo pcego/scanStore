@@ -9,19 +9,11 @@ import br.com.kpc.drugstore.dao.ConnectionDb;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.GregorianCalendar;
 import java.util.HashMap;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
-import net.sf.jasperreports.engine.JREmptyDataSource;
 import net.sf.jasperreports.engine.JRException;
-import net.sf.jasperreports.engine.JRExporter;
-import net.sf.jasperreports.engine.JRExporterParameter;
 import net.sf.jasperreports.engine.JasperCompileManager;
 import net.sf.jasperreports.engine.JasperFillManager;
 import net.sf.jasperreports.engine.JasperPrint;
@@ -106,7 +98,7 @@ public class TestImagen extends javax.swing.JFrame {
     private void carregarImgActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_carregarImgActionPerformed
 
         File img = new File("C:\\imagens\\testando.jpg");
-
+        
         try {
             BufferedImage bfi = ImageIO.read(img);
             imagen.setIcon(new ImageIcon(bfi));
