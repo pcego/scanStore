@@ -281,7 +281,7 @@ public class Mask {
             try {
                 valor = Long.parseLong(Numero.getText().trim());
             } catch (NumberFormatException ex) {
-                SystemMessage.showMessage(ex, SystemMessage.INFORMATION, "Esse Campo só aceita números");
+                SystemMessage.kpcShowMessage(ex, SystemMessage.INFORMATION, "Esse Campo só aceita números");
 
                 Numero.grabFocus();// foca o campo 
                 Numero.setText(""); //limpa o campo 
