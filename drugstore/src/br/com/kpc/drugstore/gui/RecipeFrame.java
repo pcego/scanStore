@@ -6,17 +6,14 @@
 package br.com.kpc.drugstore.gui;
 
 import br.com.kpc.drugstore.core.Client;
-import br.com.kpc.drugstore.core.IRepositoryClient;
-import br.com.kpc.drugstore.core.IRepositoryRecipe;
 import br.com.kpc.drugstore.core.Recipe;
 import br.com.kpc.drugstore.core.Ticket;
-import br.com.kpc.drugstore.dao.DaoClient;
-import br.com.kpc.drugstore.dao.DaoRecipe;
 import br.com.kpc.drugstore.scan.Scan;
 import br.com.kpc.drugstore.service.Service;
 import br.com.kpc.drugstore.util.Config;
 import br.com.kpc.drugstore.util.FormatDate;
 import br.com.kpc.drugstore.util.Mask;
+import br.com.kpc.drugstore.util.SystemMessage;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
@@ -28,7 +25,6 @@ import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
-import org.omg.CORBA.TCKind;
 
 /**
  *
@@ -359,8 +355,7 @@ public class RecipeFrame extends javax.swing.JFrame {
 /**
      * Declarações de variaveis Globais
      */
-    private IRepositoryClient repoCliente = (IRepositoryClient) new DaoClient();
-    private IRepositoryRecipe repoRecipe = (IRepositoryRecipe) new DaoRecipe();
+
     private Recipe recipeVG = new Recipe();
     private Ticket ticketVG = new Ticket();
     private static Client clientVG = new Client();
@@ -378,36 +373,41 @@ public class RecipeFrame extends javax.swing.JFrame {
     }
 
     private void btConfirmarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btConfirmarActionPerformed
+        try {
+            File imgRecipe = new File(Config.DIRETORIOIMAGEM + Mask.limparMaskCPF(tvCPF.getText()) + "\\" + tvNumAutorizacao.getText().trim() + "\\receita.jpg");
+            File imgTicket = new File(Config.DIRETORIOIMAGEM + Mask.limparMaskCPF(tvCPF.getText()) + "\\" + tvNumAutorizacao.getText().trim() + "\\cupom.jpg");
 
-        if (recipeVG.getRecipe_image()== null){  
-            JOptionPane.showMessageDialog(this, "Favor digitalizar a Receita.");
-            return;
+            if (!imgRecipe.exists()) {
+                JOptionPane.showMessageDialog(this, "Favor digitalizar a Receita.");
+                return;
+            }
+            if (!imgTicket.exists()) {
+                JOptionPane.showMessageDialog(this, "Favor digitalizar o Cupom.");
+                return;
+            }
+
+            recipeVG.setClient(clientVG);
+            recipeVG.setDt_recipe(new Date(tvDtReceita.getText()));
+
+            if (rbAnticoncepcional.isSelected()) {
+                recipeVG.setRecipe_type("anticoncepcional");
+            } else {
+                recipeVG.setRecipe_type("normal");
+            }
+
+            Service.getIRepositoryRecipe().salvar(recipeVG);
+
+            ticketVG.setAuth_number(tvNumAutorizacao.getText());
+            ticketVG.setDt_shop(new Date(tvDtVenda.getText()));
+            ticketVG.setTicket_number(tvCupomFiscal.getText());
+            ticketVG.setRecipe(recipeVG);
+
+            Service.getIRepositoryTicket().salvar(ticketVG);
+
+            SystemMessage.kpcShowMessage(null, SystemMessage.INFORMATION, "Registro gravado com sucesso!");
+        } catch (Exception e) {
+            SystemMessage.kpcShowMessage(e, SystemMessage.ERROR, "ao gravar registro!");
         }
-        if (recipeVG.getTicket()== null){   
-            JOptionPane.showMessageDialog(this, "Favor digitalizar o Cupom.");
-            return;
-        }
-        
-        recipeVG.setClient(clientVG);
-        recipeVG.setDt_recipe(new Date(tvDtReceita.getText()));
-
-        if (rbAnticoncepcional.isSelected()) {
-            recipeVG.setRecipe_type("anticoncepcional");
-        } else {
-            recipeVG.setRecipe_type("normal");
-        }
-
-        Service.getIRepositoryRecipe().salvar(recipeVG);
-        
-        
-        ticketVG.setAuth_number(tvNumAutorizacao.getText());
-        ticketVG.setDt_shop(new Date(tvDtVenda.getText()));
-        ticketVG.setTicket_number(tvCupomFiscal.getText());
-        ticketVG.setRecipe(recipeVG);
-
-
-        Service.getIRepositoryTicket().salvar(ticketVG);
-
 
     }//GEN-LAST:event_btConfirmarActionPerformed
 
@@ -436,7 +436,7 @@ public class RecipeFrame extends javax.swing.JFrame {
         carregarNomeCLiente();
     }//GEN-LAST:event_tvCPFFocusLost
 
-    private static  void carregarNomeCLiente() {
+    private static void carregarNomeCLiente() {
         if (tvCPF.getText().trim().length() == 14) {
             clientVG = Service.getIRepositoryClient().getClientByCpf(Mask.limparMaskCPF(tvCPF.getText()).trim(), true);
             tvNomeCliente.setText(clientVG.getName());
@@ -449,15 +449,19 @@ public class RecipeFrame extends javax.swing.JFrame {
             return;
         }
 
+        if (!headerOk()) {
+            return;
+        }
+
         boolean retorno = false;
         Scan sc = new Scan();
-        File[] img = sc.getGuiScan(Config.DIRETORIOIMAGEM + Mask.limparMaskCPF(tvCPF.getText()));
+        File[] img = sc.getGuiScan(Config.DIRETORIOIMAGEM + Mask.limparMaskCPF(tvCPF.getText()) + "\\" + tvNumAutorizacao.getText().trim());
 
-        retorno = Scan.renameImg(img[0], Config.DIRETORIOIMAGEM + Mask.limparMaskCPF(tvCPF.getText()), "receita.jpg");
+        retorno = Scan.renameImg(img[0], Config.DIRETORIOIMAGEM + Mask.limparMaskCPF(tvCPF.getText()) + "\\" + tvNumAutorizacao.getText().trim(), "receita.jpg");
         //carregarImg(displayReceita, img[0]);
 
         if (retorno) {
-            recipeVG.setRecipe_image(Mask.limparMaskCPF(tvCPF.getText()) + "receita.jpg");
+            recipeVG.setRecipe_image(Mask.limparMaskCPF(tvCPF.getText()) + "\\" + tvNumAutorizacao.getText().trim() + "receita.jpg");
             System.out.println("sucesso");
             displayReceita.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/kpc/drugstore/img/receitaScannerOK.png")));
 
@@ -473,15 +477,19 @@ public class RecipeFrame extends javax.swing.JFrame {
             return;
         }
 
+        if (!headerOk()) {
+            return;
+        }
+
         boolean retorno = false;
         Scan sc = new Scan();
-        File[] img = sc.getGuiScan(Config.DIRETORIOIMAGEM + Mask.limparMaskCPF(tvCPF.getText()));
+        File[] img = sc.getGuiScan(Config.DIRETORIOIMAGEM + Mask.limparMaskCPF(tvCPF.getText()) + "\\" + tvNumAutorizacao.getText().trim());
 
-        retorno = Scan.renameImg(img[0], Config.DIRETORIOIMAGEM + Mask.limparMaskCPF(tvCPF.getText()), "cupom.jpg");
+        retorno = Scan.renameImg(img[0], Config.DIRETORIOIMAGEM + Mask.limparMaskCPF(tvCPF.getText()) + "\\" + tvNumAutorizacao.getText().trim(), "cupom.jpg");
         //carregarImg(displayReceita, img[0]);
 
         if (retorno) {
-            ticketVG.setTicket_image(Mask.limparMaskCPF(tvCPF.getText()) + "cupom.jpg");
+            ticketVG.setTicket_image(Mask.limparMaskCPF(tvCPF.getText()) + "\\" + tvNumAutorizacao.getText().trim() + "cupom.jpg");
             System.out.println("sucesso");
             displayCupom.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/kpc/drugstore/img/receitaScannerOK.png")));
 
@@ -521,16 +529,19 @@ public class RecipeFrame extends javax.swing.JFrame {
         if (!displayOutros.isEnabled()) {
             return;
         }
+        if (!headerOk()) {
+            return;
+        }
 
         boolean retorno = false;
         Scan sc = new Scan();
-        File[] img = sc.getGuiScan(Config.DIRETORIOIMAGEM + Mask.limparMaskCPF(tvCPF.getText()));
+        File[] img = sc.getGuiScan(Config.DIRETORIOIMAGEM + Mask.limparMaskCPF(tvCPF.getText()) + "\\" + tvNumAutorizacao.getText().trim());
 
-        retorno = Scan.renameImg(img[0], Config.DIRETORIOIMAGEM + Mask.limparMaskCPF(tvCPF.getText()), "outroDocumento.jpg");
+        retorno = Scan.renameImg(img[0], Config.DIRETORIOIMAGEM + Mask.limparMaskCPF(tvCPF.getText()) + "\\" + tvNumAutorizacao.getText().trim(), "outroDocumento.jpg");
         //  carregarImg(displayReceita, img[0]);
 
         if (retorno) {
-            ticketVG.setTicket_image(Mask.limparMaskCPF(tvCPF.getText()) + "outroDocumento.jpg");
+            ticketVG.setTicket_image(Mask.limparMaskCPF(tvCPF.getText()) + "\\" + tvNumAutorizacao.getText().trim() + "outroDocumento.jpg");
             System.out.println("sucesso");
             displayOutros.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/kpc/drugstore/img/receitaScannerOK.png")));
 
@@ -623,7 +634,7 @@ public class RecipeFrame extends javax.swing.JFrame {
     protected static void getClienteRetorno(Client cli) {
         clientVG = cli;
         tvCPF.setText(clientVG.getCpf());
-       carregarNomeCLiente();
+        carregarNomeCLiente();
     }
 
     private void limparCampos() {
@@ -665,6 +676,27 @@ public class RecipeFrame extends javax.swing.JFrame {
         btCancelar.setEnabled(true);
         btPesquisaCliente.setEnabled(true);
 
+    }
+
+    private boolean headerOk() {
+        if (Mask.limparMaskCPF(tvCPF.getText()).trim().equals("")) {
+            SystemMessage.kpcShowMessage(null, SystemMessage.INFORMATION, "Informe seu CPF!");
+            return false;
+        }
+        if (tvNumAutorizacao.getText().trim().equals("")) {
+            SystemMessage.kpcShowMessage(null, SystemMessage.INFORMATION, "Informe o numero de autorização!");
+            return false;
+        }
+        if (tvCupomFiscal.getText().trim().equals("")) {
+            SystemMessage.kpcShowMessage(null, SystemMessage.INFORMATION, "Registro gravado com sucesso!");
+            return false;
+        }
+
+        tvCPF.setEditable(false);
+        tvNumAutorizacao.setEditable(false);
+        tvCupomFiscal.setEnabled(false);
+
+        return true;
     }
 
 }
