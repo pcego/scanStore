@@ -461,7 +461,7 @@ public class RecipeFrame extends javax.swing.JFrame {
         //carregarImg(displayReceita, img[0]);
 
         if (retorno) {
-            recipeVG.setRecipe_image(Mask.limparMaskCPF(tvCPF.getText()) + "\\" + tvNumAutorizacao.getText().trim() + "receita.jpg");
+            recipeVG.setRecipe_image(Mask.limparMaskCPF(tvCPF.getText()) + "\\" + tvNumAutorizacao.getText().trim() + "\\receita.jpg");
             System.out.println("sucesso");
             displayReceita.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/kpc/drugstore/img/receitaScannerOK.png")));
 
@@ -489,7 +489,7 @@ public class RecipeFrame extends javax.swing.JFrame {
         //carregarImg(displayReceita, img[0]);
 
         if (retorno) {
-            ticketVG.setTicket_image(Mask.limparMaskCPF(tvCPF.getText()) + "\\" + tvNumAutorizacao.getText().trim() + "cupom.jpg");
+            ticketVG.setTicket_image(Mask.limparMaskCPF(tvCPF.getText()) + "\\" + tvNumAutorizacao.getText().trim() + "\\cupom.jpg");
             System.out.println("sucesso");
             displayCupom.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/kpc/drugstore/img/receitaScannerOK.png")));
 
@@ -541,7 +541,7 @@ public class RecipeFrame extends javax.swing.JFrame {
         //  carregarImg(displayReceita, img[0]);
 
         if (retorno) {
-            ticketVG.setTicket_image(Mask.limparMaskCPF(tvCPF.getText()) + "\\" + tvNumAutorizacao.getText().trim() + "outroDocumento.jpg");
+            recipeVG.setOther_document(Mask.limparMaskCPF(tvCPF.getText()) + "\\" + tvNumAutorizacao.getText().trim() + "\\outroDocumento.jpg");
             System.out.println("sucesso");
             displayOutros.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/kpc/drugstore/img/receitaScannerOK.png")));
 
@@ -688,10 +688,18 @@ public class RecipeFrame extends javax.swing.JFrame {
             return false;
         }
         if (tvCupomFiscal.getText().trim().equals("")) {
-            SystemMessage.kpcShowMessage(null, SystemMessage.INFORMATION, "Registro gravado com sucesso!");
+            SystemMessage.kpcShowMessage(null, SystemMessage.INFORMATION, "Informe o numero do cupom!");
             return false;
         }
-
+        if (Mask.limparMaskCPF(tvDtReceita.getText()).trim().equals("")) {
+            SystemMessage.kpcShowMessage(null, SystemMessage.INFORMATION, "Informe a data da Receita!");
+            return false;
+        }
+        if (Mask.limparMaskCPF(tvDtVenda.getText()).trim().equals("")) {
+            SystemMessage.kpcShowMessage(null, SystemMessage.INFORMATION, "Informe a data da Venda!");
+            return false;
+        }        
+        
         tvCPF.setEditable(false);
         tvNumAutorizacao.setEditable(false);
         tvCupomFiscal.setEnabled(false);
