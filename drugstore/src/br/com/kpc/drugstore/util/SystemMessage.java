@@ -21,10 +21,12 @@ public class SystemMessage extends JOptionPane {
 
     private static final String ERRO = "Ocorreu Um Erro ";
     private static final String FALHA = "Falha ao ";
-    private static final String TITLE = "Ops!! Temos Problema...! ";
+    private static final String TITLE_ERROR = "Ops!! Temos Problema...! ";
+    private static final String TITLE_INFORMATION = "Informação";
+    private static final String TITLE_WARNING = "Ops!! Atenção!";
     private static String[] opt = {"Sim", "Não"};
 
-    public static void showMessage(Exception ex, int id, String message) {
+    public static void kpcShowMessage(Exception ex, int id, String message) {
 
         if (ex != null) {
 
@@ -37,25 +39,25 @@ public class SystemMessage extends JOptionPane {
             case ERROR:
 
                 showMessageDialog(null, ERRO + message,
-                        TITLE, JOptionPane.ERROR_MESSAGE, null);
+                        TITLE_ERROR, JOptionPane.ERROR_MESSAGE, null);
                 break;
 
             case WARNING:
 
-                showMessageDialog(null, TITLE + message,
+                showMessageDialog(null, TITLE_WARNING + message,
                         "Ops...", JOptionPane.WARNING_MESSAGE, null);
                 break;
 
             case INFORMATION:
 
                 showMessageDialog(null, message,
-                        TITLE, JOptionPane.INFORMATION_MESSAGE, null);
+                        TITLE_INFORMATION, JOptionPane.INFORMATION_MESSAGE, null);
                 break;
 
         }
     }
 
-    public int dialog(int id, String message, String title) {
+    public int kpcDialog(int id, String message, String title) {
 
         switch (id) {
             case DIALOG:
