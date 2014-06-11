@@ -9,7 +9,6 @@ import br.com.kpc.drugstore.core.IRepositoryTicket;
 import br.com.kpc.drugstore.core.Ticket;
 import java.util.List;
 import javax.persistence.Query;
-import javax.swing.JOptionPane;
 
 /**
  *
