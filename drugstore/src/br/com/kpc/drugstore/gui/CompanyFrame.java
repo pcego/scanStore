@@ -928,7 +928,7 @@ public class CompanyFrame extends javax.swing.JFrame {
             return true;
         } catch (Exception e) {
             logger.error("ERRO ao gravar");
-            SystemMessage.showMessage(e, SystemMessage.ERROR, "Gravar Cliente");
+            SystemMessage.kpcShowMessage(e, SystemMessage.ERROR, "Gravar Cliente");
 
             return false;
         }
