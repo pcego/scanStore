@@ -81,7 +81,7 @@ public class Validacao {
         if (result.trim().length() < 1 || result == null) {
             result = "NO_CPU_ID";
         }
-        return  result.trim();
+        return result.trim();
     }
 
 //    public static void main(String[] args) {
