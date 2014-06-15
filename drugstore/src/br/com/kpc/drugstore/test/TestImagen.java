@@ -145,15 +145,17 @@ public class TestImagen extends javax.swing.JFrame {
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
 
         HashMap hm2 = new HashMap();
+        //sql base para geração de todos os relatórios para listagem de documentos
         StringBuilder sql_base = new StringBuilder("select cl.name, cl.cpf, cl.cpf_image, cl.rg_image, r.dt_recipe, r.recipe_type, \n" +
 "r.recipe_image, r.other_document, t.dt_shop, t.ticket_image, \n" +
 "t.ticket_number, t.auth_number from clients as cl INNER join recipes as r\n" +
 "on cl.clientId = r.CLIENT_clientId INNER join tickets as t\n" +
 "on r.recipeId = t.RECIPE_recipeId ");
         
+        //implementação dos filtros para relatórios de documentos
         String filtro = "WHERE cl.CPF = 95111212604 and "
                 + "r.recipeId = (select MAX(recipeId) from recipes where clientId = (select clientId from clients where cpf = 95111212604))";
-       // sql_base.append(filtro);
+        sql_base.append(filtro);
         hm2.put("query", sql_base);
        
         File rel = new File("C:\\scanStore\\drugstore\\src\\br\\com\\kpc\\drugstore\\relatorios\\documentos.jrxml");
