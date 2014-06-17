@@ -9,11 +9,13 @@ package br.com.kpc.validator.dao;
 import br.com.kpc.validator.core.ClientKpc;
 import br.com.kpc.validator.core.IRepositoryClientKpc;
 import java.util.List;
+import javax.ejb.Stateless;
 
 /**
  *
  * @author Dino
  */
+@Stateless
 public class ClientKpcDao extends GenericDao<ClientKpc> implements IRepositoryClientKpc {
 
     public ClientKpcDao() {
