@@ -8,11 +8,13 @@ package br.com.kpc.validator.dao;
 import br.com.kpc.validator.core.IRepositoryKeyComputer;
 import br.com.kpc.validator.core.KeyComputer;
 import java.util.List;
+import javax.ejb.Stateless;
 
 /**
  *
  * @author pcego
  */
+@Stateless
 public class KeyComputerDao extends GenericDao<KeyComputer> implements IRepositoryKeyComputer {
 
     public KeyComputerDao() {
