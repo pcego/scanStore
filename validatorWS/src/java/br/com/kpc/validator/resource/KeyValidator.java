@@ -15,7 +15,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 /**
  *
- * @author Dino
+ * @author pcego
  */
 @XmlRootElement
 @Path("/validar")
@@ -27,7 +27,7 @@ public class KeyValidator {
     @Produces(MediaType.APPLICATION_JSON)
     // anotation @Path define o caminho para o recurso
     @Path("/getKeyValidation/{key}")
-    public String keyValidatorGen(@PathParam("key") String param) throws NamingException {
+    public String keyValidatorGen(@PathParam("key") String param) {
 
         //implementar aqui a lógica de validação
         return "teste";
