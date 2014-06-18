@@ -149,7 +149,6 @@ public class Validador extends javax.swing.JFrame {
         tvCodInstalacao.setLineWrap(true);
         tvCodInstalacao.setRows(4);
         tvCodInstalacao.setTabSize(5);
-        tvCodInstalacao.setText("9RJJGodrChCgfWBoKlRoRUOJeu5K7m4e/3FsoVbxOknKw37nNZe2qmE5JUx75VgsNh63661V/iUSfvnuAgfxTARzgQbgl0Zr");
         tvCodInstalacao.setAutoscrolls(false);
         tvCodInstalacao.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Código de Instalação", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Arial", 1, 13))); // NOI18N
         jScrollPane1.setViewportView(tvCodInstalacao);
@@ -280,7 +279,7 @@ public class Validador extends javax.swing.JFrame {
             } else {
                 codInstalacao = codInstalacao + "false";
             }
-            System.out.println(codInstalacao);
+
             
             tvSerial.setText(seg.encrypt(codInstalacao.trim()));
         } catch (Exception ex) {
