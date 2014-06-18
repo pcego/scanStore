@@ -9,13 +9,17 @@ import br.com.kpc.drugstore.core.Company;
 import br.com.kpc.drugstore.service.Service;
 import br.com.kpc.drugstore.service.WindowInstance;
 import br.com.kpc.drugstore.util.Cryptography;
+import br.com.kpc.drugstore.util.FormatDate;
 import br.com.kpc.drugstore.util.KPCSeg;
 import br.com.kpc.drugstore.util.Mask;
-import br.com.kpc.drugstore.util.Validacao;
+import br.com.kpc.drugstore.util.SystemMessage;
+
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -76,11 +80,17 @@ public class Login extends javax.swing.JFrame {
         });
 
         tvSerial.setColumns(20);
-        tvSerial.setRows(5);
+        tvSerial.setLineWrap(true);
+        tvSerial.setRows(4);
+        tvSerial.setTabSize(3);
+        tvSerial.setAutoscrolls(false);
         jScrollPane1.setViewportView(tvSerial);
 
         tvCodInstalacao1.setColumns(20);
-        tvCodInstalacao1.setRows(5);
+        tvCodInstalacao1.setLineWrap(true);
+        tvCodInstalacao1.setRows(3);
+        tvCodInstalacao1.setTabSize(4);
+        tvCodInstalacao1.setAutoscrolls(false);
         jScrollPane2.setViewportView(tvCodInstalacao1);
 
         jButton2.setText("Validando Serial");
@@ -96,47 +106,42 @@ public class Login extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLabel1)
-                .addContainerGap(342, Short.MAX_VALUE))
-            .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jButton2)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGroup(layout.createSequentialGroup()
-                            .addGap(40, 40, 40)
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(30, 30, 30)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(jLabel3)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(tvSenha))
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(jLabel2)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                        .addComponent(tvCnpj, javax.swing.GroupLayout.PREFERRED_SIZE, 159, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addGap(69, 69, 69))
+                            .addComponent(jLabel1)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                .addComponent(jButton2)
                                 .addGroup(layout.createSequentialGroup()
-                                    .addComponent(jLabel3)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                    .addComponent(tvSenha))
-                                .addGroup(layout.createSequentialGroup()
-                                    .addComponent(jLabel2)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                    .addComponent(tvCnpj, javax.swing.GroupLayout.PREFERRED_SIZE, 159, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                        .addGroup(layout.createSequentialGroup()
-                            .addContainerGap()
-                            .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 358, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGroup(layout.createSequentialGroup()
-                            .addContainerGap()
+                                    .addComponent(jButton1)
+                                    .addGap(243, 243, 243))))
+                        .addComponent(jLabel4)
+                        .addGap(31, 31, 31))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 358, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 358, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGroup(layout.createSequentialGroup()
-                            .addContainerGap()
-                            .addComponent(jButton1))))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jLabel4)
-                .addContainerGap())
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLabel1)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jLabel4)
-                        .addGap(68, 68, 68))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(layout.createSequentialGroup()
+                        .addComponent(jLabel1)
                         .addGap(59, 59, 59)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel2)
@@ -146,14 +151,15 @@ public class Login extends javax.swing.JFrame {
                             .addComponent(jLabel3)
                             .addComponent(tvSenha, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jButton1)
-                        .addGap(13, 13, 13)
-                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jButton2)
-                        .addContainerGap())))
+                        .addComponent(jButton1))
+                    .addComponent(jLabel4))
+                .addGap(8, 8, 8)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 78, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jButton2)
+                .addContainerGap())
         );
 
         pack();
@@ -161,26 +167,21 @@ public class Login extends javax.swing.JFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         try {
-            String codInstalacao;
-//            Calendar c = Calendar.getInstance(); 
-//             c.add(Calendar.MONTH, 1);
-//             SimpleDateFormat sd = new SimpleDateFormat("dd/MM/yyyy"); 
-//             sd.format(c.getTime())//msotrar
+            String codInstall;
 
-           KPCSeg seg = new KPCSeg();
+            KPCSeg seg = new KPCSeg();
             Company company = new Company();
             company = Service.getIRepositoryCompany().getCompany();
 
-            // X, CNPJ, serial HD, serial CPU, DTVencimento, DTInstalacao
-            codInstalacao = "X,"
+            // X, CNPJ, serial HD, serial CPU, DTVencimento, DTInstall
+            codInstall = "X,"
                     + company.getCnpj() + ","
                     + seg.getHDSerial("c") + ","
                     + seg.getCPUSerial() + ","
                     + "00/00/0000" + ","
                     + new SimpleDateFormat("dd/MM/yyyy").format((new Date()));
-            System.out.println(codInstalacao);
-            tvCodInstalacao1.setText(seg.encrypt(codInstalacao));
-            tvSerial.setText(seg.decrypt(tvCodInstalacao1.getText()));
+            System.out.println(codInstall);
+            tvCodInstalacao1.setText(seg.encrypt(codInstall));
         } catch (Exception ex) {
             Logger.getLogger(Login.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -196,6 +197,49 @@ public class Login extends javax.swing.JFrame {
     }//GEN-LAST:event_formWindowOpened
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        String serialCompleto;
+        String detalhes[];
+        if (tvSerial.getText().trim().equals("")) {
+            SystemMessage.kpcShowMessage(null, SystemMessage.INFORMATION, "Favor informar o serial de instalação");
+            return;
+        }
+        try {
+            Company company = new Company();
+            company = Service.getIRepositoryCompany().getCompany();
+
+            KPCSeg seg = new KPCSeg();
+            serialCompleto = seg.decrypt(tvSerial.getText());
+            detalhes = serialCompleto.split(",");
+
+            // 0   1       2           3            4             5
+            // X, CNPJ, serial HD, serial CPU, DTVencimento, DTInstalacao
+            if (!company.getCnpj().trim().equals(detalhes[1])) {
+                SystemMessage.kpcShowMessage(null, SystemMessage.ERROR, "Serial inválido");
+                return;
+            }
+            if (!KPCSeg.getHDSerial("c").trim().equals(detalhes[2])) {
+                SystemMessage.kpcShowMessage(null, SystemMessage.ERROR, "Serial inválido");
+                return;
+            }
+            if (!KPCSeg.getCPUSerial().trim().equals(detalhes[3])) {
+                SystemMessage.kpcShowMessage(null, SystemMessage.ERROR, "Serial inválido");
+                return;
+            }
+            if (FormatDate.transformaData(detalhes[4]).before(new Date())) {
+                SystemMessage.kpcShowMessage(null, SystemMessage.ERROR, "Serial inválido");
+                return;
+            }
+            if (new Date().equals(new Date(detalhes[5]))) {
+                SystemMessage.kpcShowMessage(null, SystemMessage.ERROR, "Serial inválido");
+                return;
+            }
+
+//                    + new SimpleDateFormat("dd/MM/yyyy").format((new Date()));
+            //tvCodInstalacao1.setText(seg.encrypt(codInstalacao));
+            // tvSerial.setText();
+        } catch (Exception ex) {
+            Logger.getLogger(Login.class.getName()).log(Level.SEVERE, null, ex);
+        }
 
 
     }//GEN-LAST:event_jButton2ActionPerformed
@@ -204,7 +248,7 @@ public class Login extends javax.swing.JFrame {
         try {
             String codInstalacao;
 
-         KPCSeg seg = new KPCSeg();
+            KPCSeg seg = new KPCSeg();
             Company company = new Company();
             company = Service.getIRepositoryCompany().getCompany();
 
@@ -283,7 +327,7 @@ public class Login extends javax.swing.JFrame {
         Company company;
         company = Service.getIRepositoryCompany().getCompany();
 
-        registro = Cryptography.criptography(Mask.limparMaskCNPJ(company.getCnpj()) + Validacao.getHDSerial("c") + Validacao.getCPUSerial());
+        registro = Cryptography.criptography(Mask.limparMaskCNPJ(company.getCnpj()) + KPCSeg.getHDSerial("c") + KPCSeg.getCPUSerial());
 
         tvSerial.setText(registro);
     }
