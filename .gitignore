@@ -2,5 +2,6 @@
 /drugstore/dist/
 /drugstore/nbproject/
 /drugstore/private/
-*.xml
 /documentos
+/validatorWS/build/
+/validatorWS/dist/

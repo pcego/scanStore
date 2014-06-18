@@ -6,11 +6,6 @@
             <file>file:/C:/scanStore/drugstore/src/br/com/kpc/drugstore/gui/Main.java</file>
             <file>file:/C:/scanStore/drugstore/src/br/com/kpc/drugstore/gui/ClienteFrame.java</file>
         </group>
-        <group>
-            <file>file:/C:/scanStore/drugstore/src/br/com/kpc/drugstore/relatorios/RelClientsByStatus.jrxml</file>
-            <file>file:/C:/scanStore/drugstore/src/br/com/kpc/drugstore/core/Ticket.java</file>
-            <file>file:/C:/scanStore/drugstore/src/br/com/kpc/drugstore/test/TestImagen.java</file>
-            <file>file:/C:/scanStore/drugstore/src/br/com/kpc/drugstore/relatorios/documentos.jrxml</file>
-        </group>
+        <group/>
     </open-files>
 </project-private>
