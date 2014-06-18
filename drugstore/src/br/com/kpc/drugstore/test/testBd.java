@@ -9,9 +9,7 @@ import br.com.kpc.drugstore.core.Client;
 import br.com.kpc.drugstore.core.Company;
 import br.com.kpc.drugstore.core.IRepositoryClient;
 import br.com.kpc.drugstore.core.IRepositoryCompany;
-import br.com.kpc.drugstore.dao.DaoClient;
 import br.com.kpc.drugstore.dao.DaoCompany;
-import br.com.kpc.drugstore.service.Service;
 import java.util.Calendar;
 import javax.naming.NamingException;
 
