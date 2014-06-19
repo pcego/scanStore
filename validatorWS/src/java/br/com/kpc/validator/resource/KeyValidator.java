@@ -10,7 +10,6 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.naming.NamingException;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
@@ -42,7 +41,7 @@ public class KeyValidator {
     @Path("/getKeyValidation/{key}")
     public String keyValidatorGen(@PathParam("key") String param) {
         try {
-            carregaDados(param);
+            carregaDados(param.replace("@", "/"));
             
             String codInstalacao;
             KPCSeg seg = new KPCSeg();
