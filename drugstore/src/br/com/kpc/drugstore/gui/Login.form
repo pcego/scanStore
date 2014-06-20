@@ -52,7 +52,7 @@
                           <Group type="103" alignment="0" groupAlignment="1" attributes="0">
                               <Component id="jButton2" min="-2" max="-2" attributes="0"/>
                               <Group type="102" attributes="0">
-                                  <Component id="jButton1" min="-2" max="-2" attributes="0"/>
+                                  <Component id="btChaveInstalacao" min="-2" max="-2" attributes="0"/>
                                   <EmptySpace min="-2" pref="243" max="-2" attributes="0"/>
                               </Group>
                           </Group>
@@ -89,7 +89,7 @@
                           <Component id="tvSenha" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                      <Component id="jButton1" min="-2" max="-2" attributes="0"/>
+                      <Component id="btChaveInstalacao" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <Component id="jLabel4" min="-2" max="-2" attributes="0"/>
               </Group>
@@ -133,12 +133,12 @@
         </Property>
       </Properties>
     </Component>
-    <Component class="javax.swing.JButton" name="jButton1">
+    <Component class="javax.swing.JButton" name="btChaveInstalacao">
       <Properties>
         <Property name="text" type="java.lang.String" value="Chave instala&#xe7;&#xe3;o"/>
       </Properties>
       <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButton1ActionPerformed"/>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btChaveInstalacaoActionPerformed"/>
       </Events>
     </Component>
     <Container class="javax.swing.JScrollPane" name="jScrollPane1">

@@ -8,18 +8,22 @@ package br.com.kpc.drugstore.gui;
 import br.com.kpc.drugstore.core.Company;
 import br.com.kpc.drugstore.service.Service;
 import br.com.kpc.drugstore.service.WindowInstance;
+import br.com.kpc.drugstore.util.Config;
 import br.com.kpc.drugstore.util.Cryptography;
 import br.com.kpc.drugstore.util.FormatDate;
 import br.com.kpc.drugstore.util.KPCSeg;
 import br.com.kpc.drugstore.util.Mask;
 import br.com.kpc.drugstore.util.SystemMessage;
-
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+import java.net.URL;
 import java.text.SimpleDateFormat;
-import java.util.Calendar;
 import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.swing.JOptionPane;
+import static org.eclipse.persistence.jpa.jpql.utility.CollectionTools.array;
+import static org.hibernate.type.TypeFactory.array;
+import org.json.JSONObject;
 
 /**
  *
@@ -49,7 +53,7 @@ public class Login extends javax.swing.JFrame {
         tvCnpj = new javax.swing.JTextField();
         tvSenha = new javax.swing.JTextField();
         jLabel4 = new javax.swing.JLabel();
-        jButton1 = new javax.swing.JButton();
+        btChaveInstalacao = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         tvSerial = new javax.swing.JTextArea();
         jScrollPane2 = new javax.swing.JScrollPane();
@@ -72,10 +76,10 @@ public class Login extends javax.swing.JFrame {
 
         jLabel4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/kpc/drugstore/img/Login.png"))); // NOI18N
 
-        jButton1.setText("Chave instalação");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        btChaveInstalacao.setText("Chave instalação");
+        btChaveInstalacao.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                btChaveInstalacaoActionPerformed(evt);
             }
         });
 
@@ -125,7 +129,7 @@ public class Login extends javax.swing.JFrame {
                             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                                 .addComponent(jButton2)
                                 .addGroup(layout.createSequentialGroup()
-                                    .addComponent(jButton1)
+                                    .addComponent(btChaveInstalacao)
                                     .addGap(243, 243, 243))))
                         .addComponent(jLabel4)
                         .addGap(31, 31, 31))
@@ -151,7 +155,7 @@ public class Login extends javax.swing.JFrame {
                             .addComponent(jLabel3)
                             .addComponent(tvSenha, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jButton1))
+                        .addComponent(btChaveInstalacao))
                     .addComponent(jLabel4))
                 .addGap(8, 8, 8)
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -165,7 +169,7 @@ public class Login extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void btChaveInstalacaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btChaveInstalacaoActionPerformed
         try {
             String codInstall;
 
@@ -180,12 +184,22 @@ public class Login extends javax.swing.JFrame {
                     + seg.getCPUSerial() + ","
                     + "00/00/0000" + ","
                     + new SimpleDateFormat("dd/MM/yyyy").format((new Date()));
-            System.out.println(codInstall);
-            tvCodInstalacao1.setText(seg.encrypt(codInstall));
+            
+            tvCodInstalacao1.setText(seg.encrypt(codInstall).replace("/", "@").trim()); 
+            
+        URL url = new URL( Config.URLWEBSERVICEVALIDACAO + seg.encrypt(codInstall).replace("/", "@").trim() );
+        BufferedReader in = new BufferedReader(new InputStreamReader(url.openStream()));
+        
+        tvSerial.setText(in.readLine());
+        System.out.println("Res " + in.readLine());
+        
         } catch (Exception ex) {
             Logger.getLogger(Login.class.getName()).log(Level.SEVERE, null, ex);
         }
-    }//GEN-LAST:event_jButton1ActionPerformed
+
+
+        
+    }//GEN-LAST:event_btChaveInstalacaoActionPerformed
 
     private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
 
@@ -308,7 +322,7 @@ public class Login extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
+    private javax.swing.JButton btChaveInstalacao;
     private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
