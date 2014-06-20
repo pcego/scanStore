@@ -13,7 +13,7 @@ import javax.ejb.Stateless;
 
 /**
  *
- * @author Dino
+ * @author pcego
  */
 @Stateless
 public class ClientKpcDao extends GenericDao<ClientKpc> implements IRepositoryClientKpc {

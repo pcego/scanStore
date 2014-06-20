@@ -5,7 +5,6 @@
  */
 package br.com.kpc.validator.resource;
 
-import javax.naming.NamingException;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
@@ -30,7 +29,7 @@ public class KeyValidator {
     public String keyValidatorGen(@PathParam("key") String param) {
 
         //implementar aqui a lógica de validação
-        return "teste";
+        return param;
     }
 
 }
