@@ -9,6 +9,7 @@ import br.com.kpc.validator.core.IRepositoryKeyComputer;
 import br.com.kpc.validator.core.KeyComputer;
 import java.util.List;
 import javax.ejb.Stateless;
+import javax.persistence.Query;
 
 /**
  *
@@ -23,12 +24,34 @@ public class KeyComputerDao extends GenericDao<KeyComputer> implements IReposito
 
     @Override
     public KeyComputer lastKeyOfComputer(String hdNumber) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+
+        try {
+
+            Query query = getManager().createQuery("select k from KeyComputer k where "
+                    + "k.computer.hdNumber = :hdNumber and k.id = "
+                    + "(select MAX(kc.id) from KeyComputer kc where kc.computer.hdNumber = :hdNumber");
+            query.setParameter("hdNumber", hdNumber);
+            return (KeyComputer) query.getSingleResult();
+
+        } catch (Exception ex) {
+            ex.printStackTrace();
+            return null;
+        }
     }
 
     @Override
     public List<KeyComputer> listAllKeysByComputer(String hdNumber) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+
+        try {
+
+            Query query = getManager().createQuery("select k from KeyComputer k where k.computer.hdNumber = :hdNumber");
+            query.setParameter("hdNumber", hdNumber);
+            return query.getResultList();
+
+        } catch (Exception ex) {
+            ex.printStackTrace();
+            return null;
+        }
     }
 
 }
