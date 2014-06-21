@@ -5,3 +5,4 @@
 /documentos
 /validatorWS/build/
 /validatorWS/dist/
+*.xml
