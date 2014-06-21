@@ -16,5 +16,6 @@ import javax.ejb.Remote;
 public interface IRepositoryComputer extends IRepository<Computer> {
 
     List<Computer> listByClient(String cpfCnpj);
+    Computer getComputerByhdNumber(String hdNumber);
     
 }
