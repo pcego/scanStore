@@ -5,14 +5,11 @@
  */
 package br.com.kpc.validator.resource;
 
-<<<<<<< HEAD
-=======
 import br.com.kpc.validator.service.KPCSeg;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.logging.Level;
 import java.util.logging.Logger;
->>>>>>> 4ef756c9ee758d249ac81d03f6bac48a38fe0e72
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
@@ -35,7 +32,7 @@ public class KeyValidator {
     private String dtValidade;
     private boolean ativo;
     private String serial;
-    
+
     // anotation @GET define o método HTTP ao qual o recurso responde
     @GET
     // anotation @Produces define o tipo de retorno do recurso
@@ -45,7 +42,7 @@ public class KeyValidator {
     public String keyValidatorGen(@PathParam("key") String param) {
         try {
             carregaDados(param.replace("@", "/"));
-            
+
             String codInstalacao;
             KPCSeg seg = new KPCSeg();
             ativo = true;
@@ -62,22 +59,17 @@ public class KeyValidator {
                 codInstalacao = codInstalacao + "false";
             }
 
-            
             serial = (seg.encrypt(codInstalacao.trim()));
-          
+
         } catch (Exception ex) {
             Logger.getLogger(KeyValidator.class.getName()).log(Level.SEVERE, null, ex);
         }
-        //implementar aqui a lógica de validação
-<<<<<<< HEAD
-        return param;
-=======
-        return serial ;
->>>>>>> 4ef756c9ee758d249ac81d03f6bac48a38fe0e72
+
+        return serial;
+
     }
-    
-    
-    private void carregaDados(String param){
+
+    private void carregaDados(String param) {
         String serialCompleto;
         String detalhes[];
 
@@ -111,6 +103,5 @@ public class KeyValidator {
         }
 
     }
-    
 
 }
