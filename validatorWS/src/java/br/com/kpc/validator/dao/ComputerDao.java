@@ -9,6 +9,7 @@ import br.com.kpc.validator.core.Computer;
 import br.com.kpc.validator.core.IRepositoryComputer;
 import java.util.List;
 import javax.ejb.Stateless;
+import javax.persistence.Query;
 
 /**
  *
@@ -23,8 +24,32 @@ public class ComputerDao extends GenericDao<Computer> implements IRepositoryComp
 
     @Override
     public List<Computer> listByClient(String cpfCnpj) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+
+        try {
+
+            Query query = getManager().createQuery("select cp from Computer cp where cp.client.cpf_Cnpj = :cpf_Cnpj");
+            query.setParameter("cpf_Cnpj", cpfCnpj);
+            return query.getResultList();
+
+        } catch (Exception ex) {
+            ex.printStackTrace();
+            return null;
+        }
     }
-    
+
+    @Override
+    public Computer getComputerByhdNumber(String hdNumber) {
+
+        try {
+
+            Query query = getManager().createQuery("select cp from Computer cp where cp.hdNumber = :hdNumber");
+            query.setParameter("hdNumber", hdNumber);
+            return (Computer) query.getSingleResult();
+
+        } catch (Exception ex) {
+            ex.printStackTrace();
+            return null;
+        }
+    }
 
 }
