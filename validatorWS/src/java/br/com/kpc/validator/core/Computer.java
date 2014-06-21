@@ -34,7 +34,7 @@ public class Computer implements Serializable {
 
     public Computer() {
     }
-    
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "codComputer")
@@ -50,7 +50,13 @@ public class Computer implements Serializable {
 
     @Column(nullable = false)
     private boolean ctrPay;
-    
+
+    @Column(nullable = false, unique = true)
+    private String hdNumber;
+
+    @Column(nullable = false, unique = true)
+    private String mBoardNumber;
+
     @ManyToOne(cascade = CascadeType.MERGE)
     @JoinColumn(nullable = false, referencedColumnName = "codClient")
     private ClientKpc client;
@@ -88,6 +94,22 @@ public class Computer implements Serializable {
 
     public void setCtrPay(boolean ctrPay) {
         this.ctrPay = ctrPay;
+    }
+
+    public String getHdNumber() {
+        return hdNumber;
+    }
+
+    public void setHdNumber(String hdNumber) {
+        this.hdNumber = hdNumber;
+    }
+
+    public String getmBoardNumber() {
+        return mBoardNumber;
+    }
+
+    public void setmBoardNumber(String mBoardNumber) {
+        this.mBoardNumber = mBoardNumber;
     }
 
     public ClientKpc getClient() {
