@@ -54,11 +54,7 @@ public class Login extends javax.swing.JFrame {
         tvSenha = new javax.swing.JTextField();
         jLabel4 = new javax.swing.JLabel();
         btChaveInstalacao = new javax.swing.JButton();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        tvSerial = new javax.swing.JTextArea();
-        jScrollPane2 = new javax.swing.JScrollPane();
-        tvCodInstalacao1 = new javax.swing.JTextArea();
-        jButton2 = new javax.swing.JButton();
+        lbAguarde = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setResizable(false);
@@ -74,35 +70,18 @@ public class Login extends javax.swing.JFrame {
 
         jLabel3.setText("Senha:");
 
+        tvCnpj.setEnabled(false);
+
         jLabel4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/kpc/drugstore/img/Login.png"))); // NOI18N
 
-        btChaveInstalacao.setText("Chave instalação");
+        btChaveInstalacao.setText("Gerar Chave.");
         btChaveInstalacao.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btChaveInstalacaoActionPerformed(evt);
             }
         });
 
-        tvSerial.setColumns(20);
-        tvSerial.setLineWrap(true);
-        tvSerial.setRows(4);
-        tvSerial.setTabSize(3);
-        tvSerial.setAutoscrolls(false);
-        jScrollPane1.setViewportView(tvSerial);
-
-        tvCodInstalacao1.setColumns(20);
-        tvCodInstalacao1.setLineWrap(true);
-        tvCodInstalacao1.setRows(3);
-        tvCodInstalacao1.setTabSize(4);
-        tvCodInstalacao1.setAutoscrolls(false);
-        jScrollPane2.setViewportView(tvCodInstalacao1);
-
-        jButton2.setText("Validando Serial");
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
-            }
-        });
+        lbAguarde.setText("Aguarde...");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -125,19 +104,17 @@ public class Login extends javax.swing.JFrame {
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                         .addComponent(tvCnpj, javax.swing.GroupLayout.PREFERRED_SIZE, 159, javax.swing.GroupLayout.PREFERRED_SIZE)))
                                 .addGap(69, 69, 69))
-                            .addComponent(jLabel1)
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                .addComponent(jButton2)
-                                .addGroup(layout.createSequentialGroup()
-                                    .addComponent(btChaveInstalacao)
-                                    .addGap(243, 243, 243))))
+                            .addComponent(jLabel1))
                         .addComponent(jLabel4)
-                        .addGap(31, 31, 31))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 358, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 358, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                        .addGap(34, 34, 34))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(btChaveInstalacao)
+                        .addGap(75, 75, 75))))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(lbAguarde)
+                .addGap(98, 98, 98))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -154,28 +131,30 @@ public class Login extends javax.swing.JFrame {
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel3)
                             .addComponent(tvSenha, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(btChaveInstalacao))
+                        .addGap(34, 34, 34))
                     .addComponent(jLabel4))
-                .addGap(8, 8, 8)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 78, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(btChaveInstalacao)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jButton2)
-                .addContainerGap())
+                .addComponent(lbAguarde))
         );
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
+    private Company company = new Company();
+    private String serialCompleto;
+    private String[] serialDetalhes;
+    private String retornoWS;
+
     private void btChaveInstalacaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btChaveInstalacaoActionPerformed
+
+        btChaveInstalacao.setEnabled(false);
+        lbAguarde.setVisible(true);
         try {
             String codInstall;
-
             KPCSeg seg = new KPCSeg();
-            Company company = new Company();
-            company = Service.getIRepositoryCompany().getCompany();
 
             // X, CNPJ, serial HD, serial CPU, DTVencimento, DTInstall
             codInstall = "X,"
@@ -184,103 +163,112 @@ public class Login extends javax.swing.JFrame {
                     + seg.getCPUSerial() + ","
                     + "00/00/0000" + ","
                     + new SimpleDateFormat("dd/MM/yyyy").format((new Date()));
-            
-            tvCodInstalacao1.setText(seg.encrypt(codInstall).replace("/", "@").trim()); 
-            
-        URL url = new URL( Config.URLWEBSERVICEVALIDACAO + seg.encrypt(codInstall).replace("/", "@").trim() );
-        BufferedReader in = new BufferedReader(new InputStreamReader(url.openStream()));
-        
-        tvSerial.setText(in.readLine());
-        System.out.println("Res " + in.readLine());
-        
+
+            URL url = new URL(Config.URLWEBSERVICEVALIDACAO + seg.encrypt(codInstall).replace("/", "@").trim());
+            BufferedReader in = new BufferedReader(new InputStreamReader(url.openStream()));
+
+            retornoWS = in.readLine();
+            System.out.println("Res " + retornoWS);
+            if (validarSerial(retornoWS)) {
+                tvCnpj.setText(serialDetalhes[1]);
+            }
+
+            btChaveInstalacao.setEnabled(true);
+            lbAguarde.setVisible(false);
         } catch (Exception ex) {
+            btChaveInstalacao.setEnabled(true);
+            lbAguarde.setVisible(false);
             Logger.getLogger(Login.class.getName()).log(Level.SEVERE, null, ex);
         }
 
 
-        
     }//GEN-LAST:event_btChaveInstalacaoActionPerformed
 
     private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
-
+        lbAguarde.setVisible(false);
         if (Service.getIRepositoryCompany().getCompany() == null) {
             WindowInstance.getInstance(WindowInstance.COMPANYWINDOW).setVisible(true);
             this.dispose();
         }
+        company = Service.getIRepositoryCompany().getCompany();
+        if (company.getCnpj() != null) {
+            tvCnpj.setText(company.getCnpj());
+        }
 
     }//GEN-LAST:event_formWindowOpened
 
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        String serialCompleto;
-        String detalhes[];
-        if (tvSerial.getText().trim().equals("")) {
+    private boolean validarSerial(String key) {
+
+        if (key.trim().equals("")) {
             SystemMessage.kpcShowMessage(null, SystemMessage.INFORMATION, "Favor informar o serial de instalação");
-            return;
+            return false;
         }
         try {
-            Company company = new Company();
-            company = Service.getIRepositoryCompany().getCompany();
 
             KPCSeg seg = new KPCSeg();
-            serialCompleto = seg.decrypt(tvSerial.getText());
-            detalhes = serialCompleto.split(",");
+            serialCompleto = seg.decrypt(key);
+            serialDetalhes = serialCompleto.split(",");
 
             // 0   1       2           3            4             5
             // X, CNPJ, serial HD, serial CPU, DTVencimento, DTInstalacao
-            if (!company.getCnpj().trim().equals(detalhes[1])) {
-                SystemMessage.kpcShowMessage(null, SystemMessage.ERROR, "Serial inválido");
-                return;
+            //Valida CNPJ = do Banco
+            if (!company.getCnpj().trim().equals(serialDetalhes[1])) {
+                SystemMessage.kpcShowMessage(null, SystemMessage.ERROR, "Serial inválido 001");
+                return false;
             }
-            if (!KPCSeg.getHDSerial("c").trim().equals(detalhes[2])) {
-                SystemMessage.kpcShowMessage(null, SystemMessage.ERROR, "Serial inválido");
-                return;
+            //Valida Serial HD
+            if (!KPCSeg.getHDSerial("c").trim().equals(serialDetalhes[2])) {
+                SystemMessage.kpcShowMessage(null, SystemMessage.ERROR, "Serial inválido 002");
+                return false;
             }
-            if (!KPCSeg.getCPUSerial().trim().equals(detalhes[3])) {
-                SystemMessage.kpcShowMessage(null, SystemMessage.ERROR, "Serial inválido");
-                return;
+            //Valida Serial CPU
+            if (!KPCSeg.getCPUSerial().trim().equals(serialDetalhes[3])) {
+                SystemMessage.kpcShowMessage(null, SystemMessage.ERROR, "Serial inválido 003");
+                return false;
             }
-            if (FormatDate.transformaData(detalhes[4]).before(new Date())) {
-                SystemMessage.kpcShowMessage(null, SystemMessage.ERROR, "Serial inválido");
-                return;
+            //Valida Data Vencimento
+            if (FormatDate.transformaData(serialDetalhes[4]).before(new Date())) {
+                SystemMessage.kpcShowMessage(null, SystemMessage.ERROR, "Serial inválido 004");
+                return false;
             }
-            if (new Date().equals(new Date(detalhes[5]))) {
-                SystemMessage.kpcShowMessage(null, SystemMessage.ERROR, "Serial inválido");
-                return;
+            //Valida se a data atual é a data da instalação
+            if (new Date().equals(new Date(serialDetalhes[5]))) {
+                SystemMessage.kpcShowMessage(null, SystemMessage.ERROR, "Serial inválido 005");
+                return false;
             }
 
 //                    + new SimpleDateFormat("dd/MM/yyyy").format((new Date()));
             //tvCodInstalacao1.setText(seg.encrypt(codInstalacao));
             // tvSerial.setText();
         } catch (Exception ex) {
+            SystemMessage.kpcShowMessage(null, SystemMessage.ERROR, "Serial inválido 007");
             Logger.getLogger(Login.class.getName()).log(Level.SEVERE, null, ex);
+            return false;
         }
-
-
-    }//GEN-LAST:event_jButton2ActionPerformed
-
-    public void validarSerial(String key) {
-        try {
-            String codInstalacao;
-
-            KPCSeg seg = new KPCSeg();
-            Company company = new Company();
-            company = Service.getIRepositoryCompany().getCompany();
-
-            // X, CNPJ, serial HD, serial CPU, DTVencimento, DTInstalacao
-            codInstalacao = "X,"
-                    + company.getCnpj() + ","
-                    + seg.getHDSerial("c") + ","
-                    + seg.getCPUSerial() + ","
-                    + "00/00/0000" + ","
-                    + new SimpleDateFormat("dd/MM/yyyy").format((new Date()));
-            System.out.println(codInstalacao);
-            tvCodInstalacao1.setText(seg.encrypt(codInstalacao));
-            tvSerial.setText(seg.decrypt(tvCodInstalacao1.getText()));
-        } catch (Exception ex) {
-            Logger.getLogger(Login.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        return true;
     }
 
+//    public void validarSerial(String key) {
+//        try {
+//            String codInstalacao;
+//
+//            KPCSeg seg = new KPCSeg();
+//            Company company = new Company();
+//            company = Service.getIRepositoryCompany().getCompany();
+//
+//            // X, CNPJ, serial HD, serial CPU, DTVencimento, DTInstalacao
+//            codInstalacao = "X,"
+//                    + company.getCnpj() + ","
+//                    + seg.getHDSerial("c") + ","
+//                    + seg.getCPUSerial() + ","
+//                    + "00/00/0000" + ","
+//                    + new SimpleDateFormat("dd/MM/yyyy").format((new Date()));
+//          
+//            tvSerial.setText(seg.decrypt(key));
+//        } catch (Exception ex) {
+//            Logger.getLogger(Login.class.getName()).log(Level.SEVERE, null, ex);
+//        }
+//    }
     /**
      * @param args the command line arguments
      */
@@ -323,27 +311,23 @@ public class Login extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btChaveInstalacao;
-    private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
-    private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JLabel lbAguarde;
     private javax.swing.JTextField tvCnpj;
-    private javax.swing.JTextArea tvCodInstalacao1;
     private javax.swing.JTextField tvSenha;
-    private javax.swing.JTextArea tvSerial;
     // End of variables declaration//GEN-END:variables
 
-    private void validarNoService() {
-        String registro;
-        Company company;
-        company = Service.getIRepositoryCompany().getCompany();
-
-        registro = Cryptography.criptography(Mask.limparMaskCNPJ(company.getCnpj()) + KPCSeg.getHDSerial("c") + KPCSeg.getCPUSerial());
-
-        tvSerial.setText(registro);
-    }
-
+//-------------------Comentado para remover
+//    private void validarNoService() {
+//        String registro;
+//        Company company;
+//        company = Service.getIRepositoryCompany().getCompany();
+//
+//        registro = Cryptography.criptography(Mask.limparMaskCNPJ(company.getCnpj()) + KPCSeg.getHDSerial("c") + KPCSeg.getCPUSerial());
+//
+//        tvSerial.setText(registro);
+//    }
 }
