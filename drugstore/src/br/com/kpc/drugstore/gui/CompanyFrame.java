@@ -8,6 +8,7 @@ package br.com.kpc.drugstore.gui;
 import br.com.kpc.drugstore.core.Company;
 import br.com.kpc.drugstore.service.Service;
 import br.com.kpc.drugstore.tableModel.TableModelCompany;
+import br.com.kpc.drugstore.util.Cryptography;
 import br.com.kpc.drugstore.util.FormatDate;
 import br.com.kpc.drugstore.util.Mask;
 import br.com.kpc.drugstore.util.SystemMessage;
@@ -611,7 +612,7 @@ public class CompanyFrame extends javax.swing.JFrame {
 
         //Se não tiver nenhuma empresa selecionada.
         if (tvCompanyId.getText().trim().equals("")) {
-            JOptionPane.showMessageDialog(this, "Favor selecionar uma empresa");
+            SystemMessage.kpcShowMessage(null, SystemMessage.INFORMATION, "Favor selecionar uma empresa");
             return;
         }
 
@@ -627,7 +628,7 @@ public class CompanyFrame extends javax.swing.JFrame {
             case "U":
                 retorno = update();
                 if (retorno) {
-                    JOptionPane.showMessageDialog(this, "Atualizado");
+                    SystemMessage.kpcShowMessage(null, SystemMessage.INFORMATION, "Atualizado");
                     btTypeDefault();
                     loadingTable();
 
@@ -636,7 +637,8 @@ public class CompanyFrame extends javax.swing.JFrame {
             case "I":
                 retorno = insert();
                 if (retorno) {
-                    JOptionPane.showMessageDialog(this, "Gravado");
+                    SystemMessage.kpcShowMessage(null, SystemMessage.INFORMATION, "Gravado");
+
                     btTypeDefault();
                     limparCampos();
                     loadingTable();
@@ -653,7 +655,7 @@ public class CompanyFrame extends javax.swing.JFrame {
 
                 retorno = delete();
                 if (retorno) {
-                    JOptionPane.showMessageDialog(this, "Excluido");
+                    SystemMessage.kpcShowMessage(null, SystemMessage.INFORMATION, "Excluido");
                     btTypeDefault();
                     limparCampos();
                     loadingTable();
@@ -681,7 +683,7 @@ public class CompanyFrame extends javax.swing.JFrame {
     private void btCancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btCancelActionPerformed
         //Se não tiver nenhuma empresa selecionada.
         if (tvCompanyId.getText().trim().equals("")) {
-            JOptionPane.showMessageDialog(this, "Favor selecionar uma empresa");
+            SystemMessage.kpcShowMessage(null, SystemMessage.INFORMATION, "Favor selecionar uma empresa");
             return;
         }
         btTypeDefault();
@@ -887,14 +889,14 @@ public class CompanyFrame extends javax.swing.JFrame {
             companyVG.setAdress_neighborhood(tvAdressNeighborhood.getText());
             companyVG.setAdress_city(tvAdressCity.getText());
             companyVG.setDateExpire(new Date(tvDataExpire.getText()));
-            companyVG.setPasswd(new String(tvSenha.getPassword()));
+            companyVG.setPasswd( Cryptography.criptography(new String (tvSenha.getPassword())) );
             companyVG.setUser(tvLogin.getText().trim());
             Service.getIRepositoryCompany().atualizar(companyVG);
             logger.info("Alterado com sucesso");
             return true;
         } catch (Exception e) {
             logger.info("ERRO ao alterar");
-            JOptionPane.showMessageDialog(this, "Deu erro: " + e);
+           SystemMessage.kpcShowMessage(e, SystemMessage.INFORMATION, "Deu erro: ");
             return false;
         }
 
@@ -920,7 +922,7 @@ public class CompanyFrame extends javax.swing.JFrame {
             companyVG.setAdress_neighborhood(tvAdressNeighborhood.getText());
             companyVG.setAdress_city(tvAdressCity.getText());
             companyVG.setDateExpire(new Date(tvDataExpire.getText()));
-            companyVG.setPasswd(new String(tvSenha.getPassword()));
+            companyVG.setPasswd( Cryptography.criptography(new String (tvSenha.getPassword())) );
             companyVG.setUser(tvLogin.getText().trim());
 
             Service.getIRepositoryCompany().salvar(companyVG);
@@ -941,7 +943,7 @@ public class CompanyFrame extends javax.swing.JFrame {
             return true;
         } catch (Exception e) {
             logger.error("ERRO ao Excluir");
-            JOptionPane.showMessageDialog(this, "Deu erro: " + e);
+            SystemMessage.kpcShowMessage(e, SystemMessage.ERROR, "Ao deletar:");
             return false;
         }
     }
@@ -995,7 +997,7 @@ public class CompanyFrame extends javax.swing.JFrame {
 
     private boolean validarCNPJ() {
         if (!Mask.validaCpfCnpj(tvCNPJ.getText())) {
-            JOptionPane.showMessageDialog(this, "CNPJ digitado é inválido");
+            SystemMessage.kpcShowMessage(null, SystemMessage.INFORMATION, "CNPJ digitado é inválido");
             return false;
         }
         return true;
