@@ -51,10 +51,11 @@ public class Login extends javax.swing.JFrame {
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         tvCnpj = new javax.swing.JTextField();
-        tvSenha = new javax.swing.JTextField();
         jLabel4 = new javax.swing.JLabel();
         btChaveInstalacao = new javax.swing.JButton();
         lbAguarde = new javax.swing.JLabel();
+        jButton1 = new javax.swing.JButton();
+        tvSenha = new javax.swing.JPasswordField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setResizable(false);
@@ -83,6 +84,15 @@ public class Login extends javax.swing.JFrame {
 
         lbAguarde.setText("Aguarde...");
 
+        jButton1.setText("Validar");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+
+        tvSenha.setText("jPasswordField1");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -95,16 +105,16 @@ public class Login extends javax.swing.JFrame {
                             .addGroup(layout.createSequentialGroup()
                                 .addGap(30, 30, 30)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addComponent(jLabel3)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(tvSenha))
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addComponent(jLabel2)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                        .addComponent(tvCnpj, javax.swing.GroupLayout.PREFERRED_SIZE, 159, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                                .addGap(69, 69, 69))
+                                    .addComponent(jLabel2)
+                                    .addComponent(jLabel3))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(tvCnpj, javax.swing.GroupLayout.DEFAULT_SIZE, 159, Short.MAX_VALUE)
+                                    .addComponent(tvSenha))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(jButton1))
                             .addComponent(jLabel1))
+                        .addGap(12, 12, 12)
                         .addComponent(jLabel4)
                         .addGap(34, 34, 34))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
@@ -130,8 +140,9 @@ public class Login extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel3)
+                            .addComponent(jButton1)
                             .addComponent(tvSenha, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(34, 34, 34))
+                        .addGap(32, 32, 32))
                     .addComponent(jLabel4))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btChaveInstalacao)
@@ -196,6 +207,18 @@ public class Login extends javax.swing.JFrame {
         }
 
     }//GEN-LAST:event_formWindowOpened
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+
+        if ((Cryptography.criptography(new String(tvSenha.getPassword()))).equals(company.getPasswd())) {
+            WindowInstance.getInstance(WindowInstance.PRINCIPAL).setVisible(true);
+            this.dispose();
+        } else{
+            SystemMessage.kpcShowMessage(null, SystemMessage.INFORMATION, "Senha inválida!");
+        }
+            
+
+    }//GEN-LAST:event_jButton1ActionPerformed
 
     private boolean validarSerial(String key) {
 
@@ -311,13 +334,14 @@ public class Login extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btChaveInstalacao;
+    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel lbAguarde;
     private javax.swing.JTextField tvCnpj;
-    private javax.swing.JTextField tvSenha;
+    private javax.swing.JPasswordField tvSenha;
     // End of variables declaration//GEN-END:variables
 
 //-------------------Comentado para remover
