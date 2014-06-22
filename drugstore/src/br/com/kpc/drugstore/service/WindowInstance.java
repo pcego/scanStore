@@ -8,6 +8,7 @@ package br.com.kpc.drugstore.service;
 import br.com.kpc.drugstore.gui.ClienteFrame;
 import br.com.kpc.drugstore.gui.CompanyFrame;
 import br.com.kpc.drugstore.gui.ConsultarCliente;
+import br.com.kpc.drugstore.gui.Main;
 import br.com.kpc.drugstore.gui.RecipeFrame;
 import br.com.kpc.drugstore.gui.Sobre;
 import javax.swing.JFrame;
@@ -23,12 +24,14 @@ public class WindowInstance {
     private static RecipeFrame recipe;
     private static ConsultarCliente search;
     private static Sobre sobre;
+    private static Main principal;
 
     public static final int CLIENTWINDOW = 1;
     public static final int COMPANYWINDOW = 2;
     public static final int RECIPEWINDOW = 3;
     public static final int SEARCHWINDOW = 4;
     public static final int SOBREWINDOW = 5;
+    public static final int PRINCIPAL = 6;
 
     public static JFrame getInstance(int id) {
 
@@ -68,6 +71,13 @@ public class WindowInstance {
                     sobre = new Sobre();
                 }
                 return sobre;
+            
+            case PRINCIPAL:
+
+                if (principal == null) {
+                    principal = new Main();
+                }
+                return principal;
 
             default:
                 return null;
