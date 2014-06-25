@@ -5,11 +5,19 @@
  */
 package br.com.kpc.validator.resource;
 
+import br.com.kpc.validator.core.ClientKpc;
+import br.com.kpc.validator.core.Computer;
+import br.com.kpc.validator.core.IRepositoryClientKpc;
+import br.com.kpc.validator.core.IRepositoryComputer;
+import br.com.kpc.validator.dao.ComputerDao;
+import br.com.kpc.validator.service.ContextoInicial;
 import br.com.kpc.validator.service.KPCSeg;
+import com.sun.xml.wss.util.DateUtils;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.naming.NamingException;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
@@ -32,6 +40,12 @@ public class KeyValidator {
     private String dtValidade;
     private boolean ativo;
     private String serial;
+    private Computer computer = new Computer();
+    private ClientKpc clientKpc = new ClientKpc();
+    private IRepositoryComputer rpComputer;
+    private IRepositoryClientKpc rpClientKpc;
+    private Calendar c = Calendar.getInstance();
+    SimpleDateFormat sd = new SimpleDateFormat("dd/MM/yyyy");
 
     // anotation @GET define o método HTTP ao qual o recurso responde
     @GET
@@ -41,7 +55,44 @@ public class KeyValidator {
     @Path("/getKeyValidation/{key}")
     public String keyValidatorGen(@PathParam("key") String param) {
         try {
+            rpComputer = (IRepositoryComputer) ContextoInicial.getContext().lookup("java:global/validatorWS/ComputerDao");
+            rpClientKpc = (IRepositoryClientKpc) ContextoInicial.getContext().lookup("java:global/validatorWS/ClientKpcDao");
+
+            //carregando as variaveis com os dados recebidos e descriptografados
             carregaDados(param.replace("@", "/"));
+
+            //Loading object computer
+            computer = rpComputer.getComputerByhdNumber(HD);
+            /* 
+             != Null Return True = Tem cliente
+             else False = não tem cliente
+             Verificando se o cliente existe.
+             */
+            if (computer != null) {
+                dtValidade = sd.format(computer.getDateExpire());
+            } else { //Verificando se o cliente é Novo.
+                computer = new Computer();
+                clientKpc = rpClientKpc.getClient(CNPJ);
+                if (clientKpc == null) {
+                    //Loadiang object
+                    clientKpc.setCpf_Cnpj(CNPJ);
+                    clientKpc.setName("SEM NOME");
+                    clientKpc.setPhone("0000000000");
+                    clientKpc.setEmail("SEM EMAIL");
+
+                    rpClientKpc.salvar(clientKpc);
+                }
+
+                c.add(Calendar.MONTH, 1);
+                dtValidade = sd.format(c.getTime());
+                //Loading object computer
+                computer.setDateExpire(FormatDate.transformaData(dtValidade));
+                computer.setHdNumber(HD);
+                computer.setDateInstalation(FormatDate.transformaData(dtInstall));
+                computer.setmBoardNumber(placaMae);
+                computer.setClient(clientKpc);
+                rpComputer.salvar(computer);
+            }
 
             String codInstalacao;
             KPCSeg seg = new KPCSeg();
@@ -82,17 +133,12 @@ public class KeyValidator {
             serialCompleto = seg.decrypt(param.trim());
             detalhes = serialCompleto.split(",");
 
-            Calendar c = Calendar.getInstance();
-            c.add(Calendar.MONTH, 1);
-            SimpleDateFormat sd = new SimpleDateFormat("dd/MM/yyyy");
-            sd.format(c.getTime());
-
             // 0   1       2           3            4             5
             // X, CNPJ, serial HD, serial CPU, DTVencimento, DTInstalacao
             CNPJ = detalhes[1];
             HD = detalhes[2];
             placaMae = detalhes[3];
-            dtValidade = sd.format(c.getTime());
+            dtValidade = "00/00/0000";
             dtInstall = detalhes[5];
 
 //                    + new SimpleDateFormat("dd/MM/yyyy").format((new Date()));
@@ -103,5 +149,4 @@ public class KeyValidator {
         }
 
     }
-
 }
