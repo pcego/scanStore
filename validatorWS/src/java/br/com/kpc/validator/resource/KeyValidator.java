@@ -74,6 +74,7 @@ public class KeyValidator {
                 computer = new Computer();
                 clientKpc = rpClientKpc.getClient(CNPJ);
                 if (clientKpc == null) {
+                    clientKpc = new ClientKpc();
                     //Loadiang object
                     clientKpc.setCpf_Cnpj(CNPJ);
                     clientKpc.setName("SEM NOME");
