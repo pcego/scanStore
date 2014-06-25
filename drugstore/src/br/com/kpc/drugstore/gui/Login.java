@@ -12,7 +12,6 @@ import br.com.kpc.drugstore.util.Config;
 import br.com.kpc.drugstore.util.Cryptography;
 import br.com.kpc.drugstore.util.FormatDate;
 import br.com.kpc.drugstore.util.KPCSeg;
-import br.com.kpc.drugstore.util.Mask;
 import br.com.kpc.drugstore.util.SystemMessage;
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
@@ -21,9 +20,6 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import static org.eclipse.persistence.jpa.jpql.utility.CollectionTools.array;
-import static org.hibernate.type.TypeFactory.array;
-import org.json.JSONObject;
 
 /**
  *
@@ -90,8 +86,6 @@ public class Login extends javax.swing.JFrame {
                 jButton1ActionPerformed(evt);
             }
         });
-
-        tvSenha.setText("jPasswordField1");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -213,10 +207,10 @@ public class Login extends javax.swing.JFrame {
         if ((Cryptography.criptography(new String(tvSenha.getPassword()))).equals(company.getPasswd())) {
             WindowInstance.getInstance(WindowInstance.PRINCIPAL).setVisible(true);
             this.dispose();
-        } else{
+        } else {
             SystemMessage.kpcShowMessage(null, SystemMessage.INFORMATION, "Senha inválida!");
         }
-            
+
 
     }//GEN-LAST:event_jButton1ActionPerformed
 
