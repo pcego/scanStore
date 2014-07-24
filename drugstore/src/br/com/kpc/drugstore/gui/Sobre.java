@@ -5,6 +5,7 @@
  */
 package br.com.kpc.drugstore.gui;
 
+import br.com.kpc.drugstore.util.Config;
 import java.awt.Desktop;
 import java.io.IOException;
 
@@ -19,6 +20,7 @@ public class Sobre extends javax.swing.JFrame {
      */
     public Sobre() {
         initComponents();
+        Config.considerarEnterComoTab(this);
     }
 
     /**
