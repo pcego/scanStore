@@ -32,6 +32,8 @@ public class Login extends javax.swing.JFrame {
      */
     public Login() {
         initComponents();
+        Config.considerarEnterComoTab(tvSenha);
+     
     }
 
     /**
@@ -50,7 +52,7 @@ public class Login extends javax.swing.JFrame {
         jLabel4 = new javax.swing.JLabel();
         btChaveInstalacao = new javax.swing.JButton();
         lbAguarde = new javax.swing.JLabel();
-        jButton1 = new javax.swing.JButton();
+        btValidar = new javax.swing.JButton();
         tvSenha = new javax.swing.JPasswordField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -80,10 +82,10 @@ public class Login extends javax.swing.JFrame {
 
         lbAguarde.setText("Aguarde...");
 
-        jButton1.setText("Validar");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        btValidar.setText("Validar");
+        btValidar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                btValidarActionPerformed(evt);
             }
         });
 
@@ -106,7 +108,7 @@ public class Login extends javax.swing.JFrame {
                                     .addComponent(tvCnpj, javax.swing.GroupLayout.DEFAULT_SIZE, 159, Short.MAX_VALUE)
                                     .addComponent(tvSenha))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(jButton1))
+                                .addComponent(btValidar))
                             .addComponent(jLabel1))
                         .addGap(12, 12, 12)
                         .addComponent(jLabel4)
@@ -134,7 +136,7 @@ public class Login extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel3)
-                            .addComponent(jButton1)
+                            .addComponent(btValidar)
                             .addComponent(tvSenha, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(32, 32, 32))
                     .addComponent(jLabel4))
@@ -202,7 +204,7 @@ public class Login extends javax.swing.JFrame {
 
     }//GEN-LAST:event_formWindowOpened
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void btValidarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btValidarActionPerformed
 
         if ((Cryptography.criptography(new String(tvSenha.getPassword()))).equals(company.getPasswd())) {
             WindowInstance.getInstance(WindowInstance.PRINCIPAL).setVisible(true);
@@ -212,7 +214,7 @@ public class Login extends javax.swing.JFrame {
         }
 
 
-    }//GEN-LAST:event_jButton1ActionPerformed
+    }//GEN-LAST:event_btValidarActionPerformed
 
     private boolean validarSerial(String key) {
 
@@ -328,7 +330,7 @@ public class Login extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btChaveInstalacao;
-    private javax.swing.JButton jButton1;
+    private javax.swing.JButton btValidar;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
