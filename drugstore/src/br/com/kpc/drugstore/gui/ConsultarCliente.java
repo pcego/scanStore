@@ -10,6 +10,7 @@ import br.com.kpc.drugstore.core.IRepositoryClient;
 import br.com.kpc.drugstore.dao.DaoClient;
 import br.com.kpc.drugstore.service.WindowInstance;
 import br.com.kpc.drugstore.tableModel.TableModelClient;
+import br.com.kpc.drugstore.util.Config;
 import br.com.kpc.drugstore.util.Mask;
 import java.text.ParseException;
 import java.util.ArrayList;
@@ -31,7 +32,7 @@ public class ConsultarCliente extends javax.swing.JFrame {
      */
     public ConsultarCliente() {
         initComponents();
-
+        Config.considerarEnterComoTab(this);
     }
 
     /**
