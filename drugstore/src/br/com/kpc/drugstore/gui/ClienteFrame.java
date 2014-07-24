@@ -40,6 +40,7 @@ public class ClienteFrame extends javax.swing.JFrame {
         initComponents();
         btTypeDefault();
         definindoMask();
+        Config.considerarEnterComoTab(this);
     }
 
     /**
@@ -581,6 +582,7 @@ public class ClienteFrame extends javax.swing.JFrame {
         btTypeInsert();
         limparCampos();
         habilitarCampos(true);
+        tvName.requestFocus();
     }//GEN-LAST:event_btAdicionarActionPerformed
 
     private void btExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btExcluirActionPerformed
