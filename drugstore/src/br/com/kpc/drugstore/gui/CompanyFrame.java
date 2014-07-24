@@ -8,6 +8,7 @@ package br.com.kpc.drugstore.gui;
 import br.com.kpc.drugstore.core.Company;
 import br.com.kpc.drugstore.service.Service;
 import br.com.kpc.drugstore.tableModel.TableModelCompany;
+import br.com.kpc.drugstore.util.Config;
 import br.com.kpc.drugstore.util.Cryptography;
 import br.com.kpc.drugstore.util.FormatDate;
 import br.com.kpc.drugstore.util.Mask;
@@ -34,6 +35,7 @@ public class CompanyFrame extends javax.swing.JFrame {
         loadingTable();
         definindoMask();
         btTypeDefault();
+        Config.considerarEnterComoTab(this);
     }
 
     /**
@@ -351,10 +353,10 @@ public class CompanyFrame extends javax.swing.JFrame {
                                         .addGap(0, 0, Short.MAX_VALUE)))
                                 .addGap(10, 10, 10)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(jLabel5)
-                                    .addComponent(jLabel6)
                                     .addComponent(tvInscStat)
-                                    .addComponent(tvCNPJ, javax.swing.GroupLayout.PREFERRED_SIZE, 185, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                    .addComponent(tvCNPJ, javax.swing.GroupLayout.PREFERRED_SIZE, 185, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jLabel6)
+                                    .addComponent(jLabel5)))
                             .addGroup(layout.createSequentialGroup()
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                                     .addComponent(jLabel19, javax.swing.GroupLayout.Alignment.LEADING)
@@ -387,12 +389,10 @@ public class CompanyFrame extends javax.swing.JFrame {
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(tvSystemKey, javax.swing.GroupLayout.PREFERRED_SIZE, 518, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(tvDataExpire, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                                .addComponent(tvDataExpire, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addGap(20, 20, 20))
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel20)
                             .addGroup(layout.createSequentialGroup()
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jLabel11)
@@ -445,7 +445,8 @@ public class CompanyFrame extends javax.swing.JFrame {
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addComponent(btCancel)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(btDelete)))
+                                .addComponent(btDelete))
+                            .addComponent(jLabel20))
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
         );
 
@@ -461,26 +462,20 @@ public class CompanyFrame extends javax.swing.JFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel2)
-                            .addComponent(jLabel3))
+                            .addComponent(jLabel3)
+                            .addComponent(jLabel5))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(tvCompanyId, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(tvCompanyName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(tvCompanyName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(tvCNPJ, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jLabel4)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel4)
+                            .addComponent(jLabel6))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(tvFantasy, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(tvCNPJ, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabel5)
-                                .addGap(26, 26, 26)))
-                        .addGap(40, 40, 40))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel6)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(tvInscStat, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addComponent(tvInscStat, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(layout.createSequentialGroup()
@@ -608,14 +603,12 @@ public class CompanyFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_tbGridMouseClicked
 
     private void btUpdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btUpdateActionPerformed
-        opMenu = "U";
-
         //Se não tiver nenhuma empresa selecionada.
         if (tvCompanyId.getText().trim().equals("")) {
             SystemMessage.kpcShowMessage(null, SystemMessage.INFORMATION, "Favor selecionar uma empresa");
             return;
         }
-
+        opMenu = "U";
         btTypeUpdate();
     }//GEN-LAST:event_btUpdateActionPerformed
 
@@ -672,20 +665,21 @@ public class CompanyFrame extends javax.swing.JFrame {
         opMenu = "I";
         btTypeInsert();
         limparCampos();
+        tvCompanyName.requestFocus();
 
     }//GEN-LAST:event_btInsertActionPerformed
 
     private void btDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btDeleteActionPerformed
-        opMenu = "D";
-        btTypeDelete();
-    }//GEN-LAST:event_btDeleteActionPerformed
-
-    private void btCancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btCancelActionPerformed
         //Se não tiver nenhuma empresa selecionada.
         if (tvCompanyId.getText().trim().equals("")) {
             SystemMessage.kpcShowMessage(null, SystemMessage.INFORMATION, "Favor selecionar uma empresa");
             return;
         }
+        opMenu = "D";
+        btTypeDelete();
+    }//GEN-LAST:event_btDeleteActionPerformed
+
+    private void btCancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btCancelActionPerformed
         btTypeDefault();
         limparCampos();
     }//GEN-LAST:event_btCancelActionPerformed
@@ -840,6 +834,7 @@ public class CompanyFrame extends javax.swing.JFrame {
         btConfirm.setEnabled(true);
         btCancel.setEnabled(true);
         btDelete.setEnabled(false);
+        tbGrid.setVisible(false);
     }
 
     private void btTypeUpdate() {
@@ -849,6 +844,7 @@ public class CompanyFrame extends javax.swing.JFrame {
         btConfirm.setEnabled(true);
         btCancel.setEnabled(true);
         btDelete.setEnabled(false);
+        tbGrid.setVisible(false);
     }
 
     private void btTypeDelete() {
@@ -867,6 +863,7 @@ public class CompanyFrame extends javax.swing.JFrame {
         btConfirm.setEnabled(false);
         btCancel.setEnabled(false);
         btDelete.setEnabled(true);
+        tbGrid.setVisible(true);
     }
 
     private boolean update() {
@@ -889,14 +886,14 @@ public class CompanyFrame extends javax.swing.JFrame {
             companyVG.setAdress_neighborhood(tvAdressNeighborhood.getText());
             companyVG.setAdress_city(tvAdressCity.getText());
             companyVG.setDateExpire(new Date(tvDataExpire.getText()));
-            companyVG.setPasswd( Cryptography.criptography(new String (tvSenha.getPassword())) );
+            companyVG.setPasswd(Cryptography.criptography(new String(tvSenha.getPassword())));
             companyVG.setUser(tvLogin.getText().trim());
             Service.getIRepositoryCompany().atualizar(companyVG);
             logger.info("Alterado com sucesso");
             return true;
         } catch (Exception e) {
             logger.info("ERRO ao alterar");
-           SystemMessage.kpcShowMessage(e, SystemMessage.INFORMATION, "Deu erro: ");
+            SystemMessage.kpcShowMessage(e, SystemMessage.INFORMATION, "Deu erro: ");
             return false;
         }
 
@@ -922,7 +919,7 @@ public class CompanyFrame extends javax.swing.JFrame {
             companyVG.setAdress_neighborhood(tvAdressNeighborhood.getText());
             companyVG.setAdress_city(tvAdressCity.getText());
             companyVG.setDateExpire(new Date(tvDataExpire.getText()));
-            companyVG.setPasswd( Cryptography.criptography(new String (tvSenha.getPassword())) );
+            companyVG.setPasswd(Cryptography.criptography(new String(tvSenha.getPassword())));
             companyVG.setUser(tvLogin.getText().trim());
 
             Service.getIRepositoryCompany().salvar(companyVG);
