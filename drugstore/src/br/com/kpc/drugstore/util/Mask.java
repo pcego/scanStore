@@ -263,16 +263,20 @@ public class Mask {
         return sData;
     }
 
+    public static String limparMaskData(String cpf) {
+        return cpf.replace("/", "");
+    }
+    
     public static String limparMaskCPF(String cpf) {
         return cpf.replace(".", "").replace("-", "");
     }
 
-    public static String limparMaskCNPJ(String cpf) {
-        return cpf.replace(".", "").replace("-", "").replace("/", "");
+    public static String limparMaskCNPJ(String cnpj) {
+        return cnpj.replace(".", "").replace("-", "").replace("/", "");
     }
 
-    public static String limparMasTelefone(String cpf) {
-        return cpf.replace("(", "").replace(")", "").replace("-)", "");
+    public static String limparMasTelefone(String numTelefone) {
+        return numTelefone.replace("(", "").replace(")", "").replace("-)", "");
     }
 
     public static void validaSomenteNumero(JTextField Numero) {
