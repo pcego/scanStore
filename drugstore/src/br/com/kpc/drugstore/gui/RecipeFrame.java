@@ -39,6 +39,7 @@ public class RecipeFrame extends javax.swing.JFrame {
         initComponents();
         definindoMask();
         btTypeDefault();
+        Config.considerarEnterComoTab(this);
     }
 
     /**
@@ -63,10 +64,10 @@ public class RecipeFrame extends javax.swing.JFrame {
         jLabel2 = new javax.swing.JLabel();
         tvNumAutorizacao = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
-        jLabel7 = new javax.swing.JLabel();
         tvNomeCliente = new javax.swing.JTextField();
         tvDtVenda = new javax.swing.JFormattedTextField();
         tvDtReceita = new javax.swing.JFormattedTextField();
+        jLabel7 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
         btNovo = new javax.swing.JButton();
         jPanel2 = new javax.swing.JPanel();
@@ -134,9 +135,9 @@ public class RecipeFrame extends javax.swing.JFrame {
 
         jLabel3.setText("Nº Cupom Fiscal:");
 
-        jLabel7.setText("Nome do cliente:");
-
         tvNomeCliente.setEnabled(false);
+
+        jLabel7.setText("Nome do cliente:");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -163,8 +164,8 @@ public class RecipeFrame extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel4)
-                            .addComponent(jLabel7)
-                            .addComponent(jLabel5))
+                            .addComponent(jLabel5)
+                            .addComponent(jLabel7))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(tvNomeCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 159, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -182,8 +183,7 @@ public class RecipeFrame extends javax.swing.JFrame {
                             .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                 .addComponent(tvCPF, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addComponent(jLabel1))
-                            .addComponent(btPesquisaCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel7))
+                            .addComponent(btPesquisaCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 10, Short.MAX_VALUE)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(tvNumAutorizacao, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -192,7 +192,9 @@ public class RecipeFrame extends javax.swing.JFrame {
                             .addComponent(tvDtVenda, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(3, 3, 3)
-                        .addComponent(tvNomeCliente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(tvNomeCliente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel7))
                         .addGap(0, 0, Short.MAX_VALUE)))
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(tvCupomFiscal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -222,11 +224,11 @@ public class RecipeFrame extends javax.swing.JFrame {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 displayOutrosMouseClicked(evt);
             }
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
-                displayOutrosMouseEntered(evt);
-            }
             public void mouseExited(java.awt.event.MouseEvent evt) {
                 displayOutrosMouseExited(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                displayOutrosMouseEntered(evt);
             }
         });
 
@@ -236,22 +238,22 @@ public class RecipeFrame extends javax.swing.JFrame {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 displayCupomMouseClicked(evt);
             }
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
-                displayCupomMouseEntered(evt);
-            }
             public void mouseExited(java.awt.event.MouseEvent evt) {
                 displayCupomMouseExited(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                displayCupomMouseEntered(evt);
             }
         });
 
         displayReceita.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/kpc/drugstore/img/receita.png"))); // NOI18N
         displayReceita.setEnabled(false);
         displayReceita.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                displayReceitaMouseClicked(evt);
-            }
             public void mouseEntered(java.awt.event.MouseEvent evt) {
                 displayReceitaMouseEntered(evt);
+            }
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                displayReceitaMouseClicked(evt);
             }
             public void mouseExited(java.awt.event.MouseEvent evt) {
                 displayReceitaMouseExited(evt);
@@ -374,6 +376,18 @@ public class RecipeFrame extends javax.swing.JFrame {
 
     private void btConfirmarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btConfirmarActionPerformed
         try {
+            String[] opcoes = {"Sim", "Nao"};
+            int opcao = JOptionPane.showOptionDialog(this, "Deseja finalizar o cadastro da receita?",
+                    "Confirmar Exclusão", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, opcoes, opcoes[1]);
+            //Verificando a Resposta do usuario, se resposta = NÂO, sai da função.
+            if (opcao == 1) {
+                return;
+            }
+            
+            if (!headerOk()) {
+                return;
+            }
+
             File imgRecipe = new File(Config.DIRETORIOIMAGEM + Mask.limparMaskCPF(tvCPF.getText()) + "\\" + tvNumAutorizacao.getText().trim() + "\\receita.jpg");
             File imgTicket = new File(Config.DIRETORIOIMAGEM + Mask.limparMaskCPF(tvCPF.getText()) + "\\" + tvNumAutorizacao.getText().trim() + "\\cupom.jpg");
 
@@ -679,27 +693,48 @@ public class RecipeFrame extends javax.swing.JFrame {
     }
 
     private boolean headerOk() {
-        if (Mask.limparMaskCPF(tvCPF.getText()).trim().equals("")) {
+        if ((Mask.limparMaskCPF(tvCPF.getText()).trim().equals("")) || (tvCPF.getText().trim().length() < 14)) {
             SystemMessage.kpcShowMessage(null, SystemMessage.INFORMATION, "Informe seu CPF!");
+            tvCPF.requestFocus();
             return false;
         }
+        if (!Mask.validaCpfCnpj(tvCPF.getText())) {
+            SystemMessage.kpcShowMessage(null, SystemMessage.INFORMATION, "CPF digitado é inválido");
+            tvCPF.requestFocus();
+            return false;
+        }
+
         if (tvNumAutorizacao.getText().trim().equals("")) {
             SystemMessage.kpcShowMessage(null, SystemMessage.INFORMATION, "Informe o numero de autorização!");
+            tvNumAutorizacao.requestFocus();
             return false;
         }
         if (tvCupomFiscal.getText().trim().equals("")) {
             SystemMessage.kpcShowMessage(null, SystemMessage.INFORMATION, "Informe o numero do cupom!");
+            tvCupomFiscal.requestFocus();
             return false;
         }
-        if (Mask.limparMaskCPF(tvDtReceita.getText()).trim().equals("")) {
+        if (Mask.limparMaskData(tvDtReceita.getText()).trim().equals("")) {
             SystemMessage.kpcShowMessage(null, SystemMessage.INFORMATION, "Informe a data da Receita!");
+            tvDtReceita.requestFocus();
             return false;
         }
-        if (Mask.limparMaskCPF(tvDtVenda.getText()).trim().equals("")) {
-            SystemMessage.kpcShowMessage(null, SystemMessage.INFORMATION, "Informe a data da Venda!");
+        if (Mask.limparMaskData(tvDtReceita.getText()).trim().length() < 8) {
+            SystemMessage.kpcShowMessage(null, SystemMessage.INFORMATION, "Data informada é inválida!");
+            tvDtReceita.requestFocus();
             return false;
-        }        
-        
+        }
+        if (Mask.limparMaskData(tvDtVenda.getText()).trim().length() < 8) {
+            SystemMessage.kpcShowMessage(null, SystemMessage.INFORMATION, "Data informada é inválida!");
+            tvDtVenda.requestFocus();
+            return false;
+        }
+        if (Mask.limparMaskData(tvDtVenda.getText()).trim().equals("")) {
+            SystemMessage.kpcShowMessage(null, SystemMessage.INFORMATION, "Informe a data da Venda!");
+            tvDtVenda.requestFocus();
+            return false;
+        }
+
         tvCPF.setEditable(false);
         tvNumAutorizacao.setEditable(false);
         tvCupomFiscal.setEnabled(false);
