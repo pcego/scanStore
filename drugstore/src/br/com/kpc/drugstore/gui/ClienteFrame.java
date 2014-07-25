@@ -16,6 +16,7 @@ import br.com.kpc.drugstore.service.Service;
 import br.com.kpc.drugstore.util.Config;
 import br.com.kpc.drugstore.util.FormatDate;
 import br.com.kpc.drugstore.util.Mask;
+import br.com.kpc.drugstore.util.SystemMessage;
 import groovy.swing.SwingBuilder;
 import java.awt.event.KeyEvent;
 import java.io.File;
@@ -587,26 +588,26 @@ public class ClienteFrame extends javax.swing.JFrame {
 
     private void btExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btExcluirActionPerformed
         opMenu = "D";
-        
+
         if (tvID.getText().trim().equals("")) {
             btPesquisarActionPerformed(evt);
             return;
         }
-        
+
         btTypeDelete();
     }//GEN-LAST:event_btExcluirActionPerformed
 
     private void btAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btAlterarActionPerformed
         opMenu = "U";
-        
+
         if (tvID.getText().trim().equals("")) {
             btPesquisarActionPerformed(evt);
             return;
         }
-        
+
         btTypeUpdate();
         habilitarCampos(true);
-        
+
     }//GEN-LAST:event_btAlterarActionPerformed
 
     private void btCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btCancelarActionPerformed
@@ -623,7 +624,7 @@ public class ClienteFrame extends javax.swing.JFrame {
             case "U":
                 retorno = update();
                 if (retorno) {
-                    JOptionPane.showMessageDialog(this, "Atualizado");
+                    SystemMessage.kpcShowMessage(null, SystemMessage.INFORMATION, "Atualizado");
                     btTypeDefault();
 
                 }
@@ -631,7 +632,7 @@ public class ClienteFrame extends javax.swing.JFrame {
             case "I":
                 retorno = insert();
                 if (retorno) {
-                    JOptionPane.showMessageDialog(this, "Gravado");
+                    SystemMessage.kpcShowMessage(null, SystemMessage.INFORMATION, "Gravado");
                     btTypeDefault();
                     limparCampos();
                 }
@@ -698,36 +699,43 @@ public class ClienteFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_tvCPFFocusLost
 
     private void btCPFScanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btCPFScanActionPerformed
-        boolean retorno = false;
-        Scan sc = new Scan();
-        File[] img = sc.getGuiScan(Config.DIRETORIOIMAGEM + Mask.limparMaskCPF(tvCPF.getText()));
+        try {
+            boolean retorno = false;
+            Scan sc = new Scan();
+            File[] img = sc.getGuiScan(Config.DIRETORIOIMAGEM + Mask.limparMaskCPF(tvCPF.getText()));
 
-        retorno = Scan.renameImg(img[0], Config.DIRETORIOIMAGEM + Mask.limparMaskCPF(tvCPF.getText()), "cpf.jpg");
-        //carregarImg(displayReceita, img[0]);
+            retorno = Scan.renameImg(img[0], Config.DIRETORIOIMAGEM + Mask.limparMaskCPF(tvCPF.getText()), "cpf.jpg");
+            //carregarImg(displayReceita, img[0]);
 
-        if (retorno) {
-            System.out.println("sucesso");
-            clientVG.setCpf_image(Mask.limparMaskCPF(tvCPF.getText().trim()) + "\\cpf.jpg");
-        } else {
-            System.out.println("falha ao renomear");
+            if (retorno) {
+                clientVG.setCpf_image(Mask.limparMaskCPF(tvCPF.getText().trim()) + "\\cpf.jpg");
+            } else {
+                SystemMessage.kpcShowMessage(null, SystemMessage.INFORMATION, "falha ao renomear imagem.");
+            }
+        } catch (Exception e) {
+            SystemMessage.kpcShowMessage(null, SystemMessage.INFORMATION, "Nenhum equipamento de scanner configurado.");
         }
+
     }//GEN-LAST:event_btCPFScanActionPerformed
 
     private void btRGScanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btRGScanActionPerformed
+        try {
+            boolean retorno = false;
+            Scan sc = new Scan();
+            File[] img = sc.getGuiScan(Config.DIRETORIOIMAGEM + Mask.limparMaskCPF(tvCPF.getText()));
 
-        boolean retorno = false;
-        Scan sc = new Scan();
-        File[] img = sc.getGuiScan(Config.DIRETORIOIMAGEM + Mask.limparMaskCPF(tvCPF.getText()));
+            retorno = Scan.renameImg(img[0], Config.DIRETORIOIMAGEM + Mask.limparMaskCPF(tvCPF.getText()), "rg.jpg");
+            //carregarImg(displayReceita, img[0]);
 
-        retorno = Scan.renameImg(img[0], Config.DIRETORIOIMAGEM + Mask.limparMaskCPF(tvCPF.getText()), "rg.jpg");
-        //carregarImg(displayReceita, img[0]);
-
-        if (retorno) {
-            System.out.println("sucesso");
-            clientVG.setRg_image(Mask.limparMaskCPF(tvCPF.getText().trim()) + "\\rg.jpg");
-        } else {
-            System.out.println("falha ao renomear");
+            if (retorno) {
+                clientVG.setRg_image(Mask.limparMaskCPF(tvCPF.getText().trim()) + "\\rg.jpg");
+            } else {
+                SystemMessage.kpcShowMessage(null, SystemMessage.INFORMATION, "falha ao renomear imagem.");
+            }
+        } catch (Exception e) {
+            SystemMessage.kpcShowMessage(null, SystemMessage.INFORMATION, "Nenhum equipamento de scanner configurado.");
         }
+
     }//GEN-LAST:event_btRGScanActionPerformed
 
     private void formWindowClosed(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosed
@@ -865,7 +873,7 @@ public class ClienteFrame extends javax.swing.JFrame {
             iRepositoryClient.salvar(clientVG);
             return true;
         } catch (Exception e) {
-            JOptionPane.showMessageDialog(this, "Deu erro: " + e);
+            SystemMessage.kpcShowMessage(e, SystemMessage.ERROR, "Ocorreu um erro ");
             return false;
         }
     }
@@ -902,7 +910,7 @@ public class ClienteFrame extends javax.swing.JFrame {
             iRepositoryClient.atualizar(clientVG);
             return true;
         } catch (Exception e) {
-            JOptionPane.showMessageDialog(this, "Deu erro: " + e);
+             SystemMessage.kpcShowMessage(e, SystemMessage.ERROR, "Ocorreu um erro ");
             return false;
 
         }
@@ -950,7 +958,7 @@ public class ClienteFrame extends javax.swing.JFrame {
             return true;
 
         } catch (NumberFormatException e) {
-            JOptionPane.showMessageDialog(this, "Deu erro: " + e);
+             SystemMessage.kpcShowMessage(e, SystemMessage.ERROR, "Ocorreu um erro ");
             return false;
 
         }
@@ -1049,7 +1057,7 @@ public class ClienteFrame extends javax.swing.JFrame {
     }
 
     protected static void getCliente(Client cli) {
-        
+
         clientVG = cli;
         tvID.setText(String.valueOf(clientVG.getId()));
         tvName.setText(clientVG.getName());
@@ -1081,9 +1089,9 @@ public class ClienteFrame extends javax.swing.JFrame {
 
     private boolean validarCPF() {
         if (tvCPF.getText().trim().length() < 14) {
-            JOptionPane.showMessageDialog(this, "Digite seu CPF");
+            SystemMessage.kpcShowMessage(null, SystemMessage.INFORMATION, "Digite seu CPF");
         } else if (!Mask.validaCpfCnpj(tvCPF.getText())) {
-            JOptionPane.showMessageDialog(this, "CPF digitado é inválido");
+             SystemMessage.kpcShowMessage(null, SystemMessage.INFORMATION, "CPF digitado é inválido");
             return false;
         }
         return true;
