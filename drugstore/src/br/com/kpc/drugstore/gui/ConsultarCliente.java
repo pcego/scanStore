@@ -12,6 +12,7 @@ import br.com.kpc.drugstore.service.WindowInstance;
 import br.com.kpc.drugstore.tableModel.TableModelClient;
 import br.com.kpc.drugstore.util.Config;
 import br.com.kpc.drugstore.util.Mask;
+import br.com.kpc.drugstore.util.SystemMessage;
 import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.List;
@@ -50,6 +51,7 @@ public class ConsultarCliente extends javax.swing.JFrame {
         cbOpcao = new javax.swing.JComboBox();
         tvCriterio = new javax.swing.JFormattedTextField();
         lTotalRegistros = new javax.swing.JLabel();
+        jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Pesquisar Clientes - KPC Software Delopmet");
@@ -88,6 +90,7 @@ public class ConsultarCliente extends javax.swing.JFrame {
             tbGrid.getColumnModel().getColumn(2).setPreferredWidth(300);
         }
 
+        btPesquisa.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/kpc/drugstore/img/pesquisa.png"))); // NOI18N
         btPesquisa.setText("Pesquisa");
         btPesquisa.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -112,6 +115,9 @@ public class ConsultarCliente extends javax.swing.JFrame {
 
         lTotalRegistros.setText("Total Registros: 00");
 
+        jLabel1.setForeground(new java.awt.Color(102, 102, 102));
+        jLabel1.setText("*Selecione um registro e pressione Enter.");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -119,14 +125,18 @@ public class ConsultarCliente extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane2)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(cbOpcao, javax.swing.GroupLayout.PREFERRED_SIZE, 99, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(tvCriterio, javax.swing.GroupLayout.PREFERRED_SIZE, 418, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(btPesquisa))
-                    .addComponent(jScrollPane2)
-                    .addComponent(lTotalRegistros))
+                        .addComponent(tvCriterio, javax.swing.GroupLayout.PREFERRED_SIZE, 400, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(btPesquisa)
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(lTotalRegistros)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jLabel1)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -139,8 +149,10 @@ public class ConsultarCliente extends javax.swing.JFrame {
                     .addComponent(tvCriterio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 251, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 8, Short.MAX_VALUE)
-                .addComponent(lTotalRegistros))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lTotalRegistros)
+                    .addComponent(jLabel1)))
         );
 
         pack();
@@ -260,6 +272,7 @@ public class ConsultarCliente extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btPesquisa;
     private javax.swing.JComboBox cbOpcao;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JLabel lTotalRegistros;
     private javax.swing.JTable tbGrid;
@@ -291,7 +304,7 @@ public class ConsultarCliente extends javax.swing.JFrame {
                     listClisnt.add(client);
                     verificarRegistros(listClisnt.size());
                 } else {
-                    JOptionPane.showMessageDialog(this, "CPF digitado é inválido");
+                    SystemMessage.kpcShowMessage(null, SystemMessage.INFORMATION, "CPF digitado é inválido");
                 }
 
                 break;
@@ -322,7 +335,7 @@ public class ConsultarCliente extends javax.swing.JFrame {
     private boolean validarTamanhoDoCampos() {
 
         if (tvCriterio.getText().length() < 3) {
-            JOptionPane.showMessageDialog(this, "Por favor, digite no minimo 3 character");
+             SystemMessage.kpcShowMessage(null, SystemMessage.INFORMATION, "Por favor, digite no minimo 3 character.");
             return false;
         }
         return true;
