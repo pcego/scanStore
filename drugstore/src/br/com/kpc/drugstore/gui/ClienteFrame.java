@@ -64,14 +64,10 @@ public class ClienteFrame extends javax.swing.JFrame {
         jLabel12 = new javax.swing.JLabel();
         tvName = new javax.swing.JTextField();
         jLabel13 = new javax.swing.JLabel();
-        tvPhone = new javax.swing.JFormattedTextField();
         jLabel14 = new javax.swing.JLabel();
-        tvCellPhone1 = new javax.swing.JFormattedTextField();
         jLabel15 = new javax.swing.JLabel();
-        tvCellPhone2 = new javax.swing.JFormattedTextField();
         jLabel16 = new javax.swing.JLabel();
         jLabel17 = new javax.swing.JLabel();
-        tvCPF = new javax.swing.JFormattedTextField();
         jLabel18 = new javax.swing.JLabel();
         tvRG = new javax.swing.JTextField();
         jLabel20 = new javax.swing.JLabel();
@@ -84,9 +80,12 @@ public class ClienteFrame extends javax.swing.JFrame {
         btCPFScan = new javax.swing.JButton();
         btRGScan = new javax.swing.JButton();
         tvBirthDay = new javax.swing.JFormattedTextField();
+        tvCPF = new javax.swing.JFormattedTextField();
+        tvPhone = new javax.swing.JFormattedTextField();
+        tvCellPhone1 = new javax.swing.JFormattedTextField();
+        tvCellPhone2 = new javax.swing.JFormattedTextField();
         jPanel1 = new javax.swing.JPanel();
         jLabel22 = new javax.swing.JLabel();
-        tvAdressPostalCode = new javax.swing.JFormattedTextField();
         jLabel23 = new javax.swing.JLabel();
         tvAdressStreet = new javax.swing.JTextField();
         jLabel24 = new javax.swing.JLabel();
@@ -99,6 +98,7 @@ public class ClienteFrame extends javax.swing.JFrame {
         jLabel28 = new javax.swing.JLabel();
         tvAdressComplement = new javax.swing.JTextField();
         tvAdressNumber = new javax.swing.JTextField();
+        tvAdressPostalCode = new javax.swing.JFormattedTextField();
         btPesquisar = new javax.swing.JButton();
         jLabel2 = new javax.swing.JLabel();
 
@@ -175,42 +175,13 @@ public class ClienteFrame extends javax.swing.JFrame {
 
         jLabel13.setText("Telefone:");
 
-        try {
-            tvPhone.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("(##)####-####")));
-        } catch (java.text.ParseException ex) {
-            ex.printStackTrace();
-        }
-
         jLabel14.setText("*Celular");
 
-        try {
-            tvCellPhone1.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("(##)####-####")));
-        } catch (java.text.ParseException ex) {
-            ex.printStackTrace();
-        }
-
         jLabel15.setText("Celular Opc.");
-
-        try {
-            tvCellPhone2.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("(##)####-####")));
-        } catch (java.text.ParseException ex) {
-            ex.printStackTrace();
-        }
 
         jLabel16.setText("Sexo:");
 
         jLabel17.setText("*CPF:");
-
-        try {
-            tvCPF.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("###.###.###-##")));
-        } catch (java.text.ParseException ex) {
-            ex.printStackTrace();
-        }
-        tvCPF.addFocusListener(new java.awt.event.FocusAdapter() {
-            public void focusLost(java.awt.event.FocusEvent evt) {
-                tvCPFFocusLost(evt);
-            }
-        });
 
         jLabel18.setText("RG");
 
@@ -262,18 +233,20 @@ public class ClienteFrame extends javax.swing.JFrame {
                     .addGroup(jPanel3Layout.createSequentialGroup()
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel3Layout.createSequentialGroup()
-                                .addComponent(jLabel11)
-                                .addGap(4, 4, 4)
-                                .addComponent(tvID, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(0, 0, Short.MAX_VALUE))
-                            .addGroup(jPanel3Layout.createSequentialGroup()
-                                .addComponent(jLabel17)
-                                .addGap(12, 12, 12)
-                                .addComponent(tvCPF))
-                            .addGroup(jPanel3Layout.createSequentialGroup()
                                 .addComponent(jLabel18)
                                 .addGap(27, 27, 27)
-                                .addComponent(tvRG)))
+                                .addComponent(tvRG))
+                            .addGroup(jPanel3Layout.createSequentialGroup()
+                                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(jPanel3Layout.createSequentialGroup()
+                                        .addComponent(jLabel11)
+                                        .addGap(4, 4, 4)
+                                        .addComponent(tvID, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addGroup(jPanel3Layout.createSequentialGroup()
+                                        .addComponent(jLabel17)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                        .addComponent(tvCPF, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addGap(0, 0, Short.MAX_VALUE)))
                         .addGap(1, 1, 1)
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(btRGScan, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -309,15 +282,15 @@ public class ClienteFrame extends javax.swing.JFrame {
                                 .addGap(1, 1, 1)
                                 .addComponent(jLabel13)
                                 .addGap(18, 18, 18)
-                                .addComponent(tvPhone))
+                                .addComponent(tvPhone, javax.swing.GroupLayout.DEFAULT_SIZE, 111, Short.MAX_VALUE))
                             .addGroup(jPanel3Layout.createSequentialGroup()
                                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jLabel15)
                                     .addComponent(jLabel14))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(tvCellPhone2)
-                                    .addComponent(tvCellPhone1, javax.swing.GroupLayout.PREFERRED_SIZE, 113, javax.swing.GroupLayout.PREFERRED_SIZE)))))))
+                                .addGap(6, 6, 6)
+                                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(tvCellPhone1)
+                                    .addComponent(tvCellPhone2)))))))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -341,16 +314,20 @@ public class ClienteFrame extends javax.swing.JFrame {
                                 .addComponent(jLabel12, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addGroup(jPanel3Layout.createSequentialGroup()
-                                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                                     .addGroup(jPanel3Layout.createSequentialGroup()
-                                        .addGap(11, 11, 11)
-                                        .addComponent(jLabel17, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addGroup(jPanel3Layout.createSequentialGroup()
-                                        .addGap(8, 8, 8)
-                                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                            .addComponent(tvCPF, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addComponent(jLabel16, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                                .addGap(2, 2, 2)
+                                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addGroup(jPanel3Layout.createSequentialGroup()
+                                                .addGap(11, 11, 11)
+                                                .addComponent(jLabel17, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                            .addGroup(jPanel3Layout.createSequentialGroup()
+                                                .addGap(8, 8, 8)
+                                                .addComponent(jLabel16, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                        .addGap(2, 2, 2))
+                                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel3Layout.createSequentialGroup()
+                                        .addGap(6, 6, 6)
+                                        .addComponent(tvCPF, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                     .addComponent(tvRG, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(jLabel20, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -384,12 +361,6 @@ public class ClienteFrame extends javax.swing.JFrame {
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Endereço", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.TOP, new java.awt.Font("Arial", 1, 12))); // NOI18N
 
         jLabel22.setText("*Cep:");
-
-        try {
-            tvAdressPostalCode.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("#####-###")));
-        } catch (java.text.ParseException ex) {
-            ex.printStackTrace();
-        }
 
         jLabel23.setText("*Endereço:");
 
@@ -436,40 +407,39 @@ public class ClienteFrame extends javax.swing.JFrame {
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                        .addComponent(jLabel24)
+                        .addGap(28, 28, 28)
+                        .addComponent(tvAdressNeighborhood, javax.swing.GroupLayout.PREFERRED_SIZE, 210, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jLabel28, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(tvAdressCity))
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel23)
+                            .addComponent(jLabel22))
+                        .addGap(11, 11, 11)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(jLabel24)
-                                .addGap(28, 28, 28)
-                                .addComponent(tvAdressNeighborhood, javax.swing.GroupLayout.PREFERRED_SIZE, 210, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jLabel28, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(tvAdressCity))
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(jLabel23)
-                                .addGap(11, 11, 11)
                                 .addComponent(tvAdressStreet, javax.swing.GroupLayout.PREFERRED_SIZE, 425, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(jLabel25)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(tvAdressNumber, javax.swing.GroupLayout.DEFAULT_SIZE, 76, Short.MAX_VALUE)))
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGap(14, 14, 14)
-                                .addComponent(jLabel26, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(jLabel27, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                            .addComponent(cbAdressStat, 0, 72, Short.MAX_VALUE)
-                            .addComponent(tvAdressComplement)))
+                                .addComponent(tvAdressNumber, javax.swing.GroupLayout.DEFAULT_SIZE, 76, Short.MAX_VALUE))
+                            .addComponent(tvAdressPostalCode, javax.swing.GroupLayout.PREFERRED_SIZE, 210, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jLabel22)
-                        .addGap(37, 37, 37)
-                        .addComponent(tvAdressPostalCode, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(14, 14, 14)
+                        .addComponent(jLabel26, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jLabel27, javax.swing.GroupLayout.DEFAULT_SIZE, 57, Short.MAX_VALUE)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                    .addComponent(cbAdressStat, 0, 72, Short.MAX_VALUE)
+                    .addComponent(tvAdressComplement))
                 .addContainerGap(16, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
@@ -477,8 +447,8 @@ public class ClienteFrame extends javax.swing.JFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(tvAdressPostalCode, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel22, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jLabel22, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(tvAdressPostalCode, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(10, 10, 10)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel23, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -517,23 +487,24 @@ public class ClienteFrame extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(btAdicionar)
-                        .addGap(1, 1, 1)
-                        .addComponent(btAlterar)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(btConfirmar)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(btCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 131, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(2, 2, 2)
-                        .addComponent(btExcluir)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(btPesquisar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel2)
-                    .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(12, Short.MAX_VALUE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addGroup(layout.createSequentialGroup()
+                            .addComponent(btAdicionar)
+                            .addGap(1, 1, 1)
+                            .addComponent(btAlterar)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addComponent(btConfirmar)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addComponent(btCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 131, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGap(2, 2, 2)
+                            .addComponent(btExcluir)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addComponent(btPesquisar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jLabel2))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -564,7 +535,7 @@ public class ClienteFrame extends javax.swing.JFrame {
      Declarando cliente Global
      */
     private IRepositoryClient iRepositoryClient = (IRepositoryClient) new DaoClient();
-    private String opMenu = null; // I insert, D Delete U update
+    private static String opMenu = null; // I insert, D Delete U update
     //Linha da tabela selecionada
     private int linhaSelecionada = 0;
     private static Client clientVG = new Client();
@@ -574,6 +545,12 @@ public class ClienteFrame extends javax.swing.JFrame {
 
         try {
             Mask.maskDate(tvBirthDay);
+            Mask.maskCPF(tvCPF);
+            Mask.maskFone(tvPhone);
+            Mask.maskFone(tvCellPhone1);
+            Mask.maskFone(tvCellPhone2);
+            Mask.maskCep(tvAdressPostalCode);
+
         } catch (ParseException ex) {
             Logger.getLogger(ClienteFrame.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -590,7 +567,7 @@ public class ClienteFrame extends javax.swing.JFrame {
         opMenu = "D";
 
         if (tvID.getText().trim().equals("")) {
-            btPesquisarActionPerformed(evt);
+            ConsultarCliente.getJanelaConsultarCliente("CADCLIENTE_D").setVisible(true);
             return;
         }
 
@@ -601,7 +578,7 @@ public class ClienteFrame extends javax.swing.JFrame {
         opMenu = "U";
 
         if (tvID.getText().trim().equals("")) {
-            btPesquisarActionPerformed(evt);
+            ConsultarCliente.getJanelaConsultarCliente("CADCLIENTE_A").setVisible(true);
             return;
         }
 
@@ -616,7 +593,8 @@ public class ClienteFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_btCancelarActionPerformed
 
     private void btConfirmarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btConfirmarActionPerformed
-        if (!validarCPF()) {
+        //Se Retorno de validação falhar ele sai da função
+        if (!validacaoCliente()) {
             return;
         }
         boolean retorno;
@@ -693,10 +671,6 @@ public class ClienteFrame extends javax.swing.JFrame {
     private void tvEmailFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_tvEmailFocusLost
         tvEmail.setText(tvEmail.getText().toLowerCase());
     }//GEN-LAST:event_tvEmailFocusLost
-
-    private void tvCPFFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_tvCPFFocusLost
-        validarCPF();
-    }//GEN-LAST:event_tvCPFFocusLost
 
     private void btCPFScanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btCPFScanActionPerformed
         try {
@@ -783,16 +757,60 @@ public class ClienteFrame extends javax.swing.JFrame {
         });
     }
 
+    private boolean validacaoCliente() {
+        if ((Mask.limparMaskCPF(tvCPF.getText()).trim().equals("")) || (tvCPF.getText().trim().length() < 14)) {
+            SystemMessage.kpcShowMessage(null, SystemMessage.INFORMATION, "Informe seu CPF!");
+            tvCPF.requestFocus();
+            return false;
+        }
+        if (!Mask.validaCpfCnpj(tvCPF.getText())) {
+            SystemMessage.kpcShowMessage(null, SystemMessage.INFORMATION, "CPF digitado é inválido");
+            tvCPF.requestFocus();
+            return false;
+        }
+        if ((tvName.getText().trim().equals("")) || (tvName.getText().trim().length() < 10)) {
+            SystemMessage.kpcShowMessage(null, SystemMessage.INFORMATION, "Por favor, insira o seu nome completo!");
+            tvName.requestFocus();
+            return false;
+        }
+        if ((Mask.limparMasTelefone(tvCellPhone1.getText()).trim().equals("")) || (Mask.limparMasTelefone(tvCellPhone1.getText()).trim().length() < 10)) {
+            SystemMessage.kpcShowMessage(null, SystemMessage.INFORMATION, "Por favor, insira um número de celular válido!");
+            tvCellPhone1.requestFocus();
+            return false;
+        }
+
+        if ((Mask.limparMaskData(tvBirthDay.getText()).trim().equals("")) || (Mask.limparMaskData(tvBirthDay.getText()).trim().length() < 8)) {
+            SystemMessage.kpcShowMessage(null, SystemMessage.INFORMATION, "Por favor, insira data de Nascimento válida!");
+            tvBirthDay.requestFocus();
+            return false;
+        }
+        if ((Mask.limparMaskCEP(tvAdressPostalCode.getText()).trim().equals("")) || (Mask.limparMaskCEP(tvAdressPostalCode.getText()).trim().length() < 8)) {
+            SystemMessage.kpcShowMessage(null, SystemMessage.INFORMATION, "Por favor, insira númeto do CEP válida!");
+            tvAdressPostalCode.requestFocus();
+            return false;
+        }
+        if (tvAdressNeighborhood.getText().trim().equals("")) {
+            SystemMessage.kpcShowMessage(null, SystemMessage.INFORMATION, "Por favor, insira o nome do bairro válido!");
+            tvAdressNeighborhood.requestFocus();
+            return false;
+        }
+        if (tvAdressCity.getText().trim().equals("")) {
+            SystemMessage.kpcShowMessage(null, SystemMessage.INFORMATION, "Por favor, insira o nome do bairro válido!");
+            tvAdressCity.requestFocus();
+            return false;
+        }
+        return true;
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btAdicionar;
-    private javax.swing.JButton btAlterar;
-    private javax.swing.JButton btCPFScan;
-    private javax.swing.JButton btCancelar;
-    private javax.swing.JButton btConfirmar;
-    private javax.swing.JButton btExcluir;
-    private javax.swing.JButton btPesquisar;
-    private javax.swing.JButton btRGScan;
+    private static javax.swing.JButton btAdicionar;
+    private static javax.swing.JButton btAlterar;
+    private static javax.swing.JButton btCPFScan;
+    private static javax.swing.JButton btCancelar;
+    private static javax.swing.JButton btConfirmar;
+    private static javax.swing.JButton btExcluir;
+    private static javax.swing.JButton btPesquisar;
+    private static javax.swing.JButton btRGScan;
     private static javax.swing.JComboBox cbAdressStat;
     private static javax.swing.JComboBox cbEstCivil;
     private static javax.swing.JComboBox cbSexo;
@@ -901,16 +919,14 @@ public class ClienteFrame extends javax.swing.JFrame {
 
             clientVG.setActive(rbAtivo.isSelected());
 
-            Company cm = new br.com.kpc.drugstore.core.Company();
-            IRepositoryCompany iRepositoryCompany = (IRepositoryCompany) new DaoCompany();
-            cm = iRepositoryCompany.getCompany();
-
-            clientVG.setCompany(cm);
+            clientVG.setCompany(Service.getIRepositoryCompany().getCompany());
 
             iRepositoryClient.atualizar(clientVG);
+
+            Service.getIRepositoryClient().atualizar(clientVG);
             return true;
         } catch (Exception e) {
-             SystemMessage.kpcShowMessage(e, SystemMessage.ERROR, "Ocorreu um erro ");
+            SystemMessage.kpcShowMessage(e, SystemMessage.ERROR, "Ocorreu um erro ao atualizar o cliente! ");
             return false;
 
         }
@@ -918,47 +934,12 @@ public class ClienteFrame extends javax.swing.JFrame {
 
     private boolean delete() {
         try {
-
-            clientVG.setName(tvName.getText().trim());
-//      clientVG.setSexo(cbSexo.getSelectedItem().toString())
-//      clientVG.setEstCivil(cbEstCivilgetSelectedItem().toString())
-            Date date = null;
-            try {
-                date = new SimpleDateFormat("dd/MM/yyyy").parse(tvBirthDay.getText());
-
-            } catch (ParseException ex) {
-                Logger.getLogger(ClienteFrame.class
-                        .getName()).log(Level.SEVERE, null, ex);
-            }
-            clientVG.setDt_nasc(date);
-            clientVG.setCpf(tvCPF.getText());
-            clientVG.setRg(tvRG.getText());
-            clientVG.setPhone(tvPhone.getText());
-            clientVG.setCellPhone_1(tvCellPhone1.getText());
-            clientVG.setCellPhone_2(tvCellPhone2.getText());
-            clientVG.setAdress_postalCode(tvAdressPostalCode.getText());
-            clientVG.setAdress_street(tvAdressStreet.getText());
-            clientVG.setAdress_number(Integer.valueOf(tvAdressNumber.getText()));
-            clientVG.setAdress_complement(tvAdressComplement.getText());
-            clientVG.setAdress_city(tvAdressCity.getText());
-            clientVG.setAdress_neighborhood(tvAdressNeighborhood.getText());
-            clientVG.setEnd_stat(cbAdressStat.getSelectedItem().toString());
-            clientVG.setEmail(tvEmail.getText());
-
-            clientVG.setDt_cad(new Date());
-            clientVG.setActive(true);
-
-            Company cm = new br.com.kpc.drugstore.core.Company();
-            IRepositoryCompany iRepositoryCompany = (IRepositoryCompany) new DaoCompany();
-            cm = iRepositoryCompany.getCompany();
-
-            clientVG.setCompany(cm);
-
-            iRepositoryClient.apagar(clientVG);
+            clientVG = Service.getIRepositoryClient().getClientByCpf(clientVG.getCpf().trim(), true);
+            Service.getIRepositoryClient().apagar(clientVG);
             return true;
 
         } catch (NumberFormatException e) {
-             SystemMessage.kpcShowMessage(e, SystemMessage.ERROR, "Ocorreu um erro ");
+            SystemMessage.kpcShowMessage(e, SystemMessage.ERROR, "Ocorreu um erro ao excluir o cliente! ");
             return false;
 
         }
@@ -971,10 +952,10 @@ public class ClienteFrame extends javax.swing.JFrame {
         cbSexo.setSelectedIndex(0);
         cbEstCivil.setSelectedIndex(0);
         tvBirthDay.setText(null);
-        tvCPF.setText(null);
+        tvCPF.setText("");
         tvRG.setText(null);
         tvPhone.setText(null);
-        tvCellPhone1.setText(null);
+        tvCellPhone1.setText("");
         tvCellPhone2.setText(null);
         tvAdressPostalCode.setText(null);
         tvAdressStreet.setText(null);
@@ -1000,7 +981,7 @@ public class ClienteFrame extends javax.swing.JFrame {
 
     }
 
-    private void btTypeDelete() {
+    private static void btTypeDelete() {
         btAdicionar.setEnabled(false);
         btAlterar.setEnabled(false);
         btExcluir.setEnabled(false);
@@ -1010,7 +991,7 @@ public class ClienteFrame extends javax.swing.JFrame {
 
     }
 
-    private void btTypeUpdate() {
+    private static void btTypeUpdate() {
         btAdicionar.setEnabled(false);
         btAlterar.setEnabled(false);
         btExcluir.setEnabled(false);
@@ -1035,7 +1016,7 @@ public class ClienteFrame extends javax.swing.JFrame {
 
     }
 
-    private void habilitarCampos(boolean acao) {
+    private static void habilitarCampos(boolean acao) {
         tvName.setEnabled(acao);
         tvCPF.setEnabled(acao);
         tvRG.setEnabled(acao);
@@ -1056,7 +1037,13 @@ public class ClienteFrame extends javax.swing.JFrame {
         tvEmail.setEnabled(acao);
     }
 
-    protected static void getCliente(Client cli) {
+    /**
+     *
+     * @param cli
+     * @param acao Ação que esta buscando o cliente, E = Excluir, P = Pesquisa,
+     * A = Alterar
+     */
+    protected static void getCliente(Client cli, String acao) {
 
         clientVG = cli;
         tvID.setText(String.valueOf(clientVG.getId()));
@@ -1085,15 +1072,17 @@ public class ClienteFrame extends javax.swing.JFrame {
         tvEmail.setText(clientVG.getEmail());
         rbAtivo.setSelected(clientVG.isActive());
 
+        switch (acao) {
+            case "D":
+                opMenu = "D";
+                btTypeDelete();
+                break;
+            case "A":
+                opMenu = "U";
+                btTypeUpdate();
+                habilitarCampos(true);
+                break;
+        }
     }
 
-    private boolean validarCPF() {
-        if (tvCPF.getText().trim().length() < 14) {
-            SystemMessage.kpcShowMessage(null, SystemMessage.INFORMATION, "Digite seu CPF");
-        } else if (!Mask.validaCpfCnpj(tvCPF.getText())) {
-             SystemMessage.kpcShowMessage(null, SystemMessage.INFORMATION, "CPF digitado é inválido");
-            return false;
-        }
-        return true;
-    }
 }
