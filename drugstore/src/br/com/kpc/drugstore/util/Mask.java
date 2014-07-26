@@ -266,6 +266,9 @@ public class Mask {
     public static String limparMaskData(String cpf) {
         return cpf.replace("/", "");
     }
+    public static String limparMaskCEP(String cpf) {
+        return cpf.replace("-", "");
+    }
     
     public static String limparMaskCPF(String cpf) {
         return cpf.replace(".", "").replace("-", "");
