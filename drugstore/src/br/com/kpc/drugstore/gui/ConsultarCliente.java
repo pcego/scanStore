@@ -201,6 +201,7 @@ public class ConsultarCliente extends javax.swing.JFrame {
                         tvCriterio.setFormatterFactory(
                                 new DefaultFormatterFactory(cpf));
                         tvCriterio.updateUI();
+
                     } catch (ParseException ex) {
                         Logger.getLogger(RecipeFrame.class.getName()).log(Level.SEVERE, null, ex);
                     }
@@ -216,7 +217,13 @@ public class ConsultarCliente extends javax.swing.JFrame {
 
         switch (janelaDeRetorno) {
             case "CADCLIENTE":
-                ClienteFrame.getCliente(cli);
+                ClienteFrame.getCliente(cli, "P");
+                break;
+            case "CADCLIENTE_D":
+                ClienteFrame.getCliente(cli, "D");
+                break;
+            case "CADCLIENTE_A":
+                ClienteFrame.getCliente(cli, "A");
                 break;
             case "CADRECEITA":
                 RecipeFrame.getClienteRetorno(cli);
@@ -231,7 +238,7 @@ public class ConsultarCliente extends javax.swing.JFrame {
     }//GEN-LAST:event_tvCriterioFocusLost
 
     private void formWindowClosed(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosed
-       getJanelaNULL();
+        getJanelaNULL();
     }//GEN-LAST:event_formWindowClosed
 
     /**
@@ -335,7 +342,7 @@ public class ConsultarCliente extends javax.swing.JFrame {
     private boolean validarTamanhoDoCampos() {
 
         if (tvCriterio.getText().length() < 3) {
-             SystemMessage.kpcShowMessage(null, SystemMessage.INFORMATION, "Por favor, digite no minimo 3 character.");
+            SystemMessage.kpcShowMessage(null, SystemMessage.INFORMATION, "Por favor, digite no minimo 3 character.");
             return false;
         }
         return true;
@@ -351,8 +358,8 @@ public class ConsultarCliente extends javax.swing.JFrame {
             resposta = JOptionPane.showOptionDialog(this, "Cliente não encontrado deseja cadastra?",
                     "Cliente não encotnrado", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, opcoes, opcoes[0]);
             if (resposta == 0) {
-                  WindowInstance.getInstance( WindowInstance.CLIENTWINDOW).setVisible(true);
-               
+                WindowInstance.getInstance(WindowInstance.CLIENTWINDOW).setVisible(true);
+
             }
         }
     }
