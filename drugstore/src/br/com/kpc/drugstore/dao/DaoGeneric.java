@@ -74,6 +74,7 @@ public class DaoGeneric<T> implements IRepository<T> {
         try {
             tran.begin();
             getManager().remove(obj);
+            getManager().flush();
             tran.commit();
             return true;
         } catch (Exception e) {
