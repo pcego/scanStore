@@ -266,10 +266,11 @@ public class Mask {
     public static String limparMaskData(String cpf) {
         return cpf.replace("/", "");
     }
+
     public static String limparMaskCEP(String cpf) {
         return cpf.replace("-", "");
     }
-    
+
     public static String limparMaskCPF(String cpf) {
         return cpf.replace(".", "").replace("-", "");
     }
@@ -282,17 +283,21 @@ public class Mask {
         return numTelefone.replace("(", "").replace(")", "").replace("-)", "");
     }
 
-    public static void validaSomenteNumero(JTextField Numero) {
+    //True tem somente numeros, False tem letra
+    public static boolean validaSomenteNumero(JTextField Numero) {
         long valor;
-        if (Numero.getText().trim().length() != 0) {
+        if (Numero.getText().trim().length() > 0) {
             try {
                 valor = Long.parseLong(Numero.getText().trim());
+                return true;
             } catch (NumberFormatException ex) {
                 SystemMessage.kpcShowMessage(ex, SystemMessage.INFORMATION, "Esse Campo só aceita números");
 
                 Numero.grabFocus();// foca o campo 
                 Numero.setText(""); //limpa o campo 
+                return false;
             }
         }
+        return false;
     }
 }
