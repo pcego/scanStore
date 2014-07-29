@@ -401,6 +401,12 @@ public class ClienteFrame extends javax.swing.JFrame {
             }
         });
 
+        tvAdressNumber.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                tvAdressNumberFocusLost(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -717,6 +723,10 @@ public class ClienteFrame extends javax.swing.JFrame {
         btTypeDefault();
     }//GEN-LAST:event_formWindowClosed
 
+    private void tvAdressNumberFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_tvAdressNumberFocusLost
+        Mask.validaSomenteNumero(tvAdressNumber);
+    }//GEN-LAST:event_tvAdressNumberFocusLost
+
     /**
      * @param args the command line arguments
      */
@@ -799,6 +809,18 @@ public class ClienteFrame extends javax.swing.JFrame {
             tvAdressCity.requestFocus();
             return false;
         }
+
+        if (tvAdressNumber.getText().trim().length() == 0) {
+            String[] opcoes = {"Sim", "Nao"};
+            int opcao = JOptionPane.showOptionDialog(this, "ATENÇÃO: Não foi informado numero do endereço, deseja continuar assim mesmo?",
+                    "Validação do cadastro de endereço.", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, opcoes, opcoes[1]);
+            //Verificando a Resposta do usuario, se resposta = NÂO, sai da função.
+            if (opcao == 1) {
+                tvAdressNumber.requestFocus();
+                return false;
+            }
+        }
+
         return true;
     }
 
