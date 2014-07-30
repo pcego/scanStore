@@ -882,14 +882,14 @@ public class ClienteFrame extends javax.swing.JFrame {
             clientVG.setName(tvName.getText().trim());
             clientVG.setSex(cbSexo.getSelectedItem().toString());
             clientVG.setMarital_status(cbEstCivil.getSelectedItem().toString());
-            Date date = null;
+            Date BirthDay = null;
             try {
-                date = new SimpleDateFormat("dd/MM/yyyy").parse(tvBirthDay.getText());
+                BirthDay = new SimpleDateFormat("dd/MM/yyyy").parse(tvBirthDay.getText());
             } catch (Exception ex) {
                 Logger.getLogger(ClienteFrame.class
                         .getName()).log(Level.SEVERE, null, ex);
             }
-            clientVG.setDt_nasc(date);
+            clientVG.setDt_nasc(BirthDay);
             System.out.println();
             clientVG.setCpf(Mask.limparMaskCPF(tvCPF.getText()));
             clientVG.setRg(tvRG.getText());
@@ -924,7 +924,16 @@ public class ClienteFrame extends javax.swing.JFrame {
             clientVG.setName(tvName.getText().trim());
             clientVG.setSex(cbSexo.getSelectedItem().toString());
             clientVG.setMarital_status(cbEstCivil.getSelectedItem().toString());
-            clientVG.setDt_nasc(new Date(tvBirthDay.getText()));
+            
+            Date BirthDay = null;
+            try {
+                BirthDay = new SimpleDateFormat("dd/MM/yyyy").parse(tvBirthDay.getText());
+            } catch (Exception ex) {
+                Logger.getLogger(ClienteFrame.class
+                        .getName()).log(Level.SEVERE, null, ex);
+            }
+            
+            clientVG.setDt_nasc(BirthDay);
             clientVG.setCpf(Mask.limparMaskCPF(tvCPF.getText()));
             clientVG.setRg(tvRG.getText());
             clientVG.setPhone(Mask.limparMasTelefone(tvPhone.getText()));
