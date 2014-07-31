@@ -14,6 +14,7 @@ import br.com.kpc.drugstore.util.FormatDate;
 import br.com.kpc.drugstore.util.Mask;
 import br.com.kpc.drugstore.util.SystemMessage;
 import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -885,7 +886,16 @@ public class CompanyFrame extends javax.swing.JFrame {
             companyVG.setAdress_complement(tvAdressComplement.getText());
             companyVG.setAdress_neighborhood(tvAdressNeighborhood.getText());
             companyVG.setAdress_city(tvAdressCity.getText());
-            companyVG.setDateExpire(new Date(tvDataExpire.getText()));
+            
+            Date DataExpire = null;
+            try {
+                DataExpire = new SimpleDateFormat("dd/MM/yyyy").parse(tvDataExpire.getText());
+            } catch (Exception ex) {
+                java.util.logging.Logger.getLogger(ClienteFrame.class
+                        .getName()).log(Level.SEVERE, null, ex);
+            }
+            
+            companyVG.setDateExpire(DataExpire);
             companyVG.setPasswd(Cryptography.criptography(new String(tvSenha.getPassword())));
             companyVG.setUser(tvLogin.getText().trim());
             Service.getIRepositoryCompany().atualizar(companyVG);
@@ -918,7 +928,16 @@ public class CompanyFrame extends javax.swing.JFrame {
             companyVG.setAdress_complement(tvAdressComplement.getText());
             companyVG.setAdress_neighborhood(tvAdressNeighborhood.getText());
             companyVG.setAdress_city(tvAdressCity.getText());
-            companyVG.setDateExpire(new Date(tvDataExpire.getText()));
+            
+            Date DataExpire = null;
+            try {
+                DataExpire = new SimpleDateFormat("dd/MM/yyyy").parse(tvDataExpire.getText());
+            } catch (Exception ex) {
+                java.util.logging.Logger.getLogger(ClienteFrame.class
+                        .getName()).log(Level.SEVERE, null, ex);
+            }
+            
+            companyVG.setDateExpire(DataExpire);
             companyVG.setPasswd(Cryptography.criptography(new String(tvSenha.getPassword())));
             companyVG.setUser(tvLogin.getText().trim());
 
