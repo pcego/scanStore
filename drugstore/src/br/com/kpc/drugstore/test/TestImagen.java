@@ -126,8 +126,8 @@ public class TestImagen extends javax.swing.JFrame {
 
         String data = null;
 
-        new SimpleDateFormat("yyyy/MM/dd").format(data);
-        System.out.println(new SimpleDateFormat("yyyy/MM/dd").format(data));
+        //new SimpleDateFormat("yyyy/MM/dd").format(data);
+        //System.out.println(new SimpleDateFormat("yyyy/MM/dd").format(data));
 
         try {
             //gerando o jasper design
