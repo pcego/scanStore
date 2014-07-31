@@ -667,6 +667,7 @@ public class CompanyFrame extends javax.swing.JFrame {
         opMenu = "I";
         btTypeInsert();
         limparCampos();
+        tvDataExpire.setText(new SimpleDateFormat("dd/MM/yyyy").format((new Date())));
         tvCompanyName.requestFocus();
 
     }//GEN-LAST:event_btInsertActionPerformed
@@ -1007,7 +1008,6 @@ public class CompanyFrame extends javax.swing.JFrame {
         tvAdressPostalCode.setEnabled(acao);
         cbAdressStat.setEnabled(acao);
         tvSystemKey.setEnabled(acao);
-        tvDataExpire.setEnabled(acao);
         tvSenha.setEnabled(acao);
         tvLogin.setEnabled(acao);
     }
