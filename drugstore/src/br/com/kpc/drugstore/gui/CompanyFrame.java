@@ -122,7 +122,7 @@ public class CompanyFrame extends javax.swing.JFrame {
             }
         });
 
-        jLabel13.setText("Bairro:");
+        jLabel13.setText("*Bairro:");
 
         jLabel3.setText("*Nome:");
 
@@ -152,7 +152,7 @@ public class CompanyFrame extends javax.swing.JFrame {
 
         jLabel5.setText("*CNPJ:");
 
-        jLabel15.setText("Cidade:");
+        jLabel15.setText("*Cidade:");
 
         jLabel6.setText("Inscrição Estadual:");
 
@@ -196,7 +196,7 @@ public class CompanyFrame extends javax.swing.JFrame {
         cbAdressStat.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "AC", "AL", "AP", "AM", "BA", "CE", "DF", "GO", "ES", "MA", "MT", "MS", "MG", "PA", "PB", "PR", "PE", "PI", "RJ", "RN", "RS", "RO", "RR", "SP", "SC", "SE", "TO" }));
         cbAdressStat.setEnabled(false);
 
-        jLabel17.setText("CEP:");
+        jLabel17.setText("*CEP:");
 
         try {
             tvCNPJ.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("##.###.###/####-##")));
@@ -324,7 +324,7 @@ public class CompanyFrame extends javax.swing.JFrame {
 
         tvLogin.setEnabled(false);
 
-        jLabel21.setText("Senha:");
+        jLabel21.setText("*Senha:");
 
         tvSenha.setEnabled(false);
 
@@ -614,7 +614,7 @@ public class CompanyFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_btUpdateActionPerformed
 
     private void btConfirmActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btConfirmActionPerformed
-        if (!validarCNPJ()) {
+        if (!validacaoCompany()) {
             return;
         }
         boolean retorno;
@@ -886,7 +886,7 @@ public class CompanyFrame extends javax.swing.JFrame {
             companyVG.setAdress_complement(tvAdressComplement.getText());
             companyVG.setAdress_neighborhood(tvAdressNeighborhood.getText());
             companyVG.setAdress_city(tvAdressCity.getText());
-            
+
             Date DataExpire = null;
             try {
                 DataExpire = new SimpleDateFormat("dd/MM/yyyy").parse(tvDataExpire.getText());
@@ -894,7 +894,7 @@ public class CompanyFrame extends javax.swing.JFrame {
                 java.util.logging.Logger.getLogger(ClienteFrame.class
                         .getName()).log(Level.SEVERE, null, ex);
             }
-            
+
             companyVG.setDateExpire(DataExpire);
             companyVG.setPasswd(Cryptography.criptography(new String(tvSenha.getPassword())));
             companyVG.setUser(tvLogin.getText().trim());
@@ -928,7 +928,7 @@ public class CompanyFrame extends javax.swing.JFrame {
             companyVG.setAdress_complement(tvAdressComplement.getText());
             companyVG.setAdress_neighborhood(tvAdressNeighborhood.getText());
             companyVG.setAdress_city(tvAdressCity.getText());
-            
+
             Date DataExpire = null;
             try {
                 DataExpire = new SimpleDateFormat("dd/MM/yyyy").parse(tvDataExpire.getText());
@@ -936,7 +936,7 @@ public class CompanyFrame extends javax.swing.JFrame {
                 java.util.logging.Logger.getLogger(ClienteFrame.class
                         .getName()).log(Level.SEVERE, null, ex);
             }
-            
+
             companyVG.setDateExpire(DataExpire);
             companyVG.setPasswd(Cryptography.criptography(new String(tvSenha.getPassword())));
             companyVG.setUser(tvLogin.getText().trim());
@@ -1011,11 +1011,66 @@ public class CompanyFrame extends javax.swing.JFrame {
         tvLogin.setEnabled(acao);
     }
 
-    private boolean validarCNPJ() {
-        if (!Mask.validaCpfCnpj(tvCNPJ.getText())) {
-            SystemMessage.kpcShowMessage(null, SystemMessage.INFORMATION, "CNPJ digitado é inválido");
+    private boolean validacaoCompany() {
+        if ((tvCompanyName.getText().trim().equals("")) || (tvCompanyName.getText().trim().length() < 2)) {
+            SystemMessage.kpcShowMessage(null, SystemMessage.INFORMATION, "Por favor, insira o seu nome completo!");
+            tvCompanyName.requestFocus();
             return false;
         }
+        if ((Mask.limparMaskCNPJ(tvCNPJ.getText()).trim().equals("")) || (tvCNPJ.getText().trim().length() < 14)) {
+            SystemMessage.kpcShowMessage(null, SystemMessage.INFORMATION, "Informe seu CNPJ!");
+            tvCNPJ.requestFocus();
+            return false;
+        }
+        if (!Mask.validaCpfCnpj(tvCNPJ.getText())) {
+            SystemMessage.kpcShowMessage(null, SystemMessage.INFORMATION, "CNPJ digitado é inválido");
+            tvCNPJ.requestFocus();
+            return false;
+        }
+        if ((tvFantasy.getText().trim().equals("")) || (tvFantasy.getText().trim().length() < 2)) {
+            SystemMessage.kpcShowMessage(null, SystemMessage.INFORMATION, "Por favor, insira o seu nome Fantasia!");
+            tvFantasy.requestFocus();
+            return false;
+        }
+        if ((Mask.limparMasTelefone(tvCellPhone1.getText()).trim().equals("")) || (Mask.limparMasTelefone(tvCellPhone1.getText()).trim().length() < 10)) {
+            SystemMessage.kpcShowMessage(null, SystemMessage.INFORMATION, "Por favor, insira um número de celular válido!");
+            tvCellPhone1.requestFocus();
+            return false;
+        }
+
+        if ((Mask.limparMaskData(tvSenha.getText()).trim().equals("")) || (Mask.limparMaskData(tvSenha.getText()).trim().length() < 4)) {
+            SystemMessage.kpcShowMessage(null, SystemMessage.INFORMATION, "Por favor, insira a senha válida(Min. 4 caracteres)!");
+            tvSenha.requestFocus();
+            return false;
+        }
+        if ((Mask.limparMaskCEP(tvAdressPostalCode.getText()).trim().equals("")) || (Mask.limparMaskCEP(tvAdressPostalCode.getText()).trim().length() < 8)) {
+            SystemMessage.kpcShowMessage(null, SystemMessage.INFORMATION, "Por favor, insira númeto do CEP válida!");
+            tvAdressPostalCode.requestFocus();
+            return false;
+        }
+        if (tvAdressNeighborhood.getText().trim().equals("")) {
+            SystemMessage.kpcShowMessage(null, SystemMessage.INFORMATION, "Por favor, insira o nome do bairro válido!");
+            tvAdressNeighborhood.requestFocus();
+            return false;
+        }
+        if (tvAdressCity.getText().trim().equals("")) {
+            SystemMessage.kpcShowMessage(null, SystemMessage.INFORMATION, "Por favor, insira o nome do bairro válido!");
+            tvAdressCity.requestFocus();
+            return false;
+        }
+
+        if (tvAdressNumber.getText().trim().length() == 0) {
+            String[] opcoes = {"Sim", "Nao"};
+            int opcao = JOptionPane.showOptionDialog(this, "ATENÇÃO: Não foi informado numero do endereço, deseja continuar assim mesmo?",
+                    "Validação do cadastro de endereço.", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, opcoes, opcoes[1]);
+            //Verificando a Resposta do usuario, se resposta = NÂO, sai da função.
+            if (opcao == 1) {
+                tvAdressNumber.requestFocus();
+                return false;
+            }
+        }
+
         return true;
     }
+
 }

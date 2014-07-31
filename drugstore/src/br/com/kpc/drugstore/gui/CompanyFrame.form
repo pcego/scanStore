@@ -344,7 +344,7 @@
     </Component>
     <Component class="javax.swing.JLabel" name="jLabel13">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Bairro:"/>
+        <Property name="text" type="java.lang.String" value="*Bairro:"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JLabel" name="jLabel3">
@@ -400,7 +400,7 @@
     </Component>
     <Component class="javax.swing.JLabel" name="jLabel15">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Cidade:"/>
+        <Property name="text" type="java.lang.String" value="*Cidade:"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JLabel" name="jLabel6">
@@ -504,7 +504,7 @@
     </Component>
     <Component class="javax.swing.JLabel" name="jLabel17">
       <Properties>
-        <Property name="text" type="java.lang.String" value="CEP:"/>
+        <Property name="text" type="java.lang.String" value="*CEP:"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JFormattedTextField" name="tvCNPJ">
@@ -706,7 +706,7 @@
     </Component>
     <Component class="javax.swing.JLabel" name="jLabel21">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Senha:"/>
+        <Property name="text" type="java.lang.String" value="*Senha:"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JPasswordField" name="tvSenha">
