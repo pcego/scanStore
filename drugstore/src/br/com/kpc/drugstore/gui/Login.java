@@ -33,7 +33,7 @@ public class Login extends javax.swing.JFrame {
     public Login() {
         initComponents();
         Config.considerarEnterComoTab(tvSenha);
-     
+
     }
 
     /**
@@ -177,7 +177,20 @@ public class Login extends javax.swing.JFrame {
             retornoWS = in.readLine();
             System.out.println("Res " + retornoWS);
             if (validarSerial(retornoWS)) {
+
+                Date DataExpire = null;
+                try {
+                    DataExpire = new SimpleDateFormat("dd/MM/yyyy").parse(serialDetalhes[5]);
+                } catch (Exception ex) {
+                    java.util.logging.Logger.getLogger(ClienteFrame.class
+                            .getName()).log(Level.SEVERE, null, ex);
+                }
+
+                company.setDateExpire(DataExpire);
                 tvCnpj.setText(serialDetalhes[1]);
+                company.setSystem_key(retornoWS);
+
+                Service.getIRepositoryCompany().atualizar(company);
             }
 
             btChaveInstalacao.setEnabled(true);
