@@ -18,6 +18,7 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -383,7 +384,7 @@ public class RecipeFrame extends javax.swing.JFrame {
             if (opcao == 1) {
                 return;
             }
-            
+
             if (!headerOk()) {
                 return;
             }
@@ -401,7 +402,15 @@ public class RecipeFrame extends javax.swing.JFrame {
             }
 
             recipeVG.setClient(clientVG);
-            recipeVG.setDt_recipe(new Date(tvDtReceita.getText()));
+
+            Date DtReceita = null;
+            try {
+                DtReceita = new SimpleDateFormat("dd/MM/yyyy").parse(tvDtReceita.getText());
+            } catch (Exception ex) {
+                Logger.getLogger(ClienteFrame.class
+                        .getName()).log(Level.SEVERE, null, ex);
+            }
+            recipeVG.setDt_recipe(DtReceita);
 
             if (rbAnticoncepcional.isSelected()) {
                 recipeVG.setRecipe_type("anticoncepcional");
@@ -412,7 +421,16 @@ public class RecipeFrame extends javax.swing.JFrame {
             Service.getIRepositoryRecipe().salvar(recipeVG);
 
             ticketVG.setAuth_number(tvNumAutorizacao.getText());
-            ticketVG.setDt_shop(new Date(tvDtVenda.getText()));
+
+            Date DtVenda = null;
+            try {
+                DtVenda = new SimpleDateFormat("dd/MM/yyyy").parse(tvDtVenda.getText());
+            } catch (Exception ex) {
+                Logger.getLogger(ClienteFrame.class
+                        .getName()).log(Level.SEVERE, null, ex);
+            }
+
+            ticketVG.setDt_shop(DtVenda);
             ticketVG.setTicket_number(tvCupomFiscal.getText());
             ticketVG.setRecipe(recipeVG);
 
