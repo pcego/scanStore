@@ -437,6 +437,7 @@ public class RecipeFrame extends javax.swing.JFrame {
             Service.getIRepositoryTicket().salvar(ticketVG);
 
             SystemMessage.kpcShowMessage(null, SystemMessage.INFORMATION, "Registro gravado com sucesso!");
+            limparCampos();
         } catch (Exception e) {
             SystemMessage.kpcShowMessage(e, SystemMessage.ERROR, "ao gravar registro!");
         }
@@ -493,12 +494,11 @@ public class RecipeFrame extends javax.swing.JFrame {
         //carregarImg(displayReceita, img[0]);
 
         if (retorno) {
-            recipeVG.setRecipe_image(Mask.limparMaskCPF(tvCPF.getText()) + "\\" + tvNumAutorizacao.getText().trim() + "\\receita.jpg");
-            System.out.println("sucesso");
+            recipeVG.setRecipe_image(Config.DIRETORIOIMAGEM + Mask.limparMaskCPF(tvCPF.getText()) + "\\" + tvNumAutorizacao.getText().trim() + "\\receita.jpg");
             displayReceita.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/kpc/drugstore/img/receitaScannerOK.png")));
 
         } else {
-            System.out.println("falha ao renomear");
+            SystemMessage.kpcShowMessage(null, SystemMessage.ERROR, "Falha ao renomear imagem CPF!");
         }
 
     }//GEN-LAST:event_displayReceitaMouseClicked
@@ -521,12 +521,11 @@ public class RecipeFrame extends javax.swing.JFrame {
         //carregarImg(displayReceita, img[0]);
 
         if (retorno) {
-            ticketVG.setTicket_image(Mask.limparMaskCPF(tvCPF.getText()) + "\\" + tvNumAutorizacao.getText().trim() + "\\cupom.jpg");
-            System.out.println("sucesso");
+            ticketVG.setTicket_image(Config.DIRETORIOIMAGEM + Mask.limparMaskCPF(tvCPF.getText()) + "\\" + tvNumAutorizacao.getText().trim() + "\\cupom.jpg");
             displayCupom.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/kpc/drugstore/img/receitaScannerOK.png")));
 
         } else {
-            System.out.println("falha ao renomear");
+            SystemMessage.kpcShowMessage(null, SystemMessage.ERROR, "Falha ao renomear imagem Cupom!");
         }
     }//GEN-LAST:event_displayCupomMouseClicked
 
@@ -570,15 +569,12 @@ public class RecipeFrame extends javax.swing.JFrame {
         File[] img = sc.getGuiScan(Config.DIRETORIOIMAGEM + Mask.limparMaskCPF(tvCPF.getText()) + "\\" + tvNumAutorizacao.getText().trim());
 
         retorno = Scan.renameImg(img[0], Config.DIRETORIOIMAGEM + Mask.limparMaskCPF(tvCPF.getText()) + "\\" + tvNumAutorizacao.getText().trim(), "outroDocumento.jpg");
-        //  carregarImg(displayReceita, img[0]);
 
         if (retorno) {
-            recipeVG.setOther_document(Mask.limparMaskCPF(tvCPF.getText()) + "\\" + tvNumAutorizacao.getText().trim() + "\\outroDocumento.jpg");
-            System.out.println("sucesso");
+            recipeVG.setOther_document(Config.DIRETORIOIMAGEM + Mask.limparMaskCPF(tvCPF.getText()) + "\\" + tvNumAutorizacao.getText().trim() + "\\outroDocumento.jpg");
             displayOutros.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/kpc/drugstore/img/receitaScannerOK.png")));
-
         } else {
-            System.out.println("falha ao renomear");
+            SystemMessage.kpcShowMessage(null, SystemMessage.ERROR, "Falha ao renomear imagem Outro Documento!");
         }
     }//GEN-LAST:event_displayOutrosMouseClicked
 

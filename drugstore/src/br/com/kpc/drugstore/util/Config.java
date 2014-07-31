@@ -17,7 +17,7 @@ import java.util.Set;
  * @author Pcego
  */
 public class Config {
-    public static final String DIRETORIOIMAGEM = System.getProperty("user.dir") + "\\documentos\\";
+    public static final String DIRETORIOIMAGEM = "C:\\scanStore\\drugstore\\documentos\\"; //System.getProperty("user.dir") + "\\documentos\\";
     public static final String URLWEBSERVICEVALIDACAO = "http://localhost:8080/validatorWS/rest/validar/getKeyValidation/";
     
     /** 
