@@ -545,6 +545,8 @@ public class ClienteFrame extends javax.swing.JFrame {
     //Linha da tabela selecionada
     private int linhaSelecionada = 0;
     private static Client clientVG = new Client();
+    private String Cpf_imageVG = null;
+    private String Rg_imageVG = null;
     //Pegado o caminho do arquivo com o nome da pasta 
 
     private void definindoMask() {
@@ -688,7 +690,7 @@ public class ClienteFrame extends javax.swing.JFrame {
             //carregarImg(displayReceita, img[0]);
 
             if (retorno) {
-                clientVG.setCpf_image(Mask.limparMaskCPF(tvCPF.getText().trim()) + "\\cpf.jpg");
+                Cpf_imageVG = (Mask.limparMaskCPF(tvCPF.getText().trim()) + "\\cpf.jpg");
             } else {
                 SystemMessage.kpcShowMessage(null, SystemMessage.INFORMATION, "falha ao renomear imagem.");
             }
@@ -708,7 +710,7 @@ public class ClienteFrame extends javax.swing.JFrame {
             //carregarImg(displayReceita, img[0]);
 
             if (retorno) {
-                clientVG.setRg_image(Mask.limparMaskCPF(tvCPF.getText().trim()) + "\\rg.jpg");
+                Rg_imageVG = (Mask.limparMaskCPF(tvCPF.getText().trim()) + "\\rg.jpg");
             } else {
                 SystemMessage.kpcShowMessage(null, SystemMessage.INFORMATION, "falha ao renomear imagem.");
             }
@@ -781,6 +783,11 @@ public class ClienteFrame extends javax.swing.JFrame {
         if ((tvName.getText().trim().equals("")) || (tvName.getText().trim().length() < 10)) {
             SystemMessage.kpcShowMessage(null, SystemMessage.INFORMATION, "Por favor, insira o seu nome completo!");
             tvName.requestFocus();
+            return false;
+        }
+        if ((Cpf_imageVG == null) || (Cpf_imageVG.trim().equals(""))   ) {
+            SystemMessage.kpcShowMessage(null, SystemMessage.INFORMATION, "Por favor, escanear CPF!");
+            btCPFScan.requestFocus();
             return false;
         }
         if ((Mask.limparMasTelefone(tvCellPhone1.getText()).trim().equals("")) || (Mask.limparMasTelefone(tvCellPhone1.getText()).trim().length() < 10)) {
@@ -890,7 +897,9 @@ public class ClienteFrame extends javax.swing.JFrame {
                         .getName()).log(Level.SEVERE, null, ex);
             }
             clientVG.setDt_nasc(BirthDay);
-            System.out.println();
+
+            clientVG.setCpf_image(Cpf_imageVG);
+            clientVG.setRg_image(Rg_imageVG);
             clientVG.setCpf(Mask.limparMaskCPF(tvCPF.getText()));
             clientVG.setRg(tvRG.getText());
             clientVG.setPhone(Mask.limparMasTelefone(tvPhone.getText()));
@@ -924,7 +933,7 @@ public class ClienteFrame extends javax.swing.JFrame {
             clientVG.setName(tvName.getText().trim());
             clientVG.setSex(cbSexo.getSelectedItem().toString());
             clientVG.setMarital_status(cbEstCivil.getSelectedItem().toString());
-            
+
             Date BirthDay = null;
             try {
                 BirthDay = new SimpleDateFormat("dd/MM/yyyy").parse(tvBirthDay.getText());
@@ -932,7 +941,7 @@ public class ClienteFrame extends javax.swing.JFrame {
                 Logger.getLogger(ClienteFrame.class
                         .getName()).log(Level.SEVERE, null, ex);
             }
-            
+
             clientVG.setDt_nasc(BirthDay);
             clientVG.setCpf(Mask.limparMaskCPF(tvCPF.getText()));
             clientVG.setRg(tvRG.getText());
