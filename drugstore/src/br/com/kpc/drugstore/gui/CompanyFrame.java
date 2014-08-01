@@ -557,6 +557,7 @@ public class CompanyFrame extends javax.swing.JFrame {
         getAccessibleContext().setAccessibleDescription("");
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     Company companyVG = new Company();
@@ -632,11 +633,11 @@ public class CompanyFrame extends javax.swing.JFrame {
             case "I":
                 retorno = insert();
                 if (retorno) {
-                    SystemMessage.kpcShowMessage(null, SystemMessage.INFORMATION, "Gravado");
-
-                    btTypeDefault();
-                    limparCampos();
-                    loadingTable();
+                    SystemMessage.kpcShowMessage(null, SystemMessage.INFORMATION, "Empresa gravada com sucesso, o sistema será fechado para reconfiguração!");
+                    //btTypeDefault();
+                   // limparCampos();
+                   // loadingTable();
+                    System.exit(0);
                 }
                 break;
             case "D":
@@ -664,6 +665,10 @@ public class CompanyFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_btConfirmActionPerformed
 
     private void btInsertActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btInsertActionPerformed
+        if (Service.getIRepositoryCompany().getCompany() != null) {
+            SystemMessage.kpcShowMessage(null, SystemMessage.INFORMATION, "Já existe uma empresa cadastrada.");
+            return;
+        }
         opMenu = "I";
         btTypeInsert();
         limparCampos();
