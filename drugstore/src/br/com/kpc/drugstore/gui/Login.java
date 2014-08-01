@@ -156,9 +156,17 @@ public class Login extends javax.swing.JFrame {
     private String retornoWS;
 
     private void btChaveInstalacaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btChaveInstalacaoActionPerformed
-
         btChaveInstalacao.setEnabled(false);
+        btValidar.setEnabled(false);
         lbAguarde.setVisible(true);
+        //Verificar se tem internet para conectar ao WS
+        if (!verificarExisteConexaoComInternet()) {
+            SystemMessage.kpcShowMessage(null, SystemMessage.INFORMATION, "Problema ao conectar ao serviço de validação, entre em contato com o suporte.");
+            btChaveInstalacao.setEnabled(true);
+            btValidar.setEnabled(true);
+            lbAguarde.setVisible(false);
+            return;
+        }
         try {
             String codInstall;
             KPCSeg seg = new KPCSeg();
@@ -180,7 +188,7 @@ public class Login extends javax.swing.JFrame {
 
                 Date DataExpire = null;
                 try {
-                    DataExpire = new SimpleDateFormat("dd/MM/yyyy").parse(serialDetalhes[5]);
+                    DataExpire = new SimpleDateFormat("dd/MM/yyyy").parse(serialDetalhes[4]);
                 } catch (Exception ex) {
                     java.util.logging.Logger.getLogger(ClienteFrame.class
                             .getName()).log(Level.SEVERE, null, ex);
@@ -194,8 +202,10 @@ public class Login extends javax.swing.JFrame {
             }
 
             btChaveInstalacao.setEnabled(true);
+            btValidar.setEnabled(true);
             lbAguarde.setVisible(false);
         } catch (Exception ex) {
+            btValidar.setEnabled(true);
             btChaveInstalacao.setEnabled(true);
             lbAguarde.setVisible(false);
             Logger.getLogger(Login.class.getName()).log(Level.SEVERE, null, ex);
@@ -208,7 +218,7 @@ public class Login extends javax.swing.JFrame {
         lbAguarde.setVisible(false);
         company = Service.getIRepositoryCompany().getCompany();
         if (company == null) {
-            SystemMessage.kpcShowMessage(null, SystemMessage.INFORMATION, "Não existe empresa cadastrada, é necessário cadastra uma empresa.");
+            SystemMessage.kpcShowMessage(null, SystemMessage.INFORMATION, "Não existe empresa cadastrada, é necessário cadastrar uma empresa.");
             WindowInstance.getInstance(WindowInstance.COMPANYWINDOW).setVisible(true);
             this.dispose();
         } else {
@@ -353,14 +363,30 @@ public class Login extends javax.swing.JFrame {
     private javax.swing.JPasswordField tvSenha;
     // End of variables declaration//GEN-END:variables
 
-//-------------------Comentado para remover
-//    private void validarNoService() {
-//        String registro;
-//        Company company;
-//        company = Service.getIRepositoryCompany().getCompany();
-//
-//        registro = Cryptography.criptography(Mask.limparMaskCNPJ(company.getCnpj()) + KPCSeg.getHDSerial("c") + KPCSeg.getCPUSerial());
-//
-//        tvSerial.setText(registro);
-//    }
+    private boolean verificarExisteConexaoComInternet() {
+        int respontaURL;
+        try {
+            java.net.URL urlWeb = new java.net.URL(Config.IPWEBSERVICEVALIDACAO); // 
+            java.net.URLConnection conn = urlWeb.openConnection();
+
+            java.net.HttpURLConnection httpConn = (java.net.HttpURLConnection) conn;
+            httpConn.connect();
+            respontaURL = httpConn.getResponseCode();
+
+        } catch (java.net.MalformedURLException urlmal) {
+            System.out.println("Não Conectado1: " + urlmal);
+            return false;
+        } catch (java.io.IOException ioexcp) {
+            System.out.println("Não Conectado2: " + ioexcp);
+            return false;
+        }
+
+        if (respontaURL == 200) {
+            System.out.println("Conectado");
+            return true;
+        } else {
+            System.out.println("Não Conectado");
+            return false;
+        }
+    }
 }
