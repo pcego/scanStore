@@ -206,12 +206,12 @@ public class Login extends javax.swing.JFrame {
 
     private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
         lbAguarde.setVisible(false);
-        if (Service.getIRepositoryCompany().getCompany() == null) {
+        company = Service.getIRepositoryCompany().getCompany();
+        if (company == null) {
+            SystemMessage.kpcShowMessage(null, SystemMessage.INFORMATION, "Não existe empresa cadastrada, é necessário cadastra uma empresa.");
             WindowInstance.getInstance(WindowInstance.COMPANYWINDOW).setVisible(true);
             this.dispose();
-        }
-        company = Service.getIRepositoryCompany().getCompany();
-        if (company.getCnpj() != null) {
+        } else {
             tvCnpj.setText(company.getCnpj());
         }
 
