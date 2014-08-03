@@ -108,7 +108,7 @@ public class TestImagen extends javax.swing.JFrame {
 
     private void carregarImgActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_carregarImgActionPerformed
 
-        File img = new File("C:\\imagens\\testando.jpg");
+        File img = new File("C:\\scanStore\\drugstore\\documentos\\95113053600\\cpf.jpg");
 
         try {
             BufferedImage bfi = ImageIO.read(img);
@@ -146,6 +146,7 @@ public class TestImagen extends javax.swing.JFrame {
 
         HashMap hm2 = new HashMap();
         //sql base para geração de todos os relatórios para listagem de documentos
+        //sem o filtro essa sql lista todas as vendas contidas na base
         StringBuilder sql_base = new StringBuilder("select cl.name, cl.cpf, cl.cpf_image, cl.rg_image, r.dt_recipe, r.recipe_type, \n" +
 "r.recipe_image, r.other_document, t.dt_shop, t.ticket_image, \n" +
 "t.ticket_number, t.auth_number from clients as cl INNER join recipes as r\n" +
@@ -153,9 +154,24 @@ public class TestImagen extends javax.swing.JFrame {
 "on r.recipeId = t.RECIPE_recipeId ");
         
         //implementação dos filtros para relatórios de documentos
-        String filtro = "WHERE cl.CPF = 95111212604 and "
-                + "r.recipeId = (select MAX(recipeId) from recipes where clientId = (select clientId from clients where cpf = 95111212604))";
-        sql_base.append(filtro);
+        //estes são apenas alguns filtros possíveis sendo que novos filtros podem ser
+        //implementados assim que surgir a necessidade, utilizando-se sempre a mesma sql base
+        
+        //filtra ultima compra de um cpf específico
+        String filtroUltimaCompra = "WHERE cl.CPF = 95111212604 and " 
+                + "r.recipeId = (select MAX(recipeId) from recipes where CLIENT_clientId = (select clientId from clients where cpf = 95111212604))";
+                
+        //filtra as vendas em uma determinada data
+        String filtroPorData = "WHERE t.DT_SHOP = '2014-08-01'"; 
+        
+        //filtra vendas para uma cliente específico em uma data específica
+        String filtroVendaClienteData = "WHERE cl.cpf = '95111212604' and t.DT_SHOP = '2014-08-01'"; 
+        
+        //filtra todas as vendas com data de receita específica
+        String filtroVendaDataReceita = "WHERE r.DT_RECIPE = '2014-07-30'";
+        
+        sql_base.append(filtroPorData);
+        
         hm2.put("query", sql_base);
        
         File rel = new File("C:\\scanStore\\drugstore\\src\\br\\com\\kpc\\drugstore\\relatorios\\documentos.jrxml");
