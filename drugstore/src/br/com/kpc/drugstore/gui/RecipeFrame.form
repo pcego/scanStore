@@ -122,10 +122,6 @@
                   <EmptySpace min="-2" pref="12" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Group type="102" alignment="0" attributes="0">
-                          <Component id="rbAnticoncepcional" min="-2" max="-2" attributes="0"/>
-                          <EmptySpace max="32767" attributes="0"/>
-                      </Group>
-                      <Group type="102" alignment="0" attributes="0">
                           <Group type="103" groupAlignment="1" max="-2" attributes="0">
                               <Component id="tvCupomFiscal" alignment="0" max="32767" attributes="0"/>
                               <Component id="tvNumAutorizacao" alignment="0" max="32767" attributes="0"/>
@@ -140,16 +136,21 @@
                               <Component id="jLabel7" min="-2" max="-2" attributes="0"/>
                           </Group>
                           <EmptySpace max="-2" attributes="0"/>
-                          <Group type="103" groupAlignment="0" attributes="0">
-                              <Component id="tvNomeCliente" min="-2" pref="159" max="-2" attributes="0"/>
-                              <Group type="103" alignment="0" groupAlignment="1" max="-2" attributes="0">
-                                  <Component id="tvDtReceita" alignment="0" pref="155" max="32767" attributes="0"/>
-                                  <Component id="tvDtVenda" alignment="0" max="32767" attributes="0"/>
-                              </Group>
-                          </Group>
-                          <EmptySpace pref="99" max="32767" attributes="0"/>
+                      </Group>
+                      <Group type="102" alignment="0" attributes="0">
+                          <Component id="rbAnticoncepcional" min="-2" max="-2" attributes="0"/>
+                          <EmptySpace min="-2" pref="123" max="-2" attributes="0"/>
                       </Group>
                   </Group>
+                  <Group type="103" groupAlignment="0" attributes="0">
+                      <Component id="lbDiasReceitas" min="-2" max="-2" attributes="0"/>
+                      <Component id="tvNomeCliente" min="-2" pref="159" max="-2" attributes="0"/>
+                      <Group type="103" alignment="0" groupAlignment="1" max="-2" attributes="0">
+                          <Component id="tvDtReceita" alignment="0" pref="155" max="32767" attributes="0"/>
+                          <Component id="tvDtVenda" alignment="0" max="32767" attributes="0"/>
+                      </Group>
+                  </Group>
+                  <EmptySpace pref="99" max="32767" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -189,7 +190,10 @@
                       <Component id="tvDtReceita" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace pref="9" max="32767" attributes="0"/>
-                  <Component id="rbAnticoncepcional" min="-2" max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="0" attributes="0">
+                      <Component id="rbAnticoncepcional" min="-2" max="-2" attributes="0"/>
+                      <Component id="lbDiasReceitas" min="-2" max="-2" attributes="0"/>
+                  </Group>
                   <EmptySpace max="32767" attributes="0"/>
               </Group>
           </Group>
@@ -260,10 +264,24 @@
         <Component class="javax.swing.JFormattedTextField" name="tvDtVenda">
         </Component>
         <Component class="javax.swing.JFormattedTextField" name="tvDtReceita">
+          <Events>
+            <EventHandler event="focusLost" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="tvDtReceitaFocusLost"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JLabel" name="jLabel7">
           <Properties>
             <Property name="text" type="java.lang.String" value="Nome do cliente:"/>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JLabel" name="lbDiasReceitas">
+          <Properties>
+            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+              <Font name="Tahoma" size="11" style="1"/>
+            </Property>
+            <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+              <Color blue="99" green="66" red="0" type="rgb"/>
+            </Property>
+            <Property name="text" type="java.lang.String" value="Esta receita tem xxxx Dias."/>
           </Properties>
         </Component>
       </SubComponents>

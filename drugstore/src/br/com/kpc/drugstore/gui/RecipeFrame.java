@@ -14,6 +14,7 @@ import br.com.kpc.drugstore.util.Config;
 import br.com.kpc.drugstore.util.FormatDate;
 import br.com.kpc.drugstore.util.Mask;
 import br.com.kpc.drugstore.util.SystemMessage;
+import java.awt.Color;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
@@ -69,6 +70,7 @@ public class RecipeFrame extends javax.swing.JFrame {
         tvDtVenda = new javax.swing.JFormattedTextField();
         tvDtReceita = new javax.swing.JFormattedTextField();
         jLabel7 = new javax.swing.JLabel();
+        lbDiasReceitas = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
         btNovo = new javax.swing.JButton();
         jPanel2 = new javax.swing.JPanel();
@@ -138,7 +140,17 @@ public class RecipeFrame extends javax.swing.JFrame {
 
         tvNomeCliente.setEnabled(false);
 
+        tvDtReceita.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                tvDtReceitaFocusLost(evt);
+            }
+        });
+
         jLabel7.setText("Nome do cliente:");
+
+        lbDiasReceitas.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        lbDiasReceitas.setForeground(new java.awt.Color(0, 102, 153));
+        lbDiasReceitas.setText("Esta receita tem xxxx Dias.");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -153,9 +165,6 @@ public class RecipeFrame extends javax.swing.JFrame {
                 .addGap(12, 12, 12)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(rbAnticoncepcional)
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                             .addComponent(tvCupomFiscal, javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(tvNumAutorizacao, javax.swing.GroupLayout.Alignment.LEADING)
@@ -167,13 +176,17 @@ public class RecipeFrame extends javax.swing.JFrame {
                             .addComponent(jLabel4)
                             .addComponent(jLabel5)
                             .addComponent(jLabel7))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(tvNomeCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 159, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                .addComponent(tvDtReceita, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 155, Short.MAX_VALUE)
-                                .addComponent(tvDtVenda, javax.swing.GroupLayout.Alignment.LEADING)))
-                        .addContainerGap(99, Short.MAX_VALUE))))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(rbAnticoncepcional)
+                        .addGap(123, 123, 123)))
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(lbDiasReceitas)
+                    .addComponent(tvNomeCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 159, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                        .addComponent(tvDtReceita, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 155, Short.MAX_VALUE)
+                        .addComponent(tvDtVenda, javax.swing.GroupLayout.Alignment.LEADING)))
+                .addContainerGap(99, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -203,7 +216,9 @@ public class RecipeFrame extends javax.swing.JFrame {
                     .addComponent(jLabel3)
                     .addComponent(tvDtReceita, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 9, Short.MAX_VALUE)
-                .addComponent(rbAnticoncepcional)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(rbAnticoncepcional)
+                    .addComponent(lbDiasReceitas))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -225,11 +240,11 @@ public class RecipeFrame extends javax.swing.JFrame {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 displayOutrosMouseClicked(evt);
             }
-            public void mouseExited(java.awt.event.MouseEvent evt) {
-                displayOutrosMouseExited(evt);
-            }
             public void mouseEntered(java.awt.event.MouseEvent evt) {
                 displayOutrosMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                displayOutrosMouseExited(evt);
             }
         });
 
@@ -250,11 +265,11 @@ public class RecipeFrame extends javax.swing.JFrame {
         displayReceita.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/kpc/drugstore/img/receita.png"))); // NOI18N
         displayReceita.setEnabled(false);
         displayReceita.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
-                displayReceitaMouseEntered(evt);
-            }
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 displayReceitaMouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                displayReceitaMouseEntered(evt);
             }
             public void mouseExited(java.awt.event.MouseEvent evt) {
                 displayReceitaMouseExited(evt);
@@ -582,6 +597,22 @@ public class RecipeFrame extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_tvCPFKeyPressed
 
+    private void tvDtReceitaFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_tvDtReceitaFocusLost
+        if( (Mask.limparMaskData(tvDtReceita.getText()).trim().length() == 8)&& (Mask.limparMaskData(tvDtVenda.getText()).trim().length() == 8) ){
+            long qtdDias = FormatDate.diferencaDias(tvDtVenda.getText(),tvDtReceita.getText());
+            lbDiasReceitas.setText("Esta receita tem "
+                    + String.valueOf(qtdDias)
+                    + " Dias.");
+            if (qtdDias < 0) {
+                lbDiasReceitas.setForeground(Color.red);
+            }else
+                lbDiasReceitas.setForeground(Color.BLUE);
+
+        }
+
+
+    }//GEN-LAST:event_tvDtReceitaFocusLost
+
     /**
      * @param args the command line arguments
      */
@@ -637,6 +668,7 @@ public class RecipeFrame extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
+    private javax.swing.JLabel lbDiasReceitas;
     private javax.swing.JRadioButton rbAnticoncepcional;
     private static javax.swing.JFormattedTextField tvCPF;
     private javax.swing.JTextField tvCupomFiscal;
@@ -673,6 +705,7 @@ public class RecipeFrame extends javax.swing.JFrame {
         tvDtReceita.setText("");
         rbAnticoncepcional.setSelected(false);
         tvNomeCliente.setText("");
+        lbDiasReceitas.setText("Esta receita tem xxxx Dias.");
 
     }
 
