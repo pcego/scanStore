@@ -92,7 +92,7 @@ inner join clients as cl on c.companyId = cl.company_companyId where cl.active =
 		</band>
 	</columnHeader>
 	<detail>
-		<band height="169" splitType="Stretch">
+		<band height="35" splitType="Stretch">
 			<textField>
 				<reportElement x="0" y="0" width="90" height="35" uuid="e3bea268-8d43-473c-90f5-242d9bfceb56"/>
 				<textElement textAlignment="Center">
@@ -141,3 +141,4 @@ inner join clients as cl on c.companyId = cl.company_companyId where cl.active =
 		<band splitType="Stretch"/>
 	</summary>
 </jasperReport>
+
