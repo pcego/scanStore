@@ -119,6 +119,11 @@ public class RecipeFrame extends javax.swing.JFrame {
         });
 
         rbAnticoncepcional.setText("Receita de Anticoncepcional");
+        rbAnticoncepcional.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                rbAnticoncepcionalActionPerformed(evt);
+            }
+        });
 
         jLabel5.setText("Data Venda:");
 
@@ -601,26 +606,17 @@ public class RecipeFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_tvCPFKeyPressed
 
     private void tvDtReceitaFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_tvDtReceitaFocusLost
-        if ((Mask.limparMaskData(tvDtVenda.getText()).trim().length() == 8) && (Mask.limparMaskData(tvDtReceita.getText()).trim().length() == 8)) {
-            lbDiasReceitas.setVisible(true);
-            long qtdDias = FormatDate.diferencaDias(tvDtReceita.getText(), tvDtVenda.getText());
-            lbDiasReceitas.setText("Esta receita tem "
-                    + String.valueOf(qtdDias)
-                    + " Dias.");
-            if (qtdDias < 0) {
-                lbDiasReceitas.setForeground(Color.red);
-            } else {
-                lbDiasReceitas.setForeground(Color.BLUE);
-            }
-
-        }
-
+        verificarDataReceita();
 
     }//GEN-LAST:event_tvDtReceitaFocusLost
 
     private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
         lbDiasReceitas.setVisible(false);
     }//GEN-LAST:event_formWindowOpened
+
+    private void rbAnticoncepcionalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rbAnticoncepcionalActionPerformed
+        verificarDataReceita();
+    }//GEN-LAST:event_rbAnticoncepcionalActionPerformed
 
     /**
      * @param args the command line arguments
@@ -797,6 +793,23 @@ public class RecipeFrame extends javax.swing.JFrame {
         tvCupomFiscal.setEnabled(false);
 
         return true;
+    }
+
+    public void verificarDataReceita() {
+        if ((Mask.limparMaskData(tvDtVenda.getText()).trim().length() == 8) && (Mask.limparMaskData(tvDtReceita.getText()).trim().length() == 8)) {
+            lbDiasReceitas.setVisible(true);
+            long qtdDias = FormatDate.diferencaDias(tvDtReceita.getText(), tvDtVenda.getText());
+            lbDiasReceitas.setText("Esta receita tem "
+                    + String.valueOf(qtdDias)
+                    + " Dias.");
+            if ((qtdDias < 0 || qtdDias > 120) && (!rbAnticoncepcional.isSelected())) {
+                lbDiasReceitas.setForeground(Color.red);
+            } else if ((qtdDias < 0 || qtdDias > 365) && rbAnticoncepcional.isSelected()) {
+                lbDiasReceitas.setForeground(Color.red);
+            } else {
+                lbDiasReceitas.setForeground(Color.BLUE);
+            }
+        }
     }
 
 }
