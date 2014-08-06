@@ -85,6 +85,9 @@ public class RecipeFrame extends javax.swing.JFrame {
         setTitle("Cadastro de Receita - KPC Software Delopmet");
         setResizable(false);
         addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowOpened(java.awt.event.WindowEvent evt) {
+                formWindowOpened(evt);
+            }
             public void windowClosed(java.awt.event.WindowEvent evt) {
                 formWindowClosed(evt);
             }
@@ -598,20 +601,26 @@ public class RecipeFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_tvCPFKeyPressed
 
     private void tvDtReceitaFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_tvDtReceitaFocusLost
-        if( (Mask.limparMaskData(tvDtReceita.getText()).trim().length() == 8)&& (Mask.limparMaskData(tvDtVenda.getText()).trim().length() == 8) ){
-            long qtdDias = FormatDate.diferencaDias(tvDtVenda.getText(),tvDtReceita.getText());
+        if ((Mask.limparMaskData(tvDtVenda.getText()).trim().length() == 8) && (Mask.limparMaskData(tvDtReceita.getText()).trim().length() == 8)) {
+            lbDiasReceitas.setVisible(true);
+            long qtdDias = FormatDate.diferencaDias(tvDtReceita.getText(), tvDtVenda.getText());
             lbDiasReceitas.setText("Esta receita tem "
                     + String.valueOf(qtdDias)
                     + " Dias.");
             if (qtdDias < 0) {
                 lbDiasReceitas.setForeground(Color.red);
-            }else
+            } else {
                 lbDiasReceitas.setForeground(Color.BLUE);
+            }
 
         }
 
 
     }//GEN-LAST:event_tvDtReceitaFocusLost
+
+    private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
+        lbDiasReceitas.setVisible(false);
+    }//GEN-LAST:event_formWindowOpened
 
     /**
      * @param args the command line arguments
@@ -727,6 +736,7 @@ public class RecipeFrame extends javax.swing.JFrame {
         btConfirmar.setEnabled(false);
         btCancelar.setEnabled(false);
         btPesquisaCliente.setEnabled(false);
+        lbDiasReceitas.setVisible(false);
     }
 
     private void btTypeInsert() {
