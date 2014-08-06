@@ -16,10 +16,14 @@ import br.com.kpc.drugstore.util.SystemMessage;
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.net.URL;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import org.joda.time.DateTime;
+import org.joda.time.format.DateTimeFormat;
+import org.joda.time.format.DateTimeFormatter;
 
 /**
  *
@@ -156,6 +160,56 @@ public class Login extends javax.swing.JFrame {
     private String retornoWS;
 
     private void btChaveInstalacaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btChaveInstalacaoActionPerformed
+        //Gerar Chave
+        gerarChave();
+        //validar
+        if (!validarSerial(company.getSystem_key())) {
+            return;
+        }
+
+
+    }//GEN-LAST:event_btChaveInstalacaoActionPerformed
+
+    private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
+        lbAguarde.setVisible(false);
+        company = Service.getIRepositoryCompany().getCompany();
+        if (company == null) {
+            SystemMessage.kpcShowMessage(null, SystemMessage.INFORMATION, "Não existe empresa cadastrada, é necessário cadastrar uma empresa.");
+            WindowInstance.getInstance(WindowInstance.COMPANYWINDOW).setVisible(true);
+            this.dispose();
+        } else {
+
+            tvCnpj.setText(company.getCnpj());
+            //Iniciando verificação se esta menos de 5 dias do vencimento
+            Date dataHoje = new Date();
+            SimpleDateFormat formataData = new SimpleDateFormat("dd/MM/yyyy");
+            // se a chave não é valida OU falta menos de 5 dias para vencer
+            if ((!validarSerial(company.getSystem_key())) || (FormatDate.diferencaDias(formataData.format(dataHoje), serialDetalhes[4]) < 5)) {
+                //Gerar Chave
+                gerarChave();
+                //validar novamente
+                if (!validarSerial(company.getSystem_key())) {
+                    return;
+                }
+            }
+
+        }
+
+    }//GEN-LAST:event_formWindowOpened
+
+    private void btValidarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btValidarActionPerformed
+
+        if ((Cryptography.criptography(new String(tvSenha.getPassword()))).equals(company.getPasswd())) {
+            WindowInstance.getInstance(WindowInstance.PRINCIPAL).setVisible(true);
+            this.dispose();
+        } else {
+            SystemMessage.kpcShowMessage(null, SystemMessage.INFORMATION, "Senha inválida!");
+        }
+
+
+    }//GEN-LAST:event_btValidarActionPerformed
+
+    private void gerarChave() {
         btChaveInstalacao.setEnabled(false);
         btValidar.setEnabled(false);
         lbAguarde.setVisible(true);
@@ -210,34 +264,8 @@ public class Login extends javax.swing.JFrame {
             lbAguarde.setVisible(false);
             Logger.getLogger(Login.class.getName()).log(Level.SEVERE, null, ex);
         }
-
-
-    }//GEN-LAST:event_btChaveInstalacaoActionPerformed
-
-    private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
-        lbAguarde.setVisible(false);
-        company = Service.getIRepositoryCompany().getCompany();
-        if (company == null) {
-            SystemMessage.kpcShowMessage(null, SystemMessage.INFORMATION, "Não existe empresa cadastrada, é necessário cadastrar uma empresa.");
-            WindowInstance.getInstance(WindowInstance.COMPANYWINDOW).setVisible(true);
-            this.dispose();
-        } else {
-            tvCnpj.setText(company.getCnpj());
-        }
-
-    }//GEN-LAST:event_formWindowOpened
-
-    private void btValidarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btValidarActionPerformed
-
-        if ((Cryptography.criptography(new String(tvSenha.getPassword()))).equals(company.getPasswd())) {
-            WindowInstance.getInstance(WindowInstance.PRINCIPAL).setVisible(true);
-            this.dispose();
-        } else {
-            SystemMessage.kpcShowMessage(null, SystemMessage.INFORMATION, "Senha inválida!");
-        }
-
-
-    }//GEN-LAST:event_btValidarActionPerformed
+    }
+// True deu certo
 
     private boolean validarSerial(String key) {
 
