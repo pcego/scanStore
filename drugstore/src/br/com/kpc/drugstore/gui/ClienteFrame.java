@@ -42,6 +42,7 @@ public class ClienteFrame extends javax.swing.JFrame {
         btTypeDefault();
         definindoMask();
         Config.considerarEnterComoTab(this);
+        getContentPane().setBackground(new java.awt.Color(0, 153, 153));
     }
 
     /**
@@ -151,6 +152,7 @@ public class ClienteFrame extends javax.swing.JFrame {
             }
         });
 
+        jPanel3.setBackground(new java.awt.Color(0, 153, 153));
         jPanel3.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Cadastro de Cliente", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.TOP, new java.awt.Font("Arial", 1, 12))); // NOI18N
 
         jLabel11.setText("Código:");
@@ -358,6 +360,7 @@ public class ClienteFrame extends javax.swing.JFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
+        jPanel1.setBackground(new java.awt.Color(0, 153, 153));
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Endereço", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.TOP, new java.awt.Font("Arial", 1, 12))); // NOI18N
 
         jLabel22.setText("*Cep:");
@@ -507,8 +510,8 @@ public class ClienteFrame extends javax.swing.JFrame {
                             .addComponent(btExcluir)
                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                             .addComponent(btPesquisar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                        .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addComponent(jLabel2))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
@@ -785,7 +788,7 @@ public class ClienteFrame extends javax.swing.JFrame {
             tvName.requestFocus();
             return false;
         }
-        if ((Cpf_imageVG == null) || (Cpf_imageVG.trim().equals(""))   ) {
+        if ((Cpf_imageVG == null) || (Cpf_imageVG.trim().equals(""))) {
             SystemMessage.kpcShowMessage(null, SystemMessage.INFORMATION, "Por favor, escanear CPF!");
             btCPFScan.requestFocus();
             return false;
@@ -1099,7 +1102,7 @@ public class ClienteFrame extends javax.swing.JFrame {
 
         Cpf_imageVG = clientVG.getCpf_image();
         Rg_imageVG = clientVG.getRg_image();
-        
+
         tvCPF.setText(clientVG.getCpf());
         tvRG.setText(clientVG.getRg());
         tvPhone.setText(clientVG.getPhone());
