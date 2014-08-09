@@ -42,6 +42,7 @@ public class RecipeFrame extends javax.swing.JFrame {
         definindoMask();
         btTypeDefault();
         Config.considerarEnterComoTab(this);
+        getContentPane().setBackground(new java.awt.Color(0, 153, 153));
     }
 
     /**
@@ -109,6 +110,7 @@ public class RecipeFrame extends javax.swing.JFrame {
             }
         });
 
+        jPanel1.setBackground(new java.awt.Color(0, 153, 153));
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Cadastro de Receitas", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.TOP, new java.awt.Font("Arial", 1, 12))); // NOI18N
 
         btPesquisaCliente.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/kpc/drugstore/img/pesquisa.png"))); // NOI18N
@@ -240,6 +242,7 @@ public class RecipeFrame extends javax.swing.JFrame {
             }
         });
 
+        jPanel2.setBackground(new java.awt.Color(0, 153, 153));
         jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Digitalização", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.TOP, new java.awt.Font("Arial", 1, 12))); // NOI18N
 
         displayOutros.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/kpc/drugstore/img/receita.png"))); // NOI18N
