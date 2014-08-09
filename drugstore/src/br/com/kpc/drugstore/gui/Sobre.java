@@ -21,6 +21,7 @@ public class Sobre extends javax.swing.JFrame {
     public Sobre() {
         initComponents();
         Config.considerarEnterComoTab(this);
+        getContentPane().setBackground(new java.awt.Color(0, 153, 153));
     }
 
     /**
@@ -48,7 +49,8 @@ public class Sobre extends javax.swing.JFrame {
         setResizable(false);
         setType(java.awt.Window.Type.POPUP);
 
-        jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Desenvolvido Por:", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.BELOW_TOP, new java.awt.Font("Arial", 3, 18), new java.awt.Color(0, 153, 0))); // NOI18N
+        jPanel1.setBackground(new java.awt.Color(0, 153, 153));
+        jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Desenvolvido Por:", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.BELOW_TOP, new java.awt.Font("Arial", 3, 18), new java.awt.Color(255, 255, 255))); // NOI18N
         jPanel1.setForeground(new java.awt.Color(0, 0, 153));
         jPanel1.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         jPanel1.setFont(new java.awt.Font("Arial", 1, 24)); // NOI18N
@@ -115,7 +117,8 @@ public class Sobre extends javax.swing.JFrame {
                 .addContainerGap())
         );
 
-        jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED, new java.awt.Color(255, 255, 102), new java.awt.Color(204, 255, 153), null, null), "Scan Store", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.BELOW_TOP, new java.awt.Font("Arial", 3, 18), new java.awt.Color(0, 153, 0))); // NOI18N
+        jPanel2.setBackground(new java.awt.Color(0, 153, 153));
+        jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED, new java.awt.Color(255, 255, 102), new java.awt.Color(204, 255, 153), null, null), "Scan Store", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.BELOW_TOP, new java.awt.Font("Arial", 3, 18), new java.awt.Color(255, 255, 255))); // NOI18N
 
         label1.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
         label1.setText("Sistema Para Digitalização e Armazenamento de Documentos.");
