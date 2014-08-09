@@ -411,7 +411,7 @@ public class Main extends javax.swing.JFrame {
     }//GEN-LAST:event_btEmpresa2ActionPerformed
 
     private void btAniversariantesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btAniversariantesActionPerformed
-        // TODO add your handling code here:
+        WindowInstance.getInstance(WindowInstance.SOBREWINDOW).setVisible(true);
     }//GEN-LAST:event_btAniversariantesActionPerformed
 
     private void btSMSActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btSMSActionPerformed
