@@ -34,6 +34,7 @@ public class ConsultarCliente extends javax.swing.JFrame {
     public ConsultarCliente() {
         initComponents();
         Config.considerarEnterComoTab(this);
+        getContentPane().setBackground(new java.awt.Color(0, 153, 153));
     }
 
     /**
