@@ -41,10 +41,10 @@ public class Main extends javax.swing.JFrame {
         btRelatorio = new javax.swing.JButton();
         btEmpresa = new javax.swing.JButton();
         jPanel6 = new javax.swing.JPanel();
-        btCliente1 = new javax.swing.JButton();
-        btReceita1 = new javax.swing.JButton();
-        btRelatorio1 = new javax.swing.JButton();
-        btEmpresa1 = new javax.swing.JButton();
+        btOutros = new javax.swing.JButton();
+        btSMS = new javax.swing.JButton();
+        btAniversariantes = new javax.swing.JButton();
+        btEmpresa2 = new javax.swing.JButton();
         jPanel3 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
@@ -80,7 +80,6 @@ public class Main extends javax.swing.JFrame {
         jPanel4.setBackground(new java.awt.Color(0, 153, 153));
         jPanel4.setToolTipText("");
         jPanel4.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
-        jPanel4.setPreferredSize(new java.awt.Dimension(900, 600));
 
         jPanel5.setBackground(new java.awt.Color(0, 153, 153));
         jPanel5.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Cadastro", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Arial", 1, 10), new java.awt.Color(0, 51, 51))); // NOI18N
@@ -104,7 +103,7 @@ public class Main extends javax.swing.JFrame {
         });
 
         btRelatorio.setForeground(new java.awt.Color(0, 153, 204));
-        btRelatorio.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/kpc/drugstore/img/rel.png"))); // NOI18N
+        btRelatorio.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/kpc/drugstore/img/relatorio.png"))); // NOI18N
         btRelatorio.setText("Relatórios");
         btRelatorio.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -133,7 +132,7 @@ public class Main extends javax.swing.JFrame {
                 .addComponent(btRelatorio, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btEmpresa, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 10, Short.MAX_VALUE))
+                .addGap(0, 20, Short.MAX_VALUE))
         );
 
         jPanel5Layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {btCliente, btEmpresa, btReceita, btRelatorio});
@@ -146,7 +145,7 @@ public class Main extends javax.swing.JFrame {
                     .addComponent(btReceita, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btRelatorio, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btEmpresa, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(14, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         jPanel5Layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {btCliente, btEmpresa, btReceita, btRelatorio});
@@ -154,39 +153,39 @@ public class Main extends javax.swing.JFrame {
         jPanel6.setBackground(new java.awt.Color(0, 153, 153));
         jPanel6.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Movimentação", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Arial", 1, 10), new java.awt.Color(0, 102, 102))); // NOI18N
 
-        btCliente1.setForeground(new java.awt.Color(0, 153, 204));
-        btCliente1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/kpc/drugstore/img/CadClientes2.png"))); // NOI18N
-        btCliente1.setText("Cadastro Cliente");
-        btCliente1.addActionListener(new java.awt.event.ActionListener() {
+        btOutros.setForeground(new java.awt.Color(0, 153, 204));
+        btOutros.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/kpc/drugstore/img/cal.png"))); // NOI18N
+        btOutros.setText("Receitas vencendo");
+        btOutros.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btCliente1ActionPerformed(evt);
+                btOutrosActionPerformed(evt);
             }
         });
 
-        btReceita1.setForeground(new java.awt.Color(0, 153, 204));
-        btReceita1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/kpc/drugstore/img/scanner2.png"))); // NOI18N
-        btReceita1.setText("Cadastro Receita");
-        btReceita1.addActionListener(new java.awt.event.ActionListener() {
+        btSMS.setForeground(new java.awt.Color(0, 153, 204));
+        btSMS.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/kpc/drugstore/img/sms.png"))); // NOI18N
+        btSMS.setText("SMS");
+        btSMS.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btReceita1ActionPerformed(evt);
+                btSMSActionPerformed(evt);
             }
         });
 
-        btRelatorio1.setForeground(new java.awt.Color(0, 153, 204));
-        btRelatorio1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/kpc/drugstore/img/aniversariantes.png"))); // NOI18N
-        btRelatorio1.setText("SMS Aniversariantes");
-        btRelatorio1.addActionListener(new java.awt.event.ActionListener() {
+        btAniversariantes.setForeground(new java.awt.Color(0, 153, 204));
+        btAniversariantes.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/kpc/drugstore/img/aniversariantes.png"))); // NOI18N
+        btAniversariantes.setText("SMS Aniversariantes");
+        btAniversariantes.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btRelatorio1ActionPerformed(evt);
+                btAniversariantesActionPerformed(evt);
             }
         });
 
-        btEmpresa1.setForeground(new java.awt.Color(0, 153, 204));
-        btEmpresa1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/kpc/drugstore/img/backup.png"))); // NOI18N
-        btEmpresa1.setText("Backup");
-        btEmpresa1.addActionListener(new java.awt.event.ActionListener() {
+        btEmpresa2.setForeground(new java.awt.Color(0, 153, 204));
+        btEmpresa2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/kpc/drugstore/img/backup.png"))); // NOI18N
+        btEmpresa2.setText("Backup");
+        btEmpresa2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btEmpresa1ActionPerformed(evt);
+                btEmpresa2ActionPerformed(evt);
             }
         });
 
@@ -195,25 +194,25 @@ public class Main extends javax.swing.JFrame {
         jPanel6Layout.setHorizontalGroup(
             jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel6Layout.createSequentialGroup()
-                .addComponent(btCliente1, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(btOutros, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btReceita1, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(btSMS, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btRelatorio1, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(btAniversariantes, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btEmpresa1, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(btEmpresa2, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 20, Short.MAX_VALUE))
         );
         jPanel6Layout.setVerticalGroup(
             jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel6Layout.createSequentialGroup()
                 .addGap(0, 0, 0)
                 .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btCliente1, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btReceita1, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btRelatorio1, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btEmpresa1, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(14, Short.MAX_VALUE))
+                    .addComponent(btOutros, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btSMS, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btAniversariantes, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btEmpresa2, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(12, Short.MAX_VALUE))
         );
 
         jPanel3.setBackground(new java.awt.Color(0, 153, 153));
@@ -297,10 +296,10 @@ public class Main extends javax.swing.JFrame {
                     .addComponent(jPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(jPanel4Layout.createSequentialGroup()
-                        .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(50, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         jPanel4Layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {jPanel5, jPanel6});
@@ -308,17 +307,16 @@ public class Main extends javax.swing.JFrame {
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel4Layout.createSequentialGroup()
+                .addContainerGap()
                 .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(36, 36, 36)
+                .addGap(27, 27, 27)
                 .addComponent(jPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGap(28, 28, 28)
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(0, 110, Short.MAX_VALUE))
+                .addGap(0, 44, Short.MAX_VALUE))
         );
-
-        jPanel4Layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {jPanel5, jPanel6});
 
         jMenu1.setText("Cadastrar");
 
@@ -396,39 +394,22 @@ public class Main extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
+            .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, 870, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, 548, Short.MAX_VALUE))
         );
 
         jPanel4.getAccessibleContext().setAccessibleName("");
 
         getAccessibleContext().setAccessibleDescription("");
 
-        setSize(new java.awt.Dimension(868, 629));
+        setSize(new java.awt.Dimension(876, 619));
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
-
-    private void btClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btClienteActionPerformed
-        WindowInstance.getInstance(WindowInstance.CLIENTWINDOW).setVisible(true);
-
-    }//GEN-LAST:event_btClienteActionPerformed
-
-    private void btReceitaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btReceitaActionPerformed
-        WindowInstance.getInstance(WindowInstance.RECIPEWINDOW).setVisible(true);
-    }//GEN-LAST:event_btReceitaActionPerformed
-
-    private void btEmpresaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btEmpresaActionPerformed
-        WindowInstance.getInstance(WindowInstance.COMPANYWINDOW).setVisible(true);
-
-    }//GEN-LAST:event_btEmpresaActionPerformed
 
     private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
         // TODO add your handling code here:
@@ -437,10 +418,6 @@ public class Main extends javax.swing.JFrame {
     private void jMenuItem6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem6ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jMenuItem6ActionPerformed
-
-    private void btRelatorioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btRelatorioActionPerformed
-
-    }//GEN-LAST:event_btRelatorioActionPerformed
 
     private void jMenu5MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenu5MouseClicked
         System.exit(0);
@@ -454,21 +431,37 @@ public class Main extends javax.swing.JFrame {
         WindowInstance.getInstance(WindowInstance.SOBREWINDOW).setVisible(true);
     }//GEN-LAST:event_jMenu4MouseClicked
 
-    private void btCliente1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btCliente1ActionPerformed
+    private void btOutrosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btOutrosActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_btCliente1ActionPerformed
+    }//GEN-LAST:event_btOutrosActionPerformed
 
-    private void btReceita1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btReceita1ActionPerformed
+    private void btSMSActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btSMSActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_btReceita1ActionPerformed
+    }//GEN-LAST:event_btSMSActionPerformed
 
-    private void btRelatorio1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btRelatorio1ActionPerformed
+    private void btAniversariantesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btAniversariantesActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_btRelatorio1ActionPerformed
+    }//GEN-LAST:event_btAniversariantesActionPerformed
 
-    private void btEmpresa1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btEmpresa1ActionPerformed
+    private void btClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btClienteActionPerformed
+        WindowInstance.getInstance(WindowInstance.CLIENTWINDOW).setVisible(true);
+    }//GEN-LAST:event_btClienteActionPerformed
+
+    private void btEmpresaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btEmpresaActionPerformed
+        WindowInstance.getInstance(WindowInstance.COMPANYWINDOW).setVisible(true);
+    }//GEN-LAST:event_btEmpresaActionPerformed
+
+    private void btRelatorioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btRelatorioActionPerformed
+
+    }//GEN-LAST:event_btRelatorioActionPerformed
+
+    private void btReceitaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btReceitaActionPerformed
+        WindowInstance.getInstance(WindowInstance.RECIPEWINDOW).setVisible(true);
+    }//GEN-LAST:event_btReceitaActionPerformed
+
+    private void btEmpresa2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btEmpresa2ActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_btEmpresa1ActionPerformed
+    }//GEN-LAST:event_btEmpresa2ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -506,14 +499,14 @@ public class Main extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btAniversariantes;
     private javax.swing.JButton btCliente;
-    private javax.swing.JButton btCliente1;
     private javax.swing.JButton btEmpresa;
-    private javax.swing.JButton btEmpresa1;
+    private javax.swing.JButton btEmpresa2;
+    private javax.swing.JButton btOutros;
     private javax.swing.JButton btReceita;
-    private javax.swing.JButton btReceita1;
     private javax.swing.JButton btRelatorio;
-    private javax.swing.JButton btRelatorio1;
+    private javax.swing.JButton btSMS;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
