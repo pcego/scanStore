@@ -13,6 +13,7 @@ import br.com.kpc.drugstore.util.Cryptography;
 import br.com.kpc.drugstore.util.FormatDate;
 import br.com.kpc.drugstore.util.KPCSeg;
 import br.com.kpc.drugstore.util.SystemMessage;
+import java.awt.Color;
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.net.URL;
@@ -36,6 +37,7 @@ public class Login extends javax.swing.JFrame {
      */
     public Login() {
         initComponents();
+        getContentPane().setBackground(new java.awt.Color(0, 153, 153));
         Config.considerarEnterComoTab(tvSenha);
 
     }
