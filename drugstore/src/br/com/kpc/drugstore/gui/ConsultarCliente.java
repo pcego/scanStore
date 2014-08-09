@@ -8,6 +8,7 @@ package br.com.kpc.drugstore.gui;
 import br.com.kpc.drugstore.core.Client;
 import br.com.kpc.drugstore.core.IRepositoryClient;
 import br.com.kpc.drugstore.dao.DaoClient;
+import br.com.kpc.drugstore.service.Service;
 import br.com.kpc.drugstore.service.WindowInstance;
 import br.com.kpc.drugstore.tableModel.TableModelClient;
 import br.com.kpc.drugstore.util.Config;
@@ -288,27 +289,28 @@ public class ConsultarCliente extends javax.swing.JFrame {
     // End of variables declaration//GEN-END:variables
 
     private void loadingTable() {
-        IRepositoryClient iRepositoryClient = (IRepositoryClient) new DaoClient();
+//        IRepositoryClient iRepositoryClient = (IRepositoryClient) new DaoClient();
         List<Client> listClisnt = new ArrayList<Client>();
         listClisnt.clear();
 
         switch (cbOpcao.getSelectedItem().toString()) {
             case "CIDADE":
                 if (validarTamanhoDoCampos()) {
-                    listClisnt = iRepositoryClient.listClientByCity(tvCriterio.getText().trim(), true);
+                    listClisnt = Service.getIRepositoryClient().listClientByCity(tvCriterio.getText().trim(), true);
                     verificarRegistros(listClisnt.size());
                 }
                 break;
             case "NOME":
                 if (validarTamanhoDoCampos()) {
-                    listClisnt = iRepositoryClient.listClientByName(tvCriterio.getText().trim(), true);
+                    listClisnt =  Service.getIRepositoryClient().listClientByName(tvCriterio.getText().trim(), true);
+                    
                     verificarRegistros(listClisnt.size());
                 }
                 break;
             case "CPF":
                 if (Mask.validaCpfCnpj(tvCriterio.getText())) {
                     client = new Client();
-                    client = iRepositoryClient.getClientByCpf(Mask.limparMaskCPF(tvCriterio.getText()).trim(), true);
+                    client = Service.getIRepositoryClient().getClientByCpf(Mask.limparMaskCPF(tvCriterio.getText()).trim(), true);
                     listClisnt.add(client);
                     verificarRegistros(listClisnt.size());
                 } else {
@@ -317,7 +319,7 @@ public class ConsultarCliente extends javax.swing.JFrame {
 
                 break;
             case "TODOS":
-                listClisnt = iRepositoryClient.listAll(true);
+                listClisnt = Service.getIRepositoryClient().listAll(true);
                 verificarRegistros(listClisnt.size());
                 break;
         }
