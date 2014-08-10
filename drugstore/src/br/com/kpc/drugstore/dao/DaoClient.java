@@ -55,7 +55,7 @@ public class DaoClient extends DaoGeneric<Client> implements IRepositoryClient {
     @Override
     public List<Client> listClientByBirthday() {
 
-        final String stQuery = "SELECT C FROM clients C "
+        final String stQuery = "SELECT C.name, C.email, C.cellphone_1 FROM clients C "
                 + "WHERE MONTH(C.DT_NASC) = MONTH(CURDATE()) "
                 + "AND DAY(C.DT_NASC) = DAY(CURDATE()) ORDER BY C.NAME;";
 
