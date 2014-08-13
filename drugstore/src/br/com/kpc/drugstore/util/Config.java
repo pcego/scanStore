@@ -14,12 +14,12 @@ import java.util.Set;
 
 /**
  *
- * @author Pcego
+ * @author Pcegoexit
  */
 public class Config {
     public static final String DIRETORIOIMAGEM = "C:\\scanStore\\drugstore\\documentos\\"; //System.getProperty("user.dir") + "\\documentos\\";
-    public static final String IPWEBSERVICEVALIDACAO = "http://187.44.31.151:8080";
-    public static final String URLWEBSERVICEVALIDACAO = IPWEBSERVICEVALIDACAO+"/validatorWS/rest/validar/getKeyValidation/";//"http://187.44.31.151/:8080/validatorWS/rest/validar/getKeyValidation/";
+    public static final String IPWEBSERVICEVALIDACAO = "http://107.170.184.230:8080";
+    public static final String URLWEBSERVICEVALIDACAO = IPWEBSERVICEVALIDACAO+"/validator/rest/validar/getKeyValidation/";//"http://187.44.31.151/:8080/validatorWS/rest/validar/getKeyValidation/";
     
     /** 
      * Este método faz com que o ENTER seja considerado como TAB, em componentes 
