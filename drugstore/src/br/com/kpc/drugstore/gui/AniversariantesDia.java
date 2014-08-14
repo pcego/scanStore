@@ -10,9 +10,16 @@ import br.com.kpc.drugstore.core.IRepositoryClient;
 import br.com.kpc.drugstore.dao.DaoClient;
 import br.com.kpc.drugstore.service.Service;
 import br.com.kpc.drugstore.tableModel.TableModelClient;
+import br.com.kpc.drugstore.util.ApiSms;
+import br.com.kpc.drugstore.util.FixedLengthDocument;
 import br.com.kpc.drugstore.util.Mask;
+import br.com.kpc.drugstore.util.SystemMessage;
+import java.awt.Dimension;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.SwingUtilities;
 
 /**
  *
@@ -27,6 +34,8 @@ public class AniversariantesDia extends javax.swing.JFrame {
         initComponents();
         getContentPane().setBackground(new java.awt.Color(0, 153, 153));
         carregarCliente();
+        taMensagem.setDocument(new FixedLengthDocument(150));
+        lQtdEnviado.setVisible(false);
     }
 
     /**
@@ -39,23 +48,32 @@ public class AniversariantesDia extends javax.swing.JFrame {
     private void initComponents() {
 
         jLabel1 = new javax.swing.JLabel();
-        jButton1 = new javax.swing.JButton();
+        btEmail = new javax.swing.JButton();
         lTotalRegistros = new javax.swing.JLabel();
-        jButton2 = new javax.swing.JButton();
-        jProgressBar1 = new javax.swing.JProgressBar();
-        jProgressBar2 = new javax.swing.JProgressBar();
+        btSMS = new javax.swing.JButton();
+        pbEnviando = new javax.swing.JProgressBar();
         jScrollPane2 = new javax.swing.JScrollPane();
         tbGrid = new javax.swing.JTable();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        taMensagem = new javax.swing.JTextArea();
+        jLabel2 = new javax.swing.JLabel();
+        lQtdEnviado = new javax.swing.JLabel();
+        lTotalCaracter = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         jLabel1.setText("Aviversariantes do Dia");
 
-        jButton1.setText("Enviar email");
+        btEmail.setText("Enviar email");
 
         lTotalRegistros.setText("Total de 0000 Clientes");
 
-        jButton2.setText("Enviar SMS");
+        btSMS.setText("Enviar SMS");
+        btSMS.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btSMSActionPerformed(evt);
+            }
+        });
 
         tbGrid.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -75,6 +93,22 @@ public class AniversariantesDia extends javax.swing.JFrame {
         });
         jScrollPane2.setViewportView(tbGrid);
 
+        taMensagem.setColumns(20);
+        taMensagem.setLineWrap(true);
+        taMensagem.setRows(4);
+        taMensagem.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                taMensagemKeyReleased(evt);
+            }
+        });
+        jScrollPane1.setViewportView(taMensagem);
+
+        jLabel2.setText("Insira o texto desejado, com até 150 caracteres e sem acentos e/ou cedilha, no campo “Mensagem”");
+
+        lQtdEnviado.setText("Foram enviados xx de xx.");
+
+        lTotalCaracter.setText("0 de 150");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -86,49 +120,57 @@ public class AniversariantesDia extends javax.swing.JFrame {
                         .addComponent(jLabel1))
                     .addGroup(layout.createSequentialGroup()
                         .addContainerGap()
-                        .addComponent(lTotalRegistros))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(btSMS, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(btEmail, javax.swing.GroupLayout.DEFAULT_SIZE, 100, Short.MAX_VALUE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(pbEnviando, javax.swing.GroupLayout.PREFERRED_SIZE, 270, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(lQtdEnviado))
                     .addGroup(layout.createSequentialGroup()
                         .addContainerGap()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(lTotalRegistros)
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 352, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jProgressBar2, javax.swing.GroupLayout.PREFERRED_SIZE, 270, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jButton1)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jProgressBar1, javax.swing.GroupLayout.PREFERRED_SIZE, 270, javax.swing.GroupLayout.PREFERRED_SIZE)))))
-                .addContainerGap(26, Short.MAX_VALUE))
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel2)
+                                    .addComponent(lTotalCaracter))))))
+                .addContainerGap(19, Short.MAX_VALUE))
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(layout.createSequentialGroup()
                     .addContainerGap()
-                    .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 381, Short.MAX_VALUE)
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 845, Short.MAX_VALUE)
                     .addContainerGap()))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                .addComponent(jLabel1)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 287, Short.MAX_VALUE)
+                .addComponent(lTotalRegistros)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(jButton2))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel1)
-                        .addGap(231, 231, 231)
-                        .addComponent(lTotalRegistros)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jButton1)
-                            .addComponent(jProgressBar1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 11, Short.MAX_VALUE)
-                        .addComponent(jProgressBar2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(9, 9, 9))
+                        .addComponent(jLabel2)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(lTotalCaracter)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btEmail)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(btSMS, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(pbEnviando, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(lQtdEnviado, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap())
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(layout.createSequentialGroup()
                     .addGap(41, 41, 41)
-                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 208, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addContainerGap(84, Short.MAX_VALUE)))
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 264, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addContainerGap(192, Short.MAX_VALUE)))
         );
 
         pack();
@@ -136,6 +178,27 @@ public class AniversariantesDia extends javax.swing.JFrame {
 
     Client client;
     TableModelClient model;
+    //Criando uma lista de cliente
+    List<Client> listClientes = new ArrayList<Client>();
+    // Define uma Thread para simular rodando  
+    Thread roda;
+
+    private void btSMSActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btSMSActionPerformed
+
+        // Inicia o processo  
+        if (roda == null) {
+            roda = new roda();
+            roda.start();
+        }
+
+
+    }//GEN-LAST:event_btSMSActionPerformed
+
+    private void taMensagemKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_taMensagemKeyReleased
+
+        lTotalCaracter.setText(taMensagem.getCaretPosition() +" de 150");
+        
+    }//GEN-LAST:event_taMensagemKeyReleased
 
     /**
      * @param args the command line arguments
@@ -173,27 +236,84 @@ public class AniversariantesDia extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
+    private javax.swing.JButton btEmail;
+    private javax.swing.JButton btSMS;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JProgressBar jProgressBar1;
-    private javax.swing.JProgressBar jProgressBar2;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JLabel lQtdEnviado;
+    private javax.swing.JLabel lTotalCaracter;
     private javax.swing.JLabel lTotalRegistros;
+    private javax.swing.JProgressBar pbEnviando;
+    private javax.swing.JTextArea taMensagem;
     private javax.swing.JTable tbGrid;
     // End of variables declaration//GEN-END:variables
 
     private void carregarCliente() {
-        //Criando uma lista de cliente
-        List<Client> listClientes = new ArrayList<Client>();
         //Carregando lista de client By Birthday
         listClientes = Service.getIRepositoryClient().listClientByBirthday();
-        
+
         lTotalRegistros.setText("Total Registros: " + listClientes.size());
-        
+
         model = new TableModelClient(listClientes);
         tbGrid.setModel(model);
 
     }
 
+    class roda extends Thread {
+
+        public void run() {
+            // Cria um objeto para atualizar a Barra  
+            Runnable runner = new Runnable() {
+                public void run() {
+                    // Obtém o resultado atual da Barra  
+                    int valor = pbEnviando.getValue();
+                    // Atualiza a Barra  
+                    pbEnviando.setValue(valor + 1);
+                }
+            };
+
+            pbEnviando.setMaximum(listClientes.size());
+            pbEnviando.setValue(0);
+
+            //Passando o tamanho da lista
+            int total = listClientes.size();
+            int i = 0;
+            lQtdEnviado.setVisible(true);
+            btSMS.setEnabled(false);
+            btEmail.setEnabled(false);
+            for (Client c : listClientes) {
+                //Validando se tem numero de celular
+                if (c.getCellPhone_1() == "") {
+                    if (c.getCellPhone_2() == "") {
+                        SystemMessage.kpcShowMessage(null, SystemMessage.WARNING, "Não foi encontrado numero.");
+                        return;
+                    }
+                }
+                i++;
+                pbEnviando.setValue(i);
+                lQtdEnviado.setText("Foram enviados " + i + " de " + total + ".");
+                System.out.println(c.getName() +", "+ taMensagem.getText().trim());
+                try {
+                    ApiSms.simple(Mask.limparMasTelefone(c.getCellPhone_1()),c.getName() +", "+ taMensagem.getText().trim());
+                } catch (Exception ex) {
+                    Logger.getLogger(AniversariantesDia.class.getName()).log(Level.SEVERE, null, ex);
+                }
+                  
+
+
+                // Atualiza a Barra de Progresso  
+                try {
+                    SwingUtilities.invokeAndWait(runner);
+                } catch (java.lang.reflect.InvocationTargetException e) {
+                    break;
+                } catch (InterruptedException e) {
+                }
+            }
+            btSMS.setEnabled(true);
+            btEmail.setEnabled(true);
+            roda = null;
+        }
+    }
 }
