@@ -14,27 +14,29 @@ import br.com.facilitamovel.bean.SmsMultiplo;
 import br.com.facilitamovel.bean.SmsMultiploMessages;
 import br.com.facilitamovel.bean.SmsSimples;
 import br.com.facilitamovel.service.SendMessage;
+import br.com.kpc.drugstore.core.Client;
 /**
  *
  * @author www
  */
 public class ApiSms {
-	public static void main(String[] args) throws Exception{
-		ApiSms.simple();
-	}
-
+//	public static void main(String[] args) throws Exception{
+//		ApiSms.simple();
+//	}
+    private static String login = "kennedimalheirosXXX";
+    private static String senha = "kpsm2907XXXX";
 	
 	/**
 	 * Exemplo de um envio Simples de SMS para a Plataforma
 	 * @throws Exception
 	 */
-	public static void simple() throws Exception {
+	public static void simple(String numCelular, String mensagem) throws Exception {
 		// Simple Send
 		SmsSimples sms = new SmsSimples();
-		sms.setUser("kennedimalheiros");
-		sms.setPassword("kpsm2907");
-		sms.setDestinatario("3891573613");
-		sms.setMessage("teste");
+		sms.setUser(login);
+		sms.setPassword(senha);
+		sms.setDestinatario(numCelular);
+		sms.setMessage(mensagem);
 		Retorno retorno = SendMessage.simpleSend(sms);
 		System.out.println("Codigo:" + retorno.getCodigo());
 		System.out.println("Descricao:" + retorno.getMensagem());
@@ -45,11 +47,11 @@ public class ApiSms {
 	 * Exemplo de uma mensagem para multiplos destinatarios
 	 * @throws Exception
 	 */
-	public static void multiple() throws Exception {
+	public static void multiple(List<Client> listClientes) throws Exception {
 		// Multiple Send
 		SmsMultiplo sms = new SmsMultiplo();
-		sms.setUser("teste");
-		sms.setPassword("teste");
+		sms.setUser(login);
+		sms.setPassword(senha);
 
 		// Multiplos destinatarios
 		List<String> nmbs = new ArrayList<String>();
@@ -77,11 +79,11 @@ public class ApiSms {
 	 * Exemplo de envio de Multiplas Mensagens para Multiplos Destinatarios
 	 * @throws Exception
 	 */
-	public static void multipleMsgs() throws Exception{
+	public static void multipleMsgs(List<Client> listClientes) throws Exception{
 		// Multiple Send
 		SmsMultiploMessages sms = new SmsMultiploMessages();
-		sms.setUser("teste");
-		sms.setPassword("teste");
+		sms.setUser(login);
+		sms.setPassword(senha);
 
 		// Multiplos destinatarios
 		List<String> listNmbs = new ArrayList<String>();
