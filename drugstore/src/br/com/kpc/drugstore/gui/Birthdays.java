@@ -25,12 +25,12 @@ import javax.swing.SwingUtilities;
  *
  * @author www
  */
-public class AniversariantesDia extends javax.swing.JFrame {
+public class Birthdays extends javax.swing.JFrame {
 
     /**
      * Creates new form AniversariantesDia
      */
-    public AniversariantesDia() {
+    public Birthdays() {
         initComponents();
         getContentPane().setBackground(new java.awt.Color(0, 153, 153));
         carregarCliente();
@@ -217,20 +217,20 @@ public class AniversariantesDia extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(AniversariantesDia.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Birthdays.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(AniversariantesDia.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Birthdays.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(AniversariantesDia.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Birthdays.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(AniversariantesDia.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Birthdays.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new AniversariantesDia().setVisible(true);
+                new Birthdays().setVisible(true);
             }
         });
     }
@@ -298,7 +298,7 @@ public class AniversariantesDia extends javax.swing.JFrame {
                 try {
                     ApiSms.simple(Mask.limparMasTelefone(c.getCellPhone_1()),c.getName() +", "+ taMensagem.getText().trim());
                 } catch (Exception ex) {
-                    Logger.getLogger(AniversariantesDia.class.getName()).log(Level.SEVERE, null, ex);
+                    Logger.getLogger(Birthdays.class.getName()).log(Level.SEVERE, null, ex);
                 }
                   
 
