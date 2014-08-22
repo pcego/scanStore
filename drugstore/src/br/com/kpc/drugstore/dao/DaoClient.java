@@ -55,7 +55,7 @@ public class DaoClient extends DaoGeneric<Client> implements IRepositoryClient {
     @Override
     public List<Client> listClientByBirthday() {
 
-        final String stQuery = "SELECT *FROM clients C "
+        final String stQuery = "SELECT FROM clients C "
                 + "WHERE MONTH(C.DT_NASC) = MONTH(CURDATE()) "
                 + "AND DAY(C.DT_NASC) = DAY(CURDATE()) ORDER BY C.NAME;";
 
@@ -97,9 +97,9 @@ public class DaoClient extends DaoGeneric<Client> implements IRepositoryClient {
     }
 
     @Override
-    public int clientRecipeValid(Date lastRecipe) {
+    public int clientRecipeValid(Date dtRecipe) {
 
-        final String strQuery = "SELECT DATEDIFF(CURDATE()," + lastRecipe + ");";
+        final String strQuery = "SELECT DATEDIFF(CURDATE()," + dtRecipe + ");";
 
         try {
             Query query = getManager().createNativeQuery(strQuery);
@@ -109,4 +109,21 @@ public class DaoClient extends DaoGeneric<Client> implements IRepositoryClient {
         }
     }
 
+    public List<Client> listClientWithNearShop() {
+
+        final String strQuery = "select c.name, c.cellphone_1, c.email from clients as c\n"
+                + "join recipes as r on  c.clientId = r.CLIENT_clientId\n"
+                + "join tickets as t on r.recipeId = t.RECIPE_recipeId\n"
+                + "where (select DATEDIFF(curdate(), r.DT_RECIPE)) <= 120\n"
+                + "and (select DATEDIFF(curdate(), t.DT_SHOP)) >= 27\n"
+                + "and (select DATEDIFF(curdate(), t.DT_SHOP)) <=30";
+        try {
+
+            Query query = getManager().createNativeQuery(strQuery, Client.class);
+            return query.getResultList();
+
+        } catch (Exception ex) {
+            return null;
+        }
+    }
 }
