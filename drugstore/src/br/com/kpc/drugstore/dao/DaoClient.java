@@ -55,13 +55,12 @@ public class DaoClient extends DaoGeneric<Client> implements IRepositoryClient {
     @Override
     public List<Client> listClientByBirthday() {
 
-        final String stQuery = "SELECT FROM clients C "
+        final String stQuery = "SELECT C FROM clients C "
                 + "WHERE MONTH(C.DT_NASC) = MONTH(CURDATE()) "
                 + "AND DAY(C.DT_NASC) = DAY(CURDATE()) ORDER BY C.NAME;";
 
         try {
-            Query query = getManager().createNativeQuery(stQuery, Client.class
-            );
+            Query query = getManager().createNativeQuery(stQuery, Client.class);
             return query.getResultList();
         } catch (Exception ex) {
             return null;
@@ -112,7 +111,7 @@ public class DaoClient extends DaoGeneric<Client> implements IRepositoryClient {
     @Override
     public List<Client> listClientWithNearShop() {
 
-        final String strQuery = "select c.name, c.cellphone_1, c.email from clients as c\n"
+        final String strQuery = "select c.clientId, c.cpf, c.name, c.cellphone_1, c.adress_city from clients as c\n"
                 + "join recipes as r on  c.clientId = r.CLIENT_clientId\n"
                 + "join tickets as t on r.recipeId = t.RECIPE_recipeId\n"
                 + "where (select DATEDIFF(curdate(), r.DT_RECIPE)) <= 120\n"
