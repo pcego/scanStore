@@ -147,12 +147,12 @@ public class RecipeNearExpire extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-     Client client;
-    TableModelRecipeNearExpire model;
+    private Client client;
+    private TableModelRecipeNearExpire model;
     //Criando uma lista de cliente
-    List<Client> listClientes = new ArrayList<Client>();
+    private List<Client> listClientes = new ArrayList<Client>();
     // Define uma Thread para simular rodando  
-    Thread roda;
+    private Thread roda;
     
     private void taMensagemKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_taMensagemKeyReleased
 
@@ -220,7 +220,8 @@ public class RecipeNearExpire extends javax.swing.JFrame {
 
     private void carregarCliente() {
         //Carregando lista de client By Birthday
-        listClientes = Service.getIRepositoryClient().listClientWithNearShop();
+        listClientes = Service.getIRepositoryClient().listClientWithNearShop(27);
+        
 
         lTotalRegistros.setText("Total Registros: " + listClientes.size());
 
@@ -228,7 +229,7 @@ public class RecipeNearExpire extends javax.swing.JFrame {
         tbGrid.setModel(model);
 
     }
-    class roda extends Thread {
+    private class roda extends Thread {
 
         public void run() {
             // Cria um objeto para atualizar a Barra  
