@@ -8,8 +8,14 @@ package br.com.kpc.drugstore.gui;
 import br.com.kpc.drugstore.core.Client;
 import br.com.kpc.drugstore.service.Service;
 import br.com.kpc.drugstore.tableModel.TableModelRecipeNearExpire;
+import br.com.kpc.drugstore.util.ApiSms;
+import br.com.kpc.drugstore.util.Mask;
+import br.com.kpc.drugstore.util.SystemMessage;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.SwingUtilities;
 
 /**
  *
@@ -141,6 +147,13 @@ public class RecipeNearExpire extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+     Client client;
+    TableModelRecipeNearExpire model;
+    //Criando uma lista de cliente
+    List<Client> listClientes = new ArrayList<Client>();
+    // Define uma Thread para simular rodando  
+    Thread roda;
+    
     private void taMensagemKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_taMensagemKeyReleased
 
         lTotalCaracter.setText(taMensagem.getCaretPosition() +" de 140");
@@ -156,12 +169,6 @@ public class RecipeNearExpire extends javax.swing.JFrame {
         }
 
     }//GEN-LAST:event_btSMSActionPerformed
-    Client client;
-    TableModelRecipeNearExpire model;
-    //Criando uma lista de cliente
-    List<Client> listClientes = new ArrayList<Client>();
-    // Define uma Thread para simular rodando  
-    Thread roda;
 
     /**
      * @param args the command line arguments
@@ -221,5 +228,61 @@ public class RecipeNearExpire extends javax.swing.JFrame {
         tbGrid.setModel(model);
 
     }
+    class roda extends Thread {
 
+        public void run() {
+            // Cria um objeto para atualizar a Barra  
+            Runnable runner = new Runnable() {
+                public void run() {
+                    // Obtém o resultado atual da Barra  
+                    int valor = pbEnviando.getValue();
+                    // Atualiza a Barra  
+                    pbEnviando.setValue(valor + 1);
+                }
+            };
+
+            pbEnviando.setMaximum(listClientes.size());
+            pbEnviando.setValue(0);
+
+            //Passando o tamanho da lista
+            int total = listClientes.size();
+            int i = 0;
+            String[] nomeCliente; 
+            lQtdEnviado.setVisible(true);
+
+            btSMS.setEnabled(false);
+            for (Client c : listClientes) {
+                //Validando se tem numero de celular
+                if (c.getCellPhone_1() == "") {
+                    if (c.getCellPhone_2() == "") {
+                        SystemMessage.kpcShowMessage(null, SystemMessage.WARNING, "Não foi encontrado numero.");
+                        return;
+                    }
+                }
+                i++;
+                pbEnviando.setValue(i);
+                lQtdEnviado.setText("Foram enviados " + i + " de " + total + ".");
+                nomeCliente = c.getName().split(" ");
+                
+                try {
+                    ApiSms.simple(Mask.limparMasTelefone(c.getCellPhone_1()),nomeCliente[0] +", "+ taMensagem.getText().trim());
+                } catch (Exception ex) {
+                    Logger.getLogger(Birthdays.class.getName()).log(Level.SEVERE, null, ex);
+                }
+                  
+
+
+                // Atualiza a Barra de Progresso  
+                try {
+                    SwingUtilities.invokeAndWait(runner);
+                } catch (java.lang.reflect.InvocationTargetException e) {
+                    break;
+                } catch (InterruptedException e) {
+                }
+            }
+            btSMS.setEnabled(true);
+
+            roda = null;
+        }
+    }
 }
