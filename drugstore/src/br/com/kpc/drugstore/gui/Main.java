@@ -7,6 +7,7 @@ package br.com.kpc.drugstore.gui;
 
 import br.com.kpc.drugstore.service.Service;
 import br.com.kpc.drugstore.service.WindowInstance;
+import br.com.kpc.drugstore.util.RunBackup;
 import br.com.kpc.drugstore.util.SystemMessage;
 import java.awt.Component;
 import java.awt.Dimension;
@@ -25,7 +26,7 @@ public class Main extends javax.swing.JFrame {
      */
     public Main() {
         initComponents();
-      //  jPCadastro.setAlignmentX(CENTER_ALIGNMENT);// HorizontalAlignment(SwingConstants.CENTER)
+        //  jPCadastro.setAlignmentX(CENTER_ALIGNMENT);// HorizontalAlignment(SwingConstants.CENTER)
     }
 
     /**
@@ -407,15 +408,16 @@ public class Main extends javax.swing.JFrame {
     }//GEN-LAST:event_jMenu4MouseClicked
 
     private void btEmpresa2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btEmpresa2ActionPerformed
-        // TODO add your handling code here:
+        RunBackup rb = new RunBackup();
+        rb.createBackup();
     }//GEN-LAST:event_btEmpresa2ActionPerformed
 
     private void btAniversariantesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btAniversariantesActionPerformed
-        WindowInstance.getInstance(WindowInstance.SOBREWINDOW).setVisible(true);
+        WindowInstance.getInstance(WindowInstance.BDS).setVisible(true);
     }//GEN-LAST:event_btAniversariantesActionPerformed
 
     private void btSMSActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btSMSActionPerformed
-        // TODO add your handling code here:
+
     }//GEN-LAST:event_btSMSActionPerformed
 
     private void btOutrosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btOutrosActionPerformed
