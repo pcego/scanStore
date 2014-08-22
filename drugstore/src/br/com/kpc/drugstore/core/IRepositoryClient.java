@@ -13,7 +13,8 @@ import java.util.List;
  */
 public interface IRepositoryClient extends IRepository<Client>{
     
-    List<Client> listAll(boolean active);    
+    List<Client> listAll(boolean active); 
+    List<Client> listClientWithNearShop();
     Client getClientByCpf(String cpf, boolean active);
     List<Client> listClientByBirthday();
     List<Client> listClientByName(String name, boolean active);
