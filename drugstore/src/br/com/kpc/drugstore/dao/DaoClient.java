@@ -109,6 +109,7 @@ public class DaoClient extends DaoGeneric<Client> implements IRepositoryClient {
         }
     }
 
+    @Override
     public List<Client> listClientWithNearShop() {
 
         final String strQuery = "select c.name, c.cellphone_1, c.email from clients as c\n"
