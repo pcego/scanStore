@@ -5,7 +5,7 @@
  */
 package br.com.kpc.drugstore.service;
 
-import br.com.kpc.drugstore.gui.AniversariantesDia;
+import br.com.kpc.drugstore.gui.Birthdays;
 import br.com.kpc.drugstore.gui.ClienteFrame;
 import br.com.kpc.drugstore.gui.CompanyFrame;
 import br.com.kpc.drugstore.gui.ConsultarCliente;
@@ -26,7 +26,7 @@ public class WindowInstance {
     private static ConsultarCliente search;
     private static Sobre sobre;
     private static Main principal;
-    private static AniversariantesDia bds;
+    private static Birthdays bds;
 
     public static final int CLIENTWINDOW = 1;
     public static final int COMPANYWINDOW = 2;
@@ -85,7 +85,7 @@ public class WindowInstance {
             case BDS:
 
                 if (bds == null) {
-                    bds = new AniversariantesDia();
+                    bds = new Birthdays();
                 }
                 return bds;
 
