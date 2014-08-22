@@ -109,14 +109,14 @@ public class DaoClient extends DaoGeneric<Client> implements IRepositoryClient {
     }
 
     @Override
-    public List<Client> listClientWithNearShop() {
+    public List<Client> listClientWithNearShop(int days) {
 
         final String strQuery = "select c.clientId, c.cpf, c.name, c.cellphone_1, c.adress_city from clients as c\n"
                 + "join recipes as r on  c.clientId = r.CLIENT_clientId\n"
                 + "join tickets as t on r.recipeId = t.RECIPE_recipeId\n"
                 + "where (select DATEDIFF(curdate(), r.DT_RECIPE)) <= 120\n"
-                + "and (select DATEDIFF(curdate(), t.DT_SHOP)) >= 27\n"
-                + "and (select DATEDIFF(curdate(), t.DT_SHOP)) <=30";
+                + "and (select DATEDIFF(curdate(), t.DT_SHOP)) == "+ days +";";
+                
         try {
 
             Query query = getManager().createNativeQuery(strQuery, Client.class);

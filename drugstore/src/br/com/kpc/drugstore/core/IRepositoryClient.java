@@ -14,7 +14,7 @@ import java.util.List;
 public interface IRepositoryClient extends IRepository<Client>{
     
     List<Client> listAll(boolean active); 
-    List<Client> listClientWithNearShop();
+    List<Client> listClientWithNearShop(int days);
     Client getClientByCpf(String cpf, boolean active);
     List<Client> listClientByBirthday();
     List<Client> listClientByName(String name, boolean active);
