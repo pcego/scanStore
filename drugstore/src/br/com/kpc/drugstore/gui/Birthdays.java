@@ -155,12 +155,12 @@ public class Birthdays extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    Client client;
-    TableModelClient model;
+    private Client client;
+    private TableModelClient model;
     //Criando uma lista de cliente
-    List<Client> listClientes = new ArrayList<Client>();
+    private List<Client> listClientes = new ArrayList<Client>();
     // Define uma Thread para simular rodando  
-    Thread roda;
+    private Thread roda;
 
     private void btSMSActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btSMSActionPerformed
     
@@ -238,7 +238,7 @@ public class Birthdays extends javax.swing.JFrame {
 
     }
 
-    class roda extends Thread {
+    private class roda extends Thread {
 
         public void run() {
             // Cria um objeto para atualizar a Barra  
