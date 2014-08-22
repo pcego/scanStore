@@ -34,7 +34,7 @@ public class Birthdays extends javax.swing.JFrame {
         initComponents();
         getContentPane().setBackground(new java.awt.Color(0, 153, 153));
         carregarCliente();
-        taMensagem.setDocument(new FixedLengthDocument(150));
+        taMensagem.setDocument(new FixedLengthDocument(140));
         lQtdEnviado.setVisible(false);
     }
 
@@ -47,8 +47,6 @@ public class Birthdays extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jLabel1 = new javax.swing.JLabel();
-        btEmail = new javax.swing.JButton();
         lTotalRegistros = new javax.swing.JLabel();
         btSMS = new javax.swing.JButton();
         pbEnviando = new javax.swing.JProgressBar();
@@ -60,11 +58,8 @@ public class Birthdays extends javax.swing.JFrame {
         lQtdEnviado = new javax.swing.JLabel();
         lTotalCaracter = new javax.swing.JLabel();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-
-        jLabel1.setText("Aviversariantes do Dia");
-
-        btEmail.setText("Enviar email");
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("SMS Aniversariantes");
 
         lTotalRegistros.setText("Total de 0000 Clientes");
 
@@ -107,49 +102,40 @@ public class Birthdays extends javax.swing.JFrame {
 
         lQtdEnviado.setText("Foram enviados xx de xx.");
 
-        lTotalCaracter.setText("0 de 150");
+        lTotalCaracter.setText("0 de 140");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(153, 153, 153)
-                        .addComponent(jLabel1))
-                    .addGroup(layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(btSMS, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(btEmail, javax.swing.GroupLayout.DEFAULT_SIZE, 100, Short.MAX_VALUE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(pbEnviando, javax.swing.GroupLayout.PREFERRED_SIZE, 270, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(lQtdEnviado))
-                    .addGroup(layout.createSequentialGroup()
-                        .addContainerGap()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(lTotalRegistros)
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 352, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(btSMS, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(pbEnviando, javax.swing.GroupLayout.PREFERRED_SIZE, 246, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 352, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jLabel2)
-                                    .addComponent(lTotalCaracter))))))
-                .addContainerGap(19, Short.MAX_VALUE))
-            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(layout.createSequentialGroup()
-                    .addContainerGap()
-                    .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 845, Short.MAX_VALUE)
-                    .addContainerGap()))
+                                    .addComponent(lTotalCaracter)
+                                    .addComponent(lQtdEnviado))))
+                        .addGap(0, 9, Short.MAX_VALUE))
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 845, Short.MAX_VALUE))
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLabel1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 287, Short.MAX_VALUE)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 264, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(lTotalRegistros)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
@@ -158,19 +144,12 @@ public class Birthdays extends javax.swing.JFrame {
                         .addComponent(jLabel2)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(lTotalCaracter)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btEmail)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGap(4, 4, 4)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(btSMS, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(pbEnviando, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(lQtdEnviado, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
-            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(layout.createSequentialGroup()
-                    .addGap(41, 41, 41)
-                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 264, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addContainerGap(192, Short.MAX_VALUE)))
         );
 
         pack();
@@ -184,7 +163,7 @@ public class Birthdays extends javax.swing.JFrame {
     Thread roda;
 
     private void btSMSActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btSMSActionPerformed
-
+    
         // Inicia o processo  
         if (roda == null) {
             roda = new roda();
@@ -196,7 +175,7 @@ public class Birthdays extends javax.swing.JFrame {
 
     private void taMensagemKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_taMensagemKeyReleased
 
-        lTotalCaracter.setText(taMensagem.getCaretPosition() +" de 150");
+        lTotalCaracter.setText(taMensagem.getCaretPosition() +" de 140");
         
     }//GEN-LAST:event_taMensagemKeyReleased
 
@@ -236,9 +215,7 @@ public class Birthdays extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btEmail;
     private javax.swing.JButton btSMS;
-    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
@@ -280,9 +257,10 @@ public class Birthdays extends javax.swing.JFrame {
             //Passando o tamanho da lista
             int total = listClientes.size();
             int i = 0;
+            String[] nomeCliente; 
             lQtdEnviado.setVisible(true);
+
             btSMS.setEnabled(false);
-            btEmail.setEnabled(false);
             for (Client c : listClientes) {
                 //Validando se tem numero de celular
                 if (c.getCellPhone_1() == "") {
@@ -294,9 +272,10 @@ public class Birthdays extends javax.swing.JFrame {
                 i++;
                 pbEnviando.setValue(i);
                 lQtdEnviado.setText("Foram enviados " + i + " de " + total + ".");
-                System.out.println(c.getName() +", "+ taMensagem.getText().trim());
+                nomeCliente = c.getName().split(" ");
+                
                 try {
-                    ApiSms.simple(Mask.limparMasTelefone(c.getCellPhone_1()),c.getName() +", "+ taMensagem.getText().trim());
+                    ApiSms.simple(Mask.limparMasTelefone(c.getCellPhone_1()),nomeCliente[0] +", "+ taMensagem.getText().trim());
                 } catch (Exception ex) {
                     Logger.getLogger(Birthdays.class.getName()).log(Level.SEVERE, null, ex);
                 }
@@ -312,7 +291,7 @@ public class Birthdays extends javax.swing.JFrame {
                 }
             }
             btSMS.setEnabled(true);
-            btEmail.setEnabled(true);
+
             roda = null;
         }
     }
