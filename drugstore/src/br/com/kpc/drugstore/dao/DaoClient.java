@@ -98,10 +98,11 @@ public class DaoClient extends DaoGeneric<Client> implements IRepositoryClient {
     @Override
     public int clientRecipeValid(Date dtRecipe) {
 
-        final String strQuery = "SELECT DATEDIFF(CURDATE()," + dtRecipe + ");";
+        final String strQuery = "SELECT DATEDIFF(CURDATE(),:dtRecipe);";
 
         try {
             Query query = getManager().createNativeQuery(strQuery);
+            query.setParameter("dtRecipe", dtRecipe);
             return query.getFirstResult();
         } catch (Exception ex) {
             return -1;
@@ -115,11 +116,12 @@ public class DaoClient extends DaoGeneric<Client> implements IRepositoryClient {
                 + "join recipes as r on  c.clientId = r.CLIENT_clientId\n"
                 + "join tickets as t on r.recipeId = t.RECIPE_recipeId\n"
                 + "where (select DATEDIFF(curdate(), r.DT_RECIPE)) <= 120\n"
-                + "and (select DATEDIFF(curdate(), t.DT_SHOP)) = "+ days +";";
+                + "and (select DATEDIFF(curdate(), t.DT_SHOP)) = :days;";
                 
         try {
 
             Query query = getManager().createNativeQuery(strQuery, Client.class);
+            query.setParameter("days", days);
             return query.getResultList();
 
         } catch (Exception ex) {
