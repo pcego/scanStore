@@ -6,20 +6,24 @@
 package br.com.kpc.drugstore.gui;
 
 import br.com.kpc.drugstore.core.Client;
-import br.com.kpc.drugstore.core.IRepositoryClient;
-import br.com.kpc.drugstore.dao.DaoClient;
 import br.com.kpc.drugstore.service.Service;
 import br.com.kpc.drugstore.service.WindowInstance;
 import br.com.kpc.drugstore.tableModel.TableModelClient;
 import br.com.kpc.drugstore.util.Config;
 import br.com.kpc.drugstore.util.Mask;
 import br.com.kpc.drugstore.util.SystemMessage;
+import com.jtattoo.plaf.aero.AeroLookAndFeel;
+import java.awt.Image;
+import java.awt.Toolkit;
+import java.net.URL;
 import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Properties;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
+import javax.swing.UIManager;
 import javax.swing.text.DefaultFormatterFactory;
 import javax.swing.text.MaskFormatter;
 
@@ -35,7 +39,10 @@ public class ConsultarCliente extends javax.swing.JFrame {
     public ConsultarCliente() {
         initComponents();
         Config.considerarEnterComoTab(this);
-        getContentPane().setBackground(new java.awt.Color(0, 153, 153));
+        // coloca uma figura na barra de título da janela
+        URL url = this.getClass().getResource(Config.LOGOBARRATITULO);
+        Image imagemTitulo = Toolkit.getDefaultToolkit().getImage(url);
+        this.setIconImage(imagemTitulo);
     }
 
     /**
@@ -254,10 +261,15 @@ public class ConsultarCliente extends javax.swing.JFrame {
          */
         try {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
+                /* if ("Nimbus".equals(info.getName())) {
+                 javax.swing.UIManager.setLookAndFeel(info.getClassName());
+                 break;
+                 }
+                 */
+                UIManager.setLookAndFeel(Config.THEMA);
+                Properties props = new Properties();
+                props.put("", "");
+                AeroLookAndFeel.setCurrentTheme(props);
             }
         } catch (ClassNotFoundException ex) {
             java.util.logging.Logger.getLogger(ConsultarCliente.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
@@ -302,8 +314,8 @@ public class ConsultarCliente extends javax.swing.JFrame {
                 break;
             case "NOME":
                 if (validarTamanhoDoCampos()) {
-                    listClisnt =  Service.getIRepositoryClient().listClientByName(tvCriterio.getText().trim(), true);
-                    
+                    listClisnt = Service.getIRepositoryClient().listClientByName(tvCriterio.getText().trim(), true);
+
                     verificarRegistros(listClisnt.size());
                 }
                 break;
