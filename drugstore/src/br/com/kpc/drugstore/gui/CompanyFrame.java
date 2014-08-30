@@ -13,13 +13,19 @@ import br.com.kpc.drugstore.util.Cryptography;
 import br.com.kpc.drugstore.util.FormatDate;
 import br.com.kpc.drugstore.util.Mask;
 import br.com.kpc.drugstore.util.SystemMessage;
+import com.jtattoo.plaf.aero.AeroLookAndFeel;
+import java.awt.Image;
+import java.awt.Toolkit;
+import java.net.URL;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Properties;
 import java.util.logging.Level;
 import javax.swing.JOptionPane;
+import javax.swing.UIManager;
 import org.apache.log4j.Logger;
 
 /**
@@ -37,7 +43,10 @@ public class CompanyFrame extends javax.swing.JFrame {
         definindoMask();
         btTypeDefault();
         Config.considerarEnterComoTab(this);
-        getContentPane().setBackground(new java.awt.Color(0, 153, 153));
+        // coloca uma figura na barra de título da janela
+        URL url = this.getClass().getResource(Config.LOGOBARRATITULO);
+        Image imagemTitulo = Toolkit.getDefaultToolkit().getImage(url);
+        this.setIconImage(imagemTitulo);
     }
 
     /**
@@ -731,10 +740,15 @@ public class CompanyFrame extends javax.swing.JFrame {
          */
         try {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
+                /* if ("Nimbus".equals(info.getName())) {
+                 javax.swing.UIManager.setLookAndFeel(info.getClassName());
+                 break;
+                 }
+                 */
+                UIManager.setLookAndFeel(Config.THEMA);
+                Properties props = new Properties();
+                props.put("", "");
+                AeroLookAndFeel.setCurrentTheme(props);
             }
         } catch (ClassNotFoundException ex) {
             java.util.logging.Logger.getLogger(CompanyFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
