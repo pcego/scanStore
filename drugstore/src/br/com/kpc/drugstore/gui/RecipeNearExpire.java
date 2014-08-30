@@ -9,8 +9,12 @@ import br.com.kpc.drugstore.core.Client;
 import br.com.kpc.drugstore.service.Service;
 import br.com.kpc.drugstore.tableModel.TableModelRecipeNearExpire;
 import br.com.kpc.drugstore.util.ApiSms;
+import br.com.kpc.drugstore.util.Config;
 import br.com.kpc.drugstore.util.Mask;
 import br.com.kpc.drugstore.util.SystemMessage;
+import java.awt.Image;
+import java.awt.Toolkit;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
@@ -29,6 +33,10 @@ public class RecipeNearExpire extends javax.swing.JFrame {
     public RecipeNearExpire() {
         initComponents();
         carregarCliente();
+        // coloca uma figura na barra de título da janela
+        URL url = this.getClass().getResource(Config.LOGOBARRATITULO);
+        Image imagemTitulo = Toolkit.getDefaultToolkit().getImage(url);
+        this.setIconImage(imagemTitulo);
     }
 
     /**
@@ -153,10 +161,10 @@ public class RecipeNearExpire extends javax.swing.JFrame {
     private List<Client> listClientes = new ArrayList<Client>();
     // Define uma Thread para simular rodando  
     private Thread roda;
-    
+
     private void taMensagemKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_taMensagemKeyReleased
 
-        lTotalCaracter.setText(taMensagem.getCaretPosition() +" de 140");
+        lTotalCaracter.setText(taMensagem.getCaretPosition() + " de 140");
 
     }//GEN-LAST:event_taMensagemKeyReleased
 
@@ -221,7 +229,6 @@ public class RecipeNearExpire extends javax.swing.JFrame {
     private void carregarCliente() {
         //Carregando lista de client By Birthday
         listClientes = Service.getIRepositoryClient().listClientWithNearShop(27);
-        
 
         lTotalRegistros.setText("Total Registros: " + listClientes.size());
 
@@ -229,6 +236,7 @@ public class RecipeNearExpire extends javax.swing.JFrame {
         tbGrid.setModel(model);
 
     }
+
     private class roda extends Thread {
 
         public void run() {
@@ -248,7 +256,7 @@ public class RecipeNearExpire extends javax.swing.JFrame {
             //Passando o tamanho da lista
             int total = listClientes.size();
             int i = 0;
-            String[] nomeCliente; 
+            String[] nomeCliente;
             lQtdEnviado.setVisible(true);
 
             btSMS.setEnabled(false);
@@ -264,14 +272,12 @@ public class RecipeNearExpire extends javax.swing.JFrame {
                 pbEnviando.setValue(i);
                 lQtdEnviado.setText("Foram enviados " + i + " de " + total + ".");
                 nomeCliente = c.getName().split(" ");
-                
+
                 try {
-                    ApiSms.simple(Mask.limparMasTelefone(c.getCellPhone_1()),nomeCliente[0] +", "+ taMensagem.getText().trim());
+                    ApiSms.simple(Mask.limparMasTelefone(c.getCellPhone_1()), nomeCliente[0] + ", " + taMensagem.getText().trim());
                 } catch (Exception ex) {
                     Logger.getLogger(Birthdays.class.getName()).log(Level.SEVERE, null, ex);
                 }
-                  
-
 
                 // Atualiza a Barra de Progresso  
                 try {
