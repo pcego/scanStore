@@ -7,13 +7,20 @@ package br.com.kpc.drugstore.gui;
 
 import br.com.kpc.drugstore.service.Service;
 import br.com.kpc.drugstore.service.WindowInstance;
+import br.com.kpc.drugstore.util.Config;
 import br.com.kpc.drugstore.util.RunBackup;
 import br.com.kpc.drugstore.util.SystemMessage;
+import com.jtattoo.plaf.aero.AeroLookAndFeel;
 import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.GridBagLayout;
+import java.awt.Image;
+import java.awt.Toolkit;
+import java.net.URL;
+import java.util.Properties;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
+import javax.swing.UIManager;
 
 /**
  *
@@ -27,6 +34,10 @@ public class Main extends javax.swing.JFrame {
     public Main() {
         initComponents();
         //  jPCadastro.setAlignmentX(CENTER_ALIGNMENT);// HorizontalAlignment(SwingConstants.CENTER)
+        // coloca uma figura na barra de título da janela
+        URL url = this.getClass().getResource(Config.LOGOBARRATITULO);
+        Image imagemTitulo = Toolkit.getDefaultToolkit().getImage(url);
+        this.setIconImage(imagemTitulo);
     }
 
     /**
@@ -80,11 +91,9 @@ public class Main extends javax.swing.JFrame {
         setName("framePrincipal"); // NOI18N
         setPreferredSize(new java.awt.Dimension(800, 600));
 
-        jPfundo.setBackground(new java.awt.Color(0, 153, 153));
         jPfundo.setToolTipText("");
         jPfundo.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
 
-        jPCadastro.setBackground(new java.awt.Color(0, 153, 153));
         jPCadastro.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Cadastro", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Arial", 1, 10), new java.awt.Color(0, 51, 51))); // NOI18N
 
         btCliente.setForeground(new java.awt.Color(0, 153, 204));
@@ -152,7 +161,6 @@ public class Main extends javax.swing.JFrame {
 
         jPCadastroLayout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {btCliente, btEmpresa, btReceita, btRelatorio});
 
-        jPanel6.setBackground(new java.awt.Color(0, 153, 153));
         jPanel6.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Movimentação", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Arial", 1, 10), new java.awt.Color(0, 102, 102))); // NOI18N
 
         btOutros.setForeground(new java.awt.Color(0, 153, 204));
@@ -216,24 +224,23 @@ public class Main extends javax.swing.JFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        jPanel1.setBackground(new java.awt.Color(0, 153, 153));
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(""));
 
-        jLabel3.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel3.setForeground(new java.awt.Color(0, 102, 102));
         jLabel3.setText("DrugStore é um sistema que foi criado para facilitar a organização de documentos ");
 
-        jLabel5.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel5.setForeground(new java.awt.Color(0, 102, 102));
         jLabel5.setText("que são exigido por lei que guarde por um longo período, fazendo com que sua recuperação");
 
-        jLabel6.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel6.setForeground(new java.awt.Color(0, 102, 102));
         jLabel6.setText("seja realizada em pouco tempo.");
 
         jLabel4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/kpc/drugstore/img/logoKPCMini2.png"))); // NOI18N
 
-        jLabel2.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel2.setForeground(new java.awt.Color(0, 102, 102));
         jLabel2.setText("Suporte (xx) XXXX-XXXX");
 
-        jLabel1.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel1.setForeground(new java.awt.Color(0, 102, 102));
         jLabel1.setText("Manual do sistema");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
@@ -451,10 +458,16 @@ public class Main extends javax.swing.JFrame {
          */
         try {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
+                /*   if ("Nimbus".equals(info.getName())) {
+                 javax.swing.UIManager.setLookAndFeel(info.getClassName());
+                 break;
+                 }
+                 */
+                UIManager.setLookAndFeel("com.jtattoo.plaf.smart.SmartLookAndFeel");
+                Properties props = new Properties();
+                props.put("logoString", "Drugstore");
+                AeroLookAndFeel.setCurrentTheme(props);
+
             }
         } catch (ClassNotFoundException ex) {
             java.util.logging.Logger.getLogger(Main.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
