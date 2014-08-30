@@ -11,15 +11,22 @@ import br.com.kpc.drugstore.dao.DaoClient;
 import br.com.kpc.drugstore.service.Service;
 import br.com.kpc.drugstore.tableModel.TableModelClient;
 import br.com.kpc.drugstore.util.ApiSms;
+import br.com.kpc.drugstore.util.Config;
 import br.com.kpc.drugstore.util.FixedLengthDocument;
 import br.com.kpc.drugstore.util.Mask;
 import br.com.kpc.drugstore.util.SystemMessage;
+import com.jtattoo.plaf.aero.AeroLookAndFeel;
 import java.awt.Dimension;
+import java.awt.Image;
+import java.awt.Toolkit;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Properties;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.SwingUtilities;
+import javax.swing.UIManager;
 
 /**
  *
@@ -32,10 +39,13 @@ public class Birthdays extends javax.swing.JFrame {
      */
     public Birthdays() {
         initComponents();
-        getContentPane().setBackground(new java.awt.Color(0, 153, 153));
         carregarCliente();
         taMensagem.setDocument(new FixedLengthDocument(140));
         lQtdEnviado.setVisible(false);
+        // coloca uma figura na barra de título da janela
+        URL url = this.getClass().getResource(Config.LOGOBARRATITULO);
+        Image imagemTitulo = Toolkit.getDefaultToolkit().getImage(url);
+        this.setIconImage(imagemTitulo);
     }
 
     /**
@@ -153,6 +163,7 @@ public class Birthdays extends javax.swing.JFrame {
         );
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     private Client client;
@@ -163,7 +174,7 @@ public class Birthdays extends javax.swing.JFrame {
     private Thread roda;
 
     private void btSMSActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btSMSActionPerformed
-    
+
         // Inicia o processo  
         if (roda == null) {
             roda = new roda();
@@ -175,8 +186,8 @@ public class Birthdays extends javax.swing.JFrame {
 
     private void taMensagemKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_taMensagemKeyReleased
 
-        lTotalCaracter.setText(taMensagem.getCaretPosition() +" de 140");
-        
+        lTotalCaracter.setText(taMensagem.getCaretPosition() + " de 140");
+
     }//GEN-LAST:event_taMensagemKeyReleased
 
     /**
@@ -190,10 +201,15 @@ public class Birthdays extends javax.swing.JFrame {
          */
         try {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
+                /*  if ("Nimbus".equals(info.getName())) {
+                 javax.swing.UIManager.setLookAndFeel(info.getClassName());
+                 break;
+                 }
+                 */
+                UIManager.setLookAndFeel(Config.THEMA);
+                Properties props = new Properties();
+                props.put("", "");
+                AeroLookAndFeel.setCurrentTheme(props);
             }
         } catch (ClassNotFoundException ex) {
             java.util.logging.Logger.getLogger(Birthdays.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
@@ -257,7 +273,7 @@ public class Birthdays extends javax.swing.JFrame {
             //Passando o tamanho da lista
             int total = listClientes.size();
             int i = 0;
-            String[] nomeCliente; 
+            String[] nomeCliente;
             lQtdEnviado.setVisible(true);
 
             btSMS.setEnabled(false);
@@ -273,14 +289,12 @@ public class Birthdays extends javax.swing.JFrame {
                 pbEnviando.setValue(i);
                 lQtdEnviado.setText("Foram enviados " + i + " de " + total + ".");
                 nomeCliente = c.getName().split(" ");
-                
+
                 try {
-                    ApiSms.simple(Mask.limparMasTelefone(c.getCellPhone_1()),nomeCliente[0] +", "+ taMensagem.getText().trim());
+                    ApiSms.simple(Mask.limparMasTelefone(c.getCellPhone_1()), nomeCliente[0] + ", " + taMensagem.getText().trim());
                 } catch (Exception ex) {
                     Logger.getLogger(Birthdays.class.getName()).log(Level.SEVERE, null, ex);
                 }
-                  
-
 
                 // Atualiza a Barra de Progresso  
                 try {
