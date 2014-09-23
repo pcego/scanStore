@@ -208,7 +208,13 @@ public class Login extends javax.swing.JFrame {
     }//GEN-LAST:event_formWindowOpened
 
     private void btValidarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btValidarActionPerformed
-
+        
+        //Validando se o serial é valido, se não for sai da função
+        if (!validarSerial(company.getSystem_key())) {
+            return;
+        }
+        
+        //Verificando usuario é senha
         if ((Cryptography.criptography(new String(tvSenha.getPassword()))).equals(company.getPasswd())) {
             WindowInstance.getInstance(WindowInstance.PRINCIPAL).setVisible(true);
             this.dispose();
