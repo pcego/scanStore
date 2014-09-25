@@ -436,7 +436,7 @@ public class Main extends javax.swing.JFrame {
     }//GEN-LAST:event_btEmpresaActionPerformed
 
     private void btRelatorioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btRelatorioActionPerformed
-
+        WindowInstance.getInstance(WindowInstance.REPORTWINDOW).setVisible(true);
     }//GEN-LAST:event_btRelatorioActionPerformed
 
     private void btReceitaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btReceitaActionPerformed
