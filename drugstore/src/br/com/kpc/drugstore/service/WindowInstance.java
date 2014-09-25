@@ -11,6 +11,7 @@ import br.com.kpc.drugstore.gui.CompanyFrame;
 import br.com.kpc.drugstore.gui.ConsultarCliente;
 import br.com.kpc.drugstore.gui.Main;
 import br.com.kpc.drugstore.gui.RecipeFrame;
+import br.com.kpc.drugstore.gui.ReportFrame;
 import br.com.kpc.drugstore.gui.Sobre;
 import javax.swing.JFrame;
 
@@ -27,6 +28,7 @@ public class WindowInstance {
     private static Sobre sobre;
     private static Main principal;
     private static Birthdays bds;
+    private static ReportFrame report;
 
     public static final int CLIENTWINDOW = 1;
     public static final int COMPANYWINDOW = 2;
@@ -35,6 +37,7 @@ public class WindowInstance {
     public static final int SOBREWINDOW = 5;
     public static final int PRINCIPAL = 6;
     public static final int BDS = 7;
+    public static final int REPORTWINDOW = 8;
 
     public static JFrame getInstance(int id) {
 
@@ -88,6 +91,13 @@ public class WindowInstance {
                     bds = new Birthdays();
                 }
                 return bds;
+
+            case REPORTWINDOW:
+
+                if (report == null) {
+                    report = new ReportFrame();
+                }
+                return report;
 
             default:
                 return null;
