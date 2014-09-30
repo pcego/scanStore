@@ -3,8 +3,31 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package br.com.kpc.drugstore.gui;
+
+import br.com.kpc.drugstore.core.Client;
+import br.com.kpc.drugstore.dao.ConnectionDb;
+import br.com.kpc.drugstore.service.Service;
+import br.com.kpc.drugstore.util.Config;
+import br.com.kpc.drugstore.util.Mask;
+import br.com.kpc.drugstore.util.SystemMessage;
+import java.awt.Image;
+import java.awt.Toolkit;
+import java.awt.event.KeyEvent;
+import java.io.File;
+import java.net.URL;
+import java.text.ParseException;
+import java.util.HashMap;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import net.sf.jasperreports.engine.JRException;
+import net.sf.jasperreports.engine.JasperCompileManager;
+import net.sf.jasperreports.engine.JasperFillManager;
+import net.sf.jasperreports.engine.JasperPrint;
+import net.sf.jasperreports.engine.JasperReport;
+import net.sf.jasperreports.engine.design.JasperDesign;
+import net.sf.jasperreports.engine.xml.JRXmlLoader;
+import net.sf.jasperreports.view.JasperViewer;
 
 /**
  *
@@ -17,6 +40,13 @@ public class ReportFrame extends javax.swing.JFrame {
      */
     public ReportFrame() {
         initComponents();
+        definindoMask();
+        Config.considerarEnterComoTab(this);
+        // coloca uma figura na barra de título da janela
+        URL url = this.getClass().getResource(Config.LOGOBARRATITULO);
+        Image imagemTitulo = Toolkit.getDefaultToolkit().getImage(url);
+        this.setIconImage(imagemTitulo);
+
     }
 
     /**
@@ -28,21 +58,294 @@ public class ReportFrame extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        jPanel1 = new javax.swing.JPanel();
+        tvDateRecipeIn = new javax.swing.JFormattedTextField();
+        jLabel24 = new javax.swing.JLabel();
+        tvDateShopOut = new javax.swing.JFormattedTextField();
+        tvDateRecipeOut = new javax.swing.JFormattedTextField();
+        jLabel22 = new javax.swing.JLabel();
+        jLabel23 = new javax.swing.JLabel();
+        tvDateShopIn = new javax.swing.JFormattedTextField();
+        jLabel21 = new javax.swing.JLabel();
+        tvName = new javax.swing.JTextField();
+        jLabel11 = new javax.swing.JLabel();
+        jLabel12 = new javax.swing.JLabel();
+        btPesquisaCliente = new javax.swing.JButton();
+        tvCPF = new javax.swing.JFormattedTextField();
+        rbLastShop = new javax.swing.JRadioButton();
+        btConfirmar1 = new javax.swing.JButton();
+        btCancelar1 = new javax.swing.JButton();
+
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowClosed(java.awt.event.WindowEvent evt) {
+                formWindowClosed(evt);
+            }
+        });
+
+        jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Filtros", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Arial", 1, 12))); // NOI18N
+
+        tvDateRecipeIn.setPreferredSize(new java.awt.Dimension(100, 20));
+
+        jLabel24.setText("Data receita");
+        jLabel24.setPreferredSize(new java.awt.Dimension(68, 20));
+
+        tvDateShopOut.setPreferredSize(new java.awt.Dimension(100, 20));
+
+        tvDateRecipeOut.setPreferredSize(new java.awt.Dimension(100, 20));
+
+        jLabel22.setText("até");
+        jLabel22.setPreferredSize(new java.awt.Dimension(68, 20));
+
+        jLabel23.setText("até");
+        jLabel23.setPreferredSize(new java.awt.Dimension(68, 20));
+
+        tvDateShopIn.setPreferredSize(new java.awt.Dimension(100, 20));
+
+        jLabel21.setText("Data venda");
+        jLabel21.setPreferredSize(new java.awt.Dimension(68, 20));
+
+        tvName.setEnabled(false);
+        tvName.setPreferredSize(new java.awt.Dimension(50, 20));
+        tvName.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                tvNameFocusLost(evt);
+            }
+        });
+
+        jLabel11.setText("CPF");
+        jLabel11.setPreferredSize(new java.awt.Dimension(37, 20));
+
+        jLabel12.setText("Nome:");
+        jLabel12.setPreferredSize(new java.awt.Dimension(68, 20));
+
+        btPesquisaCliente.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/kpc/drugstore/img/pesquisa.png"))); // NOI18N
+        btPesquisaCliente.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btPesquisaClienteActionPerformed(evt);
+            }
+        });
+
+        tvCPF.setPreferredSize(new java.awt.Dimension(150, 20));
+        tvCPF.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                tvCPFFocusLost(evt);
+            }
+        });
+        tvCPF.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                tvCPFKeyPressed(evt);
+            }
+        });
+
+        rbLastShop.setText("Apenas ultima compra deste cliente");
+        rbLastShop.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                rbLastShopActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(jLabel21, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(tvDateShopIn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jLabel22, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, 0)
+                        .addComponent(tvDateShopOut, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(jLabel24, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(tvDateRecipeIn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jLabel23, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, 0)
+                        .addComponent(tvDateRecipeOut, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(jLabel11, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(tvCPF, javax.swing.GroupLayout.PREFERRED_SIZE, 111, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(btPesquisaCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jLabel12, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(tvName, javax.swing.GroupLayout.PREFERRED_SIZE, 446, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(rbLastShop))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(21, 21, 21)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jLabel12, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(tvName, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jLabel11, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(tvCPF, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(btPesquisaCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel21, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(tvDateShopIn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jLabel22, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(tvDateShopOut, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(15, 15, 15)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel24, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(tvDateRecipeIn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jLabel23, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(tvDateRecipeOut, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(rbLastShop)
+                .addContainerGap(16, Short.MAX_VALUE))
+        );
+
+        btConfirmar1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/kpc/drugstore/img/salvar.png"))); // NOI18N
+        btConfirmar1.setText("Confirmar");
+        btConfirmar1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btConfirmar1ActionPerformed(evt);
+            }
+        });
+
+        btCancelar1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/kpc/drugstore/img/cancelar.png"))); // NOI18N
+        btCancelar1.setText("Cancelar");
+        btCancelar1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btCancelar1ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(btConfirmar1, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(btCancelar1, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 300, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(10, 10, 10)
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btCancelar1, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btConfirmar1, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(10, 10, 10))
         );
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
+
+    private static Client clientVG = new Client();
+
+    private void tvNameFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_tvNameFocusLost
+        tvName.setText(tvName.getText().toUpperCase());
+    }//GEN-LAST:event_tvNameFocusLost
+
+    private void btConfirmar1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btConfirmar1ActionPerformed
+
+        //Completando os campos de data
+        fieldComplete();
+        //Se Retorno de validação falhar ele sai da função
+        if (!fieldValidation()) {
+            return;
+        }
+
+        
+        HashMap hm2 = new HashMap();
+        //sql base para geração de todos os relatórios para listagem de documentos
+        //sem o filtro essa sql lista todas as vendas contidas na base
+        StringBuilder sql_base = new StringBuilder("select cl.name, cl.cpf, cl.cpf_image, cl.rg_image, r.dt_recipe, r.recipe_type, \n"
+                + "r.recipe_image, r.other_document, t.dt_shop, t.ticket_image, \n"
+                + "t.ticket_number, t.auth_number from clients as cl INNER join recipes as r\n"
+                + "on cl.clientId = r.CLIENT_clientId INNER join tickets as t\n"
+                + "on r.recipeId = t.RECIPE_recipeId ");
+
+ 
+        
+        //implementação dos filtros para relatórios de documentos
+        //estes são apenas alguns filtros possíveis sendo que novos filtros podem ser
+        //implementados assim que surgir a necessidade, utilizando-se sempre a mesma sql base
+        //filtra ultima compra de um cpf específico
+        if (rbLastShop.isSelected()) {
+            String filtroUltimaCompra = "WHERE cl.CPF = 95111212604 and "
+                + "r.recipeId = (select MAX(recipeId) from recipes where CLIENT_clientId = (select clientId from clients where cpf = 95111212604))";
+        }
+        
+        //filtra as vendas em uma determinada data
+        String filtroPorData = "WHERE t.DT_SHOP = '2014-08-01'";
+
+        //filtra vendas para uma cliente específico em uma data específica
+        String filtroVendaClienteData = "WHERE cl.cpf = '95111212604' and t.DT_SHOP = '2014-08-01'";
+
+        //filtra todas as vendas com data de receita específica
+        String filtroVendaDataReceita = "WHERE r.DT_RECIPE = '2014-07-30'";
+
+        sql_base.append(filtroPorData);
+
+        hm2.put("query", sql_base);
+
+        File rel = new File("C:\\scanStore\\drugstore\\src\\br\\com\\kpc\\drugstore\\relatorios\\documentos.jrxml");
+
+        try {
+            //gerando o jasper design
+            JasperDesign desenho = JRXmlLoader.load(rel);
+            //compila o relatório
+            JasperReport relatorio = JasperCompileManager.compileReport(desenho);
+            JasperPrint print = JasperFillManager.fillReport(relatorio, hm2, ConnectionDb.getConnectionDs());
+            JasperViewer visao = new JasperViewer(print, true);
+            visao.setVisible(true);
+        } catch (JRException jrex) {
+            System.out.println("deu erro: " + jrex);
+        }
+
+
+    }//GEN-LAST:event_btConfirmar1ActionPerformed
+
+    private void btCancelar1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btCancelar1ActionPerformed
+        limparCampos();
+    }//GEN-LAST:event_btCancelar1ActionPerformed
+
+    private void btPesquisaClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btPesquisaClienteActionPerformed
+        ConsultarCliente.getJanelaConsultarCliente("REPORTFRAME").setVisible(true);
+    }//GEN-LAST:event_btPesquisaClienteActionPerformed
+
+    private void tvCPFFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_tvCPFFocusLost
+        carregarNomeCLiente();
+    }//GEN-LAST:event_tvCPFFocusLost
+
+    private void tvCPFKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tvCPFKeyPressed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_tvCPFKeyPressed
+
+    private void formWindowClosed(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosed
+        limparCampos();
+    }//GEN-LAST:event_formWindowClosed
+
+    private void rbLastShopActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rbLastShopActionPerformed
+
+    }//GEN-LAST:event_rbLastShopActionPerformed
 
     /**
      * @param args the command line arguments
@@ -80,5 +383,122 @@ public class ReportFrame extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private static javax.swing.JButton btCancelar1;
+    private static javax.swing.JButton btConfirmar1;
+    private javax.swing.JButton btPesquisaCliente;
+    private javax.swing.JLabel jLabel11;
+    private javax.swing.JLabel jLabel12;
+    private javax.swing.JLabel jLabel21;
+    private javax.swing.JLabel jLabel22;
+    private javax.swing.JLabel jLabel23;
+    private javax.swing.JLabel jLabel24;
+    private javax.swing.JPanel jPanel1;
+    private javax.swing.JRadioButton rbLastShop;
+    private static javax.swing.JFormattedTextField tvCPF;
+    private static javax.swing.JFormattedTextField tvDateRecipeIn;
+    private static javax.swing.JFormattedTextField tvDateRecipeOut;
+    private static javax.swing.JFormattedTextField tvDateShopIn;
+    private static javax.swing.JFormattedTextField tvDateShopOut;
+    private static javax.swing.JTextField tvName;
     // End of variables declaration//GEN-END:variables
+
+    private void definindoMask() {
+
+        try {
+            Mask.maskDate(tvDateRecipeIn);
+            Mask.maskDate(tvDateRecipeOut);
+            Mask.maskDate(tvDateShopIn);
+            Mask.maskDate(tvDateShopOut);
+            Mask.maskCPF(tvCPF);
+
+        } catch (ParseException ex) {
+            Logger.getLogger(ReportFrame.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    //Recebe o retorno da pesquisa
+    protected static void getClientReturn(Client cli) {
+        clientVG = cli;
+        tvCPF.setText(String.valueOf(clientVG.getCpf()));
+        tvName.setText(clientVG.getName());
+    }
+
+    //carrega os dados ns busca pelo CPF
+    private void carregarNomeCLiente() {
+        if (tvCPF.getText().trim().length() == 14) {
+            clientVG = Service.getIRepositoryClient().getClientByCpf(Mask.limparMaskCPF(tvCPF.getText()).trim(), true);
+            tvName.setText(clientVG.getName());
+        }
+    }
+
+    private void fieldComplete() {
+
+        if ((!Mask.limparMaskData(tvDateRecipeIn.getText()).trim().equals("")) && (Mask.limparMaskData(tvDateRecipeIn.getText()).trim().length() == 8) && (Mask.limparMaskData(tvDateRecipeOut.getText()).trim().equals(""))) {
+            tvDateRecipeOut.setText(tvDateRecipeIn.getText());
+        }
+        if ((!Mask.limparMaskData(tvDateRecipeOut.getText()).trim().equals("")) && (Mask.limparMaskData(tvDateRecipeOut.getText()).trim().length() == 8) && (Mask.limparMaskData(tvDateRecipeIn.getText()).trim().equals(""))) {
+            tvDateRecipeIn.setText(tvDateRecipeOut.getText());
+        }
+
+        if ((!Mask.limparMaskData(tvDateShopIn.getText()).trim().equals("")) && (Mask.limparMaskData(tvDateShopIn.getText()).trim().length() == 8) && (Mask.limparMaskData(tvDateShopOut.getText()).trim().equals(""))) {
+            tvDateShopOut.setText(tvDateShopIn.getText());
+        }
+        if ((!Mask.limparMaskData(tvDateShopOut.getText()).trim().equals("")) && (Mask.limparMaskData(tvDateShopOut.getText()).trim().length() == 8) && (Mask.limparMaskData(tvDateShopIn.getText()).trim().equals(""))) {
+            tvDateShopIn.setText(tvDateShopOut.getText());
+        }
+
+    }
+
+    private boolean fieldValidation() {
+        if ((!Mask.limparMaskCPF(tvCPF.getText()).trim().equals("")) && (tvCPF.getText().trim().length() < 14)) {
+            SystemMessage.kpcShowMessage(null, SystemMessage.INFORMATION, "Informe seu CPF!");
+            tvCPF.requestFocus();
+            return false;
+        }
+        //So vai validar se tiver preenchido
+        if ((!Mask.limparMaskCPF(tvCPF.getText()).trim().equals("")) && (!Mask.validaCpfCnpj(tvCPF.getText()))) {
+            SystemMessage.kpcShowMessage(null, SystemMessage.INFORMATION, "CPF digitado é inválido");
+            tvCPF.requestFocus();
+            return false;
+        }
+
+        if ((!Mask.limparMaskData(tvDateRecipeIn.getText()).trim().equals("")) && (Mask.limparMaskData(tvDateRecipeIn.getText()).trim().length() < 8)) {
+            SystemMessage.kpcShowMessage(null, SystemMessage.INFORMATION, "Por favor, insira uma data válida!");
+            tvDateRecipeIn.requestFocus();
+            return false;
+        }
+        if ((!Mask.limparMaskData(tvDateRecipeOut.getText()).trim().equals("")) && (Mask.limparMaskData(tvDateRecipeOut.getText()).trim().length() < 8)) {
+            SystemMessage.kpcShowMessage(null, SystemMessage.INFORMATION, "Por favor, insira uma data válida!");
+            tvDateRecipeOut.requestFocus();
+            return false;
+        }
+        if ((!Mask.limparMaskData(tvDateShopIn.getText()).trim().equals("")) && (Mask.limparMaskData(tvDateShopIn.getText()).trim().length() < 8)) {
+            SystemMessage.kpcShowMessage(null, SystemMessage.INFORMATION, "Por favor, insira uma data válida!");
+            tvDateShopIn.requestFocus();
+            return false;
+        }
+        if ((!Mask.limparMaskData(tvDateShopOut.getText()).trim().equals("")) && (Mask.limparMaskData(tvDateShopOut.getText()).trim().length() < 8)) {
+            SystemMessage.kpcShowMessage(null, SystemMessage.INFORMATION, "Por favor, insira uma data válida!");
+            tvDateShopOut.requestFocus();
+            return false;
+        }
+
+        if (rbLastShop.isSelected() && ((Mask.limparMaskCPF(tvCPF.getText()).trim().equals("")) || (tvCPF.getText().trim().length() < 14))) {
+            SystemMessage.kpcShowMessage(null, SystemMessage.INFORMATION, "Ao selecionar apenas ultima compra é necessário informar um cliente!");
+            tvCPF.requestFocus();
+            return false;
+        }
+
+        return true;
+    }
+
+    private void limparCampos() {
+        tvCPF.setText("");
+        tvDateRecipeIn.setText("");
+        tvDateRecipeOut.setText("");
+        tvDateShopIn.setText("");
+        tvDateShopOut.setText("");
+        tvName.setText("");
+
+    }
 }
