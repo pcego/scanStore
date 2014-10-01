@@ -170,7 +170,7 @@ public class TestImagen extends javax.swing.JFrame {
         //filtra todas as vendas com data de receita específica
         String filtroVendaDataReceita = "WHERE r.DT_RECIPE = '2014-07-30'";
         
-        sql_base.append(filtroPorData);
+        sql_base.append(filtroUltimaCompra);
         
         hm2.put("query", sql_base);
        
