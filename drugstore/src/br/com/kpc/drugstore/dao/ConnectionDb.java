@@ -18,7 +18,7 @@ public class ConnectionDb {
     private static Connection connection = null;
     private static final String URL = "jdbc:mysql://localhost:3306/datastore";
     private static final String USER = "root";
-    private static final String PWD = "1234";
+    private static final String PWD = "123456";
 
     private ConnectionDb() {
 
