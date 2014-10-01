@@ -236,6 +236,9 @@ public class ConsultarCliente extends javax.swing.JFrame {
                 break;
             case "CADRECEITA":
                 RecipeFrame.getClienteRetorno(cli);
+            case "REPORTFRAME":
+                ReportFrame.getClientReturn(cli);
+                
 
         }
 
