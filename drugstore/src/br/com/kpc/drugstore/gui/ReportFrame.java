@@ -69,7 +69,6 @@ public class ReportFrame extends javax.swing.JFrame {
         jLabel21 = new javax.swing.JLabel();
         tvName = new javax.swing.JTextField();
         jLabel11 = new javax.swing.JLabel();
-        jLabel12 = new javax.swing.JLabel();
         btPesquisaCliente = new javax.swing.JButton();
         tvCPF = new javax.swing.JFormattedTextField();
         rbLastShop = new javax.swing.JRadioButton();
@@ -77,6 +76,8 @@ public class ReportFrame extends javax.swing.JFrame {
         btCancelar1 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("Relatórios - KPC Software Delopmet");
+        setResizable(false);
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowClosed(java.awt.event.WindowEvent evt) {
                 formWindowClosed(evt);
@@ -95,10 +96,10 @@ public class ReportFrame extends javax.swing.JFrame {
         tvDateRecipeOut.setPreferredSize(new java.awt.Dimension(100, 20));
 
         jLabel22.setText("até");
-        jLabel22.setPreferredSize(new java.awt.Dimension(68, 20));
+        jLabel22.setPreferredSize(new java.awt.Dimension(35, 20));
 
         jLabel23.setText("até");
-        jLabel23.setPreferredSize(new java.awt.Dimension(68, 20));
+        jLabel23.setPreferredSize(new java.awt.Dimension(35, 20));
 
         tvDateShopIn.setPreferredSize(new java.awt.Dimension(100, 20));
 
@@ -106,7 +107,7 @@ public class ReportFrame extends javax.swing.JFrame {
         jLabel21.setPreferredSize(new java.awt.Dimension(68, 20));
 
         tvName.setEnabled(false);
-        tvName.setPreferredSize(new java.awt.Dimension(50, 20));
+        tvName.setPreferredSize(new java.awt.Dimension(450, 20));
         tvName.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusLost(java.awt.event.FocusEvent evt) {
                 tvNameFocusLost(evt);
@@ -114,10 +115,7 @@ public class ReportFrame extends javax.swing.JFrame {
         });
 
         jLabel11.setText("CPF");
-        jLabel11.setPreferredSize(new java.awt.Dimension(37, 20));
-
-        jLabel12.setText("Nome:");
-        jLabel12.setPreferredSize(new java.awt.Dimension(68, 20));
+        jLabel11.setPreferredSize(new java.awt.Dimension(68, 20));
 
         btPesquisaCliente.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/kpc/drugstore/img/pesquisa.png"))); // NOI18N
         btPesquisaCliente.addActionListener(new java.awt.event.ActionListener() {
@@ -126,7 +124,7 @@ public class ReportFrame extends javax.swing.JFrame {
             }
         });
 
-        tvCPF.setPreferredSize(new java.awt.Dimension(150, 20));
+        tvCPF.setPreferredSize(new java.awt.Dimension(100, 20));
         tvCPF.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusLost(java.awt.event.FocusEvent evt) {
                 tvCPFFocusLost(evt);
@@ -153,33 +151,31 @@ public class ReportFrame extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jLabel21, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jLabel11, javax.swing.GroupLayout.PREFERRED_SIZE, 68, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(tvDateShopIn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jLabel22, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, 0)
-                        .addComponent(tvDateShopOut, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jLabel24, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(tvDateRecipeIn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jLabel23, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, 0)
-                        .addComponent(tvDateRecipeOut, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jLabel11, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(tvCPF, javax.swing.GroupLayout.PREFERRED_SIZE, 111, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(tvCPF, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(btPesquisaCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jLabel12, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(tvName, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(jLabel21, javax.swing.GroupLayout.PREFERRED_SIZE, 68, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(tvName, javax.swing.GroupLayout.PREFERRED_SIZE, 446, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(tvDateShopIn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jLabel22, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, 0)
+                        .addComponent(tvDateShopOut, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(jLabel24, javax.swing.GroupLayout.PREFERRED_SIZE, 68, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(tvDateRecipeIn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jLabel23, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, 0)
+                        .addComponent(tvDateRecipeOut, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(rbLastShop))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -187,12 +183,11 @@ public class ReportFrame extends javax.swing.JFrame {
                 .addGap(21, 21, 21)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(jLabel12, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(tvName, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jLabel11, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(tvCPF, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(btPesquisaCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                    .addComponent(btPesquisaCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(tvName, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel21, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(tvDateShopIn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -230,16 +225,14 @@ public class ReportFrame extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(btConfirmar1, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(btCancelar1, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap())
+                        .addComponent(btCancelar1, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(0, 0, 0))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -253,6 +246,8 @@ public class ReportFrame extends javax.swing.JFrame {
                 .addGap(10, 10, 10))
         );
 
+        getAccessibleContext().setAccessibleName("Relatórios - KPC Software Delopmet");
+
         pack();
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
@@ -264,6 +259,7 @@ public class ReportFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_tvNameFocusLost
 
     private void btConfirmar1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btConfirmar1ActionPerformed
+        String filtro = "";
 
         //Completando os campos de data
         fieldComplete();
@@ -272,7 +268,6 @@ public class ReportFrame extends javax.swing.JFrame {
             return;
         }
 
-        
         HashMap hm2 = new HashMap();
         //sql base para geração de todos os relatórios para listagem de documentos
         //sem o filtro essa sql lista todas as vendas contidas na base
@@ -282,27 +277,47 @@ public class ReportFrame extends javax.swing.JFrame {
                 + "on cl.clientId = r.CLIENT_clientId INNER join tickets as t\n"
                 + "on r.recipeId = t.RECIPE_recipeId ");
 
- 
-        
-        //implementação dos filtros para relatórios de documentos
-        //estes são apenas alguns filtros possíveis sendo que novos filtros podem ser
-        //implementados assim que surgir a necessidade, utilizando-se sempre a mesma sql base
-        //filtra ultima compra de um cpf específico
-        if (rbLastShop.isSelected()) {
-            String filtroUltimaCompra = "WHERE cl.CPF = 95111212604 and "
-                + "r.recipeId = (select MAX(recipeId) from recipes where CLIENT_clientId = (select clientId from clients where cpf = 95111212604))";
+        if ((!Mask.limparMaskCPF(tvCPF.getText()).trim().equals(""))
+                || (!Mask.limparMaskData(tvDateRecipeIn.getText()).trim().equals(""))
+                || (!Mask.limparMaskData(tvDateShopIn.getText()).trim().equals(""))) {
+
+            //implementação dos filtros para relatórios de documentos
+            //estes são apenas alguns filtros possíveis sendo que novos filtros podem ser
+            //implementados assim que surgir a necessidade, utilizando-se sempre a mesma sql base
+            //filtra ultima compra de um cpf específico
+            if (rbLastShop.isSelected()) {
+                if (filtro.trim().equals("")) {
+                    filtro = "WHERE ";
+                } else {
+                    filtro = "AND ";
+                }
+
+                filtro += " cl.CPF = " + Mask.limparMaskCPF(tvCPF.getText()).trim() + " and "
+                        + "r.recipeId = (select MAX(recipeId) from recipes where CLIENT_clientId = (select clientId from clients where cpf = " + Mask.limparMaskCPF(tvCPF.getText()).trim() + " ))";
+            }
+
+            //filtra as vendas em um determinado paríodo
+            if (!Mask.limparMaskData(tvDateShopIn.getText()).trim().equals("")) {
+                if (filtro.trim().equals("")) {
+                    filtro = " WHERE ";
+                } else {
+                    filtro = " AND ";
+                }
+                filtro += " t.DT_SHOP = BETWEEN  " + Mask.limparMaskData(tvDateShopIn.getText()).trim().equals("") + " AND " + Mask.limparMaskData(tvDateShopOut.getText()).trim();
+            }
+
+            //filtra todas as vendas com data de receita dentro do período
+            if (!Mask.limparMaskData(tvDateRecipeIn.getText()).trim().equals("")) {
+                if (filtro.trim().equals("")) {
+                    filtro = " WHERE ";
+                } else {
+                    filtro = " AND ";
+                }
+                filtro += " r.DT_RECIPE = BETWEEN " + Mask.limparMaskData(tvDateRecipeIn.getText()).trim() + " AND " + Mask.limparMaskData(tvDateRecipeOut.getText()).trim();
+            }
+            //Informando o filtro após sql
+            sql_base.append(filtro);
         }
-        
-        //filtra as vendas em uma determinada data
-        String filtroPorData = "WHERE t.DT_SHOP = '2014-08-01'";
-
-        //filtra vendas para uma cliente específico em uma data específica
-        String filtroVendaClienteData = "WHERE cl.cpf = '95111212604' and t.DT_SHOP = '2014-08-01'";
-
-        //filtra todas as vendas com data de receita específica
-        String filtroVendaDataReceita = "WHERE r.DT_RECIPE = '2014-07-30'";
-
-        sql_base.append(filtroPorData);
 
         hm2.put("query", sql_base);
 
@@ -322,6 +337,7 @@ public class ReportFrame extends javax.swing.JFrame {
 
 
     }//GEN-LAST:event_btConfirmar1ActionPerformed
+
 
     private void btCancelar1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btCancelar1ActionPerformed
         limparCampos();
@@ -387,7 +403,6 @@ public class ReportFrame extends javax.swing.JFrame {
     private static javax.swing.JButton btConfirmar1;
     private javax.swing.JButton btPesquisaCliente;
     private javax.swing.JLabel jLabel11;
-    private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel21;
     private javax.swing.JLabel jLabel22;
     private javax.swing.JLabel jLabel23;
