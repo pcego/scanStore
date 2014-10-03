@@ -72,6 +72,8 @@ public class ReportFrame extends javax.swing.JFrame {
         btPesquisaCliente = new javax.swing.JButton();
         tvCPF = new javax.swing.JFormattedTextField();
         rbLastShop = new javax.swing.JRadioButton();
+        cbFiltros = new javax.swing.JComboBox();
+        jToggleButton1 = new javax.swing.JToggleButton();
         btConfirmar1 = new javax.swing.JButton();
         btCancelar1 = new javax.swing.JButton();
 
@@ -86,13 +88,16 @@ public class ReportFrame extends javax.swing.JFrame {
 
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Filtros", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Arial", 1, 12))); // NOI18N
 
+        tvDateRecipeIn.setEnabled(false);
         tvDateRecipeIn.setPreferredSize(new java.awt.Dimension(100, 20));
 
         jLabel24.setText("Data receita");
         jLabel24.setPreferredSize(new java.awt.Dimension(68, 20));
 
+        tvDateShopOut.setEnabled(false);
         tvDateShopOut.setPreferredSize(new java.awt.Dimension(100, 20));
 
+        tvDateRecipeOut.setEnabled(false);
         tvDateRecipeOut.setPreferredSize(new java.awt.Dimension(100, 20));
 
         jLabel22.setText("até");
@@ -101,6 +106,7 @@ public class ReportFrame extends javax.swing.JFrame {
         jLabel23.setText("até");
         jLabel23.setPreferredSize(new java.awt.Dimension(35, 20));
 
+        tvDateShopIn.setEnabled(false);
         tvDateShopIn.setPreferredSize(new java.awt.Dimension(100, 20));
 
         jLabel21.setText("Data venda");
@@ -118,12 +124,15 @@ public class ReportFrame extends javax.swing.JFrame {
         jLabel11.setPreferredSize(new java.awt.Dimension(68, 20));
 
         btPesquisaCliente.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/kpc/drugstore/img/pesquisa.png"))); // NOI18N
+        btPesquisaCliente.setContentAreaFilled(false);
+        btPesquisaCliente.setEnabled(false);
         btPesquisaCliente.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btPesquisaClienteActionPerformed(evt);
             }
         });
 
+        tvCPF.setEnabled(false);
         tvCPF.setPreferredSize(new java.awt.Dimension(100, 20));
         tvCPF.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusLost(java.awt.event.FocusEvent evt) {
@@ -137,9 +146,20 @@ public class ReportFrame extends javax.swing.JFrame {
         });
 
         rbLastShop.setText("Apenas ultima compra deste cliente");
+        rbLastShop.setEnabled(false);
         rbLastShop.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 rbLastShopActionPerformed(evt);
+            }
+        });
+
+        cbFiltros.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "TODOS", "VENDAS POR CLIENTE", "ULTIMA COMPRA DO CLIENTE", "INTERVALO DE DATA DE VENDA", "INTERVALO DE DATA DA RECEITA", "DATA VENDA", "DATA RECEITA", "DATA VENDA POR CLIENTE", "DATA RECEITA POR CLIENTE" }));
+
+        jToggleButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/kpc/drugstore/img/atualiza.png"))); // NOI18N
+        jToggleButton1.setContentAreaFilled(false);
+        jToggleButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jToggleButton1ActionPerformed(evt);
             }
         });
 
@@ -150,14 +170,6 @@ public class ReportFrame extends javax.swing.JFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jLabel11, javax.swing.GroupLayout.PREFERRED_SIZE, 68, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(tvCPF, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(btPesquisaCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(tvName, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(jLabel21, javax.swing.GroupLayout.PREFERRED_SIZE, 68, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -174,19 +186,38 @@ public class ReportFrame extends javax.swing.JFrame {
                         .addComponent(jLabel23, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(0, 0, 0)
                         .addComponent(tvDateRecipeOut, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(rbLastShop))
+                    .addComponent(rbLastShop)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(jLabel11, javax.swing.GroupLayout.PREFERRED_SIZE, 68, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(tvCPF, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(btPesquisaCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(tvName, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(cbFiltros, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jToggleButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(0, 0, Short.MAX_VALUE)))))
                 .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(21, 21, 21)
+                .addGap(9, 9, 9)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(cbFiltros)
+                    .addComponent(jToggleButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
+                .addGap(23, 23, 23)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(jLabel11, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(tvCPF, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(btPesquisaCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(tvName, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(tvName, javax.swing.GroupLayout.DEFAULT_SIZE, 28, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel21, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -201,7 +232,7 @@ public class ReportFrame extends javax.swing.JFrame {
                     .addComponent(tvDateRecipeOut, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(rbLastShop)
-                .addContainerGap(16, Short.MAX_VALUE))
+                .addContainerGap(15, Short.MAX_VALUE))
         );
 
         btConfirmar1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/kpc/drugstore/img/salvar.png"))); // NOI18N
@@ -238,15 +269,12 @@ public class ReportFrame extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(10, 10, 10)
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btCancelar1, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btConfirmar1, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(10, 10, 10))
+                    .addComponent(btConfirmar1, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE)))
         );
-
-        getAccessibleContext().setAccessibleName("Relatórios - KPC Software Delopmet");
 
         pack();
         setLocationRelativeTo(null);
@@ -363,6 +391,61 @@ public class ReportFrame extends javax.swing.JFrame {
 
     }//GEN-LAST:event_rbLastShopActionPerformed
 
+    private void jToggleButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jToggleButton1ActionPerformed
+        limparCampos();
+        habilitaCampos(false);
+        switch (cbFiltros.getSelectedIndex()) {
+
+            case 0:
+                habilitaCampos(true);
+                break;
+
+            case 1:
+                tvCPF.setEnabled(true);
+                btPesquisaCliente.setEnabled(true);
+                break;
+
+            case 2:
+                tvCPF.setEnabled(true);
+                btPesquisaCliente.setEnabled(true);
+                rbLastShop.setEnabled(true);
+                break;
+
+            case 3:
+                tvDateShopIn.setEnabled(true);
+                tvDateShopOut.setEnabled(true);
+
+                break;
+
+            case 4:
+                tvDateRecipeIn.setEnabled(true);
+                tvDateRecipeOut.setEnabled(true);
+                break;
+
+            case 5:
+                tvDateShopIn.setEnabled(true);
+                break;
+
+            case 6:
+                tvDateRecipeOut.setEnabled(true);
+                break;
+
+            case 7:
+                tvCPF.setEnabled(true);
+                btPesquisaCliente.setEnabled(true);
+                tvDateShopIn.setEnabled(true);
+                tvDateShopOut.setEnabled(true);
+                break;
+
+            case 8:
+                tvCPF.setEnabled(true);
+                btPesquisaCliente.setEnabled(true);
+                tvDateRecipeIn.setEnabled(true);
+                tvDateRecipeOut.setEnabled(true);
+                break;
+        }
+    }//GEN-LAST:event_jToggleButton1ActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -402,12 +485,14 @@ public class ReportFrame extends javax.swing.JFrame {
     private static javax.swing.JButton btCancelar1;
     private static javax.swing.JButton btConfirmar1;
     private javax.swing.JButton btPesquisaCliente;
+    private javax.swing.JComboBox cbFiltros;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel21;
     private javax.swing.JLabel jLabel22;
     private javax.swing.JLabel jLabel23;
     private javax.swing.JLabel jLabel24;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JToggleButton jToggleButton1;
     private javax.swing.JRadioButton rbLastShop;
     private static javax.swing.JFormattedTextField tvCPF;
     private static javax.swing.JFormattedTextField tvDateRecipeIn;
@@ -508,6 +593,7 @@ public class ReportFrame extends javax.swing.JFrame {
     }
 
     private void limparCampos() {
+      //  cbFiltros.setSelectedIndex(0);
         tvCPF.setText("");
         tvDateRecipeIn.setText("");
         tvDateRecipeOut.setText("");
@@ -515,5 +601,15 @@ public class ReportFrame extends javax.swing.JFrame {
         tvDateShopOut.setText("");
         tvName.setText("");
 
+    }
+
+    public void habilitaCampos(boolean acao) {
+        tvCPF.setEnabled(acao);
+        btPesquisaCliente.setEnabled(acao);
+        tvDateShopIn.setEnabled(acao);
+        tvDateShopOut.setEnabled(acao);
+        tvDateRecipeIn.setEnabled(acao);
+        tvDateRecipeOut.setEnabled(acao);
+        rbLastShop.setEnabled(acao);
     }
 }
