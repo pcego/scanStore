@@ -50,27 +50,27 @@ public class Filter {
                 return sql_base.append(filtro);
 
             case INTERVALO_DATA_VENDA:
-                filtro = "WHERE t.DT_SHOP = BETWEEN " + dataIn + " AND " + dataEnd;
+                filtro = "WHERE t.DT_SHOP = BETWEEN " + "'" + dataIn +"'" + " AND " + "'" + dataEnd +"'";
                 return sql_base.append(filtro);
                 
             case INTERVALO_DATA_RECEITA:
-                filtro = "WHERE t.DT_RECIPE = BETWEEN " + dataIn + " AND " + dataEnd;
+                filtro = "WHERE t.DT_RECIPE = BETWEEN " + "'" + dataIn +"'" + " AND " + "'" + dataEnd +"'";
                 return sql_base.append(filtro);
                 
             case DATA_VENDA:
-                filtro = "WHERE t.DT_SHOP = " + dataIn;
+                filtro = "WHERE t.DT_SHOP = " + "'" + dataIn +"'";
                 return sql_base.append(filtro);
 
             case DATA_RECEITA:
-                filtro = "WHERE r.DT_RECIPE = " + dataIn;
+                filtro = "WHERE r.DT_RECIPE = " + "'" + dataIn +"'";
                 return sql_base.append(filtro);
 
             case CLIENTE_DATA_VENDA:
-                filtro = "WHERE cl.cpf = " + cpf + " and  t.DT_SHOP = " + dataIn;
+                filtro = "WHERE cl.cpf = " + cpf + " and  t.DT_SHOP = " + "'" + dataIn +"'";
                 return sql_base.append(filtro);
 
             case DATA_RECEITA_CLIENTE:
-                filtro = "WHERE cl.cpf = " + cpf + " and  t.DT_RECIPE = " + dataIn;
+                filtro = "WHERE cl.cpf = " + cpf + " and  t.DT_RECIPE = " + "'" + dataIn +"'";
                 return sql_base.append(filtro);
         }
 
