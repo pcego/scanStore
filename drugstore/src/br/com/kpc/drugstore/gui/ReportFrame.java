@@ -58,6 +58,7 @@ public class ReportFrame extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        buttonGroup1 = new javax.swing.ButtonGroup();
         jPanel1 = new javax.swing.JPanel();
         tvDateRecipeIn = new javax.swing.JFormattedTextField();
         jLabel24 = new javax.swing.JLabel();
@@ -72,8 +73,13 @@ public class ReportFrame extends javax.swing.JFrame {
         btPesquisaCliente = new javax.swing.JButton();
         tvCPF = new javax.swing.JFormattedTextField();
         rbLastShop = new javax.swing.JRadioButton();
-        cbFiltros = new javax.swing.JComboBox();
-        jToggleButton1 = new javax.swing.JToggleButton();
+        rbTodos = new javax.swing.JRadioButton();
+        rbVendasPorCliente = new javax.swing.JRadioButton();
+        rbUltimaCompraDoCliente = new javax.swing.JRadioButton();
+        rbIntervaloDeDataDeVenda = new javax.swing.JRadioButton();
+        rbIntervaloDeDataDaReceita = new javax.swing.JRadioButton();
+        rbDataVendaPorCliente = new javax.swing.JRadioButton();
+        rbDataReceitaPorCliente = new javax.swing.JRadioButton();
         btConfirmar1 = new javax.swing.JButton();
         btCancelar1 = new javax.swing.JButton();
 
@@ -88,13 +94,16 @@ public class ReportFrame extends javax.swing.JFrame {
 
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Filtros", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Arial", 1, 12))); // NOI18N
 
+        tvDateRecipeIn.setEnabled(false);
         tvDateRecipeIn.setPreferredSize(new java.awt.Dimension(100, 20));
 
         jLabel24.setText("Data receita");
         jLabel24.setPreferredSize(new java.awt.Dimension(68, 20));
 
+        tvDateShopOut.setEnabled(false);
         tvDateShopOut.setPreferredSize(new java.awt.Dimension(100, 20));
 
+        tvDateRecipeOut.setEnabled(false);
         tvDateRecipeOut.setPreferredSize(new java.awt.Dimension(100, 20));
 
         jLabel22.setText("até");
@@ -103,6 +112,7 @@ public class ReportFrame extends javax.swing.JFrame {
         jLabel23.setText("até");
         jLabel23.setPreferredSize(new java.awt.Dimension(35, 20));
 
+        tvDateShopIn.setEnabled(false);
         tvDateShopIn.setPreferredSize(new java.awt.Dimension(100, 20));
 
         jLabel21.setText("Data venda");
@@ -121,12 +131,14 @@ public class ReportFrame extends javax.swing.JFrame {
 
         btPesquisaCliente.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/kpc/drugstore/img/pesquisa.png"))); // NOI18N
         btPesquisaCliente.setContentAreaFilled(false);
+        btPesquisaCliente.setEnabled(false);
         btPesquisaCliente.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btPesquisaClienteActionPerformed(evt);
             }
         });
 
+        tvCPF.setEnabled(false);
         tvCPF.setPreferredSize(new java.awt.Dimension(100, 20));
         tvCPF.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusLost(java.awt.event.FocusEvent evt) {
@@ -147,13 +159,60 @@ public class ReportFrame extends javax.swing.JFrame {
             }
         });
 
-        cbFiltros.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "TODOS", "VENDAS POR CLIENTE", "ULTIMA COMPRA DO CLIENTE", "INTERVALO DE DATA DE VENDA", "INTERVALO DE DATA DA RECEITA", "DATA VENDA POR CLIENTE", "DATA RECEITA POR CLIENTE" }));
-
-        jToggleButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/kpc/drugstore/img/atualiza.png"))); // NOI18N
-        jToggleButton1.setContentAreaFilled(false);
-        jToggleButton1.addActionListener(new java.awt.event.ActionListener() {
+        buttonGroup1.add(rbTodos);
+        rbTodos.setSelected(true);
+        rbTodos.setText("TODOS");
+        rbTodos.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jToggleButton1ActionPerformed(evt);
+                rbTodosActionPerformed(evt);
+            }
+        });
+
+        buttonGroup1.add(rbVendasPorCliente);
+        rbVendasPorCliente.setText("VENDAS POR CLIENTE");
+        rbVendasPorCliente.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                rbVendasPorClienteActionPerformed(evt);
+            }
+        });
+
+        buttonGroup1.add(rbUltimaCompraDoCliente);
+        rbUltimaCompraDoCliente.setText("ULTIMA COMPRA DO CLIENTE");
+        rbUltimaCompraDoCliente.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                rbUltimaCompraDoClienteActionPerformed(evt);
+            }
+        });
+
+        buttonGroup1.add(rbIntervaloDeDataDeVenda);
+        rbIntervaloDeDataDeVenda.setText("INTERVALO DE DATA DE VENDA");
+        rbIntervaloDeDataDeVenda.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                rbIntervaloDeDataDeVendaActionPerformed(evt);
+            }
+        });
+
+        buttonGroup1.add(rbIntervaloDeDataDaReceita);
+        rbIntervaloDeDataDaReceita.setText("INTERVALO DE DATA DA RECEITA");
+        rbIntervaloDeDataDaReceita.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                rbIntervaloDeDataDaReceitaActionPerformed(evt);
+            }
+        });
+
+        buttonGroup1.add(rbDataVendaPorCliente);
+        rbDataVendaPorCliente.setText("DATA VENDA POR CLIENTE");
+        rbDataVendaPorCliente.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                rbDataVendaPorClienteActionPerformed(evt);
+            }
+        });
+
+        buttonGroup1.add(rbDataReceitaPorCliente);
+        rbDataReceitaPorCliente.setText("DATA RECEITA POR CLIENTE");
+        rbDataReceitaPorCliente.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                rbDataReceitaPorClienteActionPerformed(evt);
             }
         });
 
@@ -184,34 +243,51 @@ public class ReportFrame extends javax.swing.JFrame {
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(jLabel11, javax.swing.GroupLayout.PREFERRED_SIZE, 68, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(tvCPF, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(btPesquisaCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(tvName, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(cbFiltros, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jToggleButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(0, 0, Short.MAX_VALUE)))))
+                        .addComponent(tvCPF, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(btPesquisaCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(tvName, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                 .addContainerGap())
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(73, 73, 73)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(rbTodos)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(rbVendasPorCliente))
+                    .addComponent(rbIntervaloDeDataDaReceita))
+                .addGap(18, 18, 18)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(rbDataVendaPorCliente)
+                    .addComponent(rbUltimaCompraDoCliente))
+                .addGap(18, 18, 18)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(rbDataReceitaPorCliente)
+                    .addComponent(rbIntervaloDeDataDeVenda))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(9, 9, 9)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(cbFiltros)
-                    .addComponent(jToggleButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
-                .addGap(23, 23, 23)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(rbTodos)
+                    .addComponent(rbVendasPorCliente)
+                    .addComponent(rbUltimaCompraDoCliente)
+                    .addComponent(rbIntervaloDeDataDeVenda))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(rbIntervaloDeDataDaReceita)
+                    .addComponent(rbDataVendaPorCliente)
+                    .addComponent(rbDataReceitaPorCliente))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(jLabel11, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(tvCPF, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(btPesquisaCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(tvName, javax.swing.GroupLayout.DEFAULT_SIZE, 28, Short.MAX_VALUE))
+                    .addComponent(tvName, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel21, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -226,7 +302,7 @@ public class ReportFrame extends javax.swing.JFrame {
                     .addComponent(tvDateRecipeOut, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(rbLastShop)
-                .addContainerGap(15, Short.MAX_VALUE))
+                .addContainerGap(27, Short.MAX_VALUE))
         );
 
         btConfirmar1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/kpc/drugstore/img/salvar.png"))); // NOI18N
@@ -262,9 +338,9 @@ public class ReportFrame extends javax.swing.JFrame {
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(10, 10, 10)
+                .addGap(22, 22, 22)
                 .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btCancelar1, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btConfirmar1, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE)))
@@ -313,62 +389,69 @@ public class ReportFrame extends javax.swing.JFrame {
         limparCampos();
     }//GEN-LAST:event_formWindowClosed
 
+    private void rbTodosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rbTodosActionPerformed
+        habilitaCampos(false);
+        limparCampos();
+        OpcaoFiltro = Filter.TODOS;
+    }//GEN-LAST:event_rbTodosActionPerformed
+
+    private void rbVendasPorClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rbVendasPorClienteActionPerformed
+        habilitaCampos(false);
+        limparCampos();
+        tvCPF.setEnabled(true);
+        btPesquisaCliente.setEnabled(true);
+        OpcaoFiltro = Filter.VENDAS_CLIENTE;
+    }//GEN-LAST:event_rbVendasPorClienteActionPerformed
+
+    private void rbUltimaCompraDoClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rbUltimaCompraDoClienteActionPerformed
+        habilitaCampos(false);
+        limparCampos();
+        tvCPF.setEnabled(true);
+        btPesquisaCliente.setEnabled(true);
+        rbLastShop.setEnabled(true);
+        OpcaoFiltro = Filter.ULTIMA_COMPRA_CLIENTE;
+    }//GEN-LAST:event_rbUltimaCompraDoClienteActionPerformed
+
+    private void rbIntervaloDeDataDeVendaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rbIntervaloDeDataDeVendaActionPerformed
+        habilitaCampos(false);
+        limparCampos();
+        tvDateShopIn.setEnabled(true);
+        tvDateShopOut.setEnabled(true);
+        OpcaoFiltro = Filter.INTERVALO_DATA_VENDA;
+
+    }//GEN-LAST:event_rbIntervaloDeDataDeVendaActionPerformed
+
+    private void rbIntervaloDeDataDaReceitaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rbIntervaloDeDataDaReceitaActionPerformed
+        habilitaCampos(false);
+        limparCampos();
+        tvDateRecipeIn.setEnabled(true);
+        tvDateRecipeOut.setEnabled(true);
+        OpcaoFiltro = Filter.INTERVALO_DATA_RECEITA;
+
+    }//GEN-LAST:event_rbIntervaloDeDataDaReceitaActionPerformed
+
+    private void rbDataVendaPorClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rbDataVendaPorClienteActionPerformed
+        habilitaCampos(false);
+        limparCampos();
+        tvCPF.setEnabled(true);
+        btPesquisaCliente.setEnabled(true);
+        tvDateShopIn.setEnabled(true);
+        tvDateShopOut.setEnabled(true);
+        OpcaoFiltro = Filter.CLIENTE_DATA_VENDA;
+    }//GEN-LAST:event_rbDataVendaPorClienteActionPerformed
+
+    private void rbDataReceitaPorClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rbDataReceitaPorClienteActionPerformed
+        habilitaCampos(false);
+        tvCPF.setEnabled(true);
+        btPesquisaCliente.setEnabled(true);
+        tvDateRecipeIn.setEnabled(true);
+        tvDateRecipeOut.setEnabled(true);
+        OpcaoFiltro = Filter.DATA_RECEITA_CLIENTE;
+    }//GEN-LAST:event_rbDataReceitaPorClienteActionPerformed
+
     private void rbLastShopActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rbLastShopActionPerformed
 
     }//GEN-LAST:event_rbLastShopActionPerformed
-
-    private void jToggleButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jToggleButton1ActionPerformed
-        limparCampos();
-        habilitaCampos(false);
-        switch (cbFiltros.getSelectedIndex()) {
-
-            case 0:
-                habilitaCampos(true);
-                OpcaoFiltro = Filter.TODOS;
-                break;
-
-            case 1:
-                tvCPF.setEnabled(true);
-                btPesquisaCliente.setEnabled(true);
-                OpcaoFiltro = Filter.VENDAS_CLIENTE;
-                break;
-
-            case 2:
-                tvCPF.setEnabled(true);
-                btPesquisaCliente.setEnabled(true);
-                rbLastShop.setEnabled(true);
-                OpcaoFiltro = Filter.ULTIMA_COMPRA_CLIENTE;
-                break;
-
-            case 3:
-                tvDateShopIn.setEnabled(true);
-                tvDateShopOut.setEnabled(true);
-                OpcaoFiltro = Filter.INTERVALO_DATA_VENDA;
-                break;
-
-            case 4:
-                tvDateRecipeIn.setEnabled(true);
-                tvDateRecipeOut.setEnabled(true);
-                OpcaoFiltro = Filter.INTERVALO_DATA_RECEITA;
-                break;
-
-            case 5:
-                tvCPF.setEnabled(true);
-                btPesquisaCliente.setEnabled(true);
-                tvDateShopIn.setEnabled(true);
-                tvDateShopOut.setEnabled(true);
-                OpcaoFiltro = Filter.CLIENTE_DATA_VENDA;
-                break;
-
-            case 6:
-                tvCPF.setEnabled(true);
-                btPesquisaCliente.setEnabled(true);
-                tvDateRecipeIn.setEnabled(true);
-                tvDateRecipeOut.setEnabled(true);
-                OpcaoFiltro = Filter.DATA_RECEITA_CLIENTE;
-                break;
-        }
-    }//GEN-LAST:event_jToggleButton1ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -409,15 +492,21 @@ public class ReportFrame extends javax.swing.JFrame {
     private static javax.swing.JButton btCancelar1;
     private static javax.swing.JButton btConfirmar1;
     private javax.swing.JButton btPesquisaCliente;
-    private javax.swing.JComboBox cbFiltros;
+    private javax.swing.ButtonGroup buttonGroup1;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel21;
     private javax.swing.JLabel jLabel22;
     private javax.swing.JLabel jLabel23;
     private javax.swing.JLabel jLabel24;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JToggleButton jToggleButton1;
+    private javax.swing.JRadioButton rbDataReceitaPorCliente;
+    private javax.swing.JRadioButton rbDataVendaPorCliente;
+    private javax.swing.JRadioButton rbIntervaloDeDataDaReceita;
+    private javax.swing.JRadioButton rbIntervaloDeDataDeVenda;
     private javax.swing.JRadioButton rbLastShop;
+    private javax.swing.JRadioButton rbTodos;
+    private javax.swing.JRadioButton rbUltimaCompraDoCliente;
+    private javax.swing.JRadioButton rbVendasPorCliente;
     private static javax.swing.JFormattedTextField tvCPF;
     private static javax.swing.JFormattedTextField tvDateRecipeIn;
     private static javax.swing.JFormattedTextField tvDateRecipeOut;
@@ -474,64 +563,109 @@ public class ReportFrame extends javax.swing.JFrame {
     }
 
     private boolean fieldValidation() {
-        if (!validaAlgumFiltroInformado()) {
-            SystemMessage.kpcShowMessage(null, SystemMessage.INFORMATION, "Favor informa um filtro.");
-            return false;
-        }
 
-        if ((!Mask.limparMaskCPF(tvCPF.getText()).trim().equals("")) && (tvCPF.getText().trim().length() < 14)) {
-            SystemMessage.kpcShowMessage(null, SystemMessage.INFORMATION, "Informe seu CPF!");
-            tvCPF.requestFocus();
-            return false;
-        }
-        //So vai validar se tiver preenchido
-        if ((!Mask.limparMaskCPF(tvCPF.getText()).trim().equals("")) && (!Mask.validaCpfCnpj(tvCPF.getText()))) {
-            SystemMessage.kpcShowMessage(null, SystemMessage.INFORMATION, "CPF digitado é inválido");
-            tvCPF.requestFocus();
-            return false;
-        }
+        if (rbTodos.isSelected()) {
+            return true;
+        } else if (rbVendasPorCliente.isSelected()) {
 
-        if ((!Mask.limparMaskData(tvDateRecipeIn.getText()).trim().equals("")) && (Mask.limparMaskData(tvDateRecipeIn.getText()).trim().length() < 8)) {
-            SystemMessage.kpcShowMessage(null, SystemMessage.INFORMATION, "Por favor, insira uma data válida!");
-            tvDateRecipeIn.requestFocus();
-            return false;
-        }
-        if ((!Mask.limparMaskData(tvDateRecipeOut.getText()).trim().equals("")) && (Mask.limparMaskData(tvDateRecipeOut.getText()).trim().length() < 8)) {
-            SystemMessage.kpcShowMessage(null, SystemMessage.INFORMATION, "Por favor, insira uma data válida!");
-            tvDateRecipeOut.requestFocus();
-            return false;
-        }
-        if ((!Mask.limparMaskData(tvDateShopIn.getText()).trim().equals("")) && (Mask.limparMaskData(tvDateShopIn.getText()).trim().length() < 8)) {
-            SystemMessage.kpcShowMessage(null, SystemMessage.INFORMATION, "Por favor, insira uma data válida!");
-            tvDateShopIn.requestFocus();
-            return false;
-        }
-        if ((!Mask.limparMaskData(tvDateShopOut.getText()).trim().equals("")) && (Mask.limparMaskData(tvDateShopOut.getText()).trim().length() < 8)) {
-            SystemMessage.kpcShowMessage(null, SystemMessage.INFORMATION, "Por favor, insira uma data válida!");
-            tvDateShopOut.requestFocus();
-            return false;
-        }
+            if ((!Mask.limparMaskCPF(tvCPF.getText()).trim().equals("")) || (tvCPF.getText().trim().length() < 14)) {
+                SystemMessage.kpcShowMessage(null, SystemMessage.INFORMATION, "Informe seu CPF!");
+                tvCPF.requestFocus();
+                return false;
+            }
+            //So vai validar se tiver preenchido
+            if ((!Mask.limparMaskCPF(tvCPF.getText()).trim().equals("")) && (!Mask.validaCpfCnpj(tvCPF.getText()))) {
+                SystemMessage.kpcShowMessage(null, SystemMessage.INFORMATION, "CPF digitado é inválido");
+                tvCPF.requestFocus();
+                return false;
+            }
+        } else if (rbUltimaCompraDoCliente.isSelected()) {
+            if ((Mask.limparMaskCPF(tvCPF.getText()).trim().equals("")) || (tvCPF.getText().trim().length() < 14)) {
+                SystemMessage.kpcShowMessage(null, SystemMessage.INFORMATION, "Informe seu CPF!");
+                tvCPF.requestFocus();
+                return false;
+            }
+            //So vai validar se tiver preenchido
+            if ((!Mask.limparMaskCPF(tvCPF.getText()).trim().equals("")) && (!Mask.validaCpfCnpj(tvCPF.getText()))) {
+                SystemMessage.kpcShowMessage(null, SystemMessage.INFORMATION, "CPF digitado é inválido");
+                tvCPF.requestFocus();
+                return false;
+            }
+            if (rbLastShop.isSelected() && ((Mask.limparMaskCPF(tvCPF.getText()).trim().equals("")) || (tvCPF.getText().trim().length() < 14))) {
+                SystemMessage.kpcShowMessage(null, SystemMessage.INFORMATION, "Ao selecionar apenas ultima compra é necessário informar um cliente!");
+                tvCPF.requestFocus();
+                return false;
+            }
+        } else if (rbIntervaloDeDataDeVenda.isSelected()) {
+            if ((Mask.limparMaskData(tvDateShopIn.getText()).trim().equals("")) || (Mask.limparMaskData(tvDateShopIn.getText()).trim().length() < 8)) {
+                SystemMessage.kpcShowMessage(null, SystemMessage.INFORMATION, "Por favor, insira uma data válida!");
+                tvDateShopIn.requestFocus();
+                return false;
+            }
+            if ((Mask.limparMaskData(tvDateShopOut.getText()).trim().equals("")) || (Mask.limparMaskData(tvDateShopOut.getText()).trim().length() < 8)) {
+                SystemMessage.kpcShowMessage(null, SystemMessage.INFORMATION, "Por favor, insira uma data válida!");
+                tvDateShopOut.requestFocus();
+                return false;
+            }
+        } else if (rbIntervaloDeDataDaReceita.isSelected()) {
+            if ((Mask.limparMaskData(tvDateRecipeIn.getText()).trim().equals("")) || (Mask.limparMaskData(tvDateRecipeIn.getText()).trim().length() < 8)) {
+                SystemMessage.kpcShowMessage(null, SystemMessage.INFORMATION, "Por favor, insira uma data válida!");
+                tvDateRecipeIn.requestFocus();
+                return false;
+            }
+            if ((Mask.limparMaskData(tvDateRecipeOut.getText()).trim().equals("")) || (Mask.limparMaskData(tvDateRecipeOut.getText()).trim().length() < 8)) {
+                SystemMessage.kpcShowMessage(null, SystemMessage.INFORMATION, "Por favor, insira uma data válida!");
+                tvDateRecipeOut.requestFocus();
+                return false;
+            }
+        } else if (rbDataVendaPorCliente.isSelected()) {
+            if ((Mask.limparMaskCPF(tvCPF.getText()).trim().equals("")) || (tvCPF.getText().trim().length() < 14)) {
+                SystemMessage.kpcShowMessage(null, SystemMessage.INFORMATION, "Informe seu CPF!");
+                tvCPF.requestFocus();
+                return false;
+            }
+            //So vai validar se tiver preenchido
+            if ((!Mask.limparMaskCPF(tvCPF.getText()).trim().equals("")) && (!Mask.validaCpfCnpj(tvCPF.getText()))) {
+                SystemMessage.kpcShowMessage(null, SystemMessage.INFORMATION, "CPF digitado é inválido");
+                tvCPF.requestFocus();
+                return false;
+            }
+            if ((Mask.limparMaskData(tvDateShopIn.getText()).trim().equals("")) || (Mask.limparMaskData(tvDateShopIn.getText()).trim().length() < 8)) {
+                SystemMessage.kpcShowMessage(null, SystemMessage.INFORMATION, "Por favor, insira uma data válida!");
+                tvDateShopIn.requestFocus();
+                return false;
+            }
+            if ((Mask.limparMaskData(tvDateShopOut.getText()).trim().equals("")) || (Mask.limparMaskData(tvDateShopOut.getText()).trim().length() < 8)) {
+                SystemMessage.kpcShowMessage(null, SystemMessage.INFORMATION, "Por favor, insira uma data válida!");
+                tvDateShopOut.requestFocus();
+                return false;
+            }
 
-        if (rbLastShop.isSelected() && ((Mask.limparMaskCPF(tvCPF.getText()).trim().equals("")) || (tvCPF.getText().trim().length() < 14))) {
-            SystemMessage.kpcShowMessage(null, SystemMessage.INFORMATION, "Ao selecionar apenas ultima compra é necessário informar um cliente!");
-            tvCPF.requestFocus();
-            return false;
+        } else if (rbDataReceitaPorCliente.isSelected()) {
+            if ((Mask.limparMaskCPF(tvCPF.getText()).trim().equals("")) || (tvCPF.getText().trim().length() < 14)) {
+                SystemMessage.kpcShowMessage(null, SystemMessage.INFORMATION, "Informe seu CPF!");
+                tvCPF.requestFocus();
+                return false;
+            }
+            //So vai validar se tiver preenchido
+            if ((!Mask.limparMaskCPF(tvCPF.getText()).trim().equals("")) && (!Mask.validaCpfCnpj(tvCPF.getText()))) {
+                SystemMessage.kpcShowMessage(null, SystemMessage.INFORMATION, "CPF digitado é inválido");
+                tvCPF.requestFocus();
+                return false;
+            }
+            if ((Mask.limparMaskData(tvDateRecipeIn.getText()).trim().equals("")) || (Mask.limparMaskData(tvDateRecipeIn.getText()).trim().length() < 8)) {
+                SystemMessage.kpcShowMessage(null, SystemMessage.INFORMATION, "Por favor, insira uma data válida!");
+                tvDateRecipeIn.requestFocus();
+                return false;
+            }
+            if ((Mask.limparMaskData(tvDateRecipeOut.getText()).trim().equals("")) || (Mask.limparMaskData(tvDateRecipeOut.getText()).trim().length() < 8)) {
+                SystemMessage.kpcShowMessage(null, SystemMessage.INFORMATION, "Por favor, insira uma data válida!");
+                tvDateRecipeOut.requestFocus();
+                return false;
+            }
         }
 
         return true;
-    }
-
-    public boolean validaAlgumFiltroInformado() {
-        if ((!Mask.limparMaskCPF(tvCPF.getText()).trim().equals(""))
-                || (!Mask.limparMaskData(tvDateRecipeIn.getText()).trim().equals(""))
-                || (!Mask.limparMaskData(tvDateRecipeOut.getText()).trim().equals(""))
-                || (!Mask.limparMaskData(tvDateShopIn.getText()).trim().equals(""))
-                || (!Mask.limparMaskData(tvDateShopOut.getText()).trim().equals(""))) {
-            return true;
-
-        } else {
-            return false;
-        }
     }
 
     private void limparCampos() {
