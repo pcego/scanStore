@@ -18,6 +18,7 @@ import java.text.ParseException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import br.com.kpc.drugstore.relatorios.Filter;
+import br.com.kpc.drugstore.util.fieldValidation;
 import java.io.File;
 import java.util.HashMap;
 import net.sf.jasperreports.engine.JRException;
@@ -72,7 +73,6 @@ public class ReportFrame extends javax.swing.JFrame {
         jLabel11 = new javax.swing.JLabel();
         btPesquisaCliente = new javax.swing.JButton();
         tvCPF = new javax.swing.JFormattedTextField();
-        rbLastShop = new javax.swing.JRadioButton();
         rbTodos = new javax.swing.JRadioButton();
         rbVendasPorCliente = new javax.swing.JRadioButton();
         rbUltimaCompraDoCliente = new javax.swing.JRadioButton();
@@ -148,14 +148,6 @@ public class ReportFrame extends javax.swing.JFrame {
         tvCPF.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
                 tvCPFKeyPressed(evt);
-            }
-        });
-
-        rbLastShop.setText("Apenas ultima compra deste cliente");
-        rbLastShop.setEnabled(false);
-        rbLastShop.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                rbLastShopActionPerformed(evt);
             }
         });
 
@@ -239,7 +231,6 @@ public class ReportFrame extends javax.swing.JFrame {
                         .addComponent(jLabel23, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(0, 0, 0)
                         .addComponent(tvDateRecipeOut, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(rbLastShop)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(jLabel11, javax.swing.GroupLayout.PREFERRED_SIZE, 68, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -300,9 +291,7 @@ public class ReportFrame extends javax.swing.JFrame {
                     .addComponent(tvDateRecipeIn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jLabel23, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(tvDateRecipeOut, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(rbLastShop)
-                .addContainerGap(27, Short.MAX_VALUE))
+                .addContainerGap(33, Short.MAX_VALUE))
         );
 
         btConfirmar1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/kpc/drugstore/img/salvar.png"))); // NOI18N
@@ -408,7 +397,6 @@ public class ReportFrame extends javax.swing.JFrame {
         limparCampos();
         tvCPF.setEnabled(true);
         btPesquisaCliente.setEnabled(true);
-        rbLastShop.setEnabled(true);
         OpcaoFiltro = Filter.ULTIMA_COMPRA_CLIENTE;
     }//GEN-LAST:event_rbUltimaCompraDoClienteActionPerformed
 
@@ -448,10 +436,6 @@ public class ReportFrame extends javax.swing.JFrame {
         tvDateRecipeOut.setEnabled(true);
         OpcaoFiltro = Filter.DATA_RECEITA_CLIENTE;
     }//GEN-LAST:event_rbDataReceitaPorClienteActionPerformed
-
-    private void rbLastShopActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rbLastShopActionPerformed
-
-    }//GEN-LAST:event_rbLastShopActionPerformed
 
     /**
      * @param args the command line arguments
@@ -503,7 +487,6 @@ public class ReportFrame extends javax.swing.JFrame {
     private javax.swing.JRadioButton rbDataVendaPorCliente;
     private javax.swing.JRadioButton rbIntervaloDeDataDaReceita;
     private javax.swing.JRadioButton rbIntervaloDeDataDeVenda;
-    private javax.swing.JRadioButton rbLastShop;
     private javax.swing.JRadioButton rbTodos;
     private javax.swing.JRadioButton rbUltimaCompraDoCliente;
     private javax.swing.JRadioButton rbVendasPorCliente;
@@ -563,106 +546,25 @@ public class ReportFrame extends javax.swing.JFrame {
     }
 
     private boolean fieldValidation() {
-
         if (rbTodos.isSelected()) {
             return true;
-        } else if (rbVendasPorCliente.isSelected()) {
+        } else if ((rbVendasPorCliente.isSelected()) && (!fieldValidation.validCPF(tvCPF))) {
+            return false;
 
-            if ((!Mask.limparMaskCPF(tvCPF.getText()).trim().equals("")) || (tvCPF.getText().trim().length() < 14)) {
-                SystemMessage.kpcShowMessage(null, SystemMessage.INFORMATION, "Informe seu CPF!");
-                tvCPF.requestFocus();
-                return false;
-            }
-            //So vai validar se tiver preenchido
-            if ((!Mask.limparMaskCPF(tvCPF.getText()).trim().equals("")) && (!Mask.validaCpfCnpj(tvCPF.getText()))) {
-                SystemMessage.kpcShowMessage(null, SystemMessage.INFORMATION, "CPF digitado é inválido");
-                tvCPF.requestFocus();
-                return false;
-            }
-        } else if (rbUltimaCompraDoCliente.isSelected()) {
-            if ((Mask.limparMaskCPF(tvCPF.getText()).trim().equals("")) || (tvCPF.getText().trim().length() < 14)) {
-                SystemMessage.kpcShowMessage(null, SystemMessage.INFORMATION, "Informe seu CPF!");
-                tvCPF.requestFocus();
-                return false;
-            }
-            //So vai validar se tiver preenchido
-            if ((!Mask.limparMaskCPF(tvCPF.getText()).trim().equals("")) && (!Mask.validaCpfCnpj(tvCPF.getText()))) {
-                SystemMessage.kpcShowMessage(null, SystemMessage.INFORMATION, "CPF digitado é inválido");
-                tvCPF.requestFocus();
-                return false;
-            }
-            if (rbLastShop.isSelected() && ((Mask.limparMaskCPF(tvCPF.getText()).trim().equals("")) || (tvCPF.getText().trim().length() < 14))) {
-                SystemMessage.kpcShowMessage(null, SystemMessage.INFORMATION, "Ao selecionar apenas ultima compra é necessário informar um cliente!");
-                tvCPF.requestFocus();
-                return false;
-            }
-        } else if (rbIntervaloDeDataDeVenda.isSelected()) {
-            if ((Mask.limparMaskData(tvDateShopIn.getText()).trim().equals("")) || (Mask.limparMaskData(tvDateShopIn.getText()).trim().length() < 8)) {
-                SystemMessage.kpcShowMessage(null, SystemMessage.INFORMATION, "Por favor, insira uma data válida!");
-                tvDateShopIn.requestFocus();
-                return false;
-            }
-            if ((Mask.limparMaskData(tvDateShopOut.getText()).trim().equals("")) || (Mask.limparMaskData(tvDateShopOut.getText()).trim().length() < 8)) {
-                SystemMessage.kpcShowMessage(null, SystemMessage.INFORMATION, "Por favor, insira uma data válida!");
-                tvDateShopOut.requestFocus();
-                return false;
-            }
-        } else if (rbIntervaloDeDataDaReceita.isSelected()) {
-            if ((Mask.limparMaskData(tvDateRecipeIn.getText()).trim().equals("")) || (Mask.limparMaskData(tvDateRecipeIn.getText()).trim().length() < 8)) {
-                SystemMessage.kpcShowMessage(null, SystemMessage.INFORMATION, "Por favor, insira uma data válida!");
-                tvDateRecipeIn.requestFocus();
-                return false;
-            }
-            if ((Mask.limparMaskData(tvDateRecipeOut.getText()).trim().equals("")) || (Mask.limparMaskData(tvDateRecipeOut.getText()).trim().length() < 8)) {
-                SystemMessage.kpcShowMessage(null, SystemMessage.INFORMATION, "Por favor, insira uma data válida!");
-                tvDateRecipeOut.requestFocus();
-                return false;
-            }
-        } else if (rbDataVendaPorCliente.isSelected()) {
-            if ((Mask.limparMaskCPF(tvCPF.getText()).trim().equals("")) || (tvCPF.getText().trim().length() < 14)) {
-                SystemMessage.kpcShowMessage(null, SystemMessage.INFORMATION, "Informe seu CPF!");
-                tvCPF.requestFocus();
-                return false;
-            }
-            //So vai validar se tiver preenchido
-            if ((!Mask.limparMaskCPF(tvCPF.getText()).trim().equals("")) && (!Mask.validaCpfCnpj(tvCPF.getText()))) {
-                SystemMessage.kpcShowMessage(null, SystemMessage.INFORMATION, "CPF digitado é inválido");
-                tvCPF.requestFocus();
-                return false;
-            }
-            if ((Mask.limparMaskData(tvDateShopIn.getText()).trim().equals("")) || (Mask.limparMaskData(tvDateShopIn.getText()).trim().length() < 8)) {
-                SystemMessage.kpcShowMessage(null, SystemMessage.INFORMATION, "Por favor, insira uma data válida!");
-                tvDateShopIn.requestFocus();
-                return false;
-            }
-            if ((Mask.limparMaskData(tvDateShopOut.getText()).trim().equals("")) || (Mask.limparMaskData(tvDateShopOut.getText()).trim().length() < 8)) {
-                SystemMessage.kpcShowMessage(null, SystemMessage.INFORMATION, "Por favor, insira uma data válida!");
-                tvDateShopOut.requestFocus();
-                return false;
-            }
+        } else if ((rbUltimaCompraDoCliente.isSelected()) && (!fieldValidation.validCPF(tvCPF))) {
+            return false;
 
-        } else if (rbDataReceitaPorCliente.isSelected()) {
-            if ((Mask.limparMaskCPF(tvCPF.getText()).trim().equals("")) || (tvCPF.getText().trim().length() < 14)) {
-                SystemMessage.kpcShowMessage(null, SystemMessage.INFORMATION, "Informe seu CPF!");
-                tvCPF.requestFocus();
-                return false;
-            }
-            //So vai validar se tiver preenchido
-            if ((!Mask.limparMaskCPF(tvCPF.getText()).trim().equals("")) && (!Mask.validaCpfCnpj(tvCPF.getText()))) {
-                SystemMessage.kpcShowMessage(null, SystemMessage.INFORMATION, "CPF digitado é inválido");
-                tvCPF.requestFocus();
-                return false;
-            }
-            if ((Mask.limparMaskData(tvDateRecipeIn.getText()).trim().equals("")) || (Mask.limparMaskData(tvDateRecipeIn.getText()).trim().length() < 8)) {
-                SystemMessage.kpcShowMessage(null, SystemMessage.INFORMATION, "Por favor, insira uma data válida!");
-                tvDateRecipeIn.requestFocus();
-                return false;
-            }
-            if ((Mask.limparMaskData(tvDateRecipeOut.getText()).trim().equals("")) || (Mask.limparMaskData(tvDateRecipeOut.getText()).trim().length() < 8)) {
-                SystemMessage.kpcShowMessage(null, SystemMessage.INFORMATION, "Por favor, insira uma data válida!");
-                tvDateRecipeOut.requestFocus();
-                return false;
-            }
+        } else if ((rbIntervaloDeDataDeVenda.isSelected()) && (!fieldValidation.validDateShop(tvDateShopIn, tvDateShopOut))) {
+            return false;
+
+        } else if ((rbIntervaloDeDataDaReceita.isSelected()) && (!fieldValidation.validtDateRecipe(tvDateRecipeIn, tvDateRecipeOut))) {
+            return false;
+
+        } else if ((rbDataVendaPorCliente.isSelected()) && ((!fieldValidation.validCPF(tvCPF)) || (!fieldValidation.validDateShop(tvDateShopIn, tvDateShopOut)))) {
+            return false;
+
+        } else if ((rbDataReceitaPorCliente.isSelected()) && ((!fieldValidation.validCPF(tvCPF)) || (!fieldValidation.validtDateRecipe(tvDateRecipeIn, tvDateRecipeOut)))) {
+            return false;
         }
 
         return true;
@@ -686,7 +588,6 @@ public class ReportFrame extends javax.swing.JFrame {
         tvDateShopOut.setEnabled(acao);
         tvDateRecipeIn.setEnabled(acao);
         tvDateRecipeOut.setEnabled(acao);
-        rbLastShop.setEnabled(acao);
     }
 
     public boolean geraRelatorio() {
@@ -701,13 +602,13 @@ public class ReportFrame extends javax.swing.JFrame {
                 + "on cl.clientId = r.CLIENT_clientId INNER join tickets as t\n"
                 + "on r.recipeId = t.RECIPE_recipeId Where ");
 
-        if ((!Mask.limparMaskCPF(tvCPF.getText()).trim().equals("")) && (!rbLastShop.isSelected())) {
+        if ((!Mask.limparMaskCPF(tvCPF.getText()).trim().equals("")) && (!rbUltimaCompraDoCliente.isSelected())) {
             filtro = temFiltro(filtro) + tvCPF.getText().trim();
         } else if ((!Mask.limparMaskData(tvDateRecipeIn.getText()).trim().equals("")) && (!Mask.limparMaskData(tvDateRecipeOut.getText()).trim().equals(""))) {
             filtro = temFiltro(filtro) + " BETWEEN  " + tvDateRecipeIn.getText().trim() + " AND " + tvDateRecipeOut.getText().trim();
         } else if ((!Mask.limparMaskData(tvDateShopIn.getText()).trim().equals("")) && (!Mask.limparMaskData(tvDateShopOut.getText()).trim().equals(""))) {
             filtro = temFiltro(filtro) + " BETWEEN  " + tvDateShopIn.getText().trim() + " AND " + tvDateShopOut.getText().trim();
-        } else if ((!Mask.limparMaskCPF(tvCPF.getText()).trim().equals("")) && (rbLastShop.isSelected())) {
+        } else if ((!Mask.limparMaskCPF(tvCPF.getText()).trim().equals("")) && (rbUltimaCompraDoCliente.isSelected())) {
             filtro = temFiltro(filtro) + "WHERE cl.CPF = " + tvCPF.getText().trim() + " and "
                     + "r.recipeId = (select MAX(recipeId) from recipes where "
                     + "CLIENT_clientId = (select clientId from clients where cpf = " + tvCPF.getText().trim() + " ))";
