@@ -347,11 +347,37 @@ public class ReportFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_tvNameFocusLost
 
     private void btConfirmar1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btConfirmar1ActionPerformed
+        StringBuilder sql = null;
+        Filter filter = new Filter();
 
         if (!fieldValidation()) {
             return;
-        } else {
-            geraRelatorio();
+        } else if (rbTodos.isSelected()) {
+            sql = filter.createSqlRel(Filter.TODOS, null, null, null);
+            geraRel(sql);
+        } else if (rbVendasPorCliente.isSelected()) {
+            sql = filter.createSqlRel(Filter.VENDAS_CLIENTE, Mask.limparMaskCPF(tvCPF.getText()).trim(), null, null);
+            geraRel(sql);
+
+        } else if (rbUltimaCompraDoCliente.isSelected()) {
+            sql = filter.createSqlRel(Filter.ULTIMA_COMPRA_CLIENTE, Mask.limparMaskCPF(tvCPF.getText()).trim(), null, null);
+            geraRel(sql);
+
+        } else if (rbIntervaloDeDataDeVenda.isSelected()) {
+            sql = filter.createSqlRel(Filter.INTERVALO_DATA_VENDA, null, tvDateShopIn.getText().trim(), tvDateShopOut.getText().trim());
+            geraRel(sql);
+
+        } else if (rbIntervaloDeDataDaReceita.isSelected()) {
+            sql = filter.createSqlRel(Filter.INTERVALO_DATA_VENDA, null, tvDateRecipeIn.getText().trim(), tvDateRecipeOut.getText().trim());
+            geraRel(sql);
+
+        } else if (rbDataVendaPorCliente.isSelected()) {
+            sql = filter.createSqlRel(Filter.INTERVALO_DATA_VENDA, Mask.limparMaskCPF(tvCPF.getText()).trim(), tvDateShopIn.getText().trim(), tvDateShopOut.getText().trim());
+            geraRel(sql);
+
+        } else if (rbDataReceitaPorCliente.isSelected()) {
+            sql = filter.createSqlRel(Filter.INTERVALO_DATA_VENDA, Mask.limparMaskCPF(tvCPF.getText()).trim(), tvDateRecipeIn.getText().trim(), tvDateRecipeOut.getText().trim());
+            geraRel(sql);
         }
 
 
@@ -590,33 +616,11 @@ public class ReportFrame extends javax.swing.JFrame {
         tvDateRecipeOut.setEnabled(acao);
     }
 
-    public boolean geraRelatorio() {
+    private void geraRel(StringBuilder sql) {
 
-        String filtro = "";
         HashMap hm2 = new HashMap();
-        //sql base para geração de todos os relatórios para listagem de documentos
-        //sem o filtro essa sql lista todas as vendas contidas na base
-        StringBuilder sql_base = new StringBuilder("select cl.name, cl.cpf, cl.cpf_image, cl.rg_image, r.dt_recipe, r.recipe_type, \n"
-                + "r.recipe_image, r.other_document, t.dt_shop, t.ticket_image, \n"
-                + "t.ticket_number, t.auth_number from clients as cl INNER join recipes as r\n"
-                + "on cl.clientId = r.CLIENT_clientId INNER join tickets as t\n"
-                + "on r.recipeId = t.RECIPE_recipeId Where ");
 
-        if ((!Mask.limparMaskCPF(tvCPF.getText()).trim().equals("")) && (!rbUltimaCompraDoCliente.isSelected())) {
-            filtro = temFiltro(filtro) + tvCPF.getText().trim();
-        } else if ((!Mask.limparMaskData(tvDateRecipeIn.getText()).trim().equals("")) && (!Mask.limparMaskData(tvDateRecipeOut.getText()).trim().equals(""))) {
-            filtro = temFiltro(filtro) + " BETWEEN  " + tvDateRecipeIn.getText().trim() + " AND " + tvDateRecipeOut.getText().trim();
-        } else if ((!Mask.limparMaskData(tvDateShopIn.getText()).trim().equals("")) && (!Mask.limparMaskData(tvDateShopOut.getText()).trim().equals(""))) {
-            filtro = temFiltro(filtro) + " BETWEEN  " + tvDateShopIn.getText().trim() + " AND " + tvDateShopOut.getText().trim();
-        } else if ((!Mask.limparMaskCPF(tvCPF.getText()).trim().equals("")) && (rbUltimaCompraDoCliente.isSelected())) {
-            filtro = temFiltro(filtro) + "WHERE cl.CPF = " + tvCPF.getText().trim() + " and "
-                    + "r.recipeId = (select MAX(recipeId) from recipes where "
-                    + "CLIENT_clientId = (select clientId from clients where cpf = " + tvCPF.getText().trim() + " ))";
-        }
-
-        sql_base.append(filtro);
-
-        hm2.put("query", sql_base);
+        hm2.put("query", sql);
 
         File rel = new File("C:\\scanStore\\drugstore\\src\\br\\com\\kpc\\drugstore\\relatorios\\documentos.jrxml");
 
@@ -626,13 +630,11 @@ public class ReportFrame extends javax.swing.JFrame {
             //compila o relatório
             JasperReport relatorio = JasperCompileManager.compileReport(desenho);
             JasperPrint print = JasperFillManager.fillReport(relatorio, hm2, ConnectionDb.getConnectionDs());
-            JasperViewer visao = new JasperViewer(print, true);
+            JasperViewer visao = new JasperViewer(print, false);
             visao.setVisible(true);
         } catch (JRException jrex) {
             System.out.println("deu erro: " + jrex);
-            return false;
         }
-        return true;
     }
 
     public String temFiltro(String filtro) {
