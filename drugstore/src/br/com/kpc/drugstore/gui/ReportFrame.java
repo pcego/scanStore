@@ -18,8 +18,11 @@ import java.text.ParseException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import br.com.kpc.drugstore.relatorios.Filter;
+import br.com.kpc.drugstore.util.FormatDate;
 import br.com.kpc.drugstore.util.fieldValidation;
 import java.io.File;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.HashMap;
 import net.sf.jasperreports.engine.JRException;
 import net.sf.jasperreports.engine.JasperCompileManager;
@@ -234,7 +237,7 @@ public class ReportFrame extends javax.swing.JFrame {
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(jLabel11, javax.swing.GroupLayout.PREFERRED_SIZE, 68, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(tvCPF, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(tvCPF, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(btPesquisaCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -276,7 +279,7 @@ public class ReportFrame extends javax.swing.JFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(jLabel11, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(tvCPF, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(tvCPF, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addComponent(btPesquisaCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(tvName, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -349,6 +352,7 @@ public class ReportFrame extends javax.swing.JFrame {
     private void btConfirmar1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btConfirmar1ActionPerformed
         StringBuilder sql = null;
         Filter filter = new Filter();
+        String dateTemp = null;
 
         if (!fieldValidation()) {
             return;
@@ -364,22 +368,21 @@ public class ReportFrame extends javax.swing.JFrame {
             geraRel(sql);
 
         } else if (rbIntervaloDeDataDeVenda.isSelected()) {
-            sql = filter.createSqlRel(Filter.INTERVALO_DATA_VENDA, null, tvDateShopIn.getText().trim(), tvDateShopOut.getText().trim());
+            sql = filter.createSqlRel(Filter.INTERVALO_DATA_VENDA, null, FormatDate.formatDateUSA(tvDateShopIn.getText().trim()), FormatDate.formatDateUSA(tvDateShopOut.getText().trim()));
             geraRel(sql);
 
         } else if (rbIntervaloDeDataDaReceita.isSelected()) {
-            sql = filter.createSqlRel(Filter.INTERVALO_DATA_VENDA, null, tvDateRecipeIn.getText().trim(), tvDateRecipeOut.getText().trim());
+            sql = filter.createSqlRel(Filter.INTERVALO_DATA_VENDA, null, FormatDate.formatDateUSA(tvDateRecipeIn.getText().trim()), FormatDate.formatDateUSA(tvDateRecipeOut.getText().trim()));
             geraRel(sql);
 
         } else if (rbDataVendaPorCliente.isSelected()) {
-            sql = filter.createSqlRel(Filter.INTERVALO_DATA_VENDA, Mask.limparMaskCPF(tvCPF.getText()).trim(), tvDateShopIn.getText().trim(), tvDateShopOut.getText().trim());
+            sql = filter.createSqlRel(Filter.INTERVALO_DATA_VENDA, Mask.limparMaskCPF(tvCPF.getText()).trim(), FormatDate.formatDateUSA(tvDateShopIn.getText().trim()), FormatDate.formatDateUSA(tvDateShopOut.getText().trim()));
             geraRel(sql);
 
         } else if (rbDataReceitaPorCliente.isSelected()) {
-            sql = filter.createSqlRel(Filter.INTERVALO_DATA_VENDA, Mask.limparMaskCPF(tvCPF.getText()).trim(), tvDateRecipeIn.getText().trim(), tvDateRecipeOut.getText().trim());
+            sql = filter.createSqlRel(Filter.INTERVALO_DATA_VENDA, Mask.limparMaskCPF(tvCPF.getText()).trim(), FormatDate.formatDateUSA(tvDateRecipeIn.getText().trim()), FormatDate.formatDateUSA(tvDateRecipeOut.getText().trim()));
             geraRel(sql);
         }
-
 
     }//GEN-LAST:event_btConfirmar1ActionPerformed
 
