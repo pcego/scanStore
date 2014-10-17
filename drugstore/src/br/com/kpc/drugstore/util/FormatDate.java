@@ -5,17 +5,10 @@
  */
 package br.com.kpc.drugstore.util;
 
-import br.com.kpc.drugstore.gui.ClienteFrame;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import org.joda.time.DateTime;
-import org.joda.time.format.DateTimeFormat;
-import org.joda.time.format.DateTimeFormatter;
 
 /**
  *
@@ -38,7 +31,7 @@ public class FormatDate {
     }
 
     public static long diferencaDias(String dtInicial, String dtFinal) {
-        
+
         GregorianCalendar ini = new GregorianCalendar();
         GregorianCalendar fim = new GregorianCalendar();
         SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
@@ -52,8 +45,19 @@ public class FormatDate {
         long dt1 = ini.getTimeInMillis();
         long dt2 = fim.getTimeInMillis();
 
-        System.out.println("Total " +  ((dt2 - dt1) / 86400000) );
+        System.out.println("Total " + ((dt2 - dt1) / 86400000));
 
         return ((dt2 - dt1) / 86400000);
+    }
+
+    public static String formatDateUSA(String data) {
+        Date date = null;
+        String dateTemp = null;
+        try {
+            date = new SimpleDateFormat("dd/MM/yyyy").parse(data);
+            dateTemp = new SimpleDateFormat("yyyy-MM-dd").format(date);
+        } catch (Exception ex) {
+        }
+        return dateTemp;
     }
 }
